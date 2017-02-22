@@ -7,7 +7,9 @@ from flashgg.MicroAOD.flashggRandomizedPhotonProducer_cff import flashggRandomiz
 
 from flashgg.MicroAOD.flashggJets_cfi import flashggFinalJets,flashggFinalPuppiJets
 from flashgg.MicroAOD.flashggElectrons_cfi import flashggElectrons
+from flashgg.MicroAOD.flashggRandomizedElectronProducer_cff import flashggRandomizedElectrons
 from flashgg.MicroAOD.flashggMuons_cfi import flashggMuons
+from flashgg.MicroAOD.flashggMets_cfi import flashggMets
 
 from flashgg.MicroAOD.flashggLeptonSelectors_cff import flashggSelectedMuons,flashggSelectedElectrons
 from flashgg.MicroAOD.flashggMicroAODGenSequence_cff import *
@@ -38,12 +40,13 @@ weightsCount = cms.EDProducer("WeightsCountProducer",
  
 flashggMicroAODSequenceDiLeptonDiJet = cms.Sequence(eventCount+weightsCount
                                        +flashggVertexMapUnique+flashggVertexMapNonUnique
-                                       +electronMVAValueMapProducer*egmGsfElectronIDs*flashggElectrons*flashggSelectedElectrons
+                                       +electronMVAValueMapProducer*egmGsfElectronIDs*flashggElectrons*flashggRandomizedElectrons*flashggSelectedElectrons
                                        +flashggMuons*flashggSelectedMuons
                                        +flashggMicroAODGenSequence
-                                       +flashggPhotons * flashggRandomizedPhotons * flashggDiPhotons
+                                       # +flashggPhotons * flashggRandomizedPhotons * flashggDiPhotons
                                        +flashggVertexMapForCHS*flashggFinalJets
-                                       +flashggVertexMapForPUPPI*flashggFinalPuppiJets
+                                       # +flashggVertexMapForPUPPI*flashggFinalPuppiJets
                                        +flashggDiLeptonDiJet
                                        +flashggTriLeptons
+                                       +flashggMets
                                        )

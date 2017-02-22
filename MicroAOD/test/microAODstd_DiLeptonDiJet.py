@@ -15,16 +15,19 @@ process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32( 100) )
 process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32( 1000 )
 
 import os
-if os.environ["CMSSW_VERSION"].count("CMSSW_7_6"):
-    process.GlobalTag = GlobalTag(process.GlobalTag, '76X_mcRun2_asymptotic_v13')
-elif os.environ["CMSSW_VERSION"].count("CMSSW_8_0"):
-    process.GlobalTag = GlobalTag(process.GlobalTag,'80X_mcRun2_asymptotic_2016_miniAODv2')
+if os.environ["CMSSW_VERSION"].count("CMSSW_8_0"):
+    process.GlobalTag = GlobalTag(process.GlobalTag,'80X_mcRun2_asymptotic_2016_miniAODv2')  ##FIXME##
 else:
     raise Exception,"The default setup for microAODstd.py does not support releases other than 76X and 80X"
 
 process.RandomNumberGeneratorService = cms.Service("RandomNumberGeneratorService")
 process.RandomNumberGeneratorService.flashggRandomizedPhotons = cms.PSet(
           initialSeed = cms.untracked.uint32(16253245)
+        )
+
+process.RandomNumberGeneratorService.flashggRandomizedElectrons = cms.PSet(
+          initialSeed = cms.untracked.uint32(16253245)
+        # engineName = cms.untracked.string('TRandom3') # optional, default to HepJamesRandom if absent
         )
 
 
