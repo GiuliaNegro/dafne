@@ -7,6 +7,7 @@
 #include "dafne/DataFormats/interface/DiMuDiTrackTag.h"
 #include "dafne/DataFormats/interface/DiLeptonDiJetTagCandidate.h"
 #include "dafne/DataFormats/interface/TriLeptonsCandidate.h"
+#include "dafne/DataFormats/interface/MultiLeptonMultiJetCandidate.h"
 
 
 #include <vector>
@@ -38,6 +39,15 @@ namespace  {
         edm::Wrapper<edm::Ptr<flashgg::TriLeptonsCandidate> >       wrp_ptr_tl;
         std::vector<edm::Ptr<flashgg::TriLeptonsCandidate> >        vec_ptr_tl;
         edm::Wrapper<std::vector<edm::Ptr<flashgg::TriLeptonsCandidate> > >   wrp_vec_ptr_tl;
+
+        flashgg::MultiLeptonMultiJetCandidate                                       mlmj;
+        edm::Wrapper<flashgg::MultiLeptonMultiJetCandidate>                      wrp_mlmj;
+        std::vector<flashgg::MultiLeptonMultiJetCandidate>                       vec_mlmj;
+        edm::Wrapper<std::vector<flashgg::MultiLeptonMultiJetCandidate> >    wrp_vec_mlmj;
+        edm::Ptr<flashgg::MultiLeptonMultiJetCandidate>                          ptr_mlmj;
+        edm::Wrapper<edm::Ptr<flashgg::MultiLeptonMultiJetCandidate> >       wrp_ptr_mlmj;
+        std::vector<edm::Ptr<flashgg::MultiLeptonMultiJetCandidate> >        vec_ptr_mlmj;
+        edm::Wrapper<std::vector<edm::Ptr<flashgg::MultiLeptonMultiJetCandidate> > >   wrp_vec_ptr_mlmj;
 
         flashgg::DiLeptonDiJetTagBase dldj_tagbase;
         std::vector<flashgg::DiLeptonDiJetTagBase> vec_dldj_tagbase;

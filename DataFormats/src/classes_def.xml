@@ -24,6 +24,15 @@
 <class name="edm::Wrapper<std::vector<edm::Ptr<flashgg::TriLeptonsCandidate> > >"/>
 
 
+<class name="flashgg::MultiLeptonMultiJetCandidate"/>
+<class name="std::vector<flashgg::MultiLeptonMultiJetCandidate>"/>
+<class name="edm::Wrapper<std::vector<flashgg::MultiLeptonMultiJetCandidate> >"/>
+<class name="edm::Ptr<flashgg::MultiLeptonMultiJetCandidate>"/>
+<class name="edm::Wrapper<edm::Ptr<flashgg::MultiLeptonMultiJetCandidate> >"/>
+<class name="std::vector<edm::Ptr<flashgg::MultiLeptonMultiJetCandidate> >"/>
+<class name="edm::Wrapper<std::vector<edm::Ptr<flashgg::MultiLeptonMultiJetCandidate> > >"/>
+
+
 <class name="flashgg::DiLeptonDiJetTagBase" />
 <class name="std::vector<flashgg::DiLeptonDiJetTagBase>"/>
 <class name="edm::Wrapper<std::vector<flashgg::DiLeptonDiJetTagBase> >"/>
