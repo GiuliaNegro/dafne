@@ -1,5 +1,15 @@
 import FWCore.ParameterSet.Config as cms
-from flashgg.Taggers.flashggTags_cff import UnpackedJetCollectionVInputTag
+
+maxJetCollections = 1
+
+flashggUnpackedJets = cms.EDProducer("FlashggVectorVectorJetUnpacker",
+									JetsTag = cms.InputTag("flashggFinalJets"),
+									NCollections = cms.uint32(maxJetCollections)
+									)
+
+UnpackedJetCollectionVInputTag = cms.VInputTag()
+for i in range(0,maxJetCollections):
+	UnpackedJetCollectionVInputTag.append(cms.InputTag('flashggUnpackedJets',str(i)))
 
 
 flashggMultiLeptonMultiJet = cms.EDProducer('FlashggMultiLeptonMultiJetProducer',     

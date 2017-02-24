@@ -20,8 +20,8 @@ from PhysicsTools.SelectorUtils.tools.vid_id_tools import *
 
 from RecoEgamma.ElectronIdentification.egmGsfElectronIDs_cfi import *
 
-from dafne.MicroAOD.flashggMultiLeptonMultiJet_cfi import flashggMultiLeptonMultiJet
-from flashgg.Taggers.flashggTags_cff import *
+from dafne.MicroAOD.flashggMultiLeptonMultiJet_cfi import flashggMultiLeptonMultiJet,flashggUnpackedJets
+
 
 eventCount = cms.EDProducer("EventCountProducer")
 weightsCount = cms.EDProducer("WeightsCountProducer",
@@ -35,8 +35,8 @@ weightsCount = cms.EDProducer("WeightsCountProducer",
                               minTruePileup=cms.double(-0.5),
                               maxTruePileup=cms.double(100.5),
                               nbinsTruePileup=cms.int32(101),
-                              )
- 
+                              ) 
+
 flashggMicroAODSequenceMultiLeptonMultiJet = cms.Sequence(eventCount+weightsCount
                                        +flashggVertexMapUnique+flashggVertexMapNonUnique
                                        +electronMVAValueMapProducer*egmGsfElectronIDs*flashggElectrons*flashggRandomizedElectrons*flashggSelectedElectrons
