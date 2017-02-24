@@ -1,6 +1,7 @@
 import FWCore.ParameterSet.Config as cms
 
-maxJetCollections = 1
+from flashgg.MicroAOD.flashggJets_cfi import maxJetCollections
+# maxJetCollections = 1
 
 flashggUnpackedJets = cms.EDProducer("FlashggVectorVectorJetUnpacker",
 									JetsTag = cms.InputTag("flashggFinalJets"),
