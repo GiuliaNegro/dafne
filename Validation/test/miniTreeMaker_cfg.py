@@ -14,12 +14,10 @@ process.load("Configuration.StandardSequences.FrontierConditions_GlobalTag_condD
 # process.load("Configuration.StandardSequences.FrontierConditions_GlobalTag_cff")
 from Configuration.AlCa.GlobalTag import GlobalTag
 
-if os.environ["CMSSW_VERSION"].count("CMSSW_7_6"):
-		process.GlobalTag = GlobalTag(process.GlobalTag, '76X_mcRun2_asymptotic_v13')
-elif os.environ["CMSSW_VERSION"].count("CMSSW_8_0"):
-		process.GlobalTag = GlobalTag(process.GlobalTag,'80X_mcRun2_asymptotic_v11')
+if os.environ["CMSSW_VERSION"].count("CMSSW_8_0"):
+	process.GlobalTag = GlobalTag(process.GlobalTag,'80X_mcRun2_asymptotic_2016_TrancheIV_v7')
 else:
-		raise Exception,"The default setup does not support releases other than 76X and 80X"
+	raise Exception,"The default setup does not support releases other than 80X"
 
 process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32( 100) )
 process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32( 1000 )
@@ -35,7 +33,8 @@ process.source = cms.Source("PoolSource",fileNames=cms.untracked.vstring(
 				# "root://node12.datagrid.cea.fr//store/user/gnegro/cmsWR/cmsWR2016/dafne/WR-ToLNu-ToEEJJ_GEN_SIM_13TeV-2016/cmsWR2016-dafne-v0-gnegro-WR-3200_ToLNu-1600_ToEEJJ_miniAOD_13TeV-2016-b59cb78551aff289588aa5c69db4a3a1/161027_124028/0000/dafneMicroAOD_1.root"
 				# "root://node12.datagrid.cea.fr//store/user/gnegro/cmsWR/cmsWR2016/dafne/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/cmsWR2016-dafne-v0-RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/161027_121933/0000/dafneMicroAOD_107.root"
 				# "/store/user/gnegro/cmsWR/cmsWR2016-signal/dafne-v1/WRToEEJJ_MW-2400_MNu-1200_TuneCUETP8M1_13TeV-pythia8/cmsWR2016-signal-dafne-v1-v0-gnegro-RunIIWinter16_80X_mcRun2_asymptotic_2016_miniAODv2_v1_MINIAODSIM-9232bfa9d7b25477dcde67f5060ed55b/170106_094339/0000/dafneMicroAOD_1.root"				
-				"/store/user/gnegro/cmsWR/cmsWR2016-bkg/dafne-v1/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/cmsWR2016-bkg-dafne-v1-v0-RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/170106_095719/0000/dafneMicroAOD_1.root"
+				# "/store/user/gnegro/cmsWR/cmsWR2016-bkg/dafne-v1/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/cmsWR2016-bkg-dafne-v1-v0-RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/170106_095719/0000/dafneMicroAOD_1.root"
+				"file:/afs/cern.ch/work/g/gnegro/NuAnalysis-Moriond17/CMSSW_8_0_26_patch1/src/flashgg/myMicroAODOutputFile_DiLeptonDiJet.root"
 ))
 
 

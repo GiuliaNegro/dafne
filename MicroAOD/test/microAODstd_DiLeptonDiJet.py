@@ -7,58 +7,65 @@ process.load("FWCore.MessageService.MessageLogger_cfi")
 
 process.load("Configuration.StandardSequences.GeometryDB_cff")
 process.load("Configuration.StandardSequences.MagneticField_cff")
-#process.load("Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff") # gives deprecated message in 80X but still runs
 process.load("Configuration.StandardSequences.FrontierConditions_GlobalTag_cff")
 from Configuration.AlCa.GlobalTag import GlobalTag
 
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32( 100) )
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32( 10000) )
 process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32( 1000 )
 
 import os
 if os.environ["CMSSW_VERSION"].count("CMSSW_8_0"):
-    process.GlobalTag = GlobalTag(process.GlobalTag,'80X_mcRun2_asymptotic_2016_miniAODv2')  ##FIXME##
+    process.GlobalTag = GlobalTag(process.GlobalTag,'80X_mcRun2_asymptotic_2016_TrancheIV_v7') 
 else:
-    raise Exception,"The default setup for microAODstd.py does not support releases other than 76X and 80X"
+    raise Exception,"The default setup for microAODstd.py does not support releases other than 80X"
 
 process.RandomNumberGeneratorService = cms.Service("RandomNumberGeneratorService")
 process.RandomNumberGeneratorService.flashggRandomizedPhotons = cms.PSet(
           initialSeed = cms.untracked.uint32(16253245)
         )
-
 process.RandomNumberGeneratorService.flashggRandomizedElectrons = cms.PSet(
           initialSeed = cms.untracked.uint32(16253245)
         # engineName = cms.untracked.string('TRandom3') # optional, default to HepJamesRandom if absent
         )
 
-
 #80x MC
-process.source = cms.Source("PoolSource",fileNames=cms.untracked.vstring(
-	#"/store/mc/RunIISpring16MiniAODv2/GluGluHToGG_M-125_13TeV_powheg_pythia8/MINIAODSIM/PUSpring16RAWAODSIM_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/70000/083E0403-2825-E611-89C4-0CC47A6C1038.root"
-	#signal 2015
-	#"/store/mc/RunIISpring15MiniAODv2/WRToNuEToEEJJ_MW-800_MNu-400_TuneCUETP8M1_13TeV-pythia8/MINIAODSIM/74X_mcRun2_asymptotic_v2-v1/30000/02126566-9571-E511-8171-00259073E3FA.root"
-	#"/store/mc/RunIISpring15MiniAODv2/WRToNuEToEEJJ_MW-1000_MNu-500_TuneCUETP8M1_13TeV-pythia8/MINIAODSIM/74X_mcRun2_asymptotic_v2-v1/50000/EE853593-5171-E511-B80F-00259073E3F0.root"
-	# "/store/mc/RunIISpring15MiniAODv2/WRToNuEToEEJJ_MW-1200_MNu-600_TuneCUETP8M1_13TeV-pythia8/MINIAODSIM/74X_mcRun2_asymptotic_v2-v1/30000/402595D5-8A72-E511-B9C7-90E6BA5CAE1C.root"
-	# "/store/mc/RunIISpring15MiniAODv2/WRToNuMuToMuMuJJ_MW-800_MNu-400_TuneCUETP8M1_13TeV-pythia8/MINIAODSIM/74X_mcRun2_asymptotic_v2-v1/30000/4E112AD7-5071-E511-8DB6-00259073E456.root"
-	# "/store/mc/RunIISpring15MiniAODv2/WRToNuMuToMuMuJJ_MW-1000_MNu-500_TuneCUETP8M1_13TeV-pythia8/MINIAODSIM/74X_mcRun2_asymptotic_v2-v1/10000/A27E6B54-2072-E511-9065-0002C90F8088.root"
-	# "/store/mc/RunIISpring15MiniAODv2/WRToNuMuToMuMuJJ_MW-1200_MNu-600_TuneCUETP8M1_13TeV-pythia8/MINIAODSIM/74X_mcRun2_asymptotic_v2-v1/10000/D8B78FA4-6175-E511-BBA8-003048C56FD8.root"
+# process.source = cms.Source("PoolSource",fileNames=cms.untracked.vstring(
+	#signal 2016
+	# "/store/mc/RunIISummer16MiniAODv2/WRToNuEToEEJJ_MW-800_MNu-400_TuneCUETP8M1_13TeV-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/80000/CE51F2A9-81CA-E611-89CE-F04DA27540CA.root"
+	# "/store/mc/RunIISummer16MiniAODv2/WRToNuMuToMuMuJJ_MW-1200_MNu-600_TuneCUETP8M1_13TeV-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/70000/1C38B200-83CE-E611-94C0-0CC47A745298.root"
+
 	#bkg
-	"/store/mc/RunIISpring16MiniAODv2/WJetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/00000/04C2B31D-4441-E611-AF44-24BE05CE1E01.root"
-	#"/store/mc/RunIISpring16MiniAODv2/WZ_TuneCUETP8M1_13TeV-pythia8/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/60000/1E02599D-861B-E611-9524-A4BADB22A4AE.root"
-	#"/store/mc/RunIISpring16MiniAODv2/ZZ_TuneCUETP8M1_13TeV-pythia8/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/50000/1C9FF7D0-E21A-E611-A2D2-B083FED42488.root"
-	#"/store/mc/RunIISpring16MiniAODv2/TTJets_DiLept_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v4/00000/20923337-ED2B-E611-83FE-02163E013D06.root"
-	#"/store/mc/RunIISpring16MiniAODv2/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/50000/00709321-002A-E611-A59B-0CC47A74527A.root"
-	#"/store/mc/RunIISpring16MiniAODv2/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0_ext1-v1/00000/0251DBB7-201B-E611-8653-0CC47A4F1C2E.root"
-	#"/store/mc/RunIISpring16MiniAODv2/DYToEE_NNPDF30_13TeV-powheg-pythia8/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/00000/00503B81-D21A-E611-9222-008CFA00317C.root"
-	#"/store/mc/RunIISpring16MiniAODv2/ZToMuMu_NNPDF30_13TeV-powheg_M_50_120/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v2/90000/1223ED32-0333-E611-B0A9-549F35AF44F0.root"
-	#"/store/mc/RunIISpring16MiniAODv2/ZToEE_NNPDF30_13TeV-powheg_M_50_120/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/40000/00F10062-152C-E611-99FF-549F358EB789.root"
-	))
+	# "/store/mc/RunIISummer16MiniAODv2/WJetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext2-v1/100000/00933E2A-A0D5-E611-B2CD-00266CF89130.root"
+	# "/store/mc/RunIISummer16MiniAODv2/WZ_TuneCUETP8M1_13TeV-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/60000/002EC119-D4DA-E611-A902-008CFA1979FC.root"
+	# "/store/mc/RunIISummer16MiniAODv2/ZZ_TuneCUETP8M1_13TeV-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/80000/02C8895F-E8DA-E611-8CC9-0023AEEEB55F.root" #testato fino a qua
+	# "/store/mc/RunIISummer16MiniAODv2/WW_TuneCUETP8M1_13TeV-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/70000/00155A96-32DA-E611-8F20-001E67580BAC.root"
+	# "/store/mc/RunIISummer16MiniAODv2/TTJets_DiLept_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/120000/08D759B1-CBB6-E611-87B3-484D7E8DF0D3.root"
+	# "/store/mc/RunIISummer16MiniAODv2/TTJets_DiLept_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/50000/16E7A136-1FBE-E611-B8DA-0025905C3DD0.root"
+	# "/store/mc/RunIISummer16MiniAODv2/TTJets_Dilept_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/100000/0071A1CE-DDD5-E611-AC2C-001E67397CB5.root"
+	# "/store/mc/RunIISummer16MiniAODv2/TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8/MINIAODSIM/PUMoriond17_backup_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/120000/000161D3-22C4-E611-BBCB-002590494DE8.root"
+	# "/store/mc/RunIISummer16MiniAODv2/DYJetsToLL_M-50_HT-70to100_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/120000/0073209B-97C9-E611-A6D0-008CFA5D2758.root"
+	# "/store/mc/RunIISummer16MiniAODv2/DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/120000/006F1B9A-81D0-E611-B9CE-0025905AA9CC.root"
+	# "/store/mc/RunIISummer16MiniAODv2/DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/60000/003FAFE5-4FCB-E611-99AD-00237DF28460.root"
+	# "/store/mc/RunIISummer16MiniAODv2/DYJetsToLL_M-50_HT-200to400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/100000/0AD9C544-FCD2-E611-B4EE-008CFA197E0C.root"
+	# "/store/mc/RunIISummer16MiniAODv2/DYJetsToLL_M-50_HT-200to400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/120000/06B39D0E-F0C6-E611-AEC3-001CC47D420E.root"
+	# "/store/mc/RunIISummer16MiniAODv2/DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/100000/1C6C4217-42D0-E611-984C-0CC47A537688.root"
+	# "/store/mc/RunIISummer16MiniAODv2/DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/100000/1C6C4217-42D0-E611-984C-0CC47A537688.root"
+	# "/store/mc/RunIISummer16MiniAODv2/DYJetsToLL_M-50_HT-600to800_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v2/120000/0419C5FF-03BE-E611-B327-001E67504F55.root"
+	# "/store/mc/RunIISummer16MiniAODv2/DYJetsToLL_M-50_HT-800to1200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/120000/242AE947-8CC0-E611-878C-002590FD5A4C.root"
+	# "/store/mc/RunIISummer16MiniAODv2/DYJetsToLL_M-50_HT-1200to2500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/60000/061DAB15-66BE-E611-B8D6-0CC47AA99438.root"
+	# "/store/mc/RunIISummer16MiniAODv2/DYJetsToLL_M-50_HT-2500toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/60000/0C99DA93-79C1-E611-8D0B-FA163EEA85D4.root"
+	# "/store/mc/RunIISummer16MiniAODv2/ST_tWll_5f_LO_13TeV-MadGraph-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/80000/283E8320-42CB-E611-86C6-02163E019B7C.root"
+	# "/store/mc/RunIISummer16MiniAODv2/ST_tWnunu_5f_LO_13TeV-MadGraph-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/70000/3201F609-DCC6-E611-9DE2-02163E00B15C.root"
+	# "/store/mc/RunIISummer16MiniAODv2/ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/120000/0A6E003C-CABB-E611-956C-0025905B85AE.root?"
+	# "/store/mc/RunIISummer16MiniAODv2/ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/50000/3495D426-73C1-E611-B11B-0CC47A4D764A.root"
+	# ))
 
 #80x data
-# process.source = cms.Source("PoolSource",fileNames=cms.untracked.vstring(
-	#"/store/data/Run2016B/DoubleEG/MINIAOD/PromptReco-v2/000/273/158/00000/1E5ABF54-E019-E611-AAED-02163E01293F.root"
-	#"/store/data/Run2016B/SingleMuon/MINIAOD/PromptReco-v2/000/273/158/00000/02D9C19F-571A-E611-AD8E-02163E013732.root"
-	#"/store/data/Run2016B/MuonEG/MINIAOD/PromptReco-v2/000/273/158/00000/26281378-291A-E611-AE69-02163E011E9B.root"
-	# ))
+process.source = cms.Source("PoolSource",fileNames=cms.untracked.vstring(
+	"/store/data/Run2016B/DoubleEG/MINIAOD/03Feb2017_ver1-v1/100000/02C07D99-20EB-E611-92B2-3417EBE700D2.root"
+	# "/store/data/Run2016C/SingleMuon/MINIAOD/03Feb2017-v1/50000/001CF316-1AEB-E611-BBBD-0CC47A4C8EE2.root"
+	# "/store/data/Run2016D/MuonEG/MINIAOD/03Feb2017-v1/80000/02264DFC-6EEB-E611-95AF-0090FAA572B0.root"
+	))
 
 
 process.MessageLogger.cerr.threshold = 'ERROR' # can't get suppressWarning to work: disable all warnings for now
@@ -70,6 +77,7 @@ process.MessageLogger.cerr.threshold = 'ERROR' # can't get suppressWarning to wo
 #                                        ignoreTotal = cms.untracked.int32(1),
 #                                        monitorPssAndPrivate = cms.untracked.bool(True)
 #                                       )
+
  
 process.load("dafne/MicroAOD/flashggMicroAODSequence_DiLeptonDiJet_cff")  
 
@@ -85,11 +93,6 @@ from dafne.MicroAOD.flashggMicroAODOutputCommands_cff import microAODmassiveNuOu
 process.out = cms.OutputModule("PoolOutputModule", fileName = cms.untracked.string('myMicroAODOutputFile_DiLeptonDiJet.root'),
                                outputCommands = microAODmassiveNuOutputCommand
                                )
-
-
-# All jets are now handled in MicroAODCustomize.py
-# Switch from PFCHS to PUPPI with puppi=1 argument (both if puppi=2)
-
 
 
 process.load('RecoMET.METFilters.BadChargedCandidateFilter_cfi')
@@ -109,16 +112,6 @@ process.flag_BadPFMuonFilter = cms.Path(process.BadPFMuonFilter)
 process.p = cms.Path(process.flashggMicroAODSequenceDiLeptonDiJet)
 process.e = cms.EndPath(process.out)
 
-# Uncomment these lines to run the example commissioning module and send its output to root
-#process.commissioning = cms.EDAnalyzer('flashggCommissioning',
-#                                       PhotonTag=cms.untracked.InputTag('flashggPhotons'),
-#                                       DiPhotonTag = cms.untracked.InputTag('flashggDiPhotons'),
-#                                       VertexTag=cms.untracked.InputTag('offlineSlimmedPrimaryVertices')
-#)
-#process.TFileService = cms.Service("TFileService",
-#                                   fileName = cms.string("commissioningTree.root")
-#)
-#process.p *= process.commissioning
 
 
 from flashgg.MicroAOD.MicroAODCustomize import customize
