@@ -55,15 +55,15 @@ namespace flashgg {
 		void setVtx( Vertex_ptr val ) { vertex_ = val; }
 
 		const vector<Electron_ptr> & electrons() const { return ptrEle_; }
-		void embedElectrons();
-		vector<Electron_t> & embeddedElectrons();
-
 		const vector<Muon_ptr>  & muons()  const { return ptrMuon_; }
 		const vector<Jet_ptr>   & jets()   const { return ptrJet_; }
 		const vector<Track_ptr> & tracks() const { return ptrTrack_; }
 
-		const reco::Candidate * leadingLepton() const; 
-		const reco::Candidate * subLeadingLepton() const; 
+		void embedElectrons();
+		vector<Electron_t> & embeddedElectrons();
+
+		Electron_t &getLeadingElectron();
+		Electron_t &getSubLeadingElectron();
 
 		const Electron_t *leadingEle() const; 
 		const Electron_t *subLeadingEle() const; 
@@ -76,6 +76,9 @@ namespace flashgg {
 
 		const Track_t *leadingTrack() const;
 		const Track_t *subLeadingTrack() const; 
+
+		const reco::Candidate * leadingLepton() const; 
+		const reco::Candidate * subLeadingLepton() const; 
 
 		float sumPt() const;
 

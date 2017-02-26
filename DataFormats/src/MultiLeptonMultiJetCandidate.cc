@@ -104,6 +104,22 @@ vector<Electron_t> & MultiLeptonMultiJetCandidate::embeddedElectrons()
 }
 
 
+Electron_t &MultiLeptonMultiJetCandidate::getLeadingElectron() {
+	if( !ele_.size() ) {
+		throw cms::Exception( "IncorrectUsage" ) << "Electrons not embedded. If you really want a non-const electron, call embedElectrons()";
+	}
+	return ele_[0];
+}
+
+
+Electron_t &MultiLeptonMultiJetCandidate::getSubLeadingElectron() {
+	if( !ele_.size() ) {
+		throw cms::Exception( "IncorrectUsage" ) << "Electrons not embedded. If you really want a non-const electron, call embedElectrons()";
+	}
+	return ele_[1];
+}
+
+
 const Electron_t * MultiLeptonMultiJetCandidate::leadingEle() const
 {
 	if (ele_.size()) {
@@ -113,6 +129,7 @@ const Electron_t * MultiLeptonMultiJetCandidate::leadingEle() const
 	}
 	return nullptr;
 }
+
 
 const Electron_t * MultiLeptonMultiJetCandidate::subLeadingEle() const
 {
