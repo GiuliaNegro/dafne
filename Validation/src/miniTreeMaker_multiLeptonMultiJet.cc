@@ -67,14 +67,18 @@ void miniTreeMaker_multiLeptonMultiJet::beginJob()
 	eventTree->Branch( "ele_pt", &evInfo.ele_pt );
 	eventTree->Branch( "ele_eta", &evInfo.ele_eta );
 	eventTree->Branch( "ele_phi", &evInfo.ele_phi );
+	eventTree->Branch( "ele_passHEEPId", &evInfo.ele_passHEEPId );
+	eventTree->Branch( "ele_HEEPBitMapValues", &evInfo.ele_HEEPBitMapValues );
+	eventTree->Branch( "ele_passTightId", &evInfo.ele_passTightId );
+	eventTree->Branch( "ele_passMediumId", &evInfo.ele_passMediumId );
+	eventTree->Branch( "ele_passLooseId", &evInfo.ele_passLooseId );
+	eventTree->Branch( "ele_passVetoId", &evInfo.ele_passVetoId );
+	eventTree->Branch( "ele_passMVATightId", &evInfo.ele_passMVATightId );
+	eventTree->Branch( "ele_passMVAMediumId", &evInfo.ele_passMVAMediumId );
 	eventTree->Branch( "ele_idmva", &evInfo.ele_idmva );
-	eventTree->Branch( "ele_id", &evInfo.ele_id );
 	eventTree->Branch( "ele_iso", &evInfo.ele_iso );
 	eventTree->Branch( "ele_dz", &evInfo.ele_dz );
 	eventTree->Branch( "ele_d0", &evInfo.ele_d0 );
-	eventTree->Branch( "ele_passHEEPId", &evInfo.ele_passHEEPId );
-	eventTree->Branch( "ele_HEEPBitMapValues", &evInfo.ele_HEEPBitMapValues );
-	eventTree->Branch( "ele_passCutBasedEleId", &evInfo.ele_passCutBasedEleId );
 	eventTree->Branch( "ele_isMatchedToGen", &evInfo.ele_isMatchedToGen );
 	eventTree->Branch( "ele_charge", &evInfo.ele_charge );
 	eventTree->Branch( "ele_etaSC", &evInfo.ele_etaSC );
@@ -87,13 +91,13 @@ void miniTreeMaker_multiLeptonMultiJet::beginJob()
 	eventTree->Branch( "ele_full5x5_E5x5", &evInfo.ele_full5x5_E5x5 );
 	eventTree->Branch( "ele_full5x5_E1x5", &evInfo.ele_full5x5_E1x5 );
 	eventTree->Branch( "ele_full5x5_E2x5", &evInfo.ele_full5x5_E2x5 );
-	eventTree->Branch( "ele_full5x5_E2x5_Over_E5x5", &evInfo.ele_full5x5_E2x5_Over_E5x5 );
-	eventTree->Branch( "ele_full5x5_E1x5_Over_E5x5", &evInfo.ele_full5x5_E1x5_Over_E5x5 );
 	eventTree->Branch( "ele_EmHadDepth1Iso", &evInfo.ele_EmHadDepth1Iso );
 	eventTree->Branch( "ele_ptTracksIso", &evInfo.ele_ptTracksIso );
 	eventTree->Branch( "ele_innerLayerLostHits", &evInfo.ele_innerLayerLostHits );
 	eventTree->Branch( "ele_dxy", &evInfo.ele_dxy );
 	eventTree->Branch( "ele_eOverP", &evInfo.ele_eOverP );
+	eventTree->Branch( "ele_ecalEnergy", &evInfo.ele_ecalEnergy );
+	eventTree->Branch( "ele_hcalOverEcal", &evInfo.ele_hcalOverEcal );
 
 	eventTree->Branch( "mu_e", &evInfo.mu_e );
 	eventTree->Branch( "mu_pt", &evInfo.mu_pt );
@@ -150,18 +154,19 @@ void miniTreeMaker_multiLeptonMultiJet::beginJob()
 	eventTree->Branch( "leadingJet_pt", &evInfo.leadingJet_pt ); 
 	eventTree->Branch( "leadingJet_eta", &evInfo.leadingJet_eta );
 	eventTree->Branch( "leadingJet_phi", &evInfo.leadingJet_phi ); 
+	eventTree->Branch( "leadingJet_isMatchedToGen", &evInfo.leadingJet_isMatchedToGen );
 
 	eventTree->Branch( "subLeadingJet_e", &evInfo.subLeadingJet_e ); 
 	eventTree->Branch( "subLeadingJet_pt", &evInfo.subLeadingJet_pt ); 
 	eventTree->Branch( "subLeadingJet_eta", &evInfo.subLeadingJet_eta ); 
 	eventTree->Branch( "subLeadingJet_phi", &evInfo.subLeadingJet_phi ); 
+	eventTree->Branch( "subLeadingJet_isMatchedToGen", &evInfo.subLeadingJet_isMatchedToGen );
 
 	eventTree->Branch( "dRLeadLeptonLeadJet", &evInfo.dRLeadLeptonLeadJet );
 	eventTree->Branch( "dRLeadLeptonSubLeadJet", &evInfo.dRLeadLeptonSubLeadJet );
 	eventTree->Branch( "dRSubLeadLeptonLeadJet", &evInfo.dRSubLeadLeptonLeadJet );
 	eventTree->Branch( "dRSubLeadLeptonSubLeadJet", &evInfo.dRSubLeadLeptonSubLeadJet );
 
-	eventTree->Branch( "multiLeptonMultiJet_vtxIndex", &evInfo.multiLeptonMultiJet_vtxIndex );
 	eventTree->Branch( "multiLeptonMultiJet_sumPt", &evInfo.multiLeptonMultiJet_sumPt );
 	eventTree->Branch( "multiLeptonMultiJet_invMass", &evInfo.multiLeptonMultiJet_invMass ); 
 	eventTree->Branch( "diLepton_invMass", &evInfo.diLepton_invMass ); 
@@ -172,6 +177,15 @@ void miniTreeMaker_multiLeptonMultiJet::beginJob()
 
 	eventTree->Branch( "leadingEle_passHEEPId", &evInfo.leadingEle_passHEEPId );
 	eventTree->Branch( "leadingEle_HEEPBitMapValues", &evInfo.leadingEle_HEEPBitMapValues );
+	eventTree->Branch( "leadingEle_passTightId", &evInfo.leadingEle_passTightId );
+	eventTree->Branch( "leadingEle_passMediumId", &evInfo.leadingEle_passMediumId );
+	eventTree->Branch( "leadingEle_passLooseId", &evInfo.leadingEle_passLooseId );
+	eventTree->Branch( "leadingEle_passVetoId", &evInfo.leadingEle_passVetoId );
+	eventTree->Branch( "leadingEle_passMVATightId", &evInfo.leadingEle_passMVATightId );
+	eventTree->Branch( "leadingEle_passMVAMediumId", &evInfo.leadingEle_passMVAMediumId );
+	eventTree->Branch( "leadingEle_idmva", &evInfo.leadingEle_idmva);
+	eventTree->Branch( "leadingEle_iso", &evInfo.leadingEle_iso);
+	eventTree->Branch( "leadingEle_isMatchedToGen", &evInfo.leadingEle_isMatchedToGen);
 	eventTree->Branch( "leadingEle_etaSC", &evInfo.leadingEle_etaSC );
 	eventTree->Branch( "leadingEle_isEcalDriven", &evInfo.leadingEle_isEcalDriven );
 	eventTree->Branch( "leadingEle_dEtaIn", &evInfo.leadingEle_dEtaIn );
@@ -182,19 +196,27 @@ void miniTreeMaker_multiLeptonMultiJet::beginJob()
 	eventTree->Branch( "leadingEle_full5x5_E5x5", &evInfo.leadingEle_full5x5_E5x5 );
 	eventTree->Branch( "leadingEle_full5x5_E1x5", &evInfo.leadingEle_full5x5_E1x5 );
 	eventTree->Branch( "leadingEle_full5x5_E2x5", &evInfo.leadingEle_full5x5_E2x5 );
-	eventTree->Branch( "leadingEle_full5x5_E2x5_Over_E5x5", &evInfo.leadingEle_full5x5_E2x5_Over_E5x5 );
-	eventTree->Branch( "leadingEle_full5x5_E1x5_Over_E5x5", &evInfo.leadingEle_full5x5_E1x5_Over_E5x5 );
 	eventTree->Branch( "leadingEle_EmHadDepth1Iso", &evInfo.leadingEle_EmHadDepth1Iso );
 	eventTree->Branch( "leadingEle_ptTracksIso", &evInfo.leadingEle_ptTracksIso );
 	eventTree->Branch( "leadingEle_innerLayerLostHits", &evInfo.leadingEle_innerLayerLostHits );
 	eventTree->Branch( "leadingEle_dxy", &evInfo.leadingEle_dxy );
+	eventTree->Branch( "leadingEle_dz", &evInfo.leadingEle_dz);
 	eventTree->Branch( "leadingEle_eOverP", &evInfo.leadingEle_eOverP );
-	eventTree->Branch( "leadingEle_id", &evInfo.leadingEle_id );
-	eventTree->Branch( "leadingEle_passCutBasedEleId", &evInfo.leadingEle_passCutBasedEleId );
+	eventTree->Branch( "leadingEle_ecalEnergy", &evInfo.leadingEle_ecalEnergy );
+	eventTree->Branch( "leadingEle_hcalOverEcal", &evInfo.leadingEle_hcalOverEcal );
 
 	eventTree->Branch( "subLeadingEle_passHEEPId", &evInfo.subLeadingEle_passHEEPId );
 	eventTree->Branch( "subLeadingEle_HEEPBitMapValues", &evInfo.subLeadingEle_HEEPBitMapValues );
+	eventTree->Branch( "subLeadingEle_passTightId", &evInfo.subLeadingEle_passTightId );
+	eventTree->Branch( "subLeadingEle_passMediumId", &evInfo.subLeadingEle_passMediumId );
+	eventTree->Branch( "subLeadingEle_passLooseId", &evInfo.subLeadingEle_passLooseId );
+	eventTree->Branch( "subLeadingEle_passVetoId", &evInfo.subLeadingEle_passVetoId );
+	eventTree->Branch( "subLeadingEle_passMVATightId", &evInfo.subLeadingEle_passMVATightId );
+	eventTree->Branch( "subLeadingEle_passMVAMediumId", &evInfo.subLeadingEle_passMVAMediumId );
 	eventTree->Branch( "subLeadingEle_etaSC", &evInfo.subLeadingEle_etaSC );
+	eventTree->Branch( "subLeadingEle_idmva", &evInfo.subLeadingEle_idmva);
+	eventTree->Branch( "subLeadingEle_iso", &evInfo.subLeadingEle_iso);
+	eventTree->Branch( "subLeadingEle_isMatchedToGen", &evInfo.subLeadingEle_isMatchedToGen);
 	eventTree->Branch( "subLeadingEle_isEcalDriven", &evInfo.subLeadingEle_isEcalDriven );
 	eventTree->Branch( "subLeadingEle_dEtaIn", &evInfo.subLeadingEle_dEtaIn );
 	eventTree->Branch( "subLeadingEle_dPhiIn", &evInfo.subLeadingEle_dPhiIn );
@@ -204,18 +226,32 @@ void miniTreeMaker_multiLeptonMultiJet::beginJob()
 	eventTree->Branch( "subLeadingEle_full5x5_E5x5", &evInfo.subLeadingEle_full5x5_E5x5 );
 	eventTree->Branch( "subLeadingEle_full5x5_E1x5", &evInfo.subLeadingEle_full5x5_E1x5 );
 	eventTree->Branch( "subLeadingEle_full5x5_E2x5", &evInfo.subLeadingEle_full5x5_E2x5 );
-	eventTree->Branch( "subLeadingEle_full5x5_E2x5_Over_E5x5", &evInfo.subLeadingEle_full5x5_E2x5_Over_E5x5 );
-	eventTree->Branch( "subLeadingEle_full5x5_E1x5_Over_E5x5", &evInfo.subLeadingEle_full5x5_E1x5_Over_E5x5 );
 	eventTree->Branch( "subLeadingEle_EmHadDepth1Iso", &evInfo.subLeadingEle_EmHadDepth1Iso );
 	eventTree->Branch( "subLeadingEle_ptTracksIso", &evInfo.subLeadingEle_ptTracksIso );
 	eventTree->Branch( "subLeadingEle_innerLayerLostHits", &evInfo.subLeadingEle_innerLayerLostHits );
 	eventTree->Branch( "subLeadingEle_dxy", &evInfo.subLeadingEle_dxy );
+	eventTree->Branch( "subLeadingEle_dz", &evInfo.subLeadingEle_dz);
 	eventTree->Branch( "subLeadingEle_eOverP", &evInfo.subLeadingEle_eOverP );
-	eventTree->Branch( "subLeadingEle_id", &evInfo.subLeadingEle_id );
-	eventTree->Branch( "subLeadingEle_passCutBasedEleId", &evInfo.subLeadingEle_passCutBasedEleId );
+	eventTree->Branch( "subLeadingEle_ecalEnergy", &evInfo.subLeadingEle_ecalEnergy );
+	eventTree->Branch( "subLeadingEle_hcalOverEcal", &evInfo.subLeadingEle_hcalOverEcal );
 
+	eventTree->Branch( "leadingMuon_iso", &evInfo.leadingMuon_iso );
 	eventTree->Branch( "leadingMuon_isHighPt", &evInfo.leadingMuon_isHighPt );
+	eventTree->Branch( "leadingMuon_isTight", &evInfo.leadingMuon_isTight );
+	eventTree->Branch( "leadingMuon_isMedium", &evInfo.leadingMuon_isMedium );
+	eventTree->Branch( "leadingMuon_isLoose", &evInfo.leadingMuon_isLoose );
+	eventTree->Branch( "leadingMuon_isMatchedToGen", &evInfo.leadingMuon_isMatchedToGen );
+	eventTree->Branch( "leadingMuon_dz", &evInfo.leadingMuon_dz );
+	eventTree->Branch( "leadingMuon_dxy", &evInfo.leadingMuon_dxy );
+
+	eventTree->Branch( "subLeadingMuon_iso", &evInfo.subLeadingMuon_iso );
 	eventTree->Branch( "subLeadingMuon_isHighPt", &evInfo.subLeadingMuon_isHighPt );
+	eventTree->Branch( "subLeadingMuon_isTight", &evInfo.subLeadingMuon_isTight );
+	eventTree->Branch( "subLeadingMuon_isMedium", &evInfo.subLeadingMuon_isMedium );
+	eventTree->Branch( "subLeadingMuon_isLoose", &evInfo.subLeadingMuon_isLoose );
+	eventTree->Branch( "subLeadingMuon_isMatchedToGen", &evInfo.subLeadingMuon_isMatchedToGen );
+	eventTree->Branch( "subLeadingMuon_dz", &evInfo.subLeadingMuon_dz );
+	eventTree->Branch( "subLeadingMuon_dxy", &evInfo.subLeadingMuon_dxy );
 
 	// cout << "inizialed branches" << endl;
 
@@ -282,12 +318,12 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 	iEvent.getByToken( rhoToken_, rhoHandle );
 	double rho = *( rhoHandle.product() );
 
-	// cout << "arriva a linea " << __LINE__ << endl;
+	// cout << "Handle done" << endl;
 
 
 	//-------------- initialize tree
 	initEventStructure();
-	// cout << "arriva a linea " << __LINE__ << endl;
+	// cout << "initEventStructure() done" << endl;
 
 	
 	//-------------- check if event passes HLT
@@ -367,6 +403,7 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 	}
 	// cout << "puweight = " << evInfo.puweight << endl;
 
+
 	// -- number of reco vertices
 	evInfo.nvtx = vertices->size() ;
 	// cout << vertices->size() << " nvertices " << endl;
@@ -392,7 +429,6 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 	}
 	evInfo.npu = pu;
 	// cout << "pu " << pu << endl;
-	// cout << "arriva a linea " << __LINE__ << endl;
 
 
 	// -- electrons
@@ -402,32 +438,17 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 
 		Ptr<flashgg::Electron> electron = electrons->ptrAt( iele );
 		if (fabs(electron->eta()) > 2.4) { continue; }
-		// if (electron->pt() < electronPtThreshold_) { continue; }  
 		if( electron->hasMatchedConversion() ) { continue; } // remove conversions
 		nEleGood++;
 
-		float isol = electronIsolation(electron, rho); 
+		int passHEEPId = electron->passHeepId();
+		if (passHEEPId) nElePassingHEEPid++;	
+
+		// float isol = electronIsolation(electron, rho); 
 
 		Ptr<reco::Vertex> ele_vtx = chooseElectronVertex( electron,  vertices->ptrs() );
 		float dz = electron->gsfTrack()->dz( ele_vtx->position() );
 		float d0 = electron->gsfTrack()->dxy( ele_vtx->position() ); 
-	
-		int passHEEPId = passHEEPIdCuts( electron, vertices->ptrs(), rho );
-		// cout << "passHEEPId = " << passHEEPId << endl;
-		if (passHEEPId) nElePassingHEEPid++;
-
-		// int passHEEPeleId = electron->passHeepId();
-		// cout << "passHEEPeleId = " << passHEEPeleId << endl;
-		// if (passHEEPeleId) cout << "passHEEPeleId = " << passHEEPeleId << endl;
-
-		unsigned int eleHeepBitMap = electron->heepBitMap();		
-
-		int passCutBasedId = passCutBasedEleId( electron, rho );
-		// cout << "passCutBasedId = " << passCutBasedId << endl;
-
-		// int passCutBasedIdEle = electron->passMediumId();
-		// cout << "passCutBasedIdEle = " << passCutBasedIdEle << endl;		
-
 
 		int mcMatch = -1;
 		if( ! iEvent.isRealData() ) mcMatch = electronMatchingToGen(electron, genParticles); 
@@ -438,14 +459,18 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 		evInfo.ele_pt.push_back(electron->pt());
 		evInfo.ele_eta.push_back(electron->eta());
 		evInfo.ele_phi.push_back(electron->phi());
+		evInfo.ele_passHEEPId.push_back(passHEEPId);
+		evInfo.ele_HEEPBitMapValues.push_back(electron->heepBitMap());
+		evInfo.ele_passTightId.push_back(electron->passTightId());
+		evInfo.ele_passMediumId.push_back(electron->passMediumId());
+		evInfo.ele_passLooseId.push_back(electron->passLooseId());
+		evInfo.ele_passVetoId.push_back(electron->passVetoId());
+		evInfo.ele_passMVATightId.push_back(electron->passMVATightId());
+		evInfo.ele_passMVAMediumId.push_back(electron->passMVAMediumId());
 		evInfo.ele_idmva.push_back(electron->nonTrigMVA());
-		evInfo.ele_id.push_back( getEleId(electron) );  
-		evInfo.ele_iso.push_back(isol);
+		evInfo.ele_iso.push_back( electronIsolation(electron, rho) );
 		evInfo.ele_dz.push_back(dz);
 		evInfo.ele_d0.push_back(d0);
-		evInfo.ele_passHEEPId.push_back(passHEEPId);
-		evInfo.ele_HEEPBitMapValues.push_back(eleHeepBitMap);
-		evInfo.ele_passCutBasedEleId.push_back(passCutBasedId);
 		evInfo.ele_isMatchedToGen.push_back(mcMatch);
 		evInfo.ele_charge.push_back(electron->charge());
 		evInfo.ele_etaSC.push_back(electron->superCluster()->eta());
@@ -458,13 +483,13 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 		evInfo.ele_full5x5_E5x5.push_back(electron->full5x5_e5x5());
 		evInfo.ele_full5x5_E1x5.push_back(electron->full5x5_e1x5());
 		evInfo.ele_full5x5_E2x5.push_back(electron->full5x5_e2x5Max());
-		evInfo.ele_full5x5_E2x5_Over_E5x5.push_back((electron->full5x5_e2x5Max()) / (electron->full5x5_e5x5()));
-		evInfo.ele_full5x5_E1x5_Over_E5x5.push_back((electron->full5x5_e1x5()) / (electron->full5x5_e5x5()));
 		evInfo.ele_EmHadDepth1Iso.push_back(electron->dr03EcalRecHitSumEt()+electron->dr03HcalDepth1TowerSumEt());
 		evInfo.ele_ptTracksIso.push_back(electron->dr03TkSumPt());  //TO MODIFY
 		evInfo.ele_innerLayerLostHits.push_back(electron->gsfTrack()->hitPattern().numberOfHits( reco::HitPattern::MISSING_INNER_HITS));
-		evInfo.ele_dxy.push_back(fabs(electron->gsfTrack()->dxy( best_vtx_ele->position())));
+		evInfo.ele_dxy.push_back( electron->gsfTrack()->dxy(best_vtx_ele->position()) );
 		evInfo.ele_eOverP.push_back(electron->eSuperClusterOverP());
+		evInfo.ele_ecalEnergy.push_back(electron->ecalEnergy());
+		evInfo.ele_hcalOverEcal.push_back(electron->hcalOverEcal());
 	}       
 	// cout << "arriva a linea " << __LINE__ << endl;
 
@@ -476,7 +501,6 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 
 		Ptr<flashgg::Muon> muon = muons->ptrAt( imu );
 		if (fabs(muon->eta()) > 2.4) { continue; }
-		// if (muon->pt()  < muonPtThreshold_) { continue; }  
 		nmuonsGood++;
 
 		// muon ID and isolation: https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonIdRun2
@@ -512,8 +536,6 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 
 
 	// -- jets
-	// for (UInt_t ijetVector = 0 ; ijetVector < jets->size(); ijetVector++){
-		// Ptr<vector<flashgg::Jet> > jetVector = jets->ptrAt( ijetVector );
 	if (jets->size() > 0) {
 		Ptr<vector<flashgg::Jet> > jetVector = jets->ptrAt( 0 );
 		// if (jetVector->size() > 0) cout << "jetVector size " << jetVector->size() << endl;
@@ -540,11 +562,9 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 
 	// -- multiLeptonMultiJets
 	// cout << "MLMJ size " << multiLeptonMultiJets->size() << endl;
-
 	for ( unsigned int imlmj = 0; imlmj < multiLeptonMultiJets->size(); imlmj++){
 		// cout << "enter MLMJ loop" << endl;
 		Ptr<flashgg::MultiLeptonMultiJetCandidate> multiLeptonMultiJet = multiLeptonMultiJets->ptrAt( imlmj );        
-	
 		// cout << "arriva a linea " << __LINE__ << endl;
 
 		// if (multiLeptonMultiJet->isEEJJ()) cout << "isEEJJ" << endl;
@@ -553,8 +573,6 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 		// if (multiLeptonMultiJet->isMMTT()) cout << "isMMTT" << endl;
 		// if (multiLeptonMultiJet->isEMJJ()) cout << "isEMJJ" << endl; 
 		// if (!(multiLeptonMultiJet->isEMJJ())) cout << "no EMJJ" << endl;
-
-		// cout << "arriva a linea " << __LINE__ << endl;
 
 		if (! iEvent.isRealData() ) { 
 			ngen++;
@@ -570,11 +588,19 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 
 		if (multiLeptonMultiJet->leadingJet()->pt() < 40 || multiLeptonMultiJet->subLeadingJet()->pt() < 40) continue;
 		if (fabs(multiLeptonMultiJet->leadingJet()->eta()) > 2.4 || fabs(multiLeptonMultiJet->subLeadingJet()->eta()) > 2.4) continue;
-
 		// cout << "arriva a linea " << __LINE__ << endl;
 
-		bool leadElePassHEEPId         = false;
+		bool leadingElePassHEEPId      = false;
 		unsigned leadingEleHeepBitMap  = 0;	
+		bool leadingElePassTightId     = false;
+		bool leadingElePassMediumId    = false;
+		bool leadingElePassLooseId     = false;
+		bool leadingElePassVetoId      = false;
+		bool leadingElePassMVATightId  = false;
+		bool leadingElePassMVAMediumId = false;
+		float leadingEleIdmva          = -999.;
+		float leadingEleIso            = -999.;
+		int leadingEleIsMatchedToGen   = 0;
 		float leadingEleEtaSC          = -999.;
 		bool leadingEleIsEcalDriven    = false;
 		float leadingEleDEtaIn         = -999.;
@@ -585,18 +611,26 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 		float leadingEleE5x5           = -999.;
 		float leadingEleE1x5           = -999.; 
 		float leadingEleE2x5           = -999.;
-		float leadingEleE2x5_E5x5      = -999.;
-		float leadingEleE1x5_E5x5      = -999.;
 		float leadingEleEmHadDepth1Iso = -999.;
 		float leadingElePtTracksIso    = -999.;
 		float leadingEleMissingHits    = -999.;
 		float leadingEleDxy            = -999.;
+		float leadingEleDz             = -999.;
 		float leadingEleEoverP         = -999.;
-		bool leadingElePassCutBasedId  = false;
-		unsigned leadingEleId          = 0;
+		float leadingEleEcalEnergy     = -999.;
+		float leadingEleHcalOverEcal   = -999.;
 
-		bool subLeadElePassHEEPId         = false;
+		bool subLeadingElePassHEEPId      = false;
 		unsigned subLeadingEleHeepBitMap  = 0;	
+		bool subLeadingElePassTightId     = false;
+		bool subLeadingElePassMediumId    = false;
+		bool subLeadingElePassLooseId     = false;
+		bool subLeadingElePassVetoId      = false;
+		bool subLeadingElePassMVATightId  = false;
+		bool subLeadingElePassMVAMediumId = false;	
+		float subLeadingEleIdmva          = -999.;
+		float subLeadingEleIso            = -999.;
+		int subLeadingEleIsMatchedToGen   = 0;
 		float subLeadingEleEtaSC          = -999.;
 		bool subLeadingEleIsEcalDriven    = false;
 		float subLeadingEleDEtaIn         = -999.;
@@ -607,41 +641,50 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 		float subLeadingEleE5x5           = -999.;
 		float subLeadingEleE1x5           = -999.; 
 		float subLeadingEleE2x5           = -999.;
-		float subLeadingEleE2x5_E5x5      = -999.;
-		float subLeadingEleE1x5_E5x5      = -999.;
 		float subLeadingEleEmHadDepth1Iso = -999.;
 		float subLeadingElePtTracksIso    = -999.;
 		float subLeadingEleMissingHits    = -999.;
 		float subLeadingEleDxy            = -999.;
+		float subLeadingEleDz             = -999.;
 		float subLeadingEleEoverP         = -999.;
-		bool subLeadingElePassCutBasedId  = false;
-		unsigned subLeadingEleId          = 0;
+		float subLeadingEleEcalEnergy     = -999.;
+		float subLeadingEleHcalOverEcal   = -999.;
 
-		bool leadingMuonIsHighPt = false;
-		bool subLeadingMuonIsHighPt = false;
+		float leadingMuonIso          = -999.;
+		bool leadingMuonIsHighPt       = false;
+		bool leadingMuonIsTight       = false;
+		bool leadingMuonIsMedium      = false;
+		bool leadingMuonIsLoose       = false;
+		int leadingMuonIsMatchedToGen = 0;
+		float leadingMuonDz           = -999.;
+		float leadingMuonDxy          = -999.;
+
+		float subLeadingMuonIso          = -999.;
+		bool subLeadingMuonIsHighPt       = false;
+		bool subLeadingMuonIsTight       = false;
+		bool subLeadingMuonIsMedium      = false;
+		bool subLeadingMuonIsLoose       = false;
+		int subLeadingMuonIsMatchedToGen = 0;
+		float subLeadingMuonDz           = -999.;
+		float subLeadingMuonDxy          = -999.;
 
 
 		if (multiLeptonMultiJet->isEEJJ() || multiLeptonMultiJet->isEETT() || multiLeptonMultiJet->isEMJJ()) {
 			Ptr<reco::Vertex> best_vtx_leadEle = chooseBestVtx(vertices->ptrs(), multiLeptonMultiJet->leadingEle());
-			// cout << "arriva a linea " << __LINE__ << endl;
+			int mcMatch_leadEle = -1;
+			if( ! iEvent.isRealData() ) mcMatch_leadEle = electronMatchingToGen(multiLeptonMultiJet->leadingEle(), genParticles);
 
-///
-			// int passHEEPleadingEleId_old = passHEEPIdCuts( multiLeptonMultiJet->leadingEle(), vertices->ptrs(), rho );
-			// cout << "passHEEPleadingEleId_old = " << passHEEPleadingEleId_old << endl;
-
-			// int passHEEPleadingEleId = multiLeptonMultiJet->leadingEle()->passHeepId();
-			// cout << "passHEEPleadingEleId = " << passHEEPleadingEleId << endl;
-
-			
-			// int passCutBasedIdLeadingEle_old = passCutBasedEleId( multiLeptonMultiJet->leadingEle(), rho );
-			// cout << "passCutBasedIdLeadingEle_old = " << passCutBasedIdLeadingEle_old << endl;
-
-			// int passCutBasedIdLeadingEle = multiLeptonMultiJet->leadingEle()->passMediumId();
-			// cout << "passCutBasedIdLeadingEle = " << passCutBasedIdLeadingEle << endl;		
-///
-
-			leadElePassHEEPId = passHEEPIdCuts( multiLeptonMultiJet->leadingEle(), vertices->ptrs(), rho );
+			leadingElePassHEEPId = multiLeptonMultiJet->leadingEle()->passHeepId();
 			leadingEleHeepBitMap = multiLeptonMultiJet->leadingEle()->heepBitMap();
+			leadingElePassTightId = multiLeptonMultiJet->leadingEle()->passTightId();
+			leadingElePassMediumId = multiLeptonMultiJet->leadingEle()->passMediumId();
+			leadingElePassLooseId = multiLeptonMultiJet->leadingEle()->passLooseId();
+			leadingElePassVetoId = multiLeptonMultiJet->leadingEle()->passVetoId();
+			leadingElePassMVATightId = multiLeptonMultiJet->leadingEle()->passMVATightId();
+			leadingElePassMVAMediumId = multiLeptonMultiJet->leadingEle()->passMVAMediumId();
+			leadingEleIdmva = multiLeptonMultiJet->leadingEle()->nonTrigMVA();
+			leadingEleIso = electronIsolation(multiLeptonMultiJet->leadingEle(), rho);
+			leadingEleIsMatchedToGen = mcMatch_leadEle;
 			leadingEleEtaSC = multiLeptonMultiJet->leadingEle()->superCluster()->eta();
 			leadingEleIsEcalDriven = multiLeptonMultiJet->leadingEle()->ecalDrivenSeed();
 			leadingEleDEtaIn = multiLeptonMultiJet->leadingEle()->deltaEtaSuperClusterTrackAtVtx();  
@@ -652,38 +695,31 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 			leadingEleE5x5 = multiLeptonMultiJet->leadingEle()->full5x5_e5x5();
 			leadingEleE1x5 = multiLeptonMultiJet->leadingEle()->full5x5_e1x5();
 			leadingEleE2x5 = multiLeptonMultiJet->leadingEle()->full5x5_e2x5Max();
-			leadingEleE2x5_E5x5 = leadingEleE2x5 / leadingEleE5x5;
-			leadingEleE1x5_E5x5 = leadingEleE1x5 / leadingEleE5x5;
 			leadingEleEmHadDepth1Iso = multiLeptonMultiJet->leadingEle()->dr03EcalRecHitSumEt() + multiLeptonMultiJet->leadingEle()->dr03HcalDepth1TowerSumEt();
 			leadingElePtTracksIso = multiLeptonMultiJet->leadingEle()->dr03TkSumPt();  //TO MODIFY
 			leadingEleMissingHits = multiLeptonMultiJet->leadingEle()->gsfTrack()->hitPattern().numberOfHits( reco::HitPattern::MISSING_INNER_HITS);
-			leadingEleDxy = fabs(multiLeptonMultiJet->leadingEle()->gsfTrack()->dxy( best_vtx_leadEle->position()));
+			leadingEleDxy = multiLeptonMultiJet->leadingEle()->gsfTrack()->dxy( best_vtx_leadEle->position() );
+			leadingEleDz = multiLeptonMultiJet->leadingEle()->gsfTrack()->dz( best_vtx_leadEle->position() );
 			leadingEleEoverP = multiLeptonMultiJet->leadingEle()->eSuperClusterOverP();
-			leadingElePassCutBasedId = passCutBasedEleId( multiLeptonMultiJet->leadingEle(), rho );
-			leadingEleId = getEleId(multiLeptonMultiJet->leadingEle());
 			// cout << "arriva a linea " << __LINE__ << endl;
 		}
 
 		if  (multiLeptonMultiJet->isEEJJ() || multiLeptonMultiJet->isEETT()) {  //da aggiungere qnd lancio cfg?
 			Ptr<reco::Vertex> best_vtx_subLeadEle = chooseBestVtx(vertices->ptrs(), multiLeptonMultiJet->subLeadingEle());
+			int mcMatch_subLeadEle = -1;
+			if( ! iEvent.isRealData() ) mcMatch_subLeadEle = electronMatchingToGen(multiLeptonMultiJet->subLeadingEle(), genParticles);
 
-///
-			// int passHEEPsubLeadingEleId_old = passHEEPIdCuts( multiLeptonMultiJet->subLeadingEle(), vertices->ptrs(), rho );
-			// cout << "passHEEPsubLeadingEleId_old = " << passHEEPsubLeadingEleId_old << endl;
-
-			// int passHEEPsubLeadingEleId = multiLeptonMultiJet->subLeadingEle()->passHeepId();
-			// cout << "passHEEPsubLeadingEleId = " << passHEEPsubLeadingEleId << endl;
-
-
-			// int passCutBasedIdSubLeadingEle_old = passCutBasedEleId( multiLeptonMultiJet->subLeadingEle(), rho );
-			// cout << "passCutBasedIdSubLeadingEle_old = " << passCutBasedIdSubLeadingEle_old << endl;
-
-			// int passCutBasedIdSubLeadingEle = multiLeptonMultiJet->subLeadingEle()->passMediumId();
-			// cout << "passCutBasedIdSubLeadingEle = " << passCutBasedIdSubLeadingEle << endl;		
-///
-
-			subLeadElePassHEEPId = passHEEPIdCuts( multiLeptonMultiJet->subLeadingEle(), vertices->ptrs(), rho );
+			subLeadingElePassHEEPId = multiLeptonMultiJet->subLeadingEle()->passHeepId();
 			subLeadingEleHeepBitMap = multiLeptonMultiJet->subLeadingEle()->heepBitMap();
+			subLeadingElePassTightId = multiLeptonMultiJet->subLeadingEle()->passTightId();
+			subLeadingElePassMediumId = multiLeptonMultiJet->subLeadingEle()->passMediumId();
+			subLeadingElePassLooseId = multiLeptonMultiJet->subLeadingEle()->passLooseId();
+			subLeadingElePassVetoId = multiLeptonMultiJet->subLeadingEle()->passVetoId();
+			subLeadingElePassMVATightId = multiLeptonMultiJet->subLeadingEle()->passMVATightId();
+			subLeadingElePassMVAMediumId = multiLeptonMultiJet->subLeadingEle()->passMVAMediumId();
+			subLeadingEleIdmva = multiLeptonMultiJet->subLeadingEle()->nonTrigMVA();
+			subLeadingEleIso = electronIsolation(multiLeptonMultiJet->subLeadingEle(), rho);
+			subLeadingEleIsMatchedToGen = mcMatch_subLeadEle;
 			subLeadingEleEtaSC = multiLeptonMultiJet->subLeadingEle()->superCluster()->eta();
 			subLeadingEleIsEcalDriven = multiLeptonMultiJet->subLeadingEle()->ecalDrivenSeed();
 			subLeadingEleDEtaIn = multiLeptonMultiJet->subLeadingEle()->deltaEtaSuperClusterTrackAtVtx();  
@@ -694,36 +730,65 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 			subLeadingEleE5x5 = multiLeptonMultiJet->subLeadingEle()->full5x5_e5x5();
 			subLeadingEleE1x5 = multiLeptonMultiJet->subLeadingEle()->full5x5_e1x5();
 			subLeadingEleE2x5 = multiLeptonMultiJet->subLeadingEle()->full5x5_e2x5Max();
-			subLeadingEleE2x5_E5x5 = subLeadingEleE2x5 / subLeadingEleE5x5;
-			subLeadingEleE1x5_E5x5 = subLeadingEleE1x5 / subLeadingEleE5x5;
 			subLeadingEleEmHadDepth1Iso = multiLeptonMultiJet->subLeadingEle()->dr03EcalRecHitSumEt() + multiLeptonMultiJet->subLeadingEle()->dr03HcalDepth1TowerSumEt();
 			subLeadingElePtTracksIso = multiLeptonMultiJet->subLeadingEle()->dr03TkSumPt();  //TO MODIFY
 			subLeadingEleMissingHits = multiLeptonMultiJet->subLeadingEle()->gsfTrack()->hitPattern().numberOfHits( reco::HitPattern::MISSING_INNER_HITS);
-			subLeadingEleDxy = fabs(multiLeptonMultiJet->subLeadingEle()->gsfTrack()->dxy( best_vtx_subLeadEle->position()));
-			subLeadingEleEoverP = multiLeptonMultiJet->subLeadingEle()->eSuperClusterOverP();
-			subLeadingElePassCutBasedId = passCutBasedEleId( multiLeptonMultiJet->subLeadingEle(), rho );
-			subLeadingEleId = getEleId(multiLeptonMultiJet->subLeadingEle());			
+			subLeadingEleDxy = multiLeptonMultiJet->subLeadingEle()->gsfTrack()->dxy( best_vtx_subLeadEle->position() );
+			subLeadingEleDz = multiLeptonMultiJet->subLeadingEle()->gsfTrack()->dz( best_vtx_subLeadEle->position() );
+			subLeadingEleEoverP = multiLeptonMultiJet->subLeadingEle()->eSuperClusterOverP();		
 			// cout << "arriva a linea " << __LINE__ << endl;
 		} 
 
+
 		if (multiLeptonMultiJet->isMMJJ() || multiLeptonMultiJet->isMMTT() || multiLeptonMultiJet->isEMJJ()) {
 			Ptr<reco::Vertex> leadingMuonVtx = chooseBestMuonVtx(vertices->ptrs(), multiLeptonMultiJet->leadingMuon());
+			int mcMatch_leadMuon =  -1;
+			if( ! iEvent.isRealData() ) mcMatch_leadMuon = muonMatchingToGen(multiLeptonMultiJet->leadingMuon(), genParticles); 
+
+			// muon ID and isolation: https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonIdRun2
+			float muPFCombRelIso_leadMuon = ( multiLeptonMultiJet->leadingMuon()->pfIsolationR04().sumChargedHadronPt + max( 0.,multiLeptonMultiJet->leadingMuon()->pfIsolationR04().sumNeutralHadronEt + multiLeptonMultiJet->leadingMuon()->pfIsolationR04().sumPhotonEt - 0.5 * multiLeptonMultiJet->leadingMuon()->pfIsolationR04().sumPUPt ) ) / ( multiLeptonMultiJet->leadingMuon()->pt() );
+
+			float dz = -999;
+			float dxy = -999;
+			if ( !(!multiLeptonMultiJet->leadingMuon()->innerTrack()) ) {
+				dz = multiLeptonMultiJet->leadingMuon()->innerTrack()->dz( leadingMuonVtx->position() );
+				dxy = multiLeptonMultiJet->leadingMuon()->innerTrack()->dxy( leadingMuonVtx->position() ); 			
+			}
+
+			leadingMuonIso = muPFCombRelIso_leadMuon;
 			leadingMuonIsHighPt = multiLeptonMultiJet->leadingMuon()->isHighPtMuon( *leadingMuonVtx );
+			leadingMuonIsTight = multiLeptonMultiJet->leadingMuon()->isTightMuon( *leadingMuonVtx );
+			leadingMuonIsMedium = multiLeptonMultiJet->leadingMuon()->isMediumMuon();
+			leadingMuonIsLoose = multiLeptonMultiJet->leadingMuon()->isLooseMuon();
+			leadingMuonIsMatchedToGen = mcMatch_leadMuon;
+			leadingMuonDz = dz;
+			leadingMuonDxy = dxy;
 		}
 
 		if (multiLeptonMultiJet->isMMJJ() || multiLeptonMultiJet->isMMTT()) {
 			Ptr<reco::Vertex> subLeadingMuonVtx = chooseBestMuonVtx(vertices->ptrs(), multiLeptonMultiJet->subLeadingMuon());			
+			int mcMatch_subLeadMuon =  -1;
+			if( ! iEvent.isRealData() ) mcMatch_subLeadMuon = muonMatchingToGen(multiLeptonMultiJet->subLeadingMuon(), genParticles); 
+
+			// muon ID and isolation: https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonIdRun2
+			float muPFCombRelIso_subLeadMuon = ( multiLeptonMultiJet->subLeadingMuon()->pfIsolationR04().sumChargedHadronPt + max( 0.,multiLeptonMultiJet->subLeadingMuon()->pfIsolationR04().sumNeutralHadronEt + multiLeptonMultiJet->subLeadingMuon()->pfIsolationR04().sumPhotonEt - 0.5 * multiLeptonMultiJet->subLeadingMuon()->pfIsolationR04().sumPUPt ) ) / ( multiLeptonMultiJet->subLeadingMuon()->pt() );
+
+			float dz = -999;
+			float dxy = -999;
+			if ( !(!multiLeptonMultiJet->subLeadingMuon()->innerTrack()) ) {
+				dz = multiLeptonMultiJet->subLeadingMuon()->innerTrack()->dz( subLeadingMuonVtx->position() );
+				dxy = multiLeptonMultiJet->subLeadingMuon()->innerTrack()->dxy( subLeadingMuonVtx->position() ); 			
+			}
+
+			subLeadingMuonIso = muPFCombRelIso_subLeadMuon;
 			subLeadingMuonIsHighPt = multiLeptonMultiJet->subLeadingMuon()->isHighPtMuon( *subLeadingMuonVtx );
+			subLeadingMuonIsTight = multiLeptonMultiJet->subLeadingMuon()->isTightMuon( *subLeadingMuonVtx );
+			subLeadingMuonIsMedium = multiLeptonMultiJet->subLeadingMuon()->isMediumMuon();
+			subLeadingMuonIsLoose = multiLeptonMultiJet->subLeadingMuon()->isLooseMuon();
+			subLeadingMuonIsMatchedToGen = mcMatch_subLeadMuon;
+			subLeadingMuonDz = dz;
+			subLeadingMuonDxy = dxy;
 		}
-
-
-
-		evInfo.isEEJJ.push_back(multiLeptonMultiJet->isEEJJ());  
-		evInfo.isEETT.push_back(multiLeptonMultiJet->isEETT());
-		evInfo.isMMJJ.push_back(multiLeptonMultiJet->isMMJJ());
-		evInfo.isMMTT.push_back(multiLeptonMultiJet->isMMTT());
-		evInfo.isEMJJ.push_back(multiLeptonMultiJet->isEMJJ());  
-		// cout << "arriva a linea " << __LINE__ << endl;
 
 		float diLeptonInvMass = (multiLeptonMultiJet->leadingLepton()->p4() + multiLeptonMultiJet->subLeadingLepton()->p4()).mass();
 		float diLeptonPt = (multiLeptonMultiJet->leadingLepton()->p4() + multiLeptonMultiJet->subLeadingLepton()->p4()).pt();
@@ -732,6 +797,18 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 		float diJetInvMass = (multiLeptonMultiJet->leadingJet()->p4() + multiLeptonMultiJet->subLeadingJet()->p4()).mass();
 		float diJetLeadingLeptonInvMass = (multiLeptonMultiJet->leadingJet()->p4() + multiLeptonMultiJet->subLeadingJet()->p4() + multiLeptonMultiJet->leadingLepton()->p4()).mass();
 		float diJetSubLeadingLeptonInvMass = (multiLeptonMultiJet->leadingJet()->p4() + multiLeptonMultiJet->subLeadingJet()->p4() + multiLeptonMultiJet->subLeadingLepton()->p4()).mass();
+
+		int leadingJetIsMatchedToGen =  -1;
+		if( ! iEvent.isRealData() ) leadingJetIsMatchedToGen = jetMatchingToGen(multiLeptonMultiJet->leadingJet(), genJets); 
+		int subLeadingJetIsMatchedToGen =  -1;
+		if( ! iEvent.isRealData() ) subLeadingJetIsMatchedToGen = jetMatchingToGen(multiLeptonMultiJet->subLeadingJet(), genJets); 
+
+
+		evInfo.isEEJJ.push_back(multiLeptonMultiJet->isEEJJ());  
+		evInfo.isEETT.push_back(multiLeptonMultiJet->isEETT());
+		evInfo.isMMJJ.push_back(multiLeptonMultiJet->isMMJJ());
+		evInfo.isMMTT.push_back(multiLeptonMultiJet->isMMTT());
+		evInfo.isEMJJ.push_back(multiLeptonMultiJet->isEMJJ());  
 
 		evInfo.isSignalRegion.push_back( isSignalRegion(multiLeptonMultiJet, diLeptonInvMass) );
 		evInfo.isLowMllCR.push_back( isLowMllCR(multiLeptonMultiJet, diLeptonInvMass) );
@@ -759,18 +836,19 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 		evInfo.leadingJet_pt.push_back(multiLeptonMultiJet->leadingJet()->pt());
 		evInfo.leadingJet_eta.push_back(multiLeptonMultiJet->leadingJet()->eta());
 		evInfo.leadingJet_phi.push_back(multiLeptonMultiJet->leadingJet()->phi());
+		evInfo.leadingJet_isMatchedToGen.push_back(leadingJetIsMatchedToGen);
 
 		evInfo.subLeadingJet_e.push_back(multiLeptonMultiJet->subLeadingJet()->energy());
 		evInfo.subLeadingJet_pt.push_back(multiLeptonMultiJet->subLeadingJet()->pt());
 		evInfo.subLeadingJet_eta.push_back(multiLeptonMultiJet->subLeadingJet()->eta());
 		evInfo.subLeadingJet_phi.push_back(multiLeptonMultiJet->subLeadingJet()->phi());
+		evInfo.subLeadingJet_isMatchedToGen.push_back(subLeadingJetIsMatchedToGen);
 
 		evInfo.dRLeadLeptonLeadJet.push_back(deltaR(multiLeptonMultiJet->leadingLepton()->eta(), multiLeptonMultiJet->leadingLepton()->phi(), multiLeptonMultiJet->leadingJet()->eta(), multiLeptonMultiJet->leadingJet()->phi()));
 		evInfo.dRLeadLeptonSubLeadJet.push_back(deltaR(multiLeptonMultiJet->leadingLepton()->eta(), multiLeptonMultiJet->leadingLepton()->phi(), multiLeptonMultiJet->subLeadingJet()->eta(), multiLeptonMultiJet->subLeadingJet()->phi()));
 		evInfo.dRSubLeadLeptonLeadJet.push_back(deltaR(multiLeptonMultiJet->subLeadingLepton()->eta(), multiLeptonMultiJet->subLeadingLepton()->phi(), multiLeptonMultiJet->leadingJet()->eta(), multiLeptonMultiJet->leadingJet()->phi()));
 		evInfo.dRSubLeadLeptonSubLeadJet.push_back(deltaR(multiLeptonMultiJet->subLeadingLepton()->eta(), multiLeptonMultiJet->subLeadingLepton()->phi(), multiLeptonMultiJet->subLeadingJet()->eta(), multiLeptonMultiJet->subLeadingJet()->phi()));
 
-		// evInfo.multiLeptonMultiJet_vtxIndex.push_back(multiLeptonMultiJet->vertexIndex()); 
 		evInfo.multiLeptonMultiJet_sumPt.push_back(multiLeptonMultiJet->sumPt());
 		evInfo.multiLeptonMultiJet_invMass.push_back(multiLeptonMultiJet->mass());
 		evInfo.diLepton_invMass.push_back(diLeptonInvMass);
@@ -779,8 +857,17 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 		evInfo.diJetLeadingLepton_invMass.push_back(diJetLeadingLeptonInvMass);
 		evInfo.diJetSubLeadingLepton_invMass.push_back(diJetSubLeadingLeptonInvMass);
 
-		evInfo.leadingEle_passHEEPId.push_back(leadElePassHEEPId);
+		evInfo.leadingEle_passHEEPId.push_back(leadingElePassHEEPId);
 		evInfo.leadingEle_HEEPBitMapValues.push_back(leadingEleHeepBitMap);
+		evInfo.leadingEle_passTightId.push_back(leadingElePassTightId);
+		evInfo.leadingEle_passMediumId.push_back(leadingElePassMediumId);
+		evInfo.leadingEle_passLooseId.push_back(leadingElePassLooseId);
+		evInfo.leadingEle_passVetoId.push_back(leadingElePassVetoId);
+		evInfo.leadingEle_passMVATightId.push_back(leadingElePassMVATightId);
+		evInfo.leadingEle_passMVAMediumId.push_back(leadingElePassMVAMediumId);
+		evInfo.leadingEle_idmva.push_back(leadingEleIdmva);
+		evInfo.leadingEle_iso.push_back(leadingEleIso);
+		evInfo.leadingEle_isMatchedToGen.push_back(leadingEleIsMatchedToGen);
 		evInfo.leadingEle_etaSC.push_back(leadingEleEtaSC);
 		evInfo.leadingEle_isEcalDriven.push_back(leadingEleIsEcalDriven);
 		evInfo.leadingEle_dEtaIn.push_back(leadingEleDEtaIn);
@@ -791,18 +878,26 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 		evInfo.leadingEle_full5x5_E5x5.push_back(leadingEleE5x5);
 		evInfo.leadingEle_full5x5_E1x5.push_back(leadingEleE1x5);
 		evInfo.leadingEle_full5x5_E2x5.push_back(leadingEleE2x5);
-		evInfo.leadingEle_full5x5_E2x5_Over_E5x5.push_back(leadingEleE2x5_E5x5);
-		evInfo.leadingEle_full5x5_E1x5_Over_E5x5.push_back(leadingEleE1x5_E5x5);
 		evInfo.leadingEle_EmHadDepth1Iso.push_back(leadingEleEmHadDepth1Iso);
 		evInfo.leadingEle_ptTracksIso.push_back(leadingElePtTracksIso);
 		evInfo.leadingEle_innerLayerLostHits.push_back(leadingEleMissingHits);
 		evInfo.leadingEle_dxy.push_back(leadingEleDxy);
+		evInfo.leadingEle_dz.push_back(leadingEleDz);
 		evInfo.leadingEle_eOverP.push_back(leadingEleEoverP);
-		evInfo.leadingEle_id.push_back(leadingEleId);
-		evInfo.leadingEle_passCutBasedEleId.push_back(leadingElePassCutBasedId);
+		evInfo.leadingEle_ecalEnergy.push_back(leadingEleEcalEnergy);
+		evInfo.leadingEle_hcalOverEcal.push_back(leadingEleHcalOverEcal);
 
-		evInfo.subLeadingEle_passHEEPId.push_back(subLeadElePassHEEPId);
-		evInfo.leadingEle_HEEPBitMapValues.push_back(subLeadingEleHeepBitMap);		
+		evInfo.subLeadingEle_passHEEPId.push_back(subLeadingElePassHEEPId);
+		evInfo.subLeadingEle_HEEPBitMapValues.push_back(subLeadingEleHeepBitMap);		
+		evInfo.subLeadingEle_passTightId.push_back(subLeadingElePassTightId);
+		evInfo.subLeadingEle_passMediumId.push_back(subLeadingElePassMediumId);
+		evInfo.subLeadingEle_passLooseId.push_back(subLeadingElePassLooseId);
+		evInfo.subLeadingEle_passVetoId.push_back(subLeadingElePassVetoId);
+		evInfo.subLeadingEle_passMVATightId.push_back(subLeadingElePassMVATightId);
+		evInfo.subLeadingEle_passMVAMediumId.push_back(subLeadingElePassMVAMediumId);
+		evInfo.subLeadingEle_idmva.push_back(subLeadingEleIdmva);
+		evInfo.subLeadingEle_iso.push_back(subLeadingEleIso);
+		evInfo.subLeadingEle_isMatchedToGen.push_back(subLeadingEleIsMatchedToGen);
 		evInfo.subLeadingEle_etaSC.push_back(subLeadingEleEtaSC);		
 		evInfo.subLeadingEle_isEcalDriven.push_back(subLeadingEleIsEcalDriven);
 		evInfo.subLeadingEle_dEtaIn.push_back(subLeadingEleDEtaIn);
@@ -813,18 +908,32 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 		evInfo.subLeadingEle_full5x5_E5x5.push_back(subLeadingEleE5x5);
 		evInfo.subLeadingEle_full5x5_E1x5.push_back(subLeadingEleE1x5);
 		evInfo.subLeadingEle_full5x5_E2x5.push_back(subLeadingEleE2x5);
-		evInfo.subLeadingEle_full5x5_E2x5_Over_E5x5.push_back(subLeadingEleE2x5_E5x5);
-		evInfo.subLeadingEle_full5x5_E1x5_Over_E5x5.push_back(subLeadingEleE1x5_E5x5);
 		evInfo.subLeadingEle_EmHadDepth1Iso.push_back(subLeadingEleEmHadDepth1Iso);
 		evInfo.subLeadingEle_ptTracksIso.push_back(subLeadingElePtTracksIso);
 		evInfo.subLeadingEle_innerLayerLostHits.push_back(subLeadingEleMissingHits);
 		evInfo.subLeadingEle_dxy.push_back(subLeadingEleDxy);
+		evInfo.subLeadingEle_dz.push_back(subLeadingEleDz);
 		evInfo.subLeadingEle_eOverP.push_back(subLeadingEleEoverP);
-		evInfo.subLeadingEle_id.push_back(subLeadingEleId);
-		evInfo.subLeadingEle_passCutBasedEleId.push_back(subLeadingElePassCutBasedId);
+		evInfo.subLeadingEle_ecalEnergy.push_back(subLeadingEleEcalEnergy);
+		evInfo.subLeadingEle_hcalOverEcal.push_back(subLeadingEleHcalOverEcal);
 
+		evInfo.leadingMuon_iso.push_back(leadingMuonIso);
 		evInfo.leadingMuon_isHighPt.push_back(leadingMuonIsHighPt);
+		evInfo.leadingMuon_isTight.push_back(leadingMuonIsTight);
+		evInfo.leadingMuon_isMedium.push_back(leadingMuonIsMedium);
+		evInfo.leadingMuon_isLoose.push_back(leadingMuonIsLoose);
+		evInfo.leadingMuon_isMatchedToGen.push_back(leadingMuonIsMatchedToGen);
+		evInfo.leadingMuon_dz.push_back(leadingMuonDz);
+		evInfo.leadingMuon_dxy.push_back(leadingMuonDxy);
+
+		evInfo.subLeadingMuon_iso.push_back(subLeadingMuonIso);
 		evInfo.subLeadingMuon_isHighPt.push_back(subLeadingMuonIsHighPt);
+		evInfo.subLeadingMuon_isTight.push_back(subLeadingMuonIsTight);
+		evInfo.subLeadingMuon_isMedium.push_back(subLeadingMuonIsMedium);
+		evInfo.subLeadingMuon_isLoose.push_back(subLeadingMuonIsLoose);
+		evInfo.subLeadingMuon_isMatchedToGen.push_back(subLeadingMuonIsMatchedToGen);
+		evInfo.subLeadingMuon_dz.push_back(subLeadingMuonDz);
+		evInfo.subLeadingMuon_dxy.push_back(subLeadingMuonDxy);
 
 		// cout << "arriva a linea " << __LINE__ << endl;
 
@@ -884,14 +993,18 @@ void miniTreeMaker_multiLeptonMultiJet::initEventStructure() {
 	evInfo.ele_pt .clear();
 	evInfo.ele_eta .clear();
 	evInfo.ele_phi .clear();
+	evInfo.ele_passHEEPId .clear();
+	evInfo.ele_HEEPBitMapValues .clear();
+	evInfo.ele_passTightId .clear();
+	evInfo.ele_passMediumId .clear();
+	evInfo.ele_passLooseId .clear();
+	evInfo.ele_passVetoId .clear();
+	evInfo.ele_passMVATightId .clear();
+	evInfo.ele_passMVAMediumId .clear();
 	evInfo.ele_idmva .clear();
-	evInfo.ele_id . clear();
 	evInfo.ele_iso .clear();
 	evInfo.ele_dz .clear();
 	evInfo.ele_d0 .clear();
-	evInfo.ele_passHEEPId .clear();
-	evInfo.ele_HEEPBitMapValues .clear();
-	evInfo.ele_passCutBasedEleId .clear();
 	evInfo.ele_isMatchedToGen .clear();
 	evInfo.ele_charge .clear();
 	evInfo.ele_etaSC .clear();
@@ -904,13 +1017,13 @@ void miniTreeMaker_multiLeptonMultiJet::initEventStructure() {
 	evInfo.ele_full5x5_E5x5 .clear();
 	evInfo.ele_full5x5_E1x5 .clear();
 	evInfo.ele_full5x5_E2x5 .clear();
-	evInfo.ele_full5x5_E2x5_Over_E5x5 .clear();
-	evInfo.ele_full5x5_E1x5_Over_E5x5 .clear();
 	evInfo.ele_EmHadDepth1Iso .clear();
 	evInfo.ele_ptTracksIso .clear();
 	evInfo.ele_innerLayerLostHits .clear();
 	evInfo.ele_dxy .clear();
 	evInfo.ele_eOverP .clear();
+	evInfo.ele_ecalEnergy .clear();
+	evInfo.ele_hcalOverEcal .clear();
 
 	evInfo.mu_e .clear();
 	evInfo.mu_pt .clear();
@@ -968,18 +1081,19 @@ void miniTreeMaker_multiLeptonMultiJet::initEventStructure() {
 	evInfo.leadingJet_pt .clear();
 	evInfo.leadingJet_eta .clear(); 
 	evInfo.leadingJet_phi .clear();
+	evInfo.leadingJet_isMatchedToGen .clear();
 
 	evInfo.subLeadingJet_e .clear();
 	evInfo.subLeadingJet_pt .clear();
 	evInfo.subLeadingJet_eta .clear();
 	evInfo.subLeadingJet_phi .clear();  
+	evInfo.subLeadingJet_isMatchedToGen .clear();
 
 	evInfo.dRLeadLeptonLeadJet .clear();
 	evInfo.dRLeadLeptonSubLeadJet .clear();
 	evInfo.dRSubLeadLeptonLeadJet .clear();
 	evInfo.dRSubLeadLeptonSubLeadJet .clear();
 
-	evInfo.multiLeptonMultiJet_vtxIndex .clear();
 	evInfo.multiLeptonMultiJet_sumPt .clear();
 	evInfo.multiLeptonMultiJet_invMass .clear();
 	evInfo.diLepton_invMass .clear();
@@ -990,6 +1104,15 @@ void miniTreeMaker_multiLeptonMultiJet::initEventStructure() {
 
 	evInfo.leadingEle_passHEEPId .clear();
 	evInfo.leadingEle_HEEPBitMapValues .clear();
+	evInfo.leadingEle_passTightId .clear();
+	evInfo.leadingEle_passMediumId .clear();
+	evInfo.leadingEle_passLooseId .clear();
+	evInfo.leadingEle_passVetoId .clear();
+	evInfo.leadingEle_passMVATightId .clear();
+	evInfo.leadingEle_passMVAMediumId .clear();
+	evInfo.leadingEle_idmva .clear();
+	evInfo.leadingEle_iso .clear();
+	evInfo.leadingEle_isMatchedToGen .clear();
 	evInfo.leadingEle_etaSC .clear();
 	evInfo.leadingEle_isEcalDriven .clear();
 	evInfo.leadingEle_dEtaIn .clear();  
@@ -1000,18 +1123,26 @@ void miniTreeMaker_multiLeptonMultiJet::initEventStructure() {
 	evInfo.leadingEle_full5x5_E5x5 .clear();
 	evInfo.leadingEle_full5x5_E1x5 .clear();
 	evInfo.leadingEle_full5x5_E2x5 .clear();
-	evInfo.leadingEle_full5x5_E2x5_Over_E5x5 .clear();
-	evInfo.leadingEle_full5x5_E1x5_Over_E5x5 .clear();
 	evInfo.leadingEle_EmHadDepth1Iso .clear();
 	evInfo.leadingEle_ptTracksIso .clear();
 	evInfo.leadingEle_innerLayerLostHits .clear();
 	evInfo.leadingEle_dxy .clear();
+	evInfo.leadingEle_dz .clear();
 	evInfo.leadingEle_eOverP .clear();
-	evInfo.leadingEle_id .clear();
-	evInfo.leadingEle_passCutBasedEleId .clear();
+	evInfo.leadingEle_ecalEnergy .clear();
+	evInfo.leadingEle_hcalOverEcal .clear();
 
 	evInfo.subLeadingEle_passHEEPId .clear();
 	evInfo.subLeadingEle_HEEPBitMapValues .clear();
+	evInfo.subLeadingEle_passTightId .clear();
+	evInfo.subLeadingEle_passMediumId .clear();
+	evInfo.subLeadingEle_passLooseId .clear();
+	evInfo.subLeadingEle_passVetoId .clear();
+	evInfo.subLeadingEle_passMVATightId .clear();
+	evInfo.subLeadingEle_passMVAMediumId .clear();
+	evInfo.subLeadingEle_idmva . clear();
+	evInfo.subLeadingEle_iso .clear();
+	evInfo.subLeadingEle_isMatchedToGen .clear();
 	evInfo.subLeadingEle_etaSC .clear();
 	evInfo.subLeadingEle_isEcalDriven .clear();
 	evInfo.subLeadingEle_dEtaIn .clear();  
@@ -1022,18 +1153,32 @@ void miniTreeMaker_multiLeptonMultiJet::initEventStructure() {
 	evInfo.subLeadingEle_full5x5_E5x5 .clear();
 	evInfo.subLeadingEle_full5x5_E1x5 .clear();
 	evInfo.subLeadingEle_full5x5_E2x5 .clear();
-	evInfo.subLeadingEle_full5x5_E2x5_Over_E5x5 .clear();
-	evInfo.subLeadingEle_full5x5_E1x5_Over_E5x5 .clear();
 	evInfo.subLeadingEle_EmHadDepth1Iso .clear();
 	evInfo.subLeadingEle_ptTracksIso .clear();
 	evInfo.subLeadingEle_innerLayerLostHits .clear();
 	evInfo.subLeadingEle_dxy .clear();
+	evInfo.subLeadingEle_dz .clear();
 	evInfo.subLeadingEle_eOverP .clear();
-	evInfo.subLeadingEle_id .clear();
-	evInfo.subLeadingEle_passCutBasedEleId .clear();
+	evInfo.subLeadingEle_ecalEnergy .clear();	
+	evInfo.subLeadingEle_hcalOverEcal .clear();
 
+	evInfo.leadingMuon_iso .clear();
 	evInfo.leadingMuon_isHighPt .clear();
+	evInfo.leadingMuon_isTight .clear();
+	evInfo.leadingMuon_isMedium .clear();
+	evInfo.leadingMuon_isLoose .clear();
+	evInfo.leadingMuon_isMatchedToGen .clear();
+	evInfo.leadingMuon_dz .clear();
+	evInfo.leadingMuon_dxy .clear();
+
+	evInfo.subLeadingMuon_iso .clear();
 	evInfo.subLeadingMuon_isHighPt .clear();
+	evInfo.subLeadingMuon_isTight .clear();
+	evInfo.subLeadingMuon_isMedium .clear();
+	evInfo.subLeadingMuon_isLoose .clear();
+	evInfo.subLeadingMuon_isMatchedToGen .clear();
+	evInfo.subLeadingMuon_dz .clear();
+	evInfo.subLeadingMuon_dxy .clear();
 
 }
 // ******************************************************************************************

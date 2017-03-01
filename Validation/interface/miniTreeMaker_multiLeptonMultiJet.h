@@ -61,14 +61,18 @@ struct eventInfo {
 	vector<float> ele_pt;
 	vector<float> ele_eta;
 	vector<float> ele_phi;
+	vector<bool> ele_passHEEPId; 
+	vector<unsigned> ele_HEEPBitMapValues;
+	vector<bool> ele_passTightId;
+	vector<bool> ele_passMediumId;
+	vector<bool> ele_passLooseId;
+	vector<bool> ele_passVetoId;
+	vector<bool> ele_passMVATightId;
+	vector<bool> ele_passMVAMediumId;
 	vector<float> ele_idmva;
-	vector<unsigned> ele_id;
 	vector<float> ele_iso;
 	vector<float> ele_dz;
 	vector<float> ele_d0;
-	vector<bool> ele_passHEEPId; 
-	vector<unsigned> ele_HEEPBitMapValues;
-	vector<bool> ele_passCutBasedEleId;
 	vector<int> ele_isMatchedToGen;
 	vector<int> ele_charge;
 	vector<float> ele_etaSC;
@@ -81,13 +85,13 @@ struct eventInfo {
 	vector<float> ele_full5x5_E5x5;
 	vector<float> ele_full5x5_E1x5;
 	vector<float> ele_full5x5_E2x5;  
-	vector<float> ele_full5x5_E2x5_Over_E5x5;
-	vector<float> ele_full5x5_E1x5_Over_E5x5;
 	vector<float> ele_EmHadDepth1Iso;
 	vector<float> ele_ptTracksIso;
 	vector<int> ele_innerLayerLostHits;
 	vector<float> ele_dxy;
 	vector<float> ele_eOverP;
+	vector<float> ele_ecalEnergy;
+	vector<float> ele_hcalOverEcal;
 
 	vector<float> mu_e;
 	vector<float> mu_pt;
@@ -146,18 +150,19 @@ struct eventInfo {
 	vector<float> leadingJet_pt;
 	vector<float> leadingJet_eta;  
 	vector<float> leadingJet_phi;  
+	vector<int>   leadingJet_isMatchedToGen;
 
 	vector<float> subLeadingJet_e;
 	vector<float> subLeadingJet_pt;
 	vector<float> subLeadingJet_eta;  
 	vector<float> subLeadingJet_phi;  
+	vector<int>   subLeadingJet_isMatchedToGen;
 
 	vector<float> dRLeadLeptonLeadJet;
 	vector<float> dRLeadLeptonSubLeadJet;
 	vector<float> dRSubLeadLeptonLeadJet;
 	vector<float> dRSubLeadLeptonSubLeadJet;
 
-	vector<int> multiLeptonMultiJet_vtxIndex;
 	vector<float> multiLeptonMultiJet_sumPt;
 	vector<float> multiLeptonMultiJet_invMass;
 	vector<float> diLepton_invMass;
@@ -168,6 +173,15 @@ struct eventInfo {
 
 	vector<bool> leadingEle_passHEEPId;
 	vector<unsigned> leadingEle_HEEPBitMapValues;
+	vector<bool> leadingEle_passTightId;
+	vector<bool> leadingEle_passMediumId;
+	vector<bool> leadingEle_passLooseId;
+	vector<bool> leadingEle_passVetoId;
+	vector<bool> leadingEle_passMVATightId;
+	vector<bool> leadingEle_passMVAMediumId;
+	vector<float> leadingEle_idmva;
+	vector<float> leadingEle_iso;
+	vector<int> leadingEle_isMatchedToGen;
 	vector<float> leadingEle_etaSC;
 	vector<bool> leadingEle_isEcalDriven;
 	vector<float> leadingEle_dEtaIn;  
@@ -178,18 +192,26 @@ struct eventInfo {
 	vector<float> leadingEle_full5x5_E5x5;
 	vector<float> leadingEle_full5x5_E1x5;
 	vector<float> leadingEle_full5x5_E2x5;
-	vector<float> leadingEle_full5x5_E2x5_Over_E5x5;
-	vector<float> leadingEle_full5x5_E1x5_Over_E5x5;
 	vector<float> leadingEle_EmHadDepth1Iso;
 	vector<float> leadingEle_ptTracksIso;
 	vector<int> leadingEle_innerLayerLostHits;
 	vector<float> leadingEle_dxy;
+	vector<float> leadingEle_dz;
 	vector<float> leadingEle_eOverP;
-	vector<unsigned> leadingEle_id;
-	vector<bool> leadingEle_passCutBasedEleId;
+	vector<float> leadingEle_ecalEnergy;
+	vector<float> leadingEle_hcalOverEcal;
 
 	vector<bool> subLeadingEle_passHEEPId;	
 	vector<unsigned> subLeadingEle_HEEPBitMapValues;	
+	vector<bool> subLeadingEle_passTightId;
+	vector<bool> subLeadingEle_passMediumId;
+	vector<bool> subLeadingEle_passLooseId;
+	vector<bool> subLeadingEle_passVetoId;
+	vector<bool> subLeadingEle_passMVATightId;
+	vector<bool> subLeadingEle_passMVAMediumId;
+	vector<float> subLeadingEle_idmva;
+	vector<float> subLeadingEle_iso;
+	vector<int> subLeadingEle_isMatchedToGen;
 	vector<float> subLeadingEle_etaSC;			
 	vector<bool> subLeadingEle_isEcalDriven;
 	vector<float> subLeadingEle_dEtaIn;  
@@ -200,25 +222,55 @@ struct eventInfo {
 	vector<float> subLeadingEle_full5x5_E5x5;
 	vector<float> subLeadingEle_full5x5_E1x5;
 	vector<float> subLeadingEle_full5x5_E2x5;
-	vector<float> subLeadingEle_full5x5_E2x5_Over_E5x5;
-	vector<float> subLeadingEle_full5x5_E1x5_Over_E5x5;
 	vector<float> subLeadingEle_EmHadDepth1Iso;	
 	vector<float> subLeadingEle_ptTracksIso;	
 	vector<int> subLeadingEle_innerLayerLostHits;
 	vector<float> subLeadingEle_dxy;	
+	vector<float> subLeadingEle_dz;
 	vector<float> subLeadingEle_eOverP;
-	vector<unsigned> subLeadingEle_id;
-	vector<bool> subLeadingEle_passCutBasedEleId;
+	vector<float> subLeadingEle_ecalEnergy;
+	vector<float> subLeadingEle_hcalOverEcal;
 
+	vector<float> leadingMuon_iso;
 	vector<bool> leadingMuon_isHighPt;
+	vector<bool> leadingMuon_isTight;
+	vector<bool> leadingMuon_isMedium;
+	vector<bool> leadingMuon_isLoose;
+	vector<int> leadingMuon_isMatchedToGen;
+	vector<float> leadingMuon_dz;
+	vector<float> leadingMuon_dxy;
+
+	vector<float> subLeadingMuon_iso;
 	vector<bool> subLeadingMuon_isHighPt;
+	vector<bool> subLeadingMuon_isTight;
+	vector<bool> subLeadingMuon_isMedium;
+	vector<bool> subLeadingMuon_isLoose;
+	vector<int> subLeadingMuon_isMatchedToGen;
+	vector<float> subLeadingMuon_dz;
+	vector<float> subLeadingMuon_dxy;
 
 };
 
 
 
-// // ************************** 
+// ************************** 
 int electronMatchingToGen(Ptr<flashgg::Electron> electron,  Handle<View<reco::GenParticle> > genParticles){
+	int mcmatch = 0;
+	for( unsigned int i = 0 ; i < genParticles->size(); i++ ) {
+		Ptr<reco::GenParticle> gen = genParticles->ptrAt(i);
+		if ( fabs(gen->pdgId()) != 11 ) continue;
+		if ( !(gen->isPromptFinalState())) continue;
+		float dR = deltaR( electron->eta(), electron->phi(), gen->eta(), gen->phi() );
+		if (dR < 0.1){ //??? 0.1 ok???
+			mcmatch = 1;
+		}
+	}
+	return (mcmatch);
+}
+// ******************************************************************************************
+
+// ************************** 
+int electronMatchingToGen(const flashgg::Electron* electron,  Handle<View<reco::GenParticle> > genParticles){
 	int mcmatch = 0;
 	for( unsigned int i = 0 ; i < genParticles->size(); i++ ) {
 		Ptr<reco::GenParticle> gen = genParticles->ptrAt(i);
@@ -254,6 +306,26 @@ int muonMatchingToGen(Ptr<flashgg::Muon> muon, Handle<View<reco::GenParticle> > 
 }
 // ******************************************************************************************
 
+// *********************** 
+int muonMatchingToGen(const flashgg::Muon* muon, Handle<View<reco::GenParticle> > genParticles){
+	int mcmatch = 0;
+	for( unsigned int i = 0 ; i < genParticles->size(); i++ ) {
+		Ptr<reco::GenParticle> gen = genParticles->ptrAt(i);
+			if ( fabs(gen->pdgId()) != 13 ) continue;
+			if ( !(gen)->isPromptFinalState()) continue;
+			float dR = deltaR( muon->eta(), muon->phi(), gen->eta(), gen->phi() );
+			//cout << " *** Found muon:  ***"<<endl;
+			//cout << " pdgId = "<< gen->pdgId()<< " prompt final state = "<< gen->isPromptFinalState() << "  status = " << gen->status() << "   isPrompt = " << gen->statusFlags().isPrompt() <<endl;
+			//cout << "dR = " << dR <<endl;
+			if (dR < 0.1){ //??? 0.1 ok???
+				mcmatch = 1;
+			}
+	}
+	return (mcmatch);
+}
+// ******************************************************************************************
+
+
 
 
 // // ************************** 
@@ -262,6 +334,19 @@ int jetMatchingToGen(flashgg::Jet jet,  Handle<View<reco::GenJet> > genJets){
 	for( unsigned int i = 0 ; i < genJets->size(); i++ ) {
 		Ptr<reco::GenJet> genJet = genJets->ptrAt(i);
 		float dR = deltaR( jet.eta(), jet.phi(), genJet->eta(), genJet->phi() );
+		if (dR > 0.4) continue;
+		mcmatch = 1;
+	}
+	return (mcmatch);
+}
+// ******************************************************************************************
+
+// // ************************** 
+int jetMatchingToGen(const flashgg::Jet* jet,  Handle<View<reco::GenJet> > genJets){
+	int mcmatch = 0;
+	for( unsigned int i = 0 ; i < genJets->size(); i++ ) {
+		Ptr<reco::GenJet> genJet = genJets->ptrAt(i);
+		float dR = deltaR( jet->eta(), jet->phi(), genJet->eta(), genJet->phi() );
 		if (dR > 0.4) continue;
 		mcmatch = 1;
 	}
@@ -285,7 +370,6 @@ Ptr<reco::Vertex> chooseBestVtx(const vector<Ptr<reco::Vertex> > &vertices, Ptr<
 	return vertices[min_dz_vtx];
 }
 // **************** 
-
 
 // **************** 
 Ptr<reco::Vertex> chooseBestVtx(const vector<Ptr<reco::Vertex> > &vertices, const flashgg::Electron* electron){
@@ -320,7 +404,6 @@ Ptr<reco::Vertex> chooseBestMuonVtx(const vector<Ptr<reco::Vertex> > &vertices, 
 }
 // **************** 
 
-
 // **************** 
 Ptr<reco::Vertex> chooseBestMuonVtx(const vector<Ptr<reco::Vertex> > &vertices, const flashgg::Muon* muon){
 	int vtxInd = 0;
@@ -339,204 +422,10 @@ Ptr<reco::Vertex> chooseBestMuonVtx(const vector<Ptr<reco::Vertex> > &vertices, 
 
 
 
-// **************** 
-bool passHEEPIdCuts(Ptr<flashgg::Electron> electron, const vector<Ptr<reco::Vertex> > &pvPointers, double rho){
-
-	bool pass = false;
-
-	bool isEB = (fabs(electron->superCluster()->eta())<1.4442);
-	bool isEE = (fabs(electron->superCluster()->eta())>1.566 && fabs(electron->superCluster()->eta())<2.5);
-
-	float et = electron->et();
-	bool isEcalDriven = electron->ecalDrivenSeed();
-	float dEtaInSeed = electron->deltaEtaSuperClusterTrackAtVtx();  
-	float dPhiIn = electron->deltaPhiSuperClusterTrackAtVtx();  
-	float hOverE = electron->hadronicOverEm(); 
-	float full5x5_sigmaIetaIeta = electron->full5x5_sigmaIetaIeta();  
-	float full5x5_E5x5 = electron->full5x5_e5x5(); 
-	float full5x5_E1x5 = electron->full5x5_e1x5();
-	float full5x5_E2x5 = electron->full5x5_e2x5Max(); 
-	float full5x5_E2x5_Over_E5x5 = full5x5_E2x5 / full5x5_E5x5;
-	float full5x5_E1x5_Over_E5x5 = full5x5_E1x5 / full5x5_E5x5;
-
-	float EmHadDepth1Iso = electron->dr03EcalRecHitSumEt()+electron->dr03HcalDepth1TowerSumEt();
-	float EmHadDepth1Iso_EB = 0.28*rho + 2 + 0.03*et;
-	float EmHadDepth1Iso_EE = 0.28*rho + 2.5; 
-	if (et > 50) EmHadDepth1Iso_EE = 0.28*rho + 2.5 + 0.03*(et-50);
-
-	float ptTracksIso = 1.;//electron->dr03TkSumPt();  //TO MODIFY
-	int innerLayerLostHits = electron->gsfTrack()->hitPattern().numberOfHits( reco::HitPattern::MISSING_INNER_HITS);
-				
-	Ptr<reco::Vertex> best_vtx = chooseBestVtx(pvPointers, electron);
-	float dXY = fabs( electron->gsfTrack()->dxy( best_vtx->position()) ) ;  
-	
-
-	if (isEB) {
-		if (et > 35 
-			&& isEcalDriven 
-			&& fabs(dEtaInSeed) < 0.004 
-			&& fabs(dPhiIn) < 0.06
-			&& hOverE < (1.0/electron->superCluster()->energy() + 0.05) 
-			&& (full5x5_E2x5_Over_E5x5 > 0.94 || full5x5_E1x5_Over_E5x5 > 0.83) 
-			&& EmHadDepth1Iso < EmHadDepth1Iso_EB 
-			&& ptTracksIso < 5 
-			&& innerLayerLostHits <=1 
-			&& fabs(dXY) < 0.02 
-		) pass =  true;
-	}
-
-	if (isEE) {
-		if (et > 35 
-			&& isEcalDriven 
-			&& fabs(dEtaInSeed) < 0.006 
-			&& fabs(dPhiIn) < 0.06
-			&& hOverE < (5.0/electron->superCluster()->energy() + 0.05) 
-			&& full5x5_sigmaIetaIeta < 0.03 
-			&& EmHadDepth1Iso < EmHadDepth1Iso_EE 
-			&& ptTracksIso < 5 
-			&& innerLayerLostHits <=1 
-			&& fabs(dXY) < 0.05
-		) pass = true; 
-	}
-
-	return pass;
-
-}
-// ******************************************************************************************
-
-
-// **************** 
-bool passHEEPIdCuts(const flashgg::Electron* electron, const vector<Ptr<reco::Vertex> > &pvPointers, double rho){
-
-	bool pass = false;
-
-	bool isEB = (fabs(electron->superCluster()->eta())<1.4442);
-	bool isEE = (fabs(electron->superCluster()->eta())>1.566 && fabs(electron->superCluster()->eta())<2.5);
-
-	float et = electron->et();
-	bool isEcalDriven = electron->ecalDrivenSeed();
-	float dEtaInSeed = electron->deltaEtaSuperClusterTrackAtVtx();  //con electron->deltaEtaSeedClusterTrackAtVtx(); Product not found
-	float dPhiIn = electron->deltaPhiSuperClusterTrackAtVtx(); 
-	float hOverE = electron-> hadronicOverEm(); 
-	float full5x5_sigmaIetaIeta = electron->full5x5_sigmaIetaIeta();  
-	float full5x5_E5x5 = electron->full5x5_e5x5(); 
-	float full5x5_E1x5 = electron->full5x5_e1x5();
-	float full5x5_E2x5 = electron->full5x5_e2x5Max(); 
-	float full5x5_E2x5_Over_E5x5 = full5x5_E2x5 / full5x5_E5x5;
-	float full5x5_E1x5_Over_E5x5 = full5x5_E1x5 / full5x5_E5x5;
-
-	float EmHadDepth1Iso = electron->dr03EcalRecHitSumEt()+electron->dr03HcalDepth1TowerSumEt();
-	float EmHadDepth1Iso_EB = 0.28*rho + 2 + 0.03*et;
-	float EmHadDepth1Iso_EE = 0.28*rho + 2.5; 
-	if (et > 50) EmHadDepth1Iso_EE = 0.28*rho + 2.5 + 0.03*(et-50);
-
-	float ptTracksIso = 1.;//electron->dr03TkSumPt();  //TO MODIFY
-	int innerLayerLostHits = electron->gsfTrack()->hitPattern().numberOfHits( reco::HitPattern::MISSING_INNER_HITS);
-				
-	Ptr<reco::Vertex> best_vtx = chooseBestVtx(pvPointers, electron);
-	float dXY = fabs( electron->gsfTrack()->dxy( best_vtx->position()) ) ;  
-	
-
-	if (isEB) {
-		if (et > 35 
-			&& isEcalDriven 
-			&& fabs(dEtaInSeed) < 0.004 
-			&& fabs(dPhiIn) < 0.06
-			&& hOverE < (1.0/electron->superCluster()->energy() + 0.05) 
-			&& (full5x5_E2x5_Over_E5x5 > 0.94 || full5x5_E1x5_Over_E5x5 > 0.83) 
-			&& EmHadDepth1Iso < EmHadDepth1Iso_EB 
-			&& ptTracksIso < 5 
-			&& innerLayerLostHits <=1 
-			&& fabs(dXY) < 0.02 
-		) pass =  true;
-	}
-
-	if (isEE) {
-		if (et > 35 
-			&& isEcalDriven 
-			&& fabs(dEtaInSeed) < 0.006 
-			&& fabs(dPhiIn) < 0.06
-			&& hOverE < (5.0/electron->superCluster()->energy() + 0.05) 
-			&& full5x5_sigmaIetaIeta < 0.03 
-			&& EmHadDepth1Iso < EmHadDepth1Iso_EE 
-			&& ptTracksIso < 5 
-			&& innerLayerLostHits <=1 
-			&& fabs(dXY) < 0.05
-		) pass = true; 
-	}
-
-	return pass;
-
-}
-// ******************************************************************************************
-
-
-
-// ***************************** 
-unsigned getEleId(Ptr<flashgg::Electron> electron){
-	unsigned eleId = 0;
-	std::vector<std::pair<std::string,float> > idlist = electron->electronIDs();
-	for (unsigned i  = 0 ; i < idlist.size(); ++i){
-		// cout << idlist[i].first << ": " << idlist[i].second << endl;
-		if(int(idlist[i].second)){  //se valore id diverso da zero
-			if (idlist[i].first == "cutBasedElectronID-Summer16-80X-V1-veto") eleId |= 0;
-			if (idlist[i].first == "cutBasedElectronID-Summer16-80X-V1-loose") eleId |= 1;
-			if (idlist[i].first == "cutBasedElectronID-Summer16-80X-V1-medium") eleId |= 2;
-			if (idlist[i].first == "cutBasedElectronID-Summer16-80X-V1-tight") eleId |= 3;
-			if (idlist[i].first == "cutBasedElectronID-Spring15-25ns-V1-standalone-loose") eleId |= 4;
-			if (idlist[i].first == "cutBasedElectronID-Spring15-25ns-V1-standalone-medium") eleId |= 5;	    		
-			if (idlist[i].first == "cutBasedElectronID-Spring15-25ns-V1-standalone-tight") eleId |= 6;
-			if (idlist[i].first == "cutBasedElectronID-Spring15-25ns-V1-standalone-veto") eleId |= 7;
-			if (idlist[i].first == "mvaEleID-Spring15-25ns-Trig-V1-wp80") eleId |= 8;
-			if (idlist[i].first == "mvaEleID-Spring15-25ns-Trig-V1-wp90") eleId |= 9;
-			if (idlist[i].first == "mvaEleID-Spring15-25ns-nonTrig-V1-wp80") eleId |= 10;
-			if (idlist[i].first == "mvaEleID-Spring15-25ns-nonTrig-V1-wp90") eleId |= 11;
-			if (idlist[i].first == "mvaEleID-Spring15-25ns-nonTrig-V1-wpLoose") eleId |= 12;
-			if (idlist[i].first == "heepElectronID-HEEPV60") eleId |= 13;
-			if (idlist[i].first == "heepElectronID-HEEPV70") eleId |= 14;
-		}	
-	}
-	return eleId;
-}
-// ******************************************************************************************
-
-
-
-// ***************************** 
-unsigned getEleId(const flashgg::Electron* electron){
-	unsigned eleId = 0;
-	std::vector<std::pair<std::string,float> > idlist = electron->electronIDs();
-	for (unsigned i  = 0 ; i < idlist.size(); ++i){
-		// cout << idlist[i].first << ": " << idlist[i].second << endl;
-		if(int(idlist[i].second)){  //se valore id diverso da zero
-			if (idlist[i].first == "cutBasedElectronID-Summer16-80X-V1-veto") eleId |= 0;
-			if (idlist[i].first == "cutBasedElectronID-Summer16-80X-V1-loose") eleId |= 1;
-			if (idlist[i].first == "cutBasedElectronID-Summer16-80X-V1-medium") eleId |= 2;
-			if (idlist[i].first == "cutBasedElectronID-Summer16-80X-V1-tight") eleId |= 3;
-			if (idlist[i].first == "cutBasedElectronID-Spring15-25ns-V1-standalone-loose") eleId |= 4;
-			if (idlist[i].first == "cutBasedElectronID-Spring15-25ns-V1-standalone-medium") eleId |= 5;	    		
-			if (idlist[i].first == "cutBasedElectronID-Spring15-25ns-V1-standalone-tight") eleId |= 6;
-			if (idlist[i].first == "cutBasedElectronID-Spring15-25ns-V1-standalone-veto") eleId |= 7;
-			if (idlist[i].first == "mvaEleID-Spring15-25ns-Trig-V1-wp80") eleId |= 8;
-			if (idlist[i].first == "mvaEleID-Spring15-25ns-Trig-V1-wp90") eleId |= 9;
-			if (idlist[i].first == "mvaEleID-Spring15-25ns-nonTrig-V1-wp80") eleId |= 10;
-			if (idlist[i].first == "mvaEleID-Spring15-25ns-nonTrig-V1-wp90") eleId |= 11;
-			if (idlist[i].first == "mvaEleID-Spring15-25ns-nonTrig-V1-wpLoose") eleId |= 12;
-			if (idlist[i].first == "heepElectronID-HEEPV60") eleId |= 13;
-			if (idlist[i].first == "heepElectronID-HEEPV70") eleId |= 14;
-		}	
-	}
-	return eleId;
-}
-// ******************************************************************************************
-
-
-
 // ***************************** 
 float electronIsolation(Ptr<flashgg::Electron> electron, double rho){
 	// -- compute combined relative isolation: IsoCh + max( 0.0, IsoNh + IsoPh - PU ) )/pT, PU = rho * Aeff 
 	// https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedElectronIdentificationRun2
-	// //effective areas:  https://indico.cern.ch/event/369239/contribution/4/attachments/1134761/1623262/talk_effective_areas_25ns.pdf
 	// effective areas:  https://github.com/ikrav/cmssw/blob/egm_id_80X_v1/RecoEgamma/ElectronIdentification/data/Summer16/effAreaElectrons_cone03_pfNeuHadronsAndPhotons_80X.txt
 
 	float Aeff = 0;
@@ -561,14 +450,11 @@ float electronIsolation(Ptr<flashgg::Electron> electron, double rho){
 	return (iso/ electron->pt());	
 }
 // ******************************************************************************************
-
-
 
 // ***************************** 
 float electronIsolation(const flashgg::Electron* electron, double rho){
 	// -- compute combined relative isolation: IsoCh + max( 0.0, IsoNh + IsoPh - PU ) )/pT, PU = rho * Aeff 
 	// https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedElectronIdentificationRun2
-	// //effective areas:  https://indico.cern.ch/event/369239/contribution/4/attachments/1134761/1623262/talk_effective_areas_25ns.pdf
 	// effective areas:  https://github.com/ikrav/cmssw/blob/egm_id_80X_v1/RecoEgamma/ElectronIdentification/data/Summer16/effAreaElectrons_cone03_pfNeuHadronsAndPhotons_80X.txt
 
 	float Aeff = 0;
@@ -594,120 +480,6 @@ float electronIsolation(const flashgg::Electron* electron, double rho){
 }
 // ******************************************************************************************
 
-
-
-// **************** 
-bool passCutBasedEleId(Ptr<flashgg::Electron> electron, double rho){
-	// https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedElectronIdentificationRun2
-	// Medium 80X-tuned selection
-
-	bool pass = false;
-
-	bool isEB = (fabs(electron->superCluster()->eta())<=1.479);
-
-	float full5x5_sigmaIetaIeta = electron->full5x5_sigmaIetaIeta();  
-	float dEtaInSeed = electron->deltaEtaSuperClusterTrackAtVtx(); 
-	float dPhiIn = electron->deltaPhiSuperClusterTrackAtVtx();  
-	float hOverE = electron->hcalOverEcal();
-	float pfIso = electronIsolation(electron, rho);
-
-	float ooEmooP =-999 ; 
-	if( electron->ecalEnergy() == 0 ){
-	  ooEmooP = 1e30;
-	}else if( !std::isfinite(electron->ecalEnergy())){    
-	  ooEmooP = 1e30;
-	}else{
-	  ooEmooP = fabs(1.0/electron->ecalEnergy() - electron->eSuperClusterOverP()/electron->ecalEnergy() );
-	}
-
-	int missingInnerHits = electron->gsfTrack()->hitPattern().numberOfHits( reco::HitPattern::MISSING_INNER_HITS);
-	bool passConversionVeto = !(electron->hasMatchedConversion());  //non prende ele con conversioni in miniTree
-
-
-	if (isEB) {
-		if (full5x5_sigmaIetaIeta < 0.00998 
-			&& fabs(dEtaInSeed) < 0.00311 
-			&& fabs(dPhiIn) < 0.103 
-			&& hOverE < 0.253 
-			&& pfIso < 0.0695 
-			&& ooEmooP < 0.134 
-			&& missingInnerHits <=1 
-			&& passConversionVeto
-		) pass =  true;
-	} else {
-		if (full5x5_sigmaIetaIeta < 0.0298 
-			&& fabs(dEtaInSeed) < 0.00609 
-			&& fabs(dPhiIn) < 0.045 
-			&& hOverE < 0.0878 
-			&& pfIso < 0.0821 
-			&& ooEmooP < 0.13 
-			&& missingInnerHits <=1 
-			&& passConversionVeto
-		) pass = true; 
-	}
-
-	return pass;
-
-}
-// ******************************************************************************************
-
-
-
-
-// **************** 
-bool passCutBasedEleId(const flashgg::Electron* electron, double rho){
-	// https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedElectronIdentificationRun2
-	// Medium 80X-tuned selection
-
-	bool pass = false;
-
-	bool isEB = (fabs(electron->superCluster()->eta())<=1.479);
-
-	float full5x5_sigmaIetaIeta = electron->full5x5_sigmaIetaIeta();  
-	float dEtaInSeed = electron->deltaEtaSuperClusterTrackAtVtx(); 
-	float dPhiIn = electron->deltaPhiSuperClusterTrackAtVtx();  
-	float hOverE = electron->hcalOverEcal();
-	float pfIso = electronIsolation(electron, rho);
-
-	float ooEmooP =-999 ; 
-	if( electron->ecalEnergy() == 0 ){
-	  ooEmooP = 1e30;
-	}else if( !std::isfinite(electron->ecalEnergy())){    
-	  ooEmooP = 1e30;
-	}else{
-	  ooEmooP = fabs(1.0/electron->ecalEnergy() - electron->eSuperClusterOverP()/electron->ecalEnergy() );
-	}
-
-	int missingInnerHits = electron->gsfTrack()->hitPattern().numberOfHits( reco::HitPattern::MISSING_INNER_HITS);
-	bool passConversionVeto = !(electron->hasMatchedConversion());  //non prende ele con conversioni in miniTree
-
-
-	if (isEB) {
-		if (full5x5_sigmaIetaIeta < 0.00998 
-			&& fabs(dEtaInSeed) < 0.00311 
-			&& fabs(dPhiIn) < 0.103 
-			&& hOverE < 0.253 
-			&& pfIso < 0.0695 
-			&& ooEmooP < 0.134 
-			&& missingInnerHits <=1 
-			&& passConversionVeto
-		) pass =  true;
-	} else {
-		if (full5x5_sigmaIetaIeta < 0.0298 
-			&& fabs(dEtaInSeed) < 0.00609 
-			&& fabs(dPhiIn) < 0.045 
-			&& hOverE < 0.0878 
-			&& pfIso < 0.0821 
-			&& ooEmooP < 0.13 
-			&& missingInnerHits <=1 
-			&& passConversionVeto
-		) pass = true; 
-	}
-
-	return pass;
-
-}
-// ******************************************************************************************
 
 
 
