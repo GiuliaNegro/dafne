@@ -88,38 +88,6 @@ MultiLeptonMultiJetCandidate::MultiLeptonMultiJetCandidate( Electron_ptr electro
 }
 
 
-void MultiLeptonMultiJetCandidate::embedElectrons()
-{
-	while (!ptrEle_.empty()) {
-		ele_.push_back(*(ptrEle_.back()));
-		ptrEle_.pop_back();
-	}
-}
-
-
-vector<Electron_t> & MultiLeptonMultiJetCandidate::embeddedElectrons()
-{
-	if (!ele_.size()) embedElectrons();
-	return ele_;
-}
-
-
-Electron_t &MultiLeptonMultiJetCandidate::getLeadingElectron() {
-	if( !ele_.size() ) {
-		throw cms::Exception( "IncorrectUsage" ) << "Electrons not embedded. If you really want a non-const electron, call embedElectrons()";
-	}
-	return ele_[0];
-}
-
-
-Electron_t &MultiLeptonMultiJetCandidate::getSubLeadingElectron() {
-	if( !ele_.size() ) {
-		throw cms::Exception( "IncorrectUsage" ) << "Electrons not embedded. If you really want a non-const electron, call embedElectrons()";
-	}
-	return ele_[1];
-}
-
-
 const Electron_t * MultiLeptonMultiJetCandidate::leadingEle() const
 {
 	if (ele_.size()) {
@@ -247,6 +215,102 @@ const reco::Candidate * MultiLeptonMultiJetCandidate::subLeadingLepton() const
 	// // ...compare it to the previous subleading and chose
 	// if (sl && ssl && sl->pt() < ssl->pt()) sl = ssl;
 	// return sl;
+}
+
+
+void MultiLeptonMultiJetCandidate::embedElectrons()
+{
+	while (!ptrEle_.empty()) {
+		ele_.push_back(*(ptrEle_.back()));
+		ptrEle_.pop_back();
+	}
+}
+
+
+vector<Electron_t> & MultiLeptonMultiJetCandidate::embeddedElectrons()
+{
+	if (!ele_.size()) embedElectrons();
+	return ele_;
+}
+
+
+void MultiLeptonMultiJetCandidate::embedMuons()
+{
+	while (!ptrMuon_.empty()) {
+		muon_.push_back(*(ptrMuon_.back()));
+		ptrMuon_.pop_back();
+	}
+}
+
+
+vector<Muon_t> & MultiLeptonMultiJetCandidate::embeddedMuons()
+{
+	if (!muon_.size()) embedMuons();
+	return muon_;
+}
+
+
+void MultiLeptonMultiJetCandidate::embedJets()
+{
+	while (!ptrJet_.empty()) {
+		jet_.push_back(*(ptrJet_.back()));
+		ptrJet_.pop_back();
+	}
+}
+
+
+vector<Jet_t> & MultiLeptonMultiJetCandidate::embeddedJets()
+{
+	if (!jet_.size()) embedJets();
+	return jet_;
+}
+
+
+Electron_t &MultiLeptonMultiJetCandidate::getLeadingElectron() {
+	if( !ele_.size() ) {
+		throw cms::Exception( "IncorrectUsage" ) << "Electrons not embedded. If you really want a non-const electron, call embedElectrons()";
+	}
+	return ele_[0];
+}
+
+
+Electron_t &MultiLeptonMultiJetCandidate::getSubLeadingElectron() {
+	if( !ele_.size() ) {
+		throw cms::Exception( "IncorrectUsage" ) << "Electrons not embedded. If you really want a non-const electron, call embedElectrons()";
+	}
+	return ele_[1];
+}
+
+
+Muon_t &MultiLeptonMultiJetCandidate::getLeadingMuon() {
+	if( !muon_.size() ) {
+		throw cms::Exception( "IncorrectUsage" ) << "Muons not embedded. If you really want a non-const muon, call embedMuons()";
+	}
+	return muon_[0];
+}
+
+
+Muon_t &MultiLeptonMultiJetCandidate::getSubLeadingMuon() {
+	if( !muon_.size() ) {
+		throw cms::Exception( "IncorrectUsage" ) << "Muons not embedded. If you really want a non-const muon, call embedMuons()";
+	}
+	return muon_[1];
+}
+
+
+Jet_t &MultiLeptonMultiJetCandidate::getLeadingJet() {
+	if( !jet_.size() ) {
+		throw cms::Exception( "IncorrectUsage" ) << "Jets not embedded. If you really want a non-const jet, call embedJets()";
+	}
+	return jet_[0];
+}
+
+
+Jet_t &MultiLeptonMultiJetCandidate::getSubLeadingJet() {
+	if( !jet_.size() ) {
+		throw cms::Exception( "IncorrectUsage" ) << "Jets not embedded. If you really want a non-const jet, call embedJets()";
+	}
+	return jet_[1];
 }
 
 
