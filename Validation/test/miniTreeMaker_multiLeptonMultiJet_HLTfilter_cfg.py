@@ -38,42 +38,10 @@ process.source = cms.Source("PoolSource",fileNames=cms.untracked.vstring(
 ))
 
 
-## HLT filter
-from HLTrigger.HLTfilters.hltHighLevel_cfi import hltHighLevel
-process.hltHighLevel= hltHighLevel.clone(HLTPaths = cms.vstring(
-	  	 	"HLT_DoubleEle33_CaloIdL_MW_v*",
-	   		"HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW_v*",
-		   	"HLT_Mu50_v*",
-		   	"HLT_TkMu50_v*",
-		   	"HLT_Mu33_Ele33_CaloIdL_GsfTrkIdVL_v*",
-		   	"HLT_Ele27_WPTight_Gsf_v*",
-		   	"HLT_IsoMu24_v*",
-		   	"HLT_IsoMu27_v*"
-			),
-			throw = False
-			# andOr    = cms.bool(True) # True = or between triggers 
-)
-
-
 # import flashgg customization to check if we have signal or background
 from flashgg.MetaData.JobConfig import customize
 customize.parse()
 
-
-# # flashgg tag sequence (for dipho MVA) and jet collections   
-process.load("flashgg/Taggers/flashggTagSequence_cfi")
-# process.load("dafne/Taggers/flashggDiLeptonDiJetTagSequence_cfi") #uso questa?
-# process.flashggTagSequence.remove(process.flashggUpdatedIdMVADiPhotons) # Needs to be run before systematics
-# massSearchReplaceAnyInputTag(process.flashggTagSequence,cms.InputTag("flashggUpdatedIdMVADiPhotons"),cms.InputTag("flashggDiPhotonSystematics"))
-
-# #remove un-necessary tags ...
-# process.flashggTagSequence.remove(process.flashggVBFTag)
-# process.flashggTagSequence.remove(process.flashggTTHLeptonicTag)
-# process.flashggTagSequence.remove(process.flashggTTHHadronicTag)
-# process.flashggTagSequence.remove(process.flashggVHEtTag)
-# process.flashggTagSequence.remove(process.flashggVHLooseTag)
-# process.flashggTagSequence.remove(process.flashggVHTightTag)
-# process.flashggTagSequence.remove(process.flashggTagSorter)
 
 ## global variables to dump
 from flashgg.Taggers.globalVariables_cff import globalVariables
@@ -98,28 +66,8 @@ process.analysisTree = cms.EDAnalyzer('EDminiTreeMaker_multiLeptonMultiJet',
 										)
 
 
-process.analysisTree.globalVariables.addTriggerBits = cms.PSet(
-		tag = cms.InputTag("TriggerResults::HLT"),
-		bits = cms.vstring(
-          	"HLT_DoubleEle33_CaloIdL_MW",
-			"HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW",
-			"HLT_Mu50",
-			"HLT_TkMu50",
-			"HLT_Mu33_Ele33_CaloIdL_GsfTrkIdVL",
-			"HLT_Ele27_WPTight_Gsf",
-			"HLT_IsoMu24",
-			"HLT_IsoMu27"
-		)
-)
-
-process.analysisTree.triggerBits = cms.InputTag('TriggerResults::HLT') 
-# process.analysisTree.globalVariables.addTriggerBits.tag = cms.InputTag("TriggerResults::HLT")
-
-
-
 ## Systematics        
 ## import systs. customize
-# from flashgg.Systematics.SystematicsCustomize import *
 from dafne.Systematics.SystematicsCustomize_dafne import *
 
 ## load syst producer
@@ -128,14 +76,14 @@ process.load("dafne.Systematics.flashggMultiLeptonMultiJetSystematics_cfi")
 
 ## if data apply only energy scale corrections, if MC apply only energy smearings
 if customize.processType == "data":
-    print 'data' 
-    customizeMultiLeptonMultiJetSystematicsForData(process)  # only central value, no syst. shifts 
-    print 'customization done'
+	print 'data' 
+	customizeMultiLeptonMultiJetSystematicsForData(process)  # only central value, no syst. shifts 
+	print 'customization done'
 
 else:
-    print 'mc'
-    customizeMultiLeptonMultiJetSystematicsForMC(process)  # only central value, no syst. shifts 
-    print 'customization done'
+	print 'mc'
+	customizeMultiLeptonMultiJetSystematicsForMC(process)  # only central value, no syst. shifts 
+	print 'customization done'
 
 
 debug = False
@@ -150,7 +98,7 @@ if debug:
 			pset2.ExaggerateShiftUp = True
 
 
-debugJet = True
+debugJet = False
 if debugJet: 
 	for pset in process.flashggMultiLeptonMultiJetSystematics.SystMethods:
 		if pset.Label == "JEC":
@@ -161,7 +109,6 @@ if debugJet:
 			pset.Debug = True
 		
 
-
 process.TFileService = cms.Service("TFileService",
 									fileName = cms.string("mytree.root")
 									)
@@ -170,21 +117,23 @@ process.options = cms.untracked.PSet( wantSummary = cms.untracked.bool(True) )
 
 
 
-if customize.processType == "data":
-	print 'data' 
-	process.p = cms.Path(process.hltHighLevel*
-					# process.flashggTagSequence*
-					process.jetCorrectorChain*
-					process.flashggMultiLeptonMultiJetSystematics*
-					process.analysisTree)
+process.load('dafne.Validation.hltFilters_cff')
 
-else : 
-	print 'mc'
-	process.p = cms.Path(
-					# process.flashggTagSequence*
-					process.jetCorrectorChain*
-					process.flashggMultiLeptonMultiJetSystematics*
-					process.analysisTree)
+if customize.processType == "data":
+	# if (EleMW==0):
+		# process.wRHLTFilter_data.HLTPaths = process.wReejjHLTFilterGsfTrkIdVL.HLTPaths + process.wRmumujjHLTFilter.HLTPaths + process.wRemujjHLTFilter.HLTPaths
+	process.signalHltSequence = cms.Sequence(process.wRHLTFilter_data)       
+	process.tagAndProbeHLTFilter = cms.Sequence(process.tagAndProbeHLTFilter_data)
+else:
+	process.signalHltSequence = cms.Sequence(process.wRHLTFilter_MC)
+	process.tagAndProbeHLTFilter = cms.Sequence(process.tagAndProbeHLTFilter_MC)
+
+
+
+process.fullSeq = cms.Sequence(process.jetCorrectorChain * process.flashggMultiLeptonMultiJetSystematics * process.analysisTree)
+
+process.p = cms.Path(process.signalHltSequence * process.fullSeq)
+
 
 
 ## set default options if needed
