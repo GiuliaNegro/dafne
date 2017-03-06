@@ -121,6 +121,7 @@ void miniTreeMaker_multiLeptonMultiJet::beginJob()
 	eventTree->Branch( "jet_partonFlavour", &evInfo.jet_partonFlavour );
 	eventTree->Branch( "jet_hadronFlavour", &evInfo.jet_hadronFlavour );
 	eventTree->Branch( "jet_isMatchedToGen", &evInfo.jet_isMatchedToGen );
+	eventTree->Branch( "jet_isThight", &evInfo.jet_isThight );
 
 	eventTree->Branch( "isEEJJ", &evInfo.isEEJJ ); 
 	eventTree->Branch( "isEETT", &evInfo.isEETT ); 
@@ -155,12 +156,14 @@ void miniTreeMaker_multiLeptonMultiJet::beginJob()
 	eventTree->Branch( "leadingJet_eta", &evInfo.leadingJet_eta );
 	eventTree->Branch( "leadingJet_phi", &evInfo.leadingJet_phi ); 
 	eventTree->Branch( "leadingJet_isMatchedToGen", &evInfo.leadingJet_isMatchedToGen );
+	eventTree->Branch( "leadingJet_isThight", &evInfo.leadingJet_isThight );
 
 	eventTree->Branch( "subLeadingJet_e", &evInfo.subLeadingJet_e ); 
 	eventTree->Branch( "subLeadingJet_pt", &evInfo.subLeadingJet_pt ); 
 	eventTree->Branch( "subLeadingJet_eta", &evInfo.subLeadingJet_eta ); 
 	eventTree->Branch( "subLeadingJet_phi", &evInfo.subLeadingJet_phi ); 
 	eventTree->Branch( "subLeadingJet_isMatchedToGen", &evInfo.subLeadingJet_isMatchedToGen );
+	eventTree->Branch( "subLeadingJet_isThight", &evInfo.subLeadingJet_isThight );
 
 	eventTree->Branch( "dRLeadLeptonLeadJet", &evInfo.dRLeadLeptonLeadJet );
 	eventTree->Branch( "dRLeadLeptonSubLeadJet", &evInfo.dRLeadLeptonSubLeadJet );
@@ -547,6 +550,8 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 			int isMatchedToGen =  -1;
 			if( ! iEvent.isRealData() ) isMatchedToGen = jetMatchingToGen(jet, genJets); 
 
+			bool jetIsTight = (jet.neutralHadronEnergyFraction()<0.90 && jet.neutralEmEnergyFraction()<0.9 && (jet.chargedMultiplicity()+jet.neutralMultiplicity())>1 && jet.muonEnergyFraction()<0.8) && ((fabs(jet.eta())<=2.4 && jet.chargedHadronEnergyFraction()>0 && jet.chargedMultiplicity()>0 && jet.chargedEmEnergyFraction()<0.90) || fabs(jet.eta())>2.4);
+
 			evInfo.jet_e.push_back(jet.energy());
 			evInfo.jet_pt.push_back(jet.pt());
 			evInfo.jet_eta.push_back(jet.eta());
@@ -555,6 +560,7 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 			evInfo.jet_hadronFlavour.push_back(jet.hadronFlavour());
 			evInfo.jet_partonFlavour.push_back(jet.partonFlavour());
 			evInfo.jet_isMatchedToGen.push_back(isMatchedToGen);
+			evInfo.jet_isThight.push_back(jetIsTight);
 		}
 	}
 	// cout << "arriva a linea " << __LINE__ << endl;
@@ -803,6 +809,9 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 		int subLeadingJetIsMatchedToGen =  -1;
 		if( ! iEvent.isRealData() ) subLeadingJetIsMatchedToGen = jetMatchingToGen(multiLeptonMultiJet->subLeadingJet(), genJets); 
 
+		bool leadingJetIsTight = (multiLeptonMultiJet->leadingJet()->neutralHadronEnergyFraction()<0.90 && multiLeptonMultiJet->leadingJet()->neutralEmEnergyFraction()<0.9 && (multiLeptonMultiJet->leadingJet()->chargedMultiplicity()+multiLeptonMultiJet->leadingJet()->neutralMultiplicity())>1 && multiLeptonMultiJet->leadingJet()->muonEnergyFraction()<0.8) && ((fabs(multiLeptonMultiJet->leadingJet()->eta())<=2.4 && multiLeptonMultiJet->leadingJet()->chargedHadronEnergyFraction()>0 && multiLeptonMultiJet->leadingJet()->chargedMultiplicity()>0 && multiLeptonMultiJet->leadingJet()->chargedEmEnergyFraction()<0.90) || fabs(multiLeptonMultiJet->leadingJet()->eta())>2.4);
+		bool subLeadingJetIsTight = (multiLeptonMultiJet->subLeadingJet()->neutralHadronEnergyFraction()<0.90 && multiLeptonMultiJet->subLeadingJet()->neutralEmEnergyFraction()<0.9 && (multiLeptonMultiJet->subLeadingJet()->chargedMultiplicity()+multiLeptonMultiJet->subLeadingJet()->neutralMultiplicity())>1 && multiLeptonMultiJet->subLeadingJet()->muonEnergyFraction()<0.8) && ((fabs(multiLeptonMultiJet->subLeadingJet()->eta())<=2.4 && multiLeptonMultiJet->subLeadingJet()->chargedHadronEnergyFraction()>0 && multiLeptonMultiJet->subLeadingJet()->chargedMultiplicity()>0 && multiLeptonMultiJet->subLeadingJet()->chargedEmEnergyFraction()<0.90) || fabs(multiLeptonMultiJet->subLeadingJet()->eta())>2.4);
+
 
 		evInfo.isEEJJ.push_back(multiLeptonMultiJet->isEEJJ());  
 		evInfo.isEETT.push_back(multiLeptonMultiJet->isEETT());
@@ -837,12 +846,14 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 		evInfo.leadingJet_eta.push_back(multiLeptonMultiJet->leadingJet()->eta());
 		evInfo.leadingJet_phi.push_back(multiLeptonMultiJet->leadingJet()->phi());
 		evInfo.leadingJet_isMatchedToGen.push_back(leadingJetIsMatchedToGen);
+		evInfo.leadingJet_isThight.push_back(leadingJetIsTight);
 
 		evInfo.subLeadingJet_e.push_back(multiLeptonMultiJet->subLeadingJet()->energy());
 		evInfo.subLeadingJet_pt.push_back(multiLeptonMultiJet->subLeadingJet()->pt());
 		evInfo.subLeadingJet_eta.push_back(multiLeptonMultiJet->subLeadingJet()->eta());
 		evInfo.subLeadingJet_phi.push_back(multiLeptonMultiJet->subLeadingJet()->phi());
 		evInfo.subLeadingJet_isMatchedToGen.push_back(subLeadingJetIsMatchedToGen);
+		evInfo.subLeadingJet_isThight.push_back(subLeadingJetIsTight);
 
 		evInfo.dRLeadLeptonLeadJet.push_back(deltaR(multiLeptonMultiJet->leadingLepton()->eta(), multiLeptonMultiJet->leadingLepton()->phi(), multiLeptonMultiJet->leadingJet()->eta(), multiLeptonMultiJet->leadingJet()->phi()));
 		evInfo.dRLeadLeptonSubLeadJet.push_back(deltaR(multiLeptonMultiJet->leadingLepton()->eta(), multiLeptonMultiJet->leadingLepton()->phi(), multiLeptonMultiJet->subLeadingJet()->eta(), multiLeptonMultiJet->subLeadingJet()->phi()));
@@ -1047,6 +1058,7 @@ void miniTreeMaker_multiLeptonMultiJet::initEventStructure() {
 	evInfo.jet_partonFlavour .clear();
 	evInfo.jet_hadronFlavour .clear();
 	evInfo.jet_isMatchedToGen .clear();
+	evInfo.jet_isThight .clear();
 
 	
 	evInfo.isEEJJ .clear();
@@ -1082,12 +1094,14 @@ void miniTreeMaker_multiLeptonMultiJet::initEventStructure() {
 	evInfo.leadingJet_eta .clear(); 
 	evInfo.leadingJet_phi .clear();
 	evInfo.leadingJet_isMatchedToGen .clear();
+	evInfo.leadingJet_isThight .clear(); 
 
 	evInfo.subLeadingJet_e .clear();
 	evInfo.subLeadingJet_pt .clear();
 	evInfo.subLeadingJet_eta .clear();
 	evInfo.subLeadingJet_phi .clear();  
 	evInfo.subLeadingJet_isMatchedToGen .clear();
+	evInfo.subLeadingJet_isThight .clear(); 
 
 	evInfo.dRLeadLeptonLeadJet .clear();
 	evInfo.dRLeadLeptonSubLeadJet .clear();

@@ -115,7 +115,7 @@ struct eventInfo {
 	vector<int>   jet_hadronFlavour;
 	vector<int>   jet_partonFlavour;
 	vector<int>   jet_isMatchedToGen;
-	//jetID
+	vector<bool>  jet_isThight;
 
 	//variabili di DLDJcandidate
 	vector<bool> isEEJJ;
@@ -151,12 +151,14 @@ struct eventInfo {
 	vector<float> leadingJet_eta;  
 	vector<float> leadingJet_phi;  
 	vector<int>   leadingJet_isMatchedToGen;
+	vector<bool>  leadingJet_isThight;
 
 	vector<float> subLeadingJet_e;
 	vector<float> subLeadingJet_pt;
 	vector<float> subLeadingJet_eta;  
 	vector<float> subLeadingJet_phi;  
 	vector<int>   subLeadingJet_isMatchedToGen;
+	vector<bool>  subLeadingJet_isThight;
 
 	vector<float> dRLeadLeptonLeadJet;
 	vector<float> dRLeadLeptonSubLeadJet;
