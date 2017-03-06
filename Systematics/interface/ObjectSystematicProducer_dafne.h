@@ -91,6 +91,11 @@ namespace flashgg {
                 //                std::cout << "    ElectronMethodName = " << electronMethodName << std::endl;
             }
 
+            if( pset.exists( "JetMethodName" ) ) {
+                string jetMethodName = pset.getParameter<string>( "JetMethodName" );
+                //                std::cout << "    jetMethodName = " << jetMethodName << std::endl;
+            }
+
             Corrections_.at( ipset ).reset( FlashggSystematicMethodsFactory<flashgg_object, param_var>::get()->create( methodName, pset, consumesCollector(), &globalVars_  ) );
             if( !Corrections_.at( ipset )->makesWeight() ) {
                 for( const auto &sig : sigmas_.at( ipset ) ) {
@@ -131,6 +136,11 @@ namespace flashgg {
             if( pset.exists( "ElectronMethodName" ) ) {
                 string electronMethodName = pset.getParameter<string>( "ElectronMethodName" );
                 //                std::cout << "    ElectronMethodName = " << electronMethodName << std::endl;
+            }
+
+            if( pset.exists( "JetMethodName" ) ) {
+                string jetMethodName = pset.getParameter<string>( "JetMethodName" );
+                //                std::cout << "    JetMethodName = " << jetMethodName << std::endl;
             }
 
             Corrections2D_.at( ipset2D ).reset( FlashggSystematicMethodsFactory<flashgg_object, pair<param_var, param_var> >::get()->create( methodName, pset, consumesCollector(), &globalVars_ ) );

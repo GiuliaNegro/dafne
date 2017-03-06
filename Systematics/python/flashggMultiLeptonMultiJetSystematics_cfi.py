@@ -1,4 +1,5 @@
 import FWCore.ParameterSet.Config as cms
+from os import environ
 
 
 emptyBins = cms.PSet(
@@ -139,6 +140,32 @@ ScaleLowR9EE_EGM = cms.PSet( ElectronMethodName = cms.string("FlashggElectronSca
 		Debug = cms.untracked.bool(False)
 		)
 
+JEC = cms.PSet( JetMethodName = cms.string("FlashggJetEnergyCorrector"),
+		MethodName = cms.string("FlashggJetFromMultiLeptonMultiJet"),
+		Label = cms.string("JEC"),
+		NSigmas = cms.vint32(-1,1),
+		OverallRange = cms.string("abs(eta)<5.0"),
+		Debug = cms.untracked.bool(False),
+		ApplyCentralValue = cms.bool(True),
+		SetupUncertainties = cms.bool(True),
+		# JetCorrectorTag = cms.InputTag("ak4PFCHSL1FastL2L3Corrector")
+		JetCorrectorTag = cms.InputTag("ak4PFCHSL1FastL2L3ResidualCorrector")
+		)
+
+
+JER = cms.PSet( JetMethodName = cms.string("FlashggJetSmear"),
+		MethodName = cms.string("FlashggJetFromMultiLeptonMultiJet"),
+		Label = cms.string("JER"),
+		NSigmas = cms.vint32(-1,1),
+		OverallRange = cms.string("abs(eta)<5.0"),
+		RandomLabel = cms.string("rnd_g_JER"), # for no-match case
+		rho = cms.InputTag('fixedGridRhoAll'),
+		Debug = cms.untracked.bool(False),
+		ApplyCentralValue = cms.bool(True),
+		UseTextFiles = cms.bool(True),
+		TextFileResolution = cms.string("%s/src/flashgg/Systematics/data/JER/Spring16_25nsV10_MC_PtResolution_AK4PFchs.txt" % environ['CMSSW_BASE']),
+		TextFileSF = cms.string("%s/src/flashgg/Systematics/data/JER/Spring16_25nsV10_MC_SF_AK4PFchs.txt" % environ['CMSSW_BASE'])
+		)
 
 
 
@@ -160,3 +187,8 @@ flashggMultiLeptonMultiJetSystematics = cms.EDProducer('FlashggMultiLeptonMultiJ
 				ScaleLowR9EE_EGM
 		)
 )
+
+
+
+
+
