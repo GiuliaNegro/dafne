@@ -434,7 +434,7 @@ Ptr<reco::Vertex> chooseBestMuonVtx(const vector<Ptr<reco::Vertex> > &vertices, 
 // **************** 
 float RochesterCorrection(Ptr<flashgg::Muon> muon, Handle<View<reco::GenParticle> > genParticles, bool isData){
 
-	RoccoR rc("data/rcdata.2016.v3");
+	RoccoR rc("/afs/cern.ch/user/g/gnegro/work/NuAnalysis-Moriond17/CMSSW_8_0_26_patch1/src/dafne/data/rcdata.2016.v3");
 	// cout << "Muon Pt Before = " << muon->pt() << ", Muon Eta Before = " << muon->eta() << endl;
 
 	TRandom *gRandom = new TRandom();
@@ -443,17 +443,18 @@ float RochesterCorrection(Ptr<flashgg::Muon> muon, Handle<View<reco::GenParticle
 	float u2 = gRandom->Rndm();
 	int nl = muon->bestTrack()->hitPattern().trackerLayersWithMeasurement();
 
-	float genMuPt = 0.;
-	for( unsigned int i = 0 ; i < genParticles->size(); i++ ) {
-	   Ptr<reco::GenParticle> gen = genParticles->ptrAt(i);
-	   if( fabs(gen->pdgId()) == 13 && deltaR(gen->eta(), gen->phi(), muon->eta(), muon->phi()) < 0.2 ) genMuPt = gen->pt();
-	}    
-
 	double RochCor = 1.;
 
 	if( isData ) {
 		RochCor = rc.kScaleDT(muon->charge(), muon->pt(), muon->eta(), muon->phi(), 0, 0);
 	} else {
+
+		float genMuPt = 0.;
+		for( unsigned int i = 0 ; i < genParticles->size(); i++ ) {
+	   		Ptr<reco::GenParticle> gen = genParticles->ptrAt(i);
+		   if( fabs(gen->pdgId()) == 13 && deltaR(gen->eta(), gen->phi(), muon->eta(), muon->phi()) < 0.2 ) genMuPt = gen->pt();
+		}    
+
 		if (genMuPt != 0) RochCor = rc.kScaleFromGenMC(muon->charge(), muon->pt(), muon->eta(), muon->phi(), nl, genMuPt, u1, 0, 0);
 		else RochCor = rc.kScaleAndSmearMC(muon->charge(), muon->pt(), muon->eta(), muon->phi(), nl, u1, u2, 0, 0);
 	}	
@@ -468,7 +469,7 @@ float RochesterCorrection(Ptr<flashgg::Muon> muon, Handle<View<reco::GenParticle
 // **************** 
 float RochesterCorrection(const flashgg::Muon* muon, Handle<View<reco::GenParticle> > genParticles, bool isData){
 
-	RoccoR rc("data/rcdata.2016.v3");
+	RoccoR rc("/afs/cern.ch/user/g/gnegro/work/NuAnalysis-Moriond17/CMSSW_8_0_26_patch1/src/dafne/data/rcdata.2016.v3");
 	// cout << "Muon Pt Before = " << muon->pt() << ", Muon Eta Before = " << muon->eta() << endl;
 
 	TRandom *gRandom = new TRandom();
@@ -477,17 +478,18 @@ float RochesterCorrection(const flashgg::Muon* muon, Handle<View<reco::GenPartic
 	float u2 = gRandom->Rndm();
 	int nl = muon->bestTrack()->hitPattern().trackerLayersWithMeasurement();
 
-	float genMuPt = 0.;
-	for( unsigned int i = 0 ; i < genParticles->size(); i++ ) {
-	   Ptr<reco::GenParticle> gen = genParticles->ptrAt(i);
-	   if( fabs(gen->pdgId()) == 13 && deltaR(gen->eta(), gen->phi(), muon->eta(), muon->phi()) < 0.2 ) genMuPt = gen->pt();
-	}    
-
 	double RochCor = 1.;
 
 	if( isData ) {
 		RochCor = rc.kScaleDT(muon->charge(), muon->pt(), muon->eta(), muon->phi(), 0, 0);
 	} else {
+
+		float genMuPt = 0.;
+		for( unsigned int i = 0 ; i < genParticles->size(); i++ ) {
+		   Ptr<reco::GenParticle> gen = genParticles->ptrAt(i);
+		   if( fabs(gen->pdgId()) == 13 && deltaR(gen->eta(), gen->phi(), muon->eta(), muon->phi()) < 0.2 ) genMuPt = gen->pt();
+		}    
+
 		if (genMuPt != 0) RochCor = rc.kScaleFromGenMC(muon->charge(), muon->pt(), muon->eta(), muon->phi(), nl, genMuPt, u1, 0, 0);
 		else RochCor = rc.kScaleAndSmearMC(muon->charge(), muon->pt(), muon->eta(), muon->phi(), nl, u1, u2, 0, 0);
 	}	
