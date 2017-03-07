@@ -104,6 +104,7 @@ void miniTreeMaker_multiLeptonMultiJet::beginJob()
 	eventTree->Branch( "mu_eta", &evInfo.mu_eta );
 	eventTree->Branch( "mu_phi", &evInfo.mu_phi );
 	eventTree->Branch( "mu_iso", &evInfo.mu_iso );
+	eventTree->Branch( "mu_PFiso", &evInfo.mu_PFiso );	
 	eventTree->Branch( "mu_isTight", &evInfo.mu_isTight );
 	eventTree->Branch( "mu_isMedium", &evInfo.mu_isMedium );
 	eventTree->Branch( "mu_isLoose", &evInfo.mu_isLoose );
@@ -112,6 +113,7 @@ void miniTreeMaker_multiLeptonMultiJet::beginJob()
 	eventTree->Branch( "mu_charge", &evInfo.mu_charge );
 	eventTree->Branch( "mu_dz", &evInfo.mu_dz );
 	eventTree->Branch( "mu_dxy", &evInfo.mu_dxy );
+	eventTree->Branch( "mu_RochCor", &evInfo.mu_RochCor );
 
 	eventTree->Branch( "jet_e", &evInfo.jet_e );
 	eventTree->Branch( "jet_pt", &evInfo.jet_pt );
@@ -216,10 +218,10 @@ void miniTreeMaker_multiLeptonMultiJet::beginJob()
 	eventTree->Branch( "subLeadingEle_passVetoId", &evInfo.subLeadingEle_passVetoId );
 	eventTree->Branch( "subLeadingEle_passMVATightId", &evInfo.subLeadingEle_passMVATightId );
 	eventTree->Branch( "subLeadingEle_passMVAMediumId", &evInfo.subLeadingEle_passMVAMediumId );
-	eventTree->Branch( "subLeadingEle_etaSC", &evInfo.subLeadingEle_etaSC );
 	eventTree->Branch( "subLeadingEle_idmva", &evInfo.subLeadingEle_idmva);
 	eventTree->Branch( "subLeadingEle_iso", &evInfo.subLeadingEle_iso);
 	eventTree->Branch( "subLeadingEle_isMatchedToGen", &evInfo.subLeadingEle_isMatchedToGen);
+	eventTree->Branch( "subLeadingEle_etaSC", &evInfo.subLeadingEle_etaSC );
 	eventTree->Branch( "subLeadingEle_isEcalDriven", &evInfo.subLeadingEle_isEcalDriven );
 	eventTree->Branch( "subLeadingEle_dEtaIn", &evInfo.subLeadingEle_dEtaIn );
 	eventTree->Branch( "subLeadingEle_dPhiIn", &evInfo.subLeadingEle_dPhiIn );
@@ -239,6 +241,7 @@ void miniTreeMaker_multiLeptonMultiJet::beginJob()
 	eventTree->Branch( "subLeadingEle_hcalOverEcal", &evInfo.subLeadingEle_hcalOverEcal );
 
 	eventTree->Branch( "leadingMuon_iso", &evInfo.leadingMuon_iso );
+	eventTree->Branch( "leadingMuon_PFiso", &evInfo.leadingMuon_PFiso );
 	eventTree->Branch( "leadingMuon_isHighPt", &evInfo.leadingMuon_isHighPt );
 	eventTree->Branch( "leadingMuon_isTight", &evInfo.leadingMuon_isTight );
 	eventTree->Branch( "leadingMuon_isMedium", &evInfo.leadingMuon_isMedium );
@@ -246,8 +249,10 @@ void miniTreeMaker_multiLeptonMultiJet::beginJob()
 	eventTree->Branch( "leadingMuon_isMatchedToGen", &evInfo.leadingMuon_isMatchedToGen );
 	eventTree->Branch( "leadingMuon_dz", &evInfo.leadingMuon_dz );
 	eventTree->Branch( "leadingMuon_dxy", &evInfo.leadingMuon_dxy );
+	eventTree->Branch( "leadingMuon_RochCor", &evInfo.leadingMuon_RochCor );
 
 	eventTree->Branch( "subLeadingMuon_iso", &evInfo.subLeadingMuon_iso );
+	eventTree->Branch( "subLeadingMuon_PFiso", &evInfo.subLeadingMuon_PFiso );
 	eventTree->Branch( "subLeadingMuon_isHighPt", &evInfo.subLeadingMuon_isHighPt );
 	eventTree->Branch( "subLeadingMuon_isTight", &evInfo.subLeadingMuon_isTight );
 	eventTree->Branch( "subLeadingMuon_isMedium", &evInfo.subLeadingMuon_isMedium );
@@ -255,6 +260,7 @@ void miniTreeMaker_multiLeptonMultiJet::beginJob()
 	eventTree->Branch( "subLeadingMuon_isMatchedToGen", &evInfo.subLeadingMuon_isMatchedToGen );
 	eventTree->Branch( "subLeadingMuon_dz", &evInfo.subLeadingMuon_dz );
 	eventTree->Branch( "subLeadingMuon_dxy", &evInfo.subLeadingMuon_dxy );
+	eventTree->Branch( "subLeadingMuon_RochCor", &evInfo.subLeadingMuon_RochCor );
 
 	// cout << "inizialed branches" << endl;
 
@@ -447,8 +453,6 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 		int passHEEPId = electron->passHeepId();
 		if (passHEEPId) nElePassingHEEPid++;	
 
-		// float isol = electronIsolation(electron, rho); 
-
 		Ptr<reco::Vertex> ele_vtx = chooseElectronVertex( electron,  vertices->ptrs() );
 		float dz = electron->gsfTrack()->dz( ele_vtx->position() );
 		float d0 = electron->gsfTrack()->dxy( ele_vtx->position() ); 
@@ -499,14 +503,16 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 
 	// -- muons
 	for (UInt_t imu = 0 ; imu < muons->size(); imu++){
-		// cout << "enter muon loop" << endl;
 		nmuons++;
 
 		Ptr<flashgg::Muon> muon = muons->ptrAt( imu );
 		if (fabs(muon->eta()) > 2.4) { continue; }
 		nmuonsGood++;
 
+		float muRochCor = RochesterCorrection(muon, genParticles, iEvent.isRealData());
+
 		// muon ID and isolation: https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonIdRun2
+		float muIso = muon->isolationR03().sumPt/muon->pt();
 		float muPFCombRelIso = ( muon->pfIsolationR04().sumChargedHadronPt + max( 0.,muon->pfIsolationR04().sumNeutralHadronEt + muon->pfIsolationR04().sumPhotonEt - 0.5 * muon->pfIsolationR04().sumPUPt ) ) / ( muon->pt() );
 
 		Ptr<reco::Vertex> muonVtx = chooseBestMuonVtx(vertices->ptrs(), muon);
@@ -525,7 +531,8 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 		evInfo.mu_pt.push_back(muon->pt());
 		evInfo.mu_eta.push_back(muon->eta());
 		evInfo.mu_phi.push_back(muon->phi());
-		evInfo.mu_iso.push_back(muPFCombRelIso);
+		evInfo.mu_iso.push_back(muIso);
+		evInfo.mu_PFiso.push_back(muPFCombRelIso);
 		evInfo.mu_isTight.push_back(muon->isTightMuon( *muonVtx ));
 		evInfo.mu_isMedium.push_back(muon->isMediumMuon( ));
 		evInfo.mu_isLoose.push_back(muon->isLooseMuon( ));
@@ -534,6 +541,7 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 		evInfo.mu_charge.push_back(muon->charge());
 		evInfo.mu_dz.push_back( dz );
 		evInfo.mu_dxy.push_back( fabs(dxy) );
+		evInfo.mu_RochCor.push_back(muRochCor);
 	}
 	// cout << "arriva a linea " << __LINE__ << endl;
 
@@ -656,8 +664,10 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 		float subLeadingEleEcalEnergy     = -999.;
 		float subLeadingEleHcalOverEcal   = -999.;
 
+		float leadingMuonRochCor      = -999.;
 		float leadingMuonIso          = -999.;
-		bool leadingMuonIsHighPt       = false;
+		float leadingMuonPFiso        = -999.;
+		bool leadingMuonIsHighPt      = false;
 		bool leadingMuonIsTight       = false;
 		bool leadingMuonIsMedium      = false;
 		bool leadingMuonIsLoose       = false;
@@ -665,8 +675,10 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 		float leadingMuonDz           = -999.;
 		float leadingMuonDxy          = -999.;
 
+		float subLeadingMuonRochCor      = -999.;
 		float subLeadingMuonIso          = -999.;
-		bool subLeadingMuonIsHighPt       = false;
+		float subLeadingMuonPFiso        = -999.;
+		bool subLeadingMuonIsHighPt      = false;
 		bool subLeadingMuonIsTight       = false;
 		bool subLeadingMuonIsMedium      = false;
 		bool subLeadingMuonIsLoose       = false;
@@ -752,6 +764,7 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 			if( ! iEvent.isRealData() ) mcMatch_leadMuon = muonMatchingToGen(multiLeptonMultiJet->leadingMuon(), genParticles); 
 
 			// muon ID and isolation: https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonIdRun2
+			float muIso_leadMuon = multiLeptonMultiJet->leadingMuon()->isolationR03().sumPt/multiLeptonMultiJet->leadingMuon()->pt();
 			float muPFCombRelIso_leadMuon = ( multiLeptonMultiJet->leadingMuon()->pfIsolationR04().sumChargedHadronPt + max( 0.,multiLeptonMultiJet->leadingMuon()->pfIsolationR04().sumNeutralHadronEt + multiLeptonMultiJet->leadingMuon()->pfIsolationR04().sumPhotonEt - 0.5 * multiLeptonMultiJet->leadingMuon()->pfIsolationR04().sumPUPt ) ) / ( multiLeptonMultiJet->leadingMuon()->pt() );
 
 			float dz = -999;
@@ -761,7 +774,8 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 				dxy = multiLeptonMultiJet->leadingMuon()->innerTrack()->dxy( leadingMuonVtx->position() ); 			
 			}
 
-			leadingMuonIso = muPFCombRelIso_leadMuon;
+			leadingMuonIso = muIso_leadMuon;
+			leadingMuonPFiso = muPFCombRelIso_leadMuon;
 			leadingMuonIsHighPt = multiLeptonMultiJet->leadingMuon()->isHighPtMuon( *leadingMuonVtx );
 			leadingMuonIsTight = multiLeptonMultiJet->leadingMuon()->isTightMuon( *leadingMuonVtx );
 			leadingMuonIsMedium = multiLeptonMultiJet->leadingMuon()->isMediumMuon();
@@ -769,6 +783,7 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 			leadingMuonIsMatchedToGen = mcMatch_leadMuon;
 			leadingMuonDz = dz;
 			leadingMuonDxy = dxy;
+			leadingMuonRochCor = RochesterCorrection(multiLeptonMultiJet->leadingMuon(), genParticles, iEvent.isRealData());
 		}
 
 		if (multiLeptonMultiJet->isMMJJ() || multiLeptonMultiJet->isMMTT()) {
@@ -777,6 +792,7 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 			if( ! iEvent.isRealData() ) mcMatch_subLeadMuon = muonMatchingToGen(multiLeptonMultiJet->subLeadingMuon(), genParticles); 
 
 			// muon ID and isolation: https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonIdRun2
+			float muIso_subLeadMuon = multiLeptonMultiJet->subLeadingMuon()->isolationR03().sumPt/multiLeptonMultiJet->subLeadingMuon()->pt();
 			float muPFCombRelIso_subLeadMuon = ( multiLeptonMultiJet->subLeadingMuon()->pfIsolationR04().sumChargedHadronPt + max( 0.,multiLeptonMultiJet->subLeadingMuon()->pfIsolationR04().sumNeutralHadronEt + multiLeptonMultiJet->subLeadingMuon()->pfIsolationR04().sumPhotonEt - 0.5 * multiLeptonMultiJet->subLeadingMuon()->pfIsolationR04().sumPUPt ) ) / ( multiLeptonMultiJet->subLeadingMuon()->pt() );
 
 			float dz = -999;
@@ -786,7 +802,8 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 				dxy = multiLeptonMultiJet->subLeadingMuon()->innerTrack()->dxy( subLeadingMuonVtx->position() ); 			
 			}
 
-			subLeadingMuonIso = muPFCombRelIso_subLeadMuon;
+			subLeadingMuonIso = muIso_subLeadMuon;
+			subLeadingMuonPFiso = muPFCombRelIso_subLeadMuon;
 			subLeadingMuonIsHighPt = multiLeptonMultiJet->subLeadingMuon()->isHighPtMuon( *subLeadingMuonVtx );
 			subLeadingMuonIsTight = multiLeptonMultiJet->subLeadingMuon()->isTightMuon( *subLeadingMuonVtx );
 			subLeadingMuonIsMedium = multiLeptonMultiJet->subLeadingMuon()->isMediumMuon();
@@ -794,6 +811,7 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 			subLeadingMuonIsMatchedToGen = mcMatch_subLeadMuon;
 			subLeadingMuonDz = dz;
 			subLeadingMuonDxy = dxy;
+			subLeadingMuonRochCor = RochesterCorrection(multiLeptonMultiJet->subLeadingMuon(), genParticles, iEvent.isRealData());
 		}
 
 		float diLeptonInvMass = (multiLeptonMultiJet->leadingLepton()->p4() + multiLeptonMultiJet->subLeadingLepton()->p4()).mass();
@@ -929,6 +947,7 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 		evInfo.subLeadingEle_hcalOverEcal.push_back(subLeadingEleHcalOverEcal);
 
 		evInfo.leadingMuon_iso.push_back(leadingMuonIso);
+		evInfo.leadingMuon_PFiso.push_back(leadingMuonPFiso);
 		evInfo.leadingMuon_isHighPt.push_back(leadingMuonIsHighPt);
 		evInfo.leadingMuon_isTight.push_back(leadingMuonIsTight);
 		evInfo.leadingMuon_isMedium.push_back(leadingMuonIsMedium);
@@ -936,8 +955,10 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 		evInfo.leadingMuon_isMatchedToGen.push_back(leadingMuonIsMatchedToGen);
 		evInfo.leadingMuon_dz.push_back(leadingMuonDz);
 		evInfo.leadingMuon_dxy.push_back(leadingMuonDxy);
+		evInfo.leadingMuon_RochCor.push_back(leadingMuonRochCor);
 
 		evInfo.subLeadingMuon_iso.push_back(subLeadingMuonIso);
+		evInfo.subLeadingMuon_PFiso.push_back(subLeadingMuonPFiso);
 		evInfo.subLeadingMuon_isHighPt.push_back(subLeadingMuonIsHighPt);
 		evInfo.subLeadingMuon_isTight.push_back(subLeadingMuonIsTight);
 		evInfo.subLeadingMuon_isMedium.push_back(subLeadingMuonIsMedium);
@@ -945,6 +966,7 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 		evInfo.subLeadingMuon_isMatchedToGen.push_back(subLeadingMuonIsMatchedToGen);
 		evInfo.subLeadingMuon_dz.push_back(subLeadingMuonDz);
 		evInfo.subLeadingMuon_dxy.push_back(subLeadingMuonDxy);
+		evInfo.subLeadingMuon_RochCor.push_back(subLeadingMuonRochCor);
 
 		// cout << "arriva a linea " << __LINE__ << endl;
 
@@ -1041,6 +1063,7 @@ void miniTreeMaker_multiLeptonMultiJet::initEventStructure() {
 	evInfo.mu_eta .clear();
 	evInfo.mu_phi .clear();
 	evInfo.mu_iso .clear();
+	evInfo.mu_PFiso .clear();
 	evInfo.mu_isTight .clear();
 	evInfo.mu_isMedium .clear();
 	evInfo.mu_isLoose .clear();
@@ -1049,6 +1072,7 @@ void miniTreeMaker_multiLeptonMultiJet::initEventStructure() {
 	evInfo.mu_charge .clear();
 	evInfo.mu_dz .clear();
 	evInfo.mu_dxy .clear();
+	evInfo.mu_RochCor .clear();
 
 	evInfo.jet_e .clear();
 	evInfo.jet_pt .clear();
@@ -1177,6 +1201,7 @@ void miniTreeMaker_multiLeptonMultiJet::initEventStructure() {
 	evInfo.subLeadingEle_hcalOverEcal .clear();
 
 	evInfo.leadingMuon_iso .clear();
+	evInfo.leadingMuon_PFiso .clear();
 	evInfo.leadingMuon_isHighPt .clear();
 	evInfo.leadingMuon_isTight .clear();
 	evInfo.leadingMuon_isMedium .clear();
@@ -1184,8 +1209,10 @@ void miniTreeMaker_multiLeptonMultiJet::initEventStructure() {
 	evInfo.leadingMuon_isMatchedToGen .clear();
 	evInfo.leadingMuon_dz .clear();
 	evInfo.leadingMuon_dxy .clear();
+	evInfo.leadingMuon_RochCor .clear();
 
 	evInfo.subLeadingMuon_iso .clear();
+	evInfo.subLeadingMuon_PFiso .clear();
 	evInfo.subLeadingMuon_isHighPt .clear();
 	evInfo.subLeadingMuon_isTight .clear();
 	evInfo.subLeadingMuon_isMedium .clear();
@@ -1193,6 +1220,7 @@ void miniTreeMaker_multiLeptonMultiJet::initEventStructure() {
 	evInfo.subLeadingMuon_isMatchedToGen .clear();
 	evInfo.subLeadingMuon_dz .clear();
 	evInfo.subLeadingMuon_dxy .clear();
+	evInfo.subLeadingMuon_RochCor .clear();
 
 }
 // ******************************************************************************************

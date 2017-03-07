@@ -28,6 +28,7 @@
 #include "DataFormats/Common/interface/TriggerResults.h"
 #include "FWCore/Common/interface/TriggerNames.h"
 
+#include "dafne/Systematics/interface/RochCor.h"
 
 
 using namespace std;
@@ -98,6 +99,7 @@ struct eventInfo {
 	vector<float> mu_eta;
 	vector<float> mu_phi;
 	vector<float> mu_iso;
+	vector<float> mu_PFiso;
 	vector<bool> mu_isTight;
 	vector<bool> mu_isMedium;
 	vector<bool> mu_isLoose;
@@ -106,6 +108,7 @@ struct eventInfo {
 	vector<int> mu_charge;
 	vector<float> mu_dz;
 	vector<float> mu_dxy;
+	vector<float> mu_RochCor;
 
 	vector<float> jet_e;
 	vector<float> jet_pt;
@@ -234,6 +237,7 @@ struct eventInfo {
 	vector<float> subLeadingEle_hcalOverEcal;
 
 	vector<float> leadingMuon_iso;
+	vector<float> leadingMuon_PFiso;
 	vector<bool> leadingMuon_isHighPt;
 	vector<bool> leadingMuon_isTight;
 	vector<bool> leadingMuon_isMedium;
@@ -241,8 +245,10 @@ struct eventInfo {
 	vector<int> leadingMuon_isMatchedToGen;
 	vector<float> leadingMuon_dz;
 	vector<float> leadingMuon_dxy;
+	vector<float> leadingMuon_RochCor;
 
 	vector<float> subLeadingMuon_iso;
+	vector<float> subLeadingMuon_PFiso;
 	vector<bool> subLeadingMuon_isHighPt;
 	vector<bool> subLeadingMuon_isTight;
 	vector<bool> subLeadingMuon_isMedium;
@@ -250,6 +256,7 @@ struct eventInfo {
 	vector<int> subLeadingMuon_isMatchedToGen;
 	vector<float> subLeadingMuon_dz;
 	vector<float> subLeadingMuon_dxy;
+	vector<float> subLeadingMuon_RochCor;
 
 };
 
@@ -424,6 +431,74 @@ Ptr<reco::Vertex> chooseBestMuonVtx(const vector<Ptr<reco::Vertex> > &vertices, 
 
 
 
+// **************** 
+float RochesterCorrection(Ptr<flashgg::Muon> muon, Handle<View<reco::GenParticle> > genParticles, bool isData){
+
+	RoccoR rc("data/rcdata.2016.v3");
+	// cout << "Muon Pt Before = " << muon->pt() << ", Muon Eta Before = " << muon->eta() << endl;
+
+	TRandom *gRandom = new TRandom();
+	gRandom->SetSeed(1); 	
+	float u1 = gRandom->Rndm();
+	float u2 = gRandom->Rndm();
+	int nl = muon->bestTrack()->hitPattern().trackerLayersWithMeasurement();
+
+	float genMuPt = 0.;
+	for( unsigned int i = 0 ; i < genParticles->size(); i++ ) {
+	   Ptr<reco::GenParticle> gen = genParticles->ptrAt(i);
+	   if( fabs(gen->pdgId()) == 13 && deltaR(gen->eta(), gen->phi(), muon->eta(), muon->phi()) < 0.2 ) genMuPt = gen->pt();
+	}    
+
+	double RochCor = 1.;
+
+	if( isData ) {
+		RochCor = rc.kScaleDT(muon->charge(), muon->pt(), muon->eta(), muon->phi(), 0, 0);
+	} else {
+		if (genMuPt != 0) RochCor = rc.kScaleFromGenMC(muon->charge(), muon->pt(), muon->eta(), muon->phi(), nl, genMuPt, u1, 0, 0);
+		else RochCor = rc.kScaleAndSmearMC(muon->charge(), muon->pt(), muon->eta(), muon->phi(), nl, u1, u2, 0, 0);
+	}	
+	// cout << "Muon Pt After = " << muon->pt()*RochCor << ", Muon Eta After = " << muon->eta() << endl;
+
+	return RochCor;
+}
+// **************** 
+
+
+
+// **************** 
+float RochesterCorrection(const flashgg::Muon* muon, Handle<View<reco::GenParticle> > genParticles, bool isData){
+
+	RoccoR rc("data/rcdata.2016.v3");
+	// cout << "Muon Pt Before = " << muon->pt() << ", Muon Eta Before = " << muon->eta() << endl;
+
+	TRandom *gRandom = new TRandom();
+	gRandom->SetSeed(1); 	
+	float u1 = gRandom->Rndm();
+	float u2 = gRandom->Rndm();
+	int nl = muon->bestTrack()->hitPattern().trackerLayersWithMeasurement();
+
+	float genMuPt = 0.;
+	for( unsigned int i = 0 ; i < genParticles->size(); i++ ) {
+	   Ptr<reco::GenParticle> gen = genParticles->ptrAt(i);
+	   if( fabs(gen->pdgId()) == 13 && deltaR(gen->eta(), gen->phi(), muon->eta(), muon->phi()) < 0.2 ) genMuPt = gen->pt();
+	}    
+
+	double RochCor = 1.;
+
+	if( isData ) {
+		RochCor = rc.kScaleDT(muon->charge(), muon->pt(), muon->eta(), muon->phi(), 0, 0);
+	} else {
+		if (genMuPt != 0) RochCor = rc.kScaleFromGenMC(muon->charge(), muon->pt(), muon->eta(), muon->phi(), nl, genMuPt, u1, 0, 0);
+		else RochCor = rc.kScaleAndSmearMC(muon->charge(), muon->pt(), muon->eta(), muon->phi(), nl, u1, u2, 0, 0);
+	}	
+	// cout << "Muon Pt After = " << muon->pt()*RochCor << ", Muon Eta After = " << muon->eta() << endl;
+
+	return RochCor;
+}
+// **************** 
+
+
+
 // ***************************** 
 float electronIsolation(Ptr<flashgg::Electron> electron, double rho){
 	// -- compute combined relative isolation: IsoCh + max( 0.0, IsoNh + IsoPh - PU ) )/pT, PU = rho * Aeff 
@@ -489,7 +564,7 @@ float electronIsolation(const flashgg::Electron* electron, double rho){
 bool passMultiLeptonMultiJetPreselection(Ptr<flashgg::MultiLeptonMultiJetCandidate> mlmj){
 	if (mlmj->leadingLepton()->pt() < 60.) return false;
 	if (mlmj->subLeadingLepton()->pt() < 53.) return false;
-  	if (mlmj->leadingJet()->pt() < 40.) return false;
+	if (mlmj->leadingJet()->pt() < 40.) return false;
 	if (mlmj->subLeadingJet()->pt() < 40.) return false;
 
 	if (fabs(mlmj->leadingLepton()->eta()) > 2.4) return false;
