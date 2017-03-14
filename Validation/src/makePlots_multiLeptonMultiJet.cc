@@ -1543,31 +1543,40 @@ makePlots_multiLeptonMultiJet::makePlots_multiLeptonMultiJet(TString filename_, 
 
 void runMakePlots_multiLeptonMultiJet() {
 
-	string inputDir = "/home/gpfs/manip/mnt/cms/gnegro/CMSSW_8_0_20/src/dafne/miniTrees-DoubleEG/";   
-	string outputDir = "/home/gpfs/manip/mnt/cms/gnegro/CMSSW_8_0_20/src/dafne/DistributionsForDoubleEG/";
+	string inputDir = "/home/gpfs/manip/mnt/cms/gnegro/CMSSW_8_0_26_patch1/src/dafne/miniTrees-Moriond17/";   
+	string outputDir = "/home/gpfs/manip/mnt/cms/gnegro/CMSSW_8_0_26_patch1/src/dafne/Distributions-Moriond17/DoubleEG";
 
-	bool signalEE = true;  //true for DoubleEG (if not TnP)
+	bool signalEE = true;  //true for DoubleEG (if not TnP)   
 	bool signalMuMu = false;  //true for SingleMuon (if not TnP)
 	bool eMuSideband = false; //true for MuonEG
 
 	bool TnPEE = false; //true for DoubleEG 
 	bool TnPMM = false; //true for SingleMuon 
 
-
-	// makePlots_multiLeptonMultiJet(inputDir+"cmsWR2016-DY/output_DYJetsToLL-amcatnloFXFX_miniTree.root", outputDir+"DYJetsToLL-amcatnlo", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
-
-	// makePlots_multiLeptonMultiJet(inputDir+"cmsWR2016-TT/output_TTJets_miniTree.root", outputDir+"TTJets", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
-
-	// makePlots_multiLeptonMultiJet(inputDir+"cmsWR2016-WJets/output_WJetsToLNu_miniTree.root", outputDir+"WJets", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
-
-	// makePlots_multiLeptonMultiJet(inputDir+"cmsWR2016-WZ/output_WZ_miniTree.root", outputDir+"WZ", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
-
-	// makePlots_multiLeptonMultiJet(inputDir+"cmsWR2016-ZZ/output_ZZ_miniTree.root", outputDir+"ZZ", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
+	if (signalMuMu || TnPMM) outputDir = "/home/gpfs/manip/mnt/cms/gnegro/CMSSW_8_0_26_patch1/src/dafne/Distributions-Moriond17/SingleMuon";
+	if (eMuSideband) outputDir = "/home/gpfs/manip/mnt/cms/gnegro/CMSSW_8_0_26_patch1/src/dafne/Distributions-Moriond17/MuonEG";
 
 
-	// makePlots_multiLeptonMultiJet(inputDir+"output_DoubleEG_miniTree.root", outputDir+"DoubleEG", false, signalEE, false, false, TnPEE, false);
+	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/output_DYJetsPtBinned_miniTree.root", outputDir+"/DYJetsPtBinned", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
 
-	makePlots_multiLeptonMultiJet("output.root", "prova", false, signalEE, false, false, TnPEE, false);
+	// makePlots_multiLeptonMultiJet(inputDir+"TTJets/output_TTJets_miniTree.root", outputDir+"/TTJets", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
+
+	// makePlots_multiLeptonMultiJet(inputDir+"WJets/output_WJetsToLNu_miniTree.root", outputDir+"/WJets", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
+
+	// makePlots_multiLeptonMultiJet(inputDir+"WZ/output_WZ_miniTree.root", outputDir+"/WZ", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
+
+	// makePlots_multiLeptonMultiJet(inputDir+"ZZ/output_ZZ_miniTree.root", outputDir+"/ZZ", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
+
+	// makePlots_multiLeptonMultiJet(inputDir+"WW/output_WW_miniTree.root", outputDir+"/WW", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
+
+	// makePlots_multiLeptonMultiJet(inputDir+"SingleTop/output_SingleTop_miniTree.root", outputDir+"/SingleTop", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
+
+
+	makePlots_multiLeptonMultiJet(inputDir+"DoubleEG/output_DoubleEG_miniTree.root", outputDir, false, signalEE, false, false, TnPEE, false);
+
+	// makePlots_multiLeptonMultiJet(inputDir+"SingleMuon/output_SingleMuon_miniTree.root", outputDir, false, false, signalMuMu, false, false, TnPMM);
+
+	// makePlots_multiLeptonMultiJet(inputDir+"MuonEG/output_MuonEG_miniTree.root", outputDir, false, false, false, true, false, false);
 
 }
 
