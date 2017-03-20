@@ -52,7 +52,7 @@ process.analysisTree = cms.EDAnalyzer('EDminiTreeMaker_multiLeptonMultiJet',
 										generatorInfo = cms.InputTag('generator'),  																			
 										PileUpTag = cms.InputTag('slimmedAddPileupInfo'),
 										VertexTag=cms.InputTag('offlineSlimmedPrimaryVertices'),
-										MultiLeptonMultiJetTag=cms.InputTag('flashggMultiLeptonMultiJet'), 
+										MultiLeptonMultiJetTag=cms.InputTag('flashggMultiLeptonMultiJetSystematics'), 
 										JetsTag=cms.InputTag('flashggFinalJets'),
 										GenJetTag=cms.InputTag( "slimmedGenJets"),
 										ElectronTag=cms.InputTag('flashggSelectedElectrons'),
@@ -90,8 +90,9 @@ debug = False
 if debug: 
 	if customize.processType == "data":
 		for pset in process.flashggMultiLeptonMultiJetSystematics.SystMethods:
-			pset.Debug = True
-			pset.ExaggerateShiftUp = True
+			if pset.Label != "JEC"  and pset.Label != "JER":
+				pset.Debug = True
+				pset.ExaggerateShiftUp = True
 	else:
 		for pset2 in process.flashggMultiLeptonMultiJetSystematics.SystMethods2D:
 			pset2.Debug = True
