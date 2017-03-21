@@ -588,15 +588,6 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 		// if (multiLeptonMultiJet->isEMJJ()) cout << "isEMJJ" << endl; 
 		// if (!(multiLeptonMultiJet->isEMJJ())) cout << "no EMJJ" << endl;
 
-		if (! iEvent.isRealData() ) { 
-			ngen++;
-			if ( passMultiLeptonMultiJetPreselection(multiLeptonMultiJet) ) ngenPre++; 
-		} else {
-			ndldj++;
-			if ( passMultiLeptonMultiJetPreselection(multiLeptonMultiJet) ) npre++; 
-		}
-		// cout << "arriva a linea " << __LINE__ << endl;
-
 		if (multiLeptonMultiJet->leadingLepton()->pt() < 35 || multiLeptonMultiJet->subLeadingLepton()->pt() < 35) continue;
 		if (fabs(multiLeptonMultiJet->leadingLepton()->eta()) > 2.4 || fabs(multiLeptonMultiJet->subLeadingLepton()->eta()) > 2.4) continue;
 
@@ -685,6 +676,19 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 		int subLeadingMuonIsMatchedToGen = 0;
 		float subLeadingMuonDz           = -999.;
 		float subLeadingMuonDxy          = -999.;
+
+		math::XYZTLorentzVector leadingLeptonCorr = multiLeptonMultiJet->leadingLepton()->p4();
+		math::XYZTLorentzVector subLeadingLeptonCorr = multiLeptonMultiJet->subLeadingLepton()->p4();
+
+
+		if (! iEvent.isRealData() ) { 
+			ngen++;
+			if ( passMultiLeptonMultiJetPreselection(multiLeptonMultiJet, leadingLeptonCorr, subLeadingLeptonCorr) ) ngenPre++; 
+		} else {
+			ndldj++;
+			if ( passMultiLeptonMultiJetPreselection(multiLeptonMultiJet, leadingLeptonCorr, subLeadingLeptonCorr) ) npre++; 
+		}
+		// cout << "arriva a linea " << __LINE__ << endl;
 
 
 		if (multiLeptonMultiJet->isEEJJ() || multiLeptonMultiJet->isEETT() || multiLeptonMultiJet->isEMJJ()) {
@@ -784,6 +788,10 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 			leadingMuonDz = dz;
 			leadingMuonDxy = dxy;
 			leadingMuonRochCor = RochesterCorrection(multiLeptonMultiJet->leadingMuon(), genParticles, iEvent.isRealData());
+
+			float leadingMuonPtRochCor = multiLeptonMultiJet->leadingMuon()->pt()*leadingMuonRochCor;
+			math::PtEtaPhiELorentzVector lMuonRochCorVec( leadingMuonPtRochCor, multiLeptonMultiJet->leadingMuon()->eta(), multiLeptonMultiJet->leadingMuon()->phi(),  multiLeptonMultiJet->leadingMuon()->energy());
+			leadingLeptonCorr = lMuonRochCorVec;
 		}
 
 		if (multiLeptonMultiJet->isMMJJ() || multiLeptonMultiJet->isMMTT()) {
@@ -812,15 +820,24 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 			subLeadingMuonDz = dz;
 			subLeadingMuonDxy = dxy;
 			subLeadingMuonRochCor = RochesterCorrection(multiLeptonMultiJet->subLeadingMuon(), genParticles, iEvent.isRealData());
+
+			float subLeadingMuonPtRochCor = multiLeptonMultiJet->subLeadingMuon()->pt()*leadingMuonRochCor;
+			math::PtEtaPhiELorentzVector slMuonRochCorVec( subLeadingMuonPtRochCor, multiLeptonMultiJet->subLeadingMuon()->eta(), multiLeptonMultiJet->subLeadingMuon()->phi(),  multiLeptonMultiJet->subLeadingMuon()->energy());
+			subLeadingLeptonCorr = slMuonRochCorVec;
 		}
 
-		float diLeptonInvMass = (multiLeptonMultiJet->leadingLepton()->p4() + multiLeptonMultiJet->subLeadingLepton()->p4()).mass();
-		float diLeptonPt = (multiLeptonMultiJet->leadingLepton()->p4() + multiLeptonMultiJet->subLeadingLepton()->p4()).pt();
+
+
+		float massCorr = (leadingLeptonCorr + subLeadingLeptonCorr + multiLeptonMultiJet->leadingJet()->p4() + multiLeptonMultiJet->subLeadingJet()->p4()).mass();
+		float sumPtCorr = leadingLeptonCorr.pt() + subLeadingLeptonCorr.pt() + multiLeptonMultiJet->leadingJet()->pt() + multiLeptonMultiJet->subLeadingJet()->pt();
+
+		float diLeptonInvMass = (leadingLeptonCorr + subLeadingLeptonCorr).mass();
+		float diLeptonPt = (leadingLeptonCorr + subLeadingLeptonCorr).pt();
 		// cout << "diLeptonInvMass = " << diLeptonInvMass << ", diLeptonPt = " << diLeptonPt << endl;
 
 		float diJetInvMass = (multiLeptonMultiJet->leadingJet()->p4() + multiLeptonMultiJet->subLeadingJet()->p4()).mass();
-		float diJetLeadingLeptonInvMass = (multiLeptonMultiJet->leadingJet()->p4() + multiLeptonMultiJet->subLeadingJet()->p4() + multiLeptonMultiJet->leadingLepton()->p4()).mass();
-		float diJetSubLeadingLeptonInvMass = (multiLeptonMultiJet->leadingJet()->p4() + multiLeptonMultiJet->subLeadingJet()->p4() + multiLeptonMultiJet->subLeadingLepton()->p4()).mass();
+		float diJetLeadingLeptonInvMass = (multiLeptonMultiJet->leadingJet()->p4() + multiLeptonMultiJet->subLeadingJet()->p4() + leadingLeptonCorr).mass();
+		float diJetSubLeadingLeptonInvMass = (multiLeptonMultiJet->leadingJet()->p4() + multiLeptonMultiJet->subLeadingJet()->p4() + subLeadingLeptonCorr).mass();
 
 		int leadingJetIsMatchedToGen =  -1;
 		if( ! iEvent.isRealData() ) leadingJetIsMatchedToGen = jetMatchingToGen(multiLeptonMultiJet->leadingJet(), genJets); 
@@ -837,27 +854,27 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 		evInfo.isMMTT.push_back(multiLeptonMultiJet->isMMTT());
 		evInfo.isEMJJ.push_back(multiLeptonMultiJet->isEMJJ());  
 
-		evInfo.isSignalRegion.push_back( isSignalRegion(multiLeptonMultiJet, diLeptonInvMass) );
-		evInfo.isLowMllCR.push_back( isLowMllCR(multiLeptonMultiJet, diLeptonInvMass) );
-		evInfo.isLowMlljjCR.push_back( isLowMlljjCR(multiLeptonMultiJet, diLeptonInvMass) ); 
+		evInfo.isSignalRegion.push_back( isSignalRegion(massCorr, diLeptonInvMass) );   
+		evInfo.isLowMllCR.push_back( isLowMllCR(diLeptonInvMass) );   
+		evInfo.isLowMlljjCR.push_back( isLowMlljjCR(massCorr, diLeptonInvMass) );   
 
 		evInfo.isBB.push_back( isBB(multiLeptonMultiJet) );
 		evInfo.isEE.push_back( isEE(multiLeptonMultiJet) );
 		evInfo.isEB.push_back( isEB(multiLeptonMultiJet) );
 
-		evInfo.passPreselections.push_back( passMultiLeptonMultiJetPreselection(multiLeptonMultiJet) );
+		evInfo.passPreselections.push_back( passMultiLeptonMultiJetPreselection(multiLeptonMultiJet, leadingLeptonCorr, subLeadingLeptonCorr) );  
 
-		evInfo.leadingLepton_e.push_back(multiLeptonMultiJet->leadingLepton()->energy());
-		evInfo.leadingLepton_pt.push_back(multiLeptonMultiJet->leadingLepton()->pt());
-		evInfo.leadingLepton_eta.push_back(multiLeptonMultiJet->leadingLepton()->eta());
-		evInfo.leadingLepton_phi.push_back(multiLeptonMultiJet->leadingLepton()->phi());
-		evInfo.leadingLepton_charge.push_back(multiLeptonMultiJet->leadingLepton()->charge());
+		evInfo.leadingLepton_e.push_back(multiLeptonMultiJet->leadingLepton()->energy());  
+		evInfo.leadingLepton_pt.push_back(leadingLeptonCorr.pt());   
+		evInfo.leadingLepton_eta.push_back(multiLeptonMultiJet->leadingLepton()->eta());  
+		evInfo.leadingLepton_phi.push_back(multiLeptonMultiJet->leadingLepton()->phi());  
+		evInfo.leadingLepton_charge.push_back(multiLeptonMultiJet->leadingLepton()->charge()); 
 
-		evInfo.subLeadingLepton_e.push_back(multiLeptonMultiJet->subLeadingLepton()->energy());
-		evInfo.subLeadingLepton_pt.push_back(multiLeptonMultiJet->subLeadingLepton()->pt());
-		evInfo.subLeadingLepton_eta.push_back(multiLeptonMultiJet->subLeadingLepton()->eta());
-		evInfo.subLeadingLepton_phi.push_back(multiLeptonMultiJet->subLeadingLepton()->phi());
-		evInfo.subLeadingLepton_charge.push_back(multiLeptonMultiJet->subLeadingLepton()->charge());
+		evInfo.subLeadingLepton_e.push_back(multiLeptonMultiJet->subLeadingLepton()->energy());  
+		evInfo.subLeadingLepton_pt.push_back(subLeadingLeptonCorr.pt());   
+		evInfo.subLeadingLepton_eta.push_back(multiLeptonMultiJet->subLeadingLepton()->eta());   
+		evInfo.subLeadingLepton_phi.push_back(multiLeptonMultiJet->subLeadingLepton()->phi());   
+		evInfo.subLeadingLepton_charge.push_back(multiLeptonMultiJet->subLeadingLepton()->charge());  
 
 		evInfo.leadingJet_e.push_back(multiLeptonMultiJet->leadingJet()->energy());
 		evInfo.leadingJet_pt.push_back(multiLeptonMultiJet->leadingJet()->pt());
@@ -874,17 +891,17 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 		evInfo.subLeadingJet_isThight.push_back(subLeadingJetIsTight);
 
 		evInfo.dRLeadLeptonLeadJet.push_back(deltaR(multiLeptonMultiJet->leadingLepton()->eta(), multiLeptonMultiJet->leadingLepton()->phi(), multiLeptonMultiJet->leadingJet()->eta(), multiLeptonMultiJet->leadingJet()->phi()));
-		evInfo.dRLeadLeptonSubLeadJet.push_back(deltaR(multiLeptonMultiJet->leadingLepton()->eta(), multiLeptonMultiJet->leadingLepton()->phi(), multiLeptonMultiJet->subLeadingJet()->eta(), multiLeptonMultiJet->subLeadingJet()->phi()));
-		evInfo.dRSubLeadLeptonLeadJet.push_back(deltaR(multiLeptonMultiJet->subLeadingLepton()->eta(), multiLeptonMultiJet->subLeadingLepton()->phi(), multiLeptonMultiJet->leadingJet()->eta(), multiLeptonMultiJet->leadingJet()->phi()));
-		evInfo.dRSubLeadLeptonSubLeadJet.push_back(deltaR(multiLeptonMultiJet->subLeadingLepton()->eta(), multiLeptonMultiJet->subLeadingLepton()->phi(), multiLeptonMultiJet->subLeadingJet()->eta(), multiLeptonMultiJet->subLeadingJet()->phi()));
+		evInfo.dRLeadLeptonSubLeadJet.push_back(deltaR(multiLeptonMultiJet->leadingLepton()->eta(), multiLeptonMultiJet->leadingLepton()->phi(), multiLeptonMultiJet->subLeadingJet()->eta(), multiLeptonMultiJet->subLeadingJet()->phi())); 
+		evInfo.dRSubLeadLeptonLeadJet.push_back(deltaR(multiLeptonMultiJet->subLeadingLepton()->eta(), multiLeptonMultiJet->subLeadingLepton()->phi(), multiLeptonMultiJet->leadingJet()->eta(), multiLeptonMultiJet->leadingJet()->phi()));  
+		evInfo.dRSubLeadLeptonSubLeadJet.push_back(deltaR(multiLeptonMultiJet->subLeadingLepton()->eta(), multiLeptonMultiJet->subLeadingLepton()->phi(), multiLeptonMultiJet->subLeadingJet()->eta(), multiLeptonMultiJet->subLeadingJet()->phi()));  
 
-		evInfo.multiLeptonMultiJet_sumPt.push_back(multiLeptonMultiJet->sumPt());
-		evInfo.multiLeptonMultiJet_invMass.push_back(multiLeptonMultiJet->mass());
-		evInfo.diLepton_invMass.push_back(diLeptonInvMass);
-		evInfo.diLepton_pt.push_back(diLeptonPt);
+		evInfo.multiLeptonMultiJet_sumPt.push_back(sumPtCorr);  
+		evInfo.multiLeptonMultiJet_invMass.push_back(massCorr);  
+		evInfo.diLepton_invMass.push_back(diLeptonInvMass);  
+		evInfo.diLepton_pt.push_back(diLeptonPt);  
 		evInfo.diJet_invMass.push_back(diJetInvMass);
-		evInfo.diJetLeadingLepton_invMass.push_back(diJetLeadingLeptonInvMass);
-		evInfo.diJetSubLeadingLepton_invMass.push_back(diJetSubLeadingLeptonInvMass);
+		evInfo.diJetLeadingLepton_invMass.push_back(diJetLeadingLeptonInvMass);  
+		evInfo.diJetSubLeadingLepton_invMass.push_back(diJetSubLeadingLeptonInvMass);  
 
 		evInfo.leadingEle_passHEEPId.push_back(leadingElePassHEEPId);
 		evInfo.leadingEle_HEEPBitMapValues.push_back(leadingEleHeepBitMap);

@@ -563,9 +563,9 @@ float electronIsolation(const flashgg::Electron* electron, double rho){
 
 
 // ************************* 
-bool passMultiLeptonMultiJetPreselection(Ptr<flashgg::MultiLeptonMultiJetCandidate> mlmj){
-	if (mlmj->leadingLepton()->pt() < 60.) return false;
-	if (mlmj->subLeadingLepton()->pt() < 53.) return false;
+bool passMultiLeptonMultiJetPreselection(Ptr<flashgg::MultiLeptonMultiJetCandidate> mlmj, math::XYZTLorentzVector leadingLepton, math::XYZTLorentzVector subLeadingLepton){
+	if (leadingLepton.pt() < 60.) return false;
+	if (subLeadingLepton.pt() < 53.) return false;
 	if (mlmj->leadingJet()->pt() < 40.) return false;
 	if (mlmj->subLeadingJet()->pt() < 40.) return false;
 
@@ -625,8 +625,8 @@ bool isEB(Ptr<flashgg::MultiLeptonMultiJetCandidate> mlmj){
 
 
 // **************** 
-bool isSignalRegion(Ptr<flashgg::MultiLeptonMultiJetCandidate> mlmj, float diLeptonInvMass){
-	if (mlmj->mass() > 600. && diLeptonInvMass > 200.) {
+bool isSignalRegion(float mlmjMass, float diLeptonInvMass){
+	if (mlmjMass > 600. && diLeptonInvMass > 200.) {
 		return true;
 	}
 	return false;
@@ -635,7 +635,7 @@ bool isSignalRegion(Ptr<flashgg::MultiLeptonMultiJetCandidate> mlmj, float diLep
 
 
 // **************** 
-bool isLowMllCR(Ptr<flashgg::MultiLeptonMultiJetCandidate> mlmj, float diLeptonInvMass){
+bool isLowMllCR(float diLeptonInvMass){
 	if (diLeptonInvMass < 200.) return true;
 	return false;
 }
@@ -643,8 +643,8 @@ bool isLowMllCR(Ptr<flashgg::MultiLeptonMultiJetCandidate> mlmj, float diLeptonI
 
 
 // **************** 
-bool isLowMlljjCR(Ptr<flashgg::MultiLeptonMultiJetCandidate> mlmj, float diLeptonInvMass){
-	if (mlmj->mass() < 600. && diLeptonInvMass > 200.) return true;
+bool isLowMlljjCR(float mlmjMass, float diLeptonInvMass){
+	if (mlmjMass < 600. && diLeptonInvMass > 200.) return true;
 	return false;
 }
 // **************** 
