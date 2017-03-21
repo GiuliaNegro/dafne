@@ -33,8 +33,8 @@ process.source = cms.Source("PoolSource",fileNames=cms.untracked.vstring(
 				# "root://node12.datagrid.cea.fr//store/user/gnegro/cmsWR/cmsWR2016/dafne/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/cmsWR2016-dafne-v0-RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/161027_121933/0000/dafneMicroAOD_107.root"
 				# "/store/user/gnegro/cmsWR/cmsWR2016-signal/dafne-v1/WRToEEJJ_MW-2400_MNu-1200_TuneCUETP8M1_13TeV-pythia8/cmsWR2016-signal-dafne-v1-v0-gnegro-RunIIWinter16_80X_mcRun2_asymptotic_2016_miniAODv2_v1_MINIAODSIM-9232bfa9d7b25477dcde67f5060ed55b/170106_094339/0000/dafneMicroAOD_1.root"				
 				# "/store/user/gnegro/cmsWR/cmsWR2016-bkg/dafne-v1/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/cmsWR2016-bkg-dafne-v1-v0-RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/170106_095719/0000/dafneMicroAOD_1.root"
-				# "file:/afs/cern.ch/work/g/gnegro/NuAnalysis-Moriond17/CMSSW_8_0_26_patch1/src/flashgg/myMicroAODOutputFile_MultiLeptonMultiJet.root"
-				"file:/afs/cern.ch/work/g/gnegro/NuAnalysis-Moriond17/CMSSW_8_0_26_patch1/src/flashgg/myMicroAODOutputFile_MultiLeptonMultiJet_data.root"
+				"file:/afs/cern.ch/work/g/gnegro/NuAnalysis-Moriond17/CMSSW_8_0_26_patch1/src/flashgg/myMicroAODOutputFile_MultiLeptonMultiJet.root"
+				# "file:/afs/cern.ch/work/g/gnegro/NuAnalysis-Moriond17/CMSSW_8_0_26_patch1/src/flashgg/myMicroAODOutputFile_MultiLeptonMultiJet_data.root"
 ))
 
 
@@ -53,10 +53,7 @@ process.analysisTree = cms.EDAnalyzer('EDminiTreeMaker_multiLeptonMultiJet',
 										PileUpTag = cms.InputTag('slimmedAddPileupInfo'),
 										VertexTag=cms.InputTag('offlineSlimmedPrimaryVertices'),
 										MultiLeptonMultiJetTag=cms.InputTag('flashggMultiLeptonMultiJetSystematics'), 
-										JetsTag=cms.InputTag('flashggFinalJets'),
 										GenJetTag=cms.InputTag( "slimmedGenJets"),
-										ElectronTag=cms.InputTag('flashggSelectedElectrons'),
-										MuonTag=cms.InputTag('flashggSelectedMuons'),
 										triggerBits = cms.InputTag('TriggerResults::HLT'),
 										rhoFixedGridCollection = cms.InputTag('fixedGridRhoAll'),	
 										bTag = cms.untracked.string("pfCombinedInclusiveSecondaryVertexV2BJetTags"),  
