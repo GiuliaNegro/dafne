@@ -524,11 +524,21 @@ class makePlots_multiLeptonMultiJet {
 		unsigned int nEventsWithLeadingElePassingSelections=0, nEventsWithSubLeadingElePassingSelections=0;
 		unsigned int nEventsWithLeadingMuonPassingSelections=0, nEventsWithSubLeadingMuonPassingSelections=0;
 		unsigned int nEventsWithLeadingJetPassingSelections=0, nEventsWithSubLeadingJetPassingSelections=0;
+		
 		unsigned int nEventsWithEEJJpassingLoosePreselections=0, nEventsWithMMJJpassingLoosePreselections=0, nEventsWithEEJJpassingLoosePreselectionsAndCharge=0, nEventsWithMMJJpassingLoosePreselectionsAndCharge=0;
 		unsigned int nEventsWithEEJJpassingLoosePreselectionsAndChargeAndHEEPId=0, nEventsWithMMJJpassingLoosePreselectionsAndChargeAndHighPt=0;
 		unsigned int nEventsWith2elePassingLoosePreselections=0, nEventsWith2elePassingLoosePreselectionsAndCharge=0, nEventsWith2elePassingLoosePreselectionsAndChargeAndHeepId=0; 
 		unsigned int nEventsWith2muonsPassingLoosePreselections=0, nEventsWith2muonsPassingLoosePreselectionsAndCharge=0, nEventsWith2muonsPassingLoosePreselectionsAndChargeAndHighPt=0; 
 		
+		unsigned int nLeadingElePassingPreselections=0, nLeadingElePassingIsEcalDriven=0, nLeadingElePassingdEtaIn=0, nLeadingElePassingdPhiIn=0, nLeadingElePassingE2x5OverE5x5=0, nLeadingElePassingEmHadDepth1Iso=0, nLeadingElePassingMissingHits=0, nLeadingElePassingDxy=0, nLeadingElePassingHeepId=0;
+		unsigned int nLeadingElePassingPreselectionsInEB=0, nLeadingEleInEBPassingIsEcalDriven=0, nLeadingEleInEBPassingdEtaIn=0, nLeadingEleInEBPassingdPhiIn=0, nLeadingEleInEBPassingE2x5OverE5x5=0, nLeadingEleInEBPassingEmHadDepth1Iso=0, nLeadingEleInEBPassingMissingHits=0, nLeadingEleInEBPassingDxy=0, nLeadingElePassingHeepIdInEB=0;
+		unsigned int nLeadingElePassingPreselectionsInEE=0, nLeadingEleInEEPassingIsEcalDriven=0, nLeadingEleInEEPassingdEtaIn=0, nLeadingEleInEEPassingdPhiIn=0, nLeadingEleInEEPassingE2x5OverE5x5=0, nLeadingEleInEEPassingEmHadDepth1Iso=0, nLeadingEleInEEPassingMissingHits=0, nLeadingEleInEEPassingDxy=0, nLeadingElePassingHeepIdInEE=0;
+		unsigned int nSubLeadingElePassingPreselections=0, nSubLeadingElePassingIsEcalDriven=0, nSubLeadingElePassingdEtaIn=0, nSubLeadingElePassingdPhiIn=0, nSubLeadingElePassingE2x5OverE5x5=0, nSubLeadingElePassingEmHadDepth1Iso=0, nSubLeadingElePassingMissingHits=0, nSubLeadingElePassingDxy=0, nSubLeadingElePassingHeepId=0;
+		unsigned int nSubLeadingElePassingPreselectionsInEB=0, nSubLeadingEleInEBPassingIsEcalDriven=0, nSubLeadingEleInEBPassingdEtaIn=0, nSubLeadingEleInEBPassingdPhiIn=0, nSubLeadingEleInEBPassingE2x5OverE5x5=0, nSubLeadingEleInEBPassingEmHadDepth1Iso=0, nSubLeadingEleInEBPassingMissingHits=0, nSubLeadingEleInEBPassingDxy=0, nSubLeadingElePassingHeepIdInEB=0;
+		unsigned int nSubLeadingElePassingPreselectionsInEE=0, nSubLeadingEleInEEPassingIsEcalDriven=0, nSubLeadingEleInEEPassingdEtaIn=0, nSubLeadingEleInEEPassingdPhiIn=0, nSubLeadingEleInEEPassingE2x5OverE5x5=0, nSubLeadingEleInEEPassingEmHadDepth1Iso=0, nSubLeadingEleInEEPassingMissingHits=0, nSubLeadingEleInEEPassingDxy=0, nSubLeadingElePassingHeepIdInEE=0;
+
+
+
 		float w=1, sumWeights = 0; 
 
 		string suff = "";  
@@ -536,7 +546,7 @@ class makePlots_multiLeptonMultiJet {
 		string etaName[3] = {"", "_EB", "_EE"};
 		string etaMassName[5] = {"", "_EB-EB", "_EE-EE", "_EB-EE", "_noEB-EB"};
 
-		string eleName[4] = {"ele", "goodEle", "leadingEle", "subLeadingEle"};
+		string eleName[6] = {"ele", "goodEle", "leadingEle", "subLeadingEle", "goodLeadingEle", "goodSubLeadingEle"};
 
 		string objName[16] = {"ele", "goodEle", "muon", "goodMuon", "jet", "goodJet", "leadingLepton", "subLeadingLepton", "leadingEle", "subLeadingEle", "leadingMu", "subLeadingMu", "leadingJet", "subLeadingJet", "muonRochCor", "goodMuonRochCor"};
 

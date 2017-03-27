@@ -526,7 +526,7 @@ void makePlots_multiLeptonMultiJet::SetHistos(){
 	}
 
 
-	for (unsigned short j(0); j < 4; j++) {
+	for (unsigned short j(0); j < 6; j++) {
 		for (unsigned short m(0); m < 3; m++) {
 			etaSC_histo[j][m] = newTH1D("etaSC_"+eleName[j]+etaName[m]+"_histo", "etaSC_"+eleName[j]+etaName[m]+"_histo", "#eta_{SC} "+eleName[j], 100, -2.5, 2.5);
 			isEcalDriven_histo[j][m] = newTH1D("isEcalDriven_"+eleName[j]+etaName[m]+"_histo", "isEcalDriven_"+eleName[j]+etaName[m]+"_histo", "isEcalDriven "+eleName[j], 2, 0., 2.);
@@ -1223,6 +1223,91 @@ void makePlots_multiLeptonMultiJet::Loop(){
 		nEventsWithDLDJpassingPreselections++;
 
 
+		// --leadingEle
+		if (multiLeptonMultiJets[idxDLDJ].isEEJJ || multiLeptonMultiJets[idxDLDJ].isEMJJ) {
+			nLeadingElePassingPreselections++;
+			doElePlots(leadingElectrons,idxDLDJ,2,0);
+			if ( isInEB(leadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(leadingElectrons,idxDLDJ,2,1);
+			if ( isInEE(leadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(leadingElectrons,idxDLDJ,2,2);
+
+			if ( leadingElectrons[idxDLDJ].isEcalDriven ) nLeadingElePassingIsEcalDriven++;
+			if ( fabs(leadingElectrons[idxDLDJ].dEtaIn)<0.004 ) nLeadingElePassingdEtaIn++;
+			if ( fabs(leadingElectrons[idxDLDJ].dPhiIn)<0.006 ) nLeadingElePassingdPhiIn++;
+			if ( (leadingElectrons[idxDLDJ].e2x5/leadingElectrons[idxDLDJ].e5x5) > 0.94 || (leadingElectrons[idxDLDJ].e1x5/leadingElectrons[idxDLDJ].e5x5) > 0.83 ) nLeadingElePassingE2x5OverE5x5++;
+			if ( leadingElectrons[idxDLDJ].EmHadDepth1Iso<(0.28*rho + 2 + 0.03*leadingElectrons[idxDLDJ].v.Pt()) ) nLeadingElePassingEmHadDepth1Iso++;
+			if ( leadingElectrons[idxDLDJ].missingHits <=1 ) nLeadingElePassingMissingHits++;
+			if ( fabs(leadingElectrons[idxDLDJ].dxy)<0.02 ) nLeadingElePassingDxy++;
+			if ( leadingElectrons[idxDLDJ].passHEEPId ) nLeadingElePassingHeepId++;
+
+			if ( fabs(leadingElectrons[idxDLDJ].etaSC)<1.4442 ) {
+				nLeadingElePassingPreselectionsInEB++;
+				if ( leadingElectrons[idxDLDJ].isEcalDriven ) nLeadingEleInEBPassingIsEcalDriven++;
+				if ( fabs(leadingElectrons[idxDLDJ].dEtaIn)<0.004 ) nLeadingEleInEBPassingdEtaIn++;
+				if ( fabs(leadingElectrons[idxDLDJ].dPhiIn)<0.006 ) nLeadingEleInEBPassingdPhiIn++;
+				if ( (leadingElectrons[idxDLDJ].e2x5/leadingElectrons[idxDLDJ].e5x5) > 0.94 || (leadingElectrons[idxDLDJ].e1x5/leadingElectrons[idxDLDJ].e5x5) > 0.83 ) nLeadingEleInEBPassingE2x5OverE5x5++;
+				if ( leadingElectrons[idxDLDJ].EmHadDepth1Iso<(0.28*rho + 2 + 0.03*leadingElectrons[idxDLDJ].v.Pt()) ) nLeadingEleInEBPassingEmHadDepth1Iso++;
+				if ( leadingElectrons[idxDLDJ].missingHits <=1 ) nLeadingEleInEBPassingMissingHits++;
+				if ( fabs(leadingElectrons[idxDLDJ].dxy)<0.02 ) nLeadingEleInEBPassingDxy++;
+				if ( leadingElectrons[idxDLDJ].passHEEPId ) nLeadingElePassingHeepIdInEB++;
+			}
+
+			if ( fabs(leadingElectrons[idxDLDJ].etaSC)>1.556 && fabs(leadingElectrons[idxDLDJ].etaSC)<2.5 ) {
+				nLeadingElePassingPreselectionsInEE++;
+				if ( leadingElectrons[idxDLDJ].isEcalDriven ) nLeadingEleInEEPassingIsEcalDriven++;
+				if ( fabs(leadingElectrons[idxDLDJ].dEtaIn)<0.004 ) nLeadingEleInEEPassingdEtaIn++;
+				if ( fabs(leadingElectrons[idxDLDJ].dPhiIn)<0.006 ) nLeadingEleInEEPassingdPhiIn++;
+				if ( (leadingElectrons[idxDLDJ].e2x5/leadingElectrons[idxDLDJ].e5x5) > 0.94 || (leadingElectrons[idxDLDJ].e1x5/leadingElectrons[idxDLDJ].e5x5) > 0.83 ) nLeadingEleInEEPassingE2x5OverE5x5++;
+				if ( leadingElectrons[idxDLDJ].EmHadDepth1Iso<(0.28*rho + 2 + 0.03*leadingElectrons[idxDLDJ].v.Pt()) ) nLeadingEleInEEPassingEmHadDepth1Iso++;
+				if ( leadingElectrons[idxDLDJ].missingHits <=1 ) nLeadingEleInEEPassingMissingHits++;
+				if ( fabs(leadingElectrons[idxDLDJ].dxy)<0.02 ) nLeadingEleInEEPassingDxy++;
+				if ( leadingElectrons[idxDLDJ].passHEEPId ) nLeadingElePassingHeepIdInEE++;
+			}
+		}
+
+
+		// --subLeadingEle
+		if (multiLeptonMultiJets[idxDLDJ].isEEJJ) {
+			nSubLeadingElePassingPreselections++;
+			doElePlots(subLeadingElectrons,idxDLDJ,3,0);
+			if ( isInEB(subLeadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(subLeadingElectrons,idxDLDJ,3,1);
+			if ( isInEE(subLeadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(subLeadingElectrons,idxDLDJ,3,2);
+
+			if ( subLeadingElectrons[idxDLDJ].isEcalDriven ) nSubLeadingElePassingIsEcalDriven++;
+			if ( fabs(subLeadingElectrons[idxDLDJ].dEtaIn)<0.004 ) nSubLeadingElePassingdEtaIn++;
+			if ( fabs(subLeadingElectrons[idxDLDJ].dPhiIn)<0.006 ) nSubLeadingElePassingdPhiIn++;
+			if ( (subLeadingElectrons[idxDLDJ].e2x5/subLeadingElectrons[idxDLDJ].e5x5) > 0.94 || (subLeadingElectrons[idxDLDJ].e1x5/subLeadingElectrons[idxDLDJ].e5x5) > 0.83 ) nSubLeadingElePassingE2x5OverE5x5++;
+			if ( subLeadingElectrons[idxDLDJ].EmHadDepth1Iso<(0.28*rho + 2 + 0.03*subLeadingElectrons[idxDLDJ].v.Pt()) ) nSubLeadingElePassingEmHadDepth1Iso++;
+			if ( subLeadingElectrons[idxDLDJ].missingHits <=1 ) nSubLeadingElePassingMissingHits++;
+			if ( fabs(subLeadingElectrons[idxDLDJ].dxy)<0.02 ) nSubLeadingElePassingDxy++;
+			if ( subLeadingElectrons[idxDLDJ].passHEEPId ) nSubLeadingElePassingHeepId++;
+
+
+			if ( fabs(subLeadingElectrons[idxDLDJ].etaSC)<1.4442 ) {
+				nSubLeadingElePassingPreselectionsInEB++;
+				if ( subLeadingElectrons[idxDLDJ].isEcalDriven ) nSubLeadingEleInEBPassingIsEcalDriven++;
+				if ( fabs(subLeadingElectrons[idxDLDJ].dEtaIn)<0.004 ) nSubLeadingEleInEBPassingdEtaIn++;
+				if ( fabs(subLeadingElectrons[idxDLDJ].dPhiIn)<0.006 ) nSubLeadingEleInEBPassingdPhiIn++;
+				if ( (subLeadingElectrons[idxDLDJ].e2x5/subLeadingElectrons[idxDLDJ].e5x5) > 0.94 || (subLeadingElectrons[idxDLDJ].e1x5/subLeadingElectrons[idxDLDJ].e5x5) > 0.83 ) nSubLeadingEleInEBPassingE2x5OverE5x5++;
+				if ( subLeadingElectrons[idxDLDJ].EmHadDepth1Iso<(0.28*rho + 2 + 0.03*subLeadingElectrons[idxDLDJ].v.Pt()) ) nSubLeadingEleInEBPassingEmHadDepth1Iso++;
+				if ( subLeadingElectrons[idxDLDJ].missingHits <=1 ) nSubLeadingEleInEBPassingMissingHits++;
+				if ( fabs(subLeadingElectrons[idxDLDJ].dxy)<0.02 ) nSubLeadingEleInEBPassingDxy++;
+				if ( subLeadingElectrons[idxDLDJ].passHEEPId ) nSubLeadingElePassingHeepIdInEB++;
+			}
+
+			if ( fabs(subLeadingElectrons[idxDLDJ].etaSC)>1.556 && fabs(subLeadingElectrons[idxDLDJ].etaSC)<2.5 ) {
+				nSubLeadingElePassingPreselectionsInEE++;
+				if ( subLeadingElectrons[idxDLDJ].isEcalDriven ) nSubLeadingEleInEEPassingIsEcalDriven++;
+				if ( fabs(subLeadingElectrons[idxDLDJ].dEtaIn)<0.004 ) nSubLeadingEleInEEPassingdEtaIn++;
+				if ( fabs(subLeadingElectrons[idxDLDJ].dPhiIn)<0.006 ) nSubLeadingEleInEEPassingdPhiIn++;
+				if ( (subLeadingElectrons[idxDLDJ].e2x5/subLeadingElectrons[idxDLDJ].e5x5) > 0.94 || (subLeadingElectrons[idxDLDJ].e1x5/subLeadingElectrons[idxDLDJ].e5x5) > 0.83 ) nSubLeadingEleInEEPassingE2x5OverE5x5++;
+				if ( subLeadingElectrons[idxDLDJ].EmHadDepth1Iso<(0.28*rho + 2 + 0.03*subLeadingElectrons[idxDLDJ].v.Pt()) ) nSubLeadingEleInEEPassingEmHadDepth1Iso++;
+				if ( subLeadingElectrons[idxDLDJ].missingHits <=1 ) nSubLeadingEleInEEPassingMissingHits++;
+				if ( fabs(subLeadingElectrons[idxDLDJ].dxy)<0.02 ) nSubLeadingEleInEEPassingDxy++;
+				if ( subLeadingElectrons[idxDLDJ].passHEEPId ) nSubLeadingElePassingHeepIdInEE++;
+			}
+		}
+
+
 		bool passSelections = 0;
 
 		if (leadingJets[idxDLDJ].isTight && subLeadingJets[idxDLDJ].isTight) {
@@ -1315,9 +1400,9 @@ void makePlots_multiLeptonMultiJet::Loop(){
 				doEleDistributionsPlots(leadingElectrons,idxDLDJ,8,3);					
 			}
 
-			doElePlots(leadingElectrons,idxDLDJ,2,0);
-			if ( isInEB(leadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(leadingElectrons,idxDLDJ,2,1);
-			if ( isInEE(leadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(leadingElectrons,idxDLDJ,2,2);	   
+			doElePlots(leadingElectrons,idxDLDJ,4,0);
+			if ( isInEB(leadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(leadingElectrons,idxDLDJ,4,1);
+			if ( isInEE(leadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(leadingElectrons,idxDLDJ,4,2);	   
 		}
 
 
@@ -1343,9 +1428,9 @@ void makePlots_multiLeptonMultiJet::Loop(){
 				doEleDistributionsPlots(subLeadingElectrons,idxDLDJ,9,3);					
 			}
 
-			doElePlots(subLeadingElectrons,idxDLDJ,3,0);
-			if ( isInEB(subLeadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(subLeadingElectrons,idxDLDJ,3,1);
-			if ( isInEE(subLeadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(subLeadingElectrons,idxDLDJ,3,2); 
+			doElePlots(subLeadingElectrons,idxDLDJ,5,0);
+			if ( isInEB(subLeadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(subLeadingElectrons,idxDLDJ,5,1);
+			if ( isInEE(subLeadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(subLeadingElectrons,idxDLDJ,5,2); 
 		}
 
 
@@ -1423,7 +1508,6 @@ void makePlots_multiLeptonMultiJet::Loop(){
 
 		nLeadingLeptons_histo -> Fill(nLeadingLeptons);
 		nSubLeadingLeptons_histo -> Fill(nSubLeadingLeptons);
-
 
 
 	} //fine loop su eventi
@@ -1510,7 +1594,69 @@ void makePlots_multiLeptonMultiJet::saveHistosAndOutputFile(TString& ouputdir){
 	fOutput << "nEventsWith2elePassingLoosePreselectionsAndChargeAndheepId = " << nEventsWith2elePassingLoosePreselectionsAndChargeAndHeepId << " \n";
 	fOutput << "nEventsWith2muonsPassingLoosePreselections = " << nEventsWith2muonsPassingLoosePreselections << " \n";
 	fOutput << "nEventsWith2muonsPassingLoosePreselectionsAndCharge = " << nEventsWith2muonsPassingLoosePreselectionsAndCharge << " \n";
-	fOutput << "nEventsWith2muonsPassingLoosePreselectionsAndChargeAndHighPt = " << nEventsWith2muonsPassingLoosePreselectionsAndChargeAndHighPt << " \n";
+	fOutput << "nEventsWith2muonsPassingLoosePreselectionsAndChargeAndHighPt = " << nEventsWith2muonsPassingLoosePreselectionsAndChargeAndHighPt << " \n" << " \n";
+
+
+	fOutput << "nLeadingElePassingPreselections = " << nLeadingElePassingPreselections << " \n";
+	fOutput << "nLeadingElePassingIsEcalDriven = " << nLeadingElePassingIsEcalDriven << " \n";
+	fOutput << "nLeadingElePassingdEtaIn = " << nLeadingElePassingdEtaIn << " \n";
+	fOutput << "nLeadingElePassingdPhiIn = " << nLeadingElePassingdPhiIn << " \n";
+	fOutput << "nLeadingElePassingE2x5OverE5x5 = " << nLeadingElePassingE2x5OverE5x5 << " \n";
+	fOutput << "nLeadingElePassingEmHadDepth1Iso = " << nLeadingElePassingEmHadDepth1Iso << " \n";
+	fOutput << "nLeadingElePassingMissingHits = " << nLeadingElePassingMissingHits << " \n";
+	fOutput << "nLeadingElePassingDxy = " << nLeadingElePassingDxy << " \n";
+	fOutput << "nLeadingElePassingHeepId = " << nLeadingElePassingHeepId << " \n" << " \n";
+
+	fOutput << "nLeadingElePassingPreselectionsInEB = " << nLeadingElePassingPreselectionsInEB << " \n";
+	fOutput << "nLeadingEleInEBPassingIsEcalDriven = " << nLeadingEleInEBPassingIsEcalDriven << " \n";
+	fOutput << "nLeadingEleInEBPassingdEtaIn = " << nLeadingEleInEBPassingdEtaIn << " \n";
+	fOutput << "nLeadingEleInEBPassingdPhiIn = " << nLeadingEleInEBPassingdPhiIn << " \n";
+	fOutput << "nLeadingEleInEBPassingE2x5OverE5x5 = " << nLeadingEleInEBPassingE2x5OverE5x5 << " \n";
+	fOutput << "nLeadingEleInEBPassingEmHadDepth1Iso = " << nLeadingEleInEBPassingEmHadDepth1Iso << " \n";
+	fOutput << "nLeadingEleInEBPassingMissingHits = " << nLeadingEleInEBPassingMissingHits << " \n";
+	fOutput << "nLeadingEleInEBPassingDxy = " << nLeadingEleInEBPassingDxy << " \n";
+	fOutput << "nLeadingElePassingHeepIdInEB = " << nLeadingElePassingHeepIdInEB << " \n" << " \n";
+
+	fOutput << "nLeadingElePassingPreselectionsInEE = " << nLeadingElePassingPreselectionsInEE << " \n";
+	fOutput << "nLeadingEleInEEPassingIsEcalDriven = " << nLeadingEleInEEPassingIsEcalDriven << " \n";
+	fOutput << "nLeadingEleInEEPassingdEtaIn = " << nLeadingEleInEEPassingdEtaIn << " \n";
+	fOutput << "nLeadingEleInEEPassingdPhiIn = " << nLeadingEleInEEPassingdPhiIn << " \n";
+	fOutput << "nLeadingEleInEEPassingE2x5OverE5x5 = " << nLeadingEleInEEPassingE2x5OverE5x5 << " \n";
+	fOutput << "nLeadingEleInEEPassingEmHadDepth1Iso = " << nLeadingEleInEEPassingEmHadDepth1Iso << " \n";
+	fOutput << "nLeadingEleInEEPassingMissingHits = " << nLeadingEleInEEPassingMissingHits << " \n";
+	fOutput << "nLeadingEleInEEPassingDxy = " << nLeadingEleInEEPassingDxy << " \n";
+	fOutput << "nLeadingElePassingHeepIdInEE = " << nLeadingElePassingHeepIdInEE << " \n" << " \n";
+
+
+	fOutput << "nSubLeadingElePassingPreselections = " << nSubLeadingElePassingPreselections << " \n";
+	fOutput << "nSubLeadingElePassingIsEcalDriven = " << nSubLeadingElePassingIsEcalDriven << " \n";
+	fOutput << "nSubLeadingElePassingdEtaIn = " << nSubLeadingElePassingdEtaIn << " \n";
+	fOutput << "nSubLeadingElePassingdPhiIn = " << nSubLeadingElePassingdPhiIn << " \n";
+	fOutput << "nSubLeadingElePassingE2x5OverE5x5 = " << nSubLeadingElePassingE2x5OverE5x5 << " \n";
+	fOutput << "nSubLeadingElePassingEmHadDepth1Iso = " << nSubLeadingElePassingEmHadDepth1Iso << " \n";
+	fOutput << "nSubLeadingElePassingMissingHits = " << nSubLeadingElePassingMissingHits << " \n";
+	fOutput << "nSubLeadingElePassingDxy = " << nSubLeadingElePassingDxy << " \n";
+	fOutput << "nSubLeadingElePassingHeepId = " << nSubLeadingElePassingHeepId << " \n" << " \n";
+
+	fOutput << "nSubLeadingElePassingPreselectionsInEB = " << nSubLeadingElePassingPreselectionsInEB << " \n";
+	fOutput << "nSubLeadingEleInEBPassingIsEcalDriven = " << nSubLeadingEleInEBPassingIsEcalDriven << " \n";
+	fOutput << "nSubLeadingEleInEBPassingdEtaIn = " << nSubLeadingEleInEBPassingdEtaIn << " \n";
+	fOutput << "nSubLeadingEleInEBPassingdPhiIn = " << nSubLeadingEleInEBPassingdPhiIn << " \n";
+	fOutput << "nSubLeadingEleInEBPassingE2x5OverE5x5 = " << nSubLeadingEleInEBPassingE2x5OverE5x5 << " \n";
+	fOutput << "nSubLeadingEleInEBPassingEmHadDepth1Iso = " << nSubLeadingEleInEBPassingEmHadDepth1Iso << " \n";
+	fOutput << "nSubLeadingEleInEBPassingMissingHits = " << nSubLeadingEleInEBPassingMissingHits << " \n";
+	fOutput << "nSubLeadingEleInEBPassingDxy = " << nSubLeadingEleInEBPassingDxy << " \n";
+	fOutput << "nSubLeadingElePassingHeepIdInEB = " << nSubLeadingElePassingHeepIdInEB << " \n" << " \n";
+
+	fOutput << "nSubLeadingElePassingPreselectionsInEE = " << nSubLeadingElePassingPreselectionsInEE << " \n";
+	fOutput << "nSubLeadingEleInEEPassingIsEcalDriven = " << nSubLeadingEleInEEPassingIsEcalDriven << " \n";
+	fOutput << "nSubLeadingEleInEEPassingdEtaIn = " << nSubLeadingEleInEEPassingdEtaIn << " \n";
+	fOutput << "nSubLeadingEleInEEPassingdPhiIn = " << nSubLeadingEleInEEPassingdPhiIn << " \n";
+	fOutput << "nSubLeadingEleInEEPassingE2x5OverE5x5 = " << nSubLeadingEleInEEPassingE2x5OverE5x5 << " \n";
+	fOutput << "nSubLeadingEleInEEPassingEmHadDepth1Iso = " << nSubLeadingEleInEEPassingEmHadDepth1Iso << " \n";
+	fOutput << "nSubLeadingEleInEEPassingMissingHits = " << nSubLeadingEleInEEPassingMissingHits << " \n";
+	fOutput << "nSubLeadingEleInEEPassingDxy = " << nSubLeadingEleInEEPassingDxy << " \n";
+	fOutput << "nSubLeadingElePassingHeepIdInEE = " << nSubLeadingElePassingHeepIdInEE << " \n" << " \n";
 
 	// fOutput << " = " <<  << " \n";	
 	fOutput.close();
