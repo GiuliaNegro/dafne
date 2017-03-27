@@ -23,65 +23,6 @@ void makePlots_multiLeptonMultiJet::Init(){
    	vtx_x = 0;
    	vtx_y = 0;
    	vtx_z = 0;
-	ele_e = 0;
-	ele_pt = 0;
-	ele_eta = 0;
-	ele_phi = 0;
-	ele_passHEEPId = 0;
-	ele_HEEPBitMapValues = 0;
-    ele_passTightId = 0;
-    ele_passMediumId = 0;
-    ele_passLooseId = 0;
-    ele_passVetoId = 0;
-    ele_passMVATightId = 0;
-    ele_passMVAMediumId = 0;
-	ele_idmva = 0;
-	ele_iso = 0;
-	ele_dz = 0;
-	ele_d0 = 0;
-	ele_isMatchedToGen = 0;
-	ele_charge = 0;
-	ele_etaSC = 0;
-	ele_isEcalDriven = 0;
-	ele_dEtaIn = 0;
-	ele_dPhiIn = 0;
-	ele_hOverE = 0;
-	ele_full5x5_r9 = 0;
-	ele_full5x5_sigmaIetaIeta = 0;
-	ele_full5x5_E5x5 = 0;
-	ele_full5x5_E1x5 = 0;
-	ele_full5x5_E2x5 = 0;
-	ele_EmHadDepth1Iso = 0;
-	ele_ptTracksIso = 0;
-	ele_innerLayerLostHits = 0;
-	ele_dxy = 0;
-	ele_eOverP = 0;
-	ele_ecalEnergy = 0;
-   	ele_hcalOverEcal = 0;
-	mu_e = 0;
-	mu_pt = 0;
-	mu_eta = 0;
-	mu_phi = 0;
-	mu_iso = 0;
-	mu_PFiso = 0;
-	mu_isTight = 0;
-	mu_isMedium = 0;
-	mu_isLoose = 0;
-	mu_isHighPt = 0;
-	mu_isMatchedToGen = 0;
-	mu_charge = 0;
-	mu_dz = 0;
-	mu_dxy = 0;
-	mu_RochCor = 0;
-	jet_e = 0;
-	jet_pt = 0;
-	jet_eta = 0;
-	jet_phi = 0;
-	jet_bdiscriminant = 0;
-	jet_partonFlavour = 0;
-	jet_hadronFlavour = 0;
-	jet_isMatchedToGen = 0;
-	jet_isThight = 0;
 	isEEJJ = 0;
 	isEETT = 0;
 	isMMJJ = 0;
@@ -228,65 +169,6 @@ void makePlots_multiLeptonMultiJet::Init(){
 	fChain->SetBranchAddress("vtx_x", &vtx_x, &b_vtx_x);
 	fChain->SetBranchAddress("vtx_y", &vtx_y, &b_vtx_y);
 	fChain->SetBranchAddress("vtx_z", &vtx_z, &b_vtx_z);
-	fChain->SetBranchAddress("ele_e", &ele_e, &b_ele_e);
-	fChain->SetBranchAddress("ele_pt", &ele_pt, &b_ele_pt);
-	fChain->SetBranchAddress("ele_eta", &ele_eta, &b_ele_eta);
-	fChain->SetBranchAddress("ele_phi", &ele_phi, &b_ele_phi);
-	fChain->SetBranchAddress("ele_passHEEPId", &ele_passHEEPId, &b_ele_passHEEPId);
-    fChain->SetBranchAddress("ele_HEEPBitMapValues", &ele_HEEPBitMapValues, &b_ele_HEEPBitMapValues);
-    fChain->SetBranchAddress("ele_passTightId", &ele_passTightId, &b_ele_passTightId);
-    fChain->SetBranchAddress("ele_passMediumId", &ele_passMediumId, &b_ele_passMediumId);
-    fChain->SetBranchAddress("ele_passLooseId", &ele_passLooseId, &b_ele_passLooseId);
-    fChain->SetBranchAddress("ele_passVetoId", &ele_passVetoId, &b_ele_passVetoId);
-    fChain->SetBranchAddress("ele_passMVATightId", &ele_passMVATightId, &b_ele_passMVATightId);
-    fChain->SetBranchAddress("ele_passMVAMediumId", &ele_passMVAMediumId, &b_ele_passMVAMediumId);
-	fChain->SetBranchAddress("ele_idmva", &ele_idmva, &b_ele_idmva);
-	fChain->SetBranchAddress("ele_iso", &ele_iso, &b_ele_iso);
-	fChain->SetBranchAddress("ele_dz", &ele_dz, &b_ele_dz);
-	fChain->SetBranchAddress("ele_d0", &ele_d0, &b_ele_d0);
-	fChain->SetBranchAddress("ele_isMatchedToGen", &ele_isMatchedToGen, &b_ele_isMatchedToGen);
-	fChain->SetBranchAddress("ele_charge", &ele_charge, &b_ele_charge);
-	fChain->SetBranchAddress("ele_etaSC", &ele_etaSC, &b_ele_etaSC);
-	fChain->SetBranchAddress("ele_isEcalDriven", &ele_isEcalDriven, &b_ele_isEcalDriven);
-	fChain->SetBranchAddress("ele_dEtaIn", &ele_dEtaIn, &b_ele_dEtaIn);
-	fChain->SetBranchAddress("ele_dPhiIn", &ele_dPhiIn, &b_ele_dPhiIn);
-	fChain->SetBranchAddress("ele_hOverE", &ele_hOverE, &b_ele_hOverE);
-	fChain->SetBranchAddress("ele_full5x5_r9", &ele_full5x5_r9, &b_ele_full5x5_r9);
-	fChain->SetBranchAddress("ele_full5x5_sigmaIetaIeta", &ele_full5x5_sigmaIetaIeta, &b_ele_full5x5_sigmaIetaIeta);
-	fChain->SetBranchAddress("ele_full5x5_E5x5", &ele_full5x5_E5x5, &b_ele_full5x5_E5x5);
-	fChain->SetBranchAddress("ele_full5x5_E1x5", &ele_full5x5_E1x5, &b_ele_full5x5_E1x5);
-	fChain->SetBranchAddress("ele_full5x5_E2x5", &ele_full5x5_E2x5, &b_ele_full5x5_E2x5);
-	fChain->SetBranchAddress("ele_EmHadDepth1Iso", &ele_EmHadDepth1Iso, &b_ele_EmHadDepth1Iso);
-	fChain->SetBranchAddress("ele_ptTracksIso", &ele_ptTracksIso, &b_ele_ptTracksIso);
-	fChain->SetBranchAddress("ele_innerLayerLostHits", &ele_innerLayerLostHits, &b_ele_innerLayerLostHits);
-	fChain->SetBranchAddress("ele_dxy", &ele_dxy, &b_ele_dxy);
-	fChain->SetBranchAddress("ele_eOverP", &ele_eOverP, &b_ele_eOverP);
-    fChain->SetBranchAddress("ele_ecalEnergy", &ele_ecalEnergy, &b_ele_ecalEnergy);
-    fChain->SetBranchAddress("ele_hcalOverEcal", &ele_hcalOverEcal, &b_ele_hcalOverEcal);
-	fChain->SetBranchAddress("mu_e", &mu_e, &b_mu_e);
-	fChain->SetBranchAddress("mu_pt", &mu_pt, &b_mu_pt);
-	fChain->SetBranchAddress("mu_eta", &mu_eta, &b_mu_eta);
-	fChain->SetBranchAddress("mu_phi", &mu_phi, &b_mu_phi);
-	fChain->SetBranchAddress("mu_iso", &mu_iso, &b_mu_iso);
-	fChain->SetBranchAddress("mu_PFiso", &mu_PFiso, &b_mu_PFiso);
-	fChain->SetBranchAddress("mu_isTight", &mu_isTight, &b_mu_isTight);
-	fChain->SetBranchAddress("mu_isMedium", &mu_isMedium, &b_mu_isMedium);
-	fChain->SetBranchAddress("mu_isLoose", &mu_isLoose, &b_mu_isLoose);
-	fChain->SetBranchAddress("mu_isHighPt", &mu_isHighPt, &b_mu_isHighPt);
-	fChain->SetBranchAddress("mu_isMatchedToGen", &mu_isMatchedToGen, &b_mu_isMatchedToGen);
-	fChain->SetBranchAddress("mu_charge", &mu_charge, &b_mu_charge);
-	fChain->SetBranchAddress("mu_dz", &mu_dz, &b_mu_dz);
-	fChain->SetBranchAddress("mu_dxy", &mu_dxy, &b_mu_dxy);
-	fChain->SetBranchAddress("mu_RochCor", &mu_RochCor, &b_mu_RochCor);
-	fChain->SetBranchAddress("jet_e", &jet_e, &b_jet_e);
-	fChain->SetBranchAddress("jet_pt", &jet_pt, &b_jet_pt);
-	fChain->SetBranchAddress("jet_eta", &jet_eta, &b_jet_eta);
-	fChain->SetBranchAddress("jet_phi", &jet_phi, &b_jet_phi);
-	fChain->SetBranchAddress("jet_bdiscriminant", &jet_bdiscriminant, &b_jet_bdiscriminant);
-	fChain->SetBranchAddress("jet_partonFlavour", &jet_partonFlavour, &b_jet_partonFlavour);
-	fChain->SetBranchAddress("jet_hadronFlavour", &jet_hadronFlavour, &b_jet_hadronFlavour);
-	fChain->SetBranchAddress("jet_isMatchedToGen", &jet_isMatchedToGen, &b_jet_isMatchedToGen);
-	fChain->SetBranchAddress("jet_isThight", &jet_isThight, &b_jet_isThight);
 	fChain->SetBranchAddress("isEEJJ", &isEEJJ, &b_isEEJJ);
 	fChain->SetBranchAddress("isEETT", &isEETT, &b_isEETT);
 	fChain->SetBranchAddress("isMMJJ", &isMMJJ, &b_isMMJJ);
@@ -492,22 +374,9 @@ void makePlots_multiLeptonMultiJet::SetHistos(){
 	nSubLeadingLeptons_histo = newTH1D("nSubLeadingLeptons_histo", "nSubLeadingLeptons_histo", "nSubLeadingLepton", 10, 0, 10); 
 
 
-	for (unsigned short i(0); i < 6; i++) {
-		pt_histo[i][0] = newTH1D("pt_"+objName[i]+"_histo", "pt_"+objName[i]+"_histo", "p_{T} [GeV] "+objName[i], 200, 0., 1000.);
-		eta_histo[i][0] = newTH1D("eta_"+objName[i]+"_histo", "eta_"+objName[i]+"_histo", "#eta "+objName[i], 100, -2.5, 2.5);
-		phi_histo[i][0] = newTH1D("phi_"+objName[i]+"_histo", "phi_"+objName[i]+"_histo", "#phi "+objName[i], 100, -3.5, 3.5);		
-	}
-
-	for (unsigned short i(14); i < 16; i++) {
-		pt_histo[i][0] = newTH1D("pt_"+objName[i]+"_histo", "pt_"+objName[i]+"_histo", "p_{T} [GeV] "+objName[i], 200, 0., 1000.);
-		eta_histo[i][0] = newTH1D("eta_"+objName[i]+"_histo", "eta_"+objName[i]+"_histo", "#eta "+objName[i], 100, -2.5, 2.5);
-		phi_histo[i][0] = newTH1D("phi_"+objName[i]+"_histo", "phi_"+objName[i]+"_histo", "#phi "+objName[i], 100, -3.5, 3.5);		
-	}
-
-
 	for (unsigned short l(0); l < 4; l++) {
 
-		for (unsigned short i(6); i < 14; i++) {
+		for (unsigned short i(0); i < 8; i++) {
 			pt_histo[i][l] = newTH1D("pt_"+objName[i]+regionName[l]+"_histo", "pt_"+objName[i]+regionName[l]+"_histo", "p_{T} [GeV] "+objName[i]+regionName[l], 200, 0., 1000.);
 			eta_histo[i][l] = newTH1D("eta_"+objName[i]+regionName[l]+"_histo", "eta_"+objName[i]+regionName[l]+"_histo", "#eta "+objName[i]+regionName[l], 100, -2.5, 2.5);
 			phi_histo[i][l] = newTH1D("phi_"+objName[i]+regionName[l]+"_histo", "phi_"+objName[i]+regionName[l]+"_histo", "#phi "+objName[i]+regionName[l], 100, -3.5, 3.5);		
@@ -526,7 +395,7 @@ void makePlots_multiLeptonMultiJet::SetHistos(){
 	}
 
 
-	for (unsigned short j(0); j < 6; j++) {
+	for (unsigned short j(0); j < 4; j++) {
 		for (unsigned short m(0); m < 3; m++) {
 			etaSC_histo[j][m] = newTH1D("etaSC_"+eleName[j]+etaName[m]+"_histo", "etaSC_"+eleName[j]+etaName[m]+"_histo", "#eta_{SC} "+eleName[j], 100, -2.5, 2.5);
 			isEcalDriven_histo[j][m] = newTH1D("isEcalDriven_"+eleName[j]+etaName[m]+"_histo", "isEcalDriven_"+eleName[j]+etaName[m]+"_histo", "isEcalDriven "+eleName[j], 2, 0., 2.);
@@ -546,55 +415,13 @@ void makePlots_multiLeptonMultiJet::SetHistos(){
 	}
 
 	for (unsigned short n(0); n < 5; n++) {
-		for (unsigned short z(0); z < 4; z++) {
+		for (unsigned short z(0); z < 2; z++) {
 			Zmass_histo[z][n] = newTH1D("Z"+Zname[z]+"_mass"+etaMassName[n]+"_histo", "Z"+Zname[z]+"_mass"+etaMassName[n]+"_histo", "m(Z"+Zname[z]+") [GeV/c^{2}]", 200, 0, 200); 
 		}
 	}
 
 
 
-}
-// ******************************************************************************************
-
-
-
-// **************** 
-void makePlots_multiLeptonMultiJet::getElectrons(vector<eleStruct>& electrons, vector<eleStruct>& goodElectrons){
-	unsigned short nTotElectrons(ele_e->size());
-	for (unsigned short i(0); i < nTotElectrons; i++){
-		eleStruct ele(ele_pt->at(i), 
-						ele_eta->at(i), 						
-						ele_phi->at(i), 
-						ele_e->at(i), 
-						ele_passHEEPId->at(i),
-						ele_HEEPBitMapValues->at(i),
-						ele_passMediumId->at(i), 
-						ele_iso->at(i), 
-						ele_dz->at(i),
-						ele_d0->at(i),						
-						ele_isMatchedToGen->at(i),						
-						ele_charge->at(i),
-						ele_etaSC->at(i),
-						ele_isEcalDriven->at(i),
-						ele_dEtaIn->at(i),
-						ele_dPhiIn->at(i),
-						ele_hOverE->at(i),
-						ele_full5x5_r9->at(i),	
-						ele_full5x5_sigmaIetaIeta->at(i),
-						ele_full5x5_E5x5->at(i),
-						ele_full5x5_E1x5->at(i),
-						ele_full5x5_E2x5->at(i), 
-						ele_EmHadDepth1Iso->at(i),
-						ele_ptTracksIso->at(i),
-						ele_innerLayerLostHits->at(i), 
-						ele_dxy->at(i),
-						ele_eOverP->at(i),
-						ele_ecalEnergy->at(i),
-						ele_hcalOverEcal->at(i)
-					); 
-		electrons.push_back(ele);
-		if (fabs(ele.v.Eta()) < 2.4 && ele.v.Pt() > 53 && ele.passHEEPId) goodElectrons.push_back(ele);
-	} //End of loop over all the electrons
 }
 // ******************************************************************************************
 
@@ -679,36 +506,8 @@ void makePlots_multiLeptonMultiJet::getSubLeadingElectrons(vector<eleStruct>& su
 // ******************************************************************************************
 
 
-
 // **************** 
-void makePlots_multiLeptonMultiJet::getMuons(vector<muonStruct>& muons, vector<muonStruct>& goodMuons, vector<muonStruct>& muonsRochCorr, vector<muonStruct>& goodMuonsRochCorr){
-	unsigned short nTotMuons(mu_e->size());
-	for (unsigned short i(0); i < nTotMuons; i++) {
-		muonStruct mu(mu_pt->at(i), 
-				mu_eta->at(i), 
-				mu_phi->at(i), 
-				mu_e->at(i), 
-				mu_iso->at(i),	
-				mu_isHighPt->at(i),
-				mu_isMatchedToGen->at(i),
-				mu_charge->at(i),
-				mu_dz->at(i),
-				mu_dxy->at(i),
-				mu_RochCor->at(i)
-			);					
-		muons.push_back(mu);
-		if (fabs(mu.v.Eta()) < 2.4 && mu.v.Pt() > 53 && mu.isHighPt) goodMuons.push_back(mu);
-
-		mu.v.SetPtEtaPhiE(mu.v.Pt()*mu.rochCor, mu.v.Eta(), mu.v.Phi(), mu.v.E());
-		muonsRochCorr.push_back(mu);
-		if (fabs(mu.v.Eta()) < 2.4 && mu.v.Pt() > 53 && mu.isHighPt) goodMuonsRochCorr.push_back(mu);
-	}//End of loop over all the muons
-}
-// ******************************************************************************************
-
-
-// **************** 
-void makePlots_multiLeptonMultiJet::getLeadingMuons(vector<muonStruct>& leadingMuons, vector<muonStruct>& leadingMuonsRochCorr){
+void makePlots_multiLeptonMultiJet::getLeadingMuons(vector<muonStruct>& leadingMuons){//, vector<muonStruct>& leadingMuonsRochCorr){
 	unsigned short nTotLeadingMuons(leadingMuon_isHighPt->size());
 	for (unsigned short i(0); i < nTotLeadingMuons; i++) {
 		muonStruct mu(leadingLepton_pt->at(i),
@@ -724,16 +523,13 @@ void makePlots_multiLeptonMultiJet::getLeadingMuons(vector<muonStruct>& leadingM
 					leadingMuon_RochCor->at(i)
 				);					
 		leadingMuons.push_back(mu);
-
-		mu.v.SetPtEtaPhiE(mu.v.Pt()*mu.rochCor, mu.v.Eta(), mu.v.Phi(), mu.v.E());
-		leadingMuonsRochCorr.push_back(mu);
 	}//End of loop over all the leading muons
 }
 // ******************************************************************************************
 
 
 // **************** 
-void makePlots_multiLeptonMultiJet::getSubLeadingMuons(vector<muonStruct>& subLeadingMuons, vector<muonStruct>& subLeadingMuonsRochCorr){
+void makePlots_multiLeptonMultiJet::getSubLeadingMuons(vector<muonStruct>& subLeadingMuons){//, vector<muonStruct>& subLeadingMuonsRochCorr){
 	unsigned short nTotSubLeadingMuons(subLeadingMuon_isHighPt->size());
 	for (unsigned short i(0); i < nTotSubLeadingMuons; i++) {
 		muonStruct mu(subLeadingLepton_pt->at(i),
@@ -749,29 +545,7 @@ void makePlots_multiLeptonMultiJet::getSubLeadingMuons(vector<muonStruct>& subLe
 					subLeadingMuon_RochCor->at(i)
 				);					
 		subLeadingMuons.push_back(mu);
-		
-		mu.v.SetPtEtaPhiE(mu.v.Pt()*mu.rochCor, mu.v.Eta(), mu.v.Phi(), mu.v.E());
-		subLeadingMuonsRochCorr.push_back(mu);
 	}//End of loop over all the subleading muons
-}
-// ******************************************************************************************
-
-
-
-// **************** 
-void makePlots_multiLeptonMultiJet::getJets(vector<jetStruct>& jets, vector<jetStruct>& goodJets){
-	unsigned short nTotJets(jet_e->size());
-	for (unsigned short i(0); i < nTotJets; i++){
-		jetStruct jet(jet_pt->at(i),
-				jet_eta->at(i),
-				jet_phi->at(i),
-				jet_e->at(i),
-				jet_isMatchedToGen->at(i),
-				jet_isThight->at(i)
-			);
-		jets.push_back(jet);
-		if (fabs(jet.v.Eta()) < 2.4 && jet.v.Pt() > 40 && jet.isTight) goodJets.push_back(jet);
-	} //End of loop over all the jets
 }
 // ******************************************************************************************
 
@@ -916,20 +690,6 @@ void makePlots_multiLeptonMultiJet::doZmassPlots(vector<multiLeptonMultiJetStruc
 // ******************************************************************************************
 
 
-void makePlots_multiLeptonMultiJet::doZmassPlots(TLorentzVector Llepton, TLorentzVector SLlepton, const int variableIdx) { 	
-	float mZ = (Llepton+SLlepton).M();
-	bool isInEBEB = inEBEB(Llepton.Eta(), SLlepton.Eta()); 
-	bool isInEEEE = inEEEE(Llepton.Eta(), SLlepton.Eta());
-	bool isInEBEE = inEBEE(Llepton.Eta(), SLlepton.Eta()); 
-
-	Zmass_histo[variableIdx][0]->Fill(mZ,w);
-	if (isInEBEB) Zmass_histo[variableIdx][1]->Fill(mZ,w);  
-	if (isInEEEE) Zmass_histo[variableIdx][2]->Fill(mZ,w);  
-	if (isInEBEE) Zmass_histo[variableIdx][3]->Fill(mZ,w);  
-	if (isInEEEE || isInEBEE) Zmass_histo[variableIdx][4]->Fill(mZ,w);  
-}
-
-
 
 
 
@@ -976,19 +736,10 @@ void makePlots_multiLeptonMultiJet::Loop(){
 
 
 	// --Collections
-		vector<eleStruct> electrons, goodElectrons, leadingElectrons, subLeadingElectrons;
-		vector<muonStruct> muons, muonsRochCorr, goodMuons, goodMuonsRochCorr, leadingMuons, leadingMuonsRochCorr, subLeadingMuons, subLeadingMuonsRochCorr;
-		vector<jetStruct> jets, goodJets, leadingJets, subLeadingJets;
+		vector<eleStruct> leadingElectrons, subLeadingElectrons; 
+		vector<muonStruct> leadingMuons, subLeadingMuons; 
+		vector<jetStruct> leadingJets, subLeadingJets; 
 		vector<multiLeptonMultiJetStruct> multiLeptonMultiJets;
-
-		// cout << "get electrons" << endl;
-		getElectrons(electrons, goodElectrons);
-
-		// cout << "get muons" << endl;
-		getMuons(muons, goodMuons, muonsRochCorr, goodMuonsRochCorr);
-
-		// cout << "get jets" << endl;
-		getJets(jets, goodJets);
 
 		// cout << "get mlmj" << endl;
 		getMultiLeptonMultiJets(multiLeptonMultiJets);
@@ -999,23 +750,15 @@ void makePlots_multiLeptonMultiJet::Loop(){
 		getSubLeadingElectrons(subLeadingElectrons);
 
 		// cout << "get leadingMuon" << endl;
-		getLeadingMuons(leadingMuons, leadingMuonsRochCorr);
+		getLeadingMuons(leadingMuons);
 		// cout << "get subLeadingMuon" << endl;
-		getSubLeadingMuons(subLeadingMuons, subLeadingMuonsRochCorr);
+		getSubLeadingMuons(subLeadingMuons);
 
 		// cout << "get leadingJet" << endl;
 		getLeadingJets(leadingJets);
 		// cout << "get subLeadingJet" << endl;
 		getSubLeadingJets(subLeadingJets);
 
-		unsigned short nElectrons = electrons.size();    
-		unsigned short nGoodElectrons = goodElectrons.size();
-		unsigned short nMuons = muons.size();
-		unsigned short nGoodMuons = goodMuons.size();
-		unsigned short nMuonsRochCor = muonsRochCorr.size();
-		unsigned short nGoodMuonsRochCor = goodMuonsRochCorr.size();		
-		unsigned short nJets = jets.size();
-		unsigned short nGoodJets = goodJets.size();
 		unsigned short nMultiLeptonMultiJets = multiLeptonMultiJets.size();
 		unsigned short nLeadingEle = leadingElectrons.size();
 		unsigned short nSubLeadingEle = subLeadingElectrons.size();
@@ -1030,19 +773,6 @@ void makePlots_multiLeptonMultiJet::Loop(){
 		if ( !(nSubLeadingMuons == nMultiLeptonMultiJets) ) cout << "nSubLeadingMuons != nMultiLeptonMultiJets" << endl;
 		if ( !(nLeadingJets == nMultiLeptonMultiJets) ) cout << "nLeadingJets != nMultiLeptonMultiJets" << endl;
 		if ( !(nSubLeadingJets == nMultiLeptonMultiJets) ) cout << "nSubLeadingJets != nMultiLeptonMultiJets" << endl;
-		if ( !(nMuonsRochCor == nMuons) ) cout << "nMuonsRochCor != nMuons" << endl;
-
-		// if ( !(nGoodMuonsRochCor == nGoodMuons) ) cout << "nGoodMuonsRochCor != nGoodMuons" << endl;
-		// puo essere diverso perche nell'if uso pt cambiato
-
-		nOfElectrons += nElectrons;
-		nOfGoodElectrons += nGoodElectrons;
-		nOfMuons += nMuons;
-		nOfGoodMuons += nGoodMuons;
-		nOfGoodMuonsWithRochCor += nGoodMuonsRochCor;
-		nOfJets += nJets;
-		nOfGoodJets += nGoodJets;
-
 
 
 		w = weight;
@@ -1058,99 +788,6 @@ void makePlots_multiLeptonMultiJet::Loop(){
 			vtx_y_histo->Fill(vtx_y->at(i),w);
 			vtx_z_histo->Fill(vtx_z->at(i),w);
 		}
-
-
-	// --electrons
-		for (unsigned short j(0); j < nElectrons; j++){
-			doEleDistributionsPlots(electrons,j,0,0);
-			doElePlots(electrons,j,0,0);
-			if ( isInEB(electrons[j].v.Eta()) ) doElePlots(electrons,j,0,1);
-			if ( isInEE(electrons[j].v.Eta()) ) doElePlots(electrons,j,0,2);
-		}
-
-		for (unsigned short j(0); j < nGoodElectrons; j++){
-			doEleDistributionsPlots(goodElectrons,j,1,0);
-			doElePlots(goodElectrons,j,1,0);
-			if ( isInEB(goodElectrons[j].v.Eta()) ) doElePlots(goodElectrons,j,1,1);
-			if ( isInEE(goodElectrons[j].v.Eta()) ) doElePlots(goodElectrons,j,1,2);
-		}
-
-
-	// --muons
-		for (unsigned short i(0); i < nMuons; i++){
-			doMuonDistributionsPlots(muons,i,2,0);
-			muon_dxy_histo->Fill( mu_dxy->at(i) );
-		}
-
-		for (unsigned short i(0); i < nGoodMuons; i++){
-			doMuonDistributionsPlots(goodMuons,i,3,0);
-		}
-
-		for (unsigned short i(0); i < nMuonsRochCor; i++){
-			doMuonDistributionsPlots(muonsRochCorr,i,14,0);
-		}
-
-		for (unsigned short i(0); i < nGoodMuonsRochCor; i++){
-			doMuonDistributionsPlots(goodMuonsRochCorr,i,15,0);
-		}
-
-
-	// --jets
-		for (unsigned short l(0); l < nJets; l++){
-			doJetsDistributionsPlots(jets,l,4,0);
-		}
-
-		for (unsigned short l(0); l < nGoodJets; l++){
-			doJetsDistributionsPlots(goodJets,l,5,0);
-		}
-
-
-	// --Zmass using electrons
-		if (TnPEE) {   
-			if (nElectrons < 2) continue;
-			unsigned int lIdx=0, slIdx=1; //sono ordinati in ordine decrescente in pt
-
-			if (electrons[lIdx].v.Pt() < 35 || electrons[lIdx].v.Pt() < 35) continue; 
-			nEventsWith2elePassingLoosePreselections++;
-
-			if (electrons[lIdx].charge * electrons[slIdx].charge < 0) {
-				nEventsWith2elePassingLoosePreselectionsAndCharge++;	
-
-				if (electrons[lIdx].passHEEPId && electrons[slIdx].passHEEPId) {  
-					nEventsWith2elePassingLoosePreselectionsAndChargeAndHeepId++;
-
-					TLorentzVector lEle, slEle;
-					lEle.SetPtEtaPhiE(electrons[lIdx].v.Pt(), electrons[lIdx].v.Eta(), electrons[lIdx].v.Phi(), electrons[lIdx].v.E());
-					slEle.SetPtEtaPhiE(electrons[slIdx].v.Pt(), electrons[slIdx].v.Eta(), electrons[slIdx].v.Phi(), electrons[slIdx].v.E());
-
-					doZmassPlots(lEle, slEle, 0);
-				}
-			}
-		}
-
-	// --Zmass using muons
-		if (TnPMM) {   
-			if (nMuons < 2) continue;
-			unsigned int lIdx=0, slIdx=1; //sono ordinati in ordine decrescente in pt
-
-			if (muons[lIdx].v.Pt() < 35 || muons[lIdx].v.Pt() < 35) continue; 
-			nEventsWith2muonsPassingLoosePreselections++;
-
-			if (muons[lIdx].charge * muons[slIdx].charge < 0) {
-				nEventsWith2muonsPassingLoosePreselectionsAndCharge++;	
-
-				if (muons[lIdx].isHighPt && muons[slIdx].isHighPt) {  
-					nEventsWith2muonsPassingLoosePreselectionsAndChargeAndHighPt++;
-
-					TLorentzVector lMuon, slMuon;
-					lMuon.SetPtEtaPhiE(muons[lIdx].v.Pt(), muons[lIdx].v.Eta(), muons[lIdx].v.Phi(), muons[lIdx].v.E());
-					slMuon.SetPtEtaPhiE(muons[slIdx].v.Pt(), muons[slIdx].v.Eta(), muons[slIdx].v.Phi(), muons[slIdx].v.E());
-
-					doZmassPlots(lMuon, slMuon, 1);
-				}
-			}
-		}
-
 
 
 
@@ -1181,7 +818,7 @@ void makePlots_multiLeptonMultiJet::Loop(){
 		nEventsWithRightLeptonPair++;
 
 
-		bool isInEBEB = inEBEB(leadingLepton_eta->at(idxDLDJ), subLeadingLepton_eta->at(idxDLDJ));  //usare eta jets per djets mass ?
+		bool isInEBEB = inEBEB(leadingLepton_eta->at(idxDLDJ), subLeadingLepton_eta->at(idxDLDJ));  
 		bool isInEEEE = inEEEE(leadingLepton_eta->at(idxDLDJ), subLeadingLepton_eta->at(idxDLDJ));
 		bool isInEBEE = inEBEE(leadingLepton_eta->at(idxDLDJ), subLeadingLepton_eta->at(idxDLDJ)); 			
 
@@ -1193,11 +830,11 @@ void makePlots_multiLeptonMultiJet::Loop(){
 				nEventsWithEEJJpassingLoosePreselectionsAndCharge++;		
 				if (leadingElectrons[idxDLDJ].passHEEPId && subLeadingElectrons[idxDLDJ].passHEEPId) {
 					nEventsWithEEJJpassingLoosePreselectionsAndChargeAndHEEPId++;
-					doZmassPlots(multiLeptonMultiJets,idxDLDJ,2,0);
-					if (isInEBEB) doZmassPlots(multiLeptonMultiJets,idxDLDJ,2,1);
-					if (isInEEEE) doZmassPlots(multiLeptonMultiJets,idxDLDJ,2,2);
-					if (isInEBEE) doZmassPlots(multiLeptonMultiJets,idxDLDJ,2,3);
-					if (isInEEEE || isInEBEE) doZmassPlots(multiLeptonMultiJets,idxDLDJ,2,4);
+					doZmassPlots(multiLeptonMultiJets,idxDLDJ,0,0);
+					if (isInEBEB) doZmassPlots(multiLeptonMultiJets,idxDLDJ,0,1);
+					if (isInEEEE) doZmassPlots(multiLeptonMultiJets,idxDLDJ,0,2);
+					if (isInEBEE) doZmassPlots(multiLeptonMultiJets,idxDLDJ,0,3);
+					if (isInEEEE || isInEBEE) doZmassPlots(multiLeptonMultiJets,idxDLDJ,0,4);
 				}
 			}
 		}
@@ -1208,11 +845,11 @@ void makePlots_multiLeptonMultiJet::Loop(){
 				nEventsWithMMJJpassingLoosePreselectionsAndCharge++;
 				if (leadingMuons[idxDLDJ].isHighPt && subLeadingMuons[idxDLDJ].isHighPt) {
 					nEventsWithMMJJpassingLoosePreselectionsAndChargeAndHighPt++;
-					doZmassPlots(multiLeptonMultiJets,idxDLDJ,3,0);
-					if (isInEBEB) doZmassPlots(multiLeptonMultiJets,idxDLDJ,3,1);
-					if (isInEEEE) doZmassPlots(multiLeptonMultiJets,idxDLDJ,3,2);
-					if (isInEBEE) doZmassPlots(multiLeptonMultiJets,idxDLDJ,3,3);
-					if (isInEEEE || isInEBEE) doZmassPlots(multiLeptonMultiJets,idxDLDJ,3,4);
+					doZmassPlots(multiLeptonMultiJets,idxDLDJ,1,0);
+					if (isInEBEB) doZmassPlots(multiLeptonMultiJets,idxDLDJ,1,1);
+					if (isInEEEE) doZmassPlots(multiLeptonMultiJets,idxDLDJ,1,2);
+					if (isInEBEE) doZmassPlots(multiLeptonMultiJets,idxDLDJ,1,3);
+					if (isInEEEE || isInEBEE) doZmassPlots(multiLeptonMultiJets,idxDLDJ,1,4);
 				}
 			}
 		}
@@ -1226,9 +863,9 @@ void makePlots_multiLeptonMultiJet::Loop(){
 		// --leadingEle
 		if (multiLeptonMultiJets[idxDLDJ].isEEJJ || multiLeptonMultiJets[idxDLDJ].isEMJJ) {
 			nLeadingElePassingPreselections++;
-			doElePlots(leadingElectrons,idxDLDJ,2,0);
-			if ( isInEB(leadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(leadingElectrons,idxDLDJ,2,1);
-			if ( isInEE(leadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(leadingElectrons,idxDLDJ,2,2);
+			doElePlots(leadingElectrons,idxDLDJ,0,0);
+			if ( isInEB(leadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(leadingElectrons,idxDLDJ,0,1);
+			if ( isInEE(leadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(leadingElectrons,idxDLDJ,0,2);
 
 			if ( leadingElectrons[idxDLDJ].isEcalDriven ) nLeadingElePassingIsEcalDriven++;
 			if ( fabs(leadingElectrons[idxDLDJ].dEtaIn)<0.004 ) nLeadingElePassingdEtaIn++;
@@ -1268,9 +905,9 @@ void makePlots_multiLeptonMultiJet::Loop(){
 		// --subLeadingEle
 		if (multiLeptonMultiJets[idxDLDJ].isEEJJ) {
 			nSubLeadingElePassingPreselections++;
-			doElePlots(subLeadingElectrons,idxDLDJ,3,0);
-			if ( isInEB(subLeadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(subLeadingElectrons,idxDLDJ,3,1);
-			if ( isInEE(subLeadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(subLeadingElectrons,idxDLDJ,3,2);
+			doElePlots(subLeadingElectrons,idxDLDJ,1,0);
+			if ( isInEB(subLeadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(subLeadingElectrons,idxDLDJ,1,1);
+			if ( isInEE(subLeadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(subLeadingElectrons,idxDLDJ,1,2);
 
 			if ( subLeadingElectrons[idxDLDJ].isEcalDriven ) nSubLeadingElePassingIsEcalDriven++;
 			if ( fabs(subLeadingElectrons[idxDLDJ].dEtaIn)<0.004 ) nSubLeadingElePassingdEtaIn++;
@@ -1384,25 +1021,25 @@ void makePlots_multiLeptonMultiJet::Loop(){
 			nEventsWithLeadingElePassingSelections++;
 
 			if (signalRegion) {	
-	 			doEleDistributionsPlots(leadingElectrons,idxDLDJ,6,0); 
-				doEleDistributionsPlots(leadingElectrons,idxDLDJ,8,0);
+	 			doEleDistributionsPlots(leadingElectrons,idxDLDJ,0,0); 
+				doEleDistributionsPlots(leadingElectrons,idxDLDJ,2,0);
 			}
 			if (lowMlljjCR) {
-	 			doEleDistributionsPlots(leadingElectrons,idxDLDJ,6,1); 
-				doEleDistributionsPlots(leadingElectrons,idxDLDJ,8,1);				
+	 			doEleDistributionsPlots(leadingElectrons,idxDLDJ,0,1); 
+				doEleDistributionsPlots(leadingElectrons,idxDLDJ,2,1);				
 			}
 			if (lowMllCR) {
-	 			doEleDistributionsPlots(leadingElectrons,idxDLDJ,6,2); 
-				doEleDistributionsPlots(leadingElectrons,idxDLDJ,8,2);					
+	 			doEleDistributionsPlots(leadingElectrons,idxDLDJ,0,2); 
+				doEleDistributionsPlots(leadingElectrons,idxDLDJ,2,2);					
 			}
 			if (flavourSidebandCR) {
-	 			doEleDistributionsPlots(leadingElectrons,idxDLDJ,6,3); 
-				doEleDistributionsPlots(leadingElectrons,idxDLDJ,8,3);					
+	 			doEleDistributionsPlots(leadingElectrons,idxDLDJ,0,3); 
+				doEleDistributionsPlots(leadingElectrons,idxDLDJ,2,3);					
 			}
 
-			doElePlots(leadingElectrons,idxDLDJ,4,0);
-			if ( isInEB(leadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(leadingElectrons,idxDLDJ,4,1);
-			if ( isInEE(leadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(leadingElectrons,idxDLDJ,4,2);	   
+			doElePlots(leadingElectrons,idxDLDJ,2,0);
+			if ( isInEB(leadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(leadingElectrons,idxDLDJ,2,1);
+			if ( isInEE(leadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(leadingElectrons,idxDLDJ,2,2);	   
 		}
 
 
@@ -1412,25 +1049,25 @@ void makePlots_multiLeptonMultiJet::Loop(){
 			nEventsWithSubLeadingElePassingSelections++;
 
 			if (signalRegion) {	
-	 			doEleDistributionsPlots(subLeadingElectrons,idxDLDJ,7,0); 
-				doEleDistributionsPlots(subLeadingElectrons,idxDLDJ,9,0);
+	 			doEleDistributionsPlots(subLeadingElectrons,idxDLDJ,1,0); 
+				doEleDistributionsPlots(subLeadingElectrons,idxDLDJ,3,0);
 			}
 			if (lowMlljjCR) {
-	 			doEleDistributionsPlots(subLeadingElectrons,idxDLDJ,7,1); 
-				doEleDistributionsPlots(subLeadingElectrons,idxDLDJ,9,1);				
+	 			doEleDistributionsPlots(subLeadingElectrons,idxDLDJ,1,1); 
+				doEleDistributionsPlots(subLeadingElectrons,idxDLDJ,3,1);				
 			}
 			if (lowMllCR) {
-	 			doEleDistributionsPlots(subLeadingElectrons,idxDLDJ,7,2); 
-				doEleDistributionsPlots(subLeadingElectrons,idxDLDJ,9,2);					
+	 			doEleDistributionsPlots(subLeadingElectrons,idxDLDJ,1,2); 
+				doEleDistributionsPlots(subLeadingElectrons,idxDLDJ,3,2);					
 			}
 			if (flavourSidebandCR) {
-	 			doEleDistributionsPlots(subLeadingElectrons,idxDLDJ,7,3); 
-				doEleDistributionsPlots(subLeadingElectrons,idxDLDJ,9,3);					
+	 			doEleDistributionsPlots(subLeadingElectrons,idxDLDJ,1,3); 
+				doEleDistributionsPlots(subLeadingElectrons,idxDLDJ,3,3);					
 			}
 
-			doElePlots(subLeadingElectrons,idxDLDJ,5,0);
-			if ( isInEB(subLeadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(subLeadingElectrons,idxDLDJ,5,1);
-			if ( isInEE(subLeadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(subLeadingElectrons,idxDLDJ,5,2); 
+			doElePlots(subLeadingElectrons,idxDLDJ,3,0);
+			if ( isInEB(subLeadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(subLeadingElectrons,idxDLDJ,3,1);
+			if ( isInEE(subLeadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(subLeadingElectrons,idxDLDJ,3,2); 
 		}
 
 
@@ -1440,22 +1077,21 @@ void makePlots_multiLeptonMultiJet::Loop(){
 			nEventsWithLeadingMuonPassingSelections++;
 
 			if (signalRegion) {	
-	 			doMuonDistributionsPlots(leadingMuons,idxDLDJ,6,0); 
-				doMuonDistributionsPlots(leadingMuons,idxDLDJ,10,0);
+	 			doMuonDistributionsPlots(leadingMuons,idxDLDJ,0,0); 
+				doMuonDistributionsPlots(leadingMuons,idxDLDJ,4,0);
 			}
 			if (lowMlljjCR) {
-	 			doMuonDistributionsPlots(leadingMuons,idxDLDJ,6,1); 
-				doMuonDistributionsPlots(leadingMuons,idxDLDJ,10,1);				
+	 			doMuonDistributionsPlots(leadingMuons,idxDLDJ,0,1); 
+				doMuonDistributionsPlots(leadingMuons,idxDLDJ,4,1);				
 			}
 			if (lowMllCR) {
-	 			doMuonDistributionsPlots(leadingMuons,idxDLDJ,6,2); 
-				doMuonDistributionsPlots(leadingMuons,idxDLDJ,10,2);					
+	 			doMuonDistributionsPlots(leadingMuons,idxDLDJ,0,2); 
+				doMuonDistributionsPlots(leadingMuons,idxDLDJ,4,2);					
 			}
 			if (flavourSidebandCR) {
-	 			doMuonDistributionsPlots(leadingMuons,idxDLDJ,6,3); 
-				doMuonDistributionsPlots(leadingMuons,idxDLDJ,10,3);					
+	 			doMuonDistributionsPlots(leadingMuons,idxDLDJ,0,3); 
+				doMuonDistributionsPlots(leadingMuons,idxDLDJ,4,3);					
 			}
-			// devo usare i leadingMuonsRochCorr ??
 		}				
 
 
@@ -1465,22 +1101,21 @@ void makePlots_multiLeptonMultiJet::Loop(){
 			nEventsWithSubLeadingMuonPassingSelections++;
 
 			if (signalRegion) {	
-	 			doMuonDistributionsPlots(subLeadingMuons,idxDLDJ,7,0); 
-				doMuonDistributionsPlots(subLeadingMuons,idxDLDJ,11,0);
+	 			doMuonDistributionsPlots(subLeadingMuons,idxDLDJ,1,0); 
+				doMuonDistributionsPlots(subLeadingMuons,idxDLDJ,5,0);
 			}
 			if (lowMlljjCR) {
-	 			doMuonDistributionsPlots(subLeadingMuons,idxDLDJ,7,1); 
-				doMuonDistributionsPlots(subLeadingMuons,idxDLDJ,11,1);				
+	 			doMuonDistributionsPlots(subLeadingMuons,idxDLDJ,1,1); 
+				doMuonDistributionsPlots(subLeadingMuons,idxDLDJ,5,1);				
 			}
 			if (lowMllCR) {
-	 			doMuonDistributionsPlots(subLeadingMuons,idxDLDJ,7,2); 
-				doMuonDistributionsPlots(subLeadingMuons,idxDLDJ,11,2);					
+	 			doMuonDistributionsPlots(subLeadingMuons,idxDLDJ,1,2); 
+				doMuonDistributionsPlots(subLeadingMuons,idxDLDJ,5,2);					
 			}
 			if (flavourSidebandCR) {
-	 			doMuonDistributionsPlots(subLeadingMuons,idxDLDJ,7,3); 
-				doMuonDistributionsPlots(subLeadingMuons,idxDLDJ,11,3);					
+	 			doMuonDistributionsPlots(subLeadingMuons,idxDLDJ,1,3); 
+				doMuonDistributionsPlots(subLeadingMuons,idxDLDJ,5,3);					
 			}	
-			// devo usare i subLeadingMuonsRochCorr	??
 		}
 
 
@@ -1489,20 +1124,20 @@ void makePlots_multiLeptonMultiJet::Loop(){
 		nEventsWithSubLeadingJetPassingSelections++;
 
 		if (signalRegion) {	
-			doJetsDistributionsPlots(leadingJets,idxDLDJ,12,0);		
-			doJetsDistributionsPlots(subLeadingJets,idxDLDJ,13,0);
+			doJetsDistributionsPlots(leadingJets,idxDLDJ,6,0);		
+			doJetsDistributionsPlots(subLeadingJets,idxDLDJ,7,0);
 		}
 		if (lowMlljjCR) {
-			doJetsDistributionsPlots(leadingJets,idxDLDJ,12,1);		
-			doJetsDistributionsPlots(subLeadingJets,idxDLDJ,13,1);		
+			doJetsDistributionsPlots(leadingJets,idxDLDJ,6,1);		
+			doJetsDistributionsPlots(subLeadingJets,idxDLDJ,7,1);		
 		}
 		if (lowMllCR) {
-			doJetsDistributionsPlots(leadingJets,idxDLDJ,12,2);		
-			doJetsDistributionsPlots(subLeadingJets,idxDLDJ,13,2);				
+			doJetsDistributionsPlots(leadingJets,idxDLDJ,6,2);		
+			doJetsDistributionsPlots(subLeadingJets,idxDLDJ,7,2);				
 		}
 		if (flavourSidebandCR) {
-			doJetsDistributionsPlots(leadingJets,idxDLDJ,12,3);		
-			doJetsDistributionsPlots(subLeadingJets,idxDLDJ,13,3);				
+			doJetsDistributionsPlots(leadingJets,idxDLDJ,6,3);		
+			doJetsDistributionsPlots(subLeadingJets,idxDLDJ,7,3);		
 		}
 
 
@@ -1563,10 +1198,6 @@ void makePlots_multiLeptonMultiJet::saveHistosAndOutputFile(TString& ouputdir){
 	fOutput << "nEventsPassingTandPMMhlt = " << nEventsPassingTandPMMhlt << " \n";
 	fOutput << "nEventsPassingTrigger = " << nEventsPassingTrigger << " \n" << " \n";
 
-	fOutput << "nElectrons = " << nOfElectrons << ", nGoodElectrons = " << nOfGoodElectrons << " \n" ;
-	fOutput << "nMuons = " << nOfMuons << ", nGoodMuons = " << nOfGoodMuons << ", nGoodMuonsWithRochCor = " << nOfGoodMuonsWithRochCor << " \n" ;
-	fOutput << "nJets = " << nOfJets << ", nGoodJets = " << nOfGoodJets << " \n" << " \n";
-
 	fOutput << "nEventsWithAtLeast1DLDJ = " << nEventsWithAtLeast1DLDJ << " \n";
 	fOutput << "nEventsWithRightLeptonPair = " << nEventsWithRightLeptonPair << " \n";
 	fOutput << "nEventsWithDLDJpassingPreselections = " << nEventsWithDLDJpassingPreselections << " \n";
@@ -1588,13 +1219,6 @@ void makePlots_multiLeptonMultiJet::saveHistosAndOutputFile(TString& ouputdir){
 	fOutput << "nEventsWithMMJJpassingLoosePreselections = " << nEventsWithMMJJpassingLoosePreselections << " \n";
 	fOutput << "nEventsWithMMJJpassingLoosePreselectionsAndCharge = " << nEventsWithMMJJpassingLoosePreselectionsAndCharge << " \n";
 	fOutput << "nEventsWithMMJJpassingLoosePreselectionsAndChargeAndHighPt = " << nEventsWithMMJJpassingLoosePreselectionsAndChargeAndHighPt << " \n" << " \n";
-
-	fOutput << "nEventsWith2elePassingLoosePreselections = " << nEventsWith2elePassingLoosePreselections << " \n";
-	fOutput << "nEventsWith2elePassingLoosePreselectionsAndCharge = " << nEventsWith2elePassingLoosePreselectionsAndCharge << " \n";
-	fOutput << "nEventsWith2elePassingLoosePreselectionsAndChargeAndheepId = " << nEventsWith2elePassingLoosePreselectionsAndChargeAndHeepId << " \n";
-	fOutput << "nEventsWith2muonsPassingLoosePreselections = " << nEventsWith2muonsPassingLoosePreselections << " \n";
-	fOutput << "nEventsWith2muonsPassingLoosePreselectionsAndCharge = " << nEventsWith2muonsPassingLoosePreselectionsAndCharge << " \n";
-	fOutput << "nEventsWith2muonsPassingLoosePreselectionsAndChargeAndHighPt = " << nEventsWith2muonsPassingLoosePreselectionsAndChargeAndHighPt << " \n" << " \n";
 
 
 	fOutput << "nLeadingElePassingPreselections = " << nLeadingElePassingPreselections << " \n";
@@ -1692,11 +1316,11 @@ void runMakePlots_multiLeptonMultiJet() {
 	string inputDir = "/home/gpfs/manip/mnt/cms/gnegro/CMSSW_8_0_26_patch1/src/dafne/miniTrees-Moriond17/";   
 	string outputDir = "/home/gpfs/manip/mnt/cms/gnegro/CMSSW_8_0_26_patch1/src/dafne/Distributions-Moriond17/DoubleEG";
 
-	bool signalEE = true;  //true for DoubleEG (if not TnP)   
+	bool signalEE = false;  //true for DoubleEG (if not TnP)   
 	bool signalMuMu = false;  //true for SingleMuon (if not TnP)
 	bool eMuSideband = false; //true for MuonEG
 
-	bool TnPEE = false; //true for DoubleEG 
+	bool TnPEE = true; //true for DoubleEG 
 	bool TnPMM = false; //true for SingleMuon 
 
 	if (signalMuMu || TnPMM) outputDir = "/home/gpfs/manip/mnt/cms/gnegro/CMSSW_8_0_26_patch1/src/dafne/Distributions-Moriond17/SingleMuon";
@@ -1704,6 +1328,7 @@ void runMakePlots_multiLeptonMultiJet() {
 
 
 	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/output_DYJetsPtBinned_miniTree.root", outputDir+"/DYJetsPtBinned", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
+	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY50-1/output_DYJetsToLL_Pt-50To100_amcatnloFXFX-v3_dafne-Moriond17_miniTree.root", outputDir+"/DY50-1", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
 
 	// makePlots_multiLeptonMultiJet(inputDir+"TTJets/output_TTJets_miniTree.root", outputDir+"/TTJets", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
 
@@ -1713,12 +1338,12 @@ void runMakePlots_multiLeptonMultiJet() {
 
 	// makePlots_multiLeptonMultiJet(inputDir+"ZZ/output_ZZ_miniTree.root", outputDir+"/ZZ", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
 
-	// makePlots_multiLeptonMultiJet(inputDir+"WW/output_WW_miniTree.root", outputDir+"/WW", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
+	makePlots_multiLeptonMultiJet(inputDir+"WW/output_WW_miniTree.root", outputDir+"/WW", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
 
 	// makePlots_multiLeptonMultiJet(inputDir+"SingleTop/output_SingleTop_miniTree.root", outputDir+"/SingleTop", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
 
 
-	makePlots_multiLeptonMultiJet(inputDir+"DoubleEG/output_DoubleEG_miniTree.root", outputDir, false, signalEE, false, false, TnPEE, false);
+	// makePlots_multiLeptonMultiJet(inputDir+"DoubleEG/output_DoubleEG_miniTree.root", outputDir, false, signalEE, false, false, TnPEE, false);
 
 	// makePlots_multiLeptonMultiJet(inputDir+"SingleMuon/output_SingleMuon_miniTree.root", outputDir, false, false, signalMuMu, false, false, TnPMM);
 
