@@ -184,7 +184,7 @@ flashggMultiLeptonMultiJetSystematics = cms.EDProducer('FlashggMultiLeptonMultiJ
 				ScaleHighR9EB_EGM,
 				ScaleLowR9EB_EGM,
 				ScaleHighR9EE_EGM,
-				ScaleLowR9EE_EGM
+				ScaleLowR9EE_EGM			
 		)
 )
 
