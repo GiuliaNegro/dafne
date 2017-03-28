@@ -1,7 +1,7 @@
 import FWCore.ParameterSet.Config as cms
 
 binID = cms.PSet(
-		variables = cms.vstring("eta","pt"),
+		variables = cms.vstring("abs(eta)","pt"),
 		bins = cms.VPSet(
 			# HighPtID SFs for Moriond2017
 			# uncertainties are: stat (+) syst. with syst = 1% 
@@ -42,7 +42,7 @@ binID = cms.PSet(
 
 
 binIso = cms.PSet(
-		variables = cms.vstring("eta","pt"),
+		variables = cms.vstring("abs(eta)","pt"),
 		bins = cms.VPSet(
 			# tkLooseISO_highptID SFs for Moriond2017
 			# uncertainties are: stat (+) syst. with syst = 1% 
@@ -83,7 +83,7 @@ binIso = cms.PSet(
 
 
 binTrigger = cms.PSet(
-		variables = cms.vstring("eta","pt"),
+		variables = cms.vstring("abs(eta)","pt"),
 		bins = cms.VPSet(
 			# Mu50_OR_TkMu50 trigger SFs for Moriond2017
 			# uncertainties are: stat (+) syst. with syst = 1% 
@@ -131,7 +131,7 @@ MuonIDSF = cms.PSet( MuonMethodName = cms.string("FlashggMuonWeight"),
 				MethodName = cms.string("FlashggMuonFromMultiLeptonMultiJet"),
 				Label = cms.string("MuonIDSF"),
 				NSigmas = cms.vint32(-1,1),
-				OverallRange = cms.string("abs(eta)<2.4"),
+				OverallRange = cms.string("abs(eta)<2.4 && pt<120 && pt>20"),
 				BinList = binID,
 				Debug = cms.untracked.bool(False),
 				ApplyCentralValue = cms.bool(True)
@@ -141,7 +141,7 @@ MuonIsoSF = cms.PSet( MuonMethodName = cms.string("FlashggMuonWeight"),
 				MethodName = cms.string("FlashggMuonFromMultiLeptonMultiJet"),
 				Label = cms.string("MuonIsoSF"),
 				NSigmas = cms.vint32(-1,1),
-				OverallRange = cms.string("abs(eta)<2.4"),
+				OverallRange = cms.string("abs(eta)<2.4 && pt<120 && pt>20"),
 				BinList = binIso,
 				Debug = cms.untracked.bool(False),
 				ApplyCentralValue = cms.bool(True)
@@ -151,7 +151,7 @@ MuonTriggerSF = cms.PSet( MuonMethodName = cms.string("FlashggMuonWeight"),
 				MethodName = cms.string("FlashggMuonFromMultiLeptonMultiJet"),
 				Label = cms.string("MuonTriggerSF"),
 				NSigmas = cms.vint32(-1,1),
-				OverallRange = cms.string("abs(eta)<2.4"),
+				OverallRange = cms.string("abs(eta)<2.4 && pt<800 && pt>52"),
 				BinList = binTrigger, 
 				Debug = cms.untracked.bool(False),
 				ApplyCentralValue = cms.bool(True)
