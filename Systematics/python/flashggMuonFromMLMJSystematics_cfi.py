@@ -151,6 +151,59 @@ binTrigger = cms.PSet(
 )
 
 
+binEffData = cms.PSet(
+		variables = cms.vstring("abs(eta)","pt"),
+		bins = cms.VPSet(
+			# Mu50_OR_TkMu50 trigger DataEfficiencies for Moriond2017
+			# Preliminary numbers merged for 2016BCDEF and GH taken from : https://twiki.cern.ch/twiki/bin/view/CMS/MuonWorkInProgressAndPagResults
+			cms.PSet(lowBounds = cms.vdouble(0.0,0.00), upBounds = cms.vdouble(0.9,20.00), values = cms.vdouble(1.0000), uncertainties = cms.vdouble(0.0000,0.0000)),
+			cms.PSet(lowBounds = cms.vdouble(0.0,52.00), upBounds = cms.vdouble(0.9,55.00), values = cms.vdouble(0.931277051885), uncertainties = cms.vdouble(0.000364676232012,0.000364676232012)),
+			cms.PSet(lowBounds = cms.vdouble(0.0,55.00), upBounds = cms.vdouble(0.9,60.00), values = cms.vdouble(0.936242912407), uncertainties = cms.vdouble(0.000359022722657,0.000359022722657)),
+			cms.PSet(lowBounds = cms.vdouble(0.0,60.00), upBounds = cms.vdouble(0.9,80.00), values = cms.vdouble(0.936082487338), uncertainties = cms.vdouble(0.000347015825047,0.000347015825047)),
+			cms.PSet(lowBounds = cms.vdouble(0.0,80.00), upBounds = cms.vdouble(0.9,120.00), values = cms.vdouble(0.9328058627), uncertainties = cms.vdouble(0.000972090740931,0.000972090740931)),
+			cms.PSet(lowBounds = cms.vdouble(0.0,120.00), upBounds = cms.vdouble(0.9,200.00), values = cms.vdouble(0.924832505679), uncertainties = cms.vdouble(0.00156816893965,0.00156816893965)),
+			cms.PSet(lowBounds = cms.vdouble(0.0,200.00), upBounds = cms.vdouble(0.9,300.00), values = cms.vdouble(0.91236395276), uncertainties = cms.vdouble(0.00364042668945,0.00364042668945)),
+			cms.PSet(lowBounds = cms.vdouble(0.0,300.00), upBounds = cms.vdouble(0.9,400.00), values = cms.vdouble(0.915272838639), uncertainties = cms.vdouble(0.00832794334524,0.00832794334524)),
+			cms.PSet(lowBounds = cms.vdouble(0.0,400.00), upBounds = cms.vdouble(0.9,800.00), values = cms.vdouble(0.865404613889), uncertainties = cms.vdouble(0.0164165902365,0.0164165902365)),
+			cms.PSet(lowBounds = cms.vdouble(0.0,800.00), upBounds = cms.vdouble(0.9,float('inf')), values = cms.vdouble(1.0000), uncertainties = cms.vdouble(0.0000,0.0000)),
+
+			cms.PSet(lowBounds = cms.vdouble(0.9,0.00), upBounds = cms.vdouble(1.2,20.00), values = cms.vdouble(1.0000), uncertainties = cms.vdouble(0.0000,0.0000)),		
+			cms.PSet(lowBounds = cms.vdouble(0.9,52.00), upBounds = cms.vdouble(1.2,55.00), values = cms.vdouble(0.927933694608), uncertainties = cms.vdouble(0.000624302069775,0.000624302069775)),
+			cms.PSet(lowBounds = cms.vdouble(0.9,55.00), upBounds = cms.vdouble(1.2,60.00), values = cms.vdouble(0.933259340444), uncertainties = cms.vdouble(0.000680048894916,0.000680048894916)),
+			cms.PSet(lowBounds = cms.vdouble(0.9,60.00), upBounds = cms.vdouble(1.2,80.00), values = cms.vdouble(0.934403830226), uncertainties = cms.vdouble(0.000617248999278,0.000617248999278)),
+			cms.PSet(lowBounds = cms.vdouble(0.9,80.00), upBounds = cms.vdouble(1.2,120.00), values = cms.vdouble(0.930249241069), uncertainties = cms.vdouble(0.00168566421043,0.00168566421043)),
+			cms.PSet(lowBounds = cms.vdouble(0.9,120.00), upBounds = cms.vdouble(1.2,200.00), values = cms.vdouble(0.918324742957), uncertainties = cms.vdouble(0.00657995235324,0.00657995235324)),
+			cms.PSet(lowBounds = cms.vdouble(0.9,200.00), upBounds = cms.vdouble(1.2,300.00), values = cms.vdouble(0.894986775271), uncertainties = cms.vdouble(0.0126433766486,0.0126433766486)),
+			cms.PSet(lowBounds = cms.vdouble(0.9,300.00), upBounds = cms.vdouble(1.2,400.00), values = cms.vdouble(0.895010957819), uncertainties = cms.vdouble(0.0230710534486,0.0230710534486)),
+			cms.PSet(lowBounds = cms.vdouble(0.9,400.00), upBounds = cms.vdouble(1.2,800.00), values = cms.vdouble(0.930822042013), uncertainties = cms.vdouble(0.0363583821104,0.0363583821104)),
+			cms.PSet(lowBounds = cms.vdouble(0.9,800.00), upBounds = cms.vdouble(1.2,float('inf')), values = cms.vdouble(1.0000), uncertainties = cms.vdouble(0.0000,0.0000)),
+			
+			cms.PSet(lowBounds = cms.vdouble(1.2,0.00), upBounds = cms.vdouble(2.1,20.00), values = cms.vdouble(1.0000), uncertainties = cms.vdouble(0.0000,0.0000)),
+			cms.PSet(lowBounds = cms.vdouble(1.2,52.00), upBounds = cms.vdouble(2.1,55.00), values = cms.vdouble(0.880845117133), uncertainties = cms.vdouble(0.00052893944902,0.00052893944902)),
+			cms.PSet(lowBounds = cms.vdouble(1.2,55.00), upBounds = cms.vdouble(2.1,60.00), values = cms.vdouble(0.886915494174), uncertainties = cms.vdouble(0.000548259966767,0.000548259966767)),
+			cms.PSet(lowBounds = cms.vdouble(1.2,60.00), upBounds = cms.vdouble(2.1,80.00), values = cms.vdouble(0.889994882696), uncertainties = cms.vdouble(0.000512305974456,0.000512305974456)),
+			cms.PSet(lowBounds = cms.vdouble(1.2,80.00), upBounds = cms.vdouble(2.1,120.00), values = cms.vdouble(0.890881144081), uncertainties = cms.vdouble(0.00136930526872,0.00136930526872)),
+			cms.PSet(lowBounds = cms.vdouble(1.2,120.00), upBounds = cms.vdouble(2.1,200.00), values = cms.vdouble(0.890005665854), uncertainties = cms.vdouble(0.00262417108131,0.00262417108131)),
+			cms.PSet(lowBounds = cms.vdouble(1.2,200.00), upBounds = cms.vdouble(2.1,300.00), values = cms.vdouble(0.881673013997), uncertainties = cms.vdouble(0.00971831401714,0.00971831401714)),
+			cms.PSet(lowBounds = cms.vdouble(1.2,300.00), upBounds = cms.vdouble(2.1,400.00), values = cms.vdouble(0.888344255927), uncertainties = cms.vdouble(0.0494547603125,0.0494547603125)),
+			cms.PSet(lowBounds = cms.vdouble(1.2,400.00), upBounds = cms.vdouble(2.1,800.00), values = cms.vdouble(0.857503346021), uncertainties = cms.vdouble(0.0749441153526,0.0749441153526)),
+			cms.PSet(lowBounds = cms.vdouble(1.2,800.00), upBounds = cms.vdouble(2.1,float('inf')), values = cms.vdouble(1.0000), uncertainties = cms.vdouble(0.0000,0.0000)),
+
+			cms.PSet(lowBounds = cms.vdouble(2.1,0.00), upBounds = cms.vdouble(2.4,20.00), values = cms.vdouble(1.0000), uncertainties = cms.vdouble(0.0000,0.0000)),
+			cms.PSet(lowBounds = cms.vdouble(2.1,52.00), upBounds = cms.vdouble(2.4,55.00), values = cms.vdouble(0.774884550229), uncertainties = cms.vdouble(0.00151488355538,0.00151488355538)),			
+			cms.PSet(lowBounds = cms.vdouble(2.1,55.00), upBounds = cms.vdouble(2.4,60.00), values = cms.vdouble(0.802096926746), uncertainties = cms.vdouble(0.0015780901992,0.0015780901992)),			
+			cms.PSet(lowBounds = cms.vdouble(2.1,60.00), upBounds = cms.vdouble(2.4,80.00), values = cms.vdouble(0.813025452304), uncertainties = cms.vdouble(0.00150714426768,0.00150714426768)),
+			cms.PSet(lowBounds = cms.vdouble(2.1,80.00), upBounds = cms.vdouble(2.4,120.00), values = cms.vdouble(0.816698408916), uncertainties = cms.vdouble(0.00447718291445,0.00447718291445)),
+			cms.PSet(lowBounds = cms.vdouble(2.1,120.00), upBounds = cms.vdouble(2.4,200.00), values = cms.vdouble(0.818343988003), uncertainties = cms.vdouble(0.0109859104069,0.0109859104069)),
+			cms.PSet(lowBounds = cms.vdouble(2.1,200.00), upBounds = cms.vdouble(2.4,300.00), values = cms.vdouble(0.766324962125), uncertainties = cms.vdouble(0.128524736233,0.128524736233)),
+			cms.PSet(lowBounds = cms.vdouble(2.1,300.00), upBounds = cms.vdouble(2.4,400.00), values = cms.vdouble(0.848007682383), uncertainties = cms.vdouble(0.0523966651291,0.0523966651291)),
+			cms.PSet(lowBounds = cms.vdouble(2.1,400.00), upBounds = cms.vdouble(2.4,800.00), values = cms.vdouble(0.749992123404), uncertainties = cms.vdouble(0.129829427426,0.129829427426)),
+			cms.PSet(lowBounds = cms.vdouble(2.1,800.00), upBounds = cms.vdouble(2.4,float('inf')), values = cms.vdouble(1.0000), uncertainties = cms.vdouble(0.0000,0.0000))
+		)
+)
+
+
+
 MuonIDSF = cms.PSet( MuonMethodName = cms.string("FlashggMuonWeight"),
 				MethodName = cms.string("FlashggMuonFromMultiLeptonMultiJet"),
 				Label = cms.string("MuonIDSF"),
@@ -172,11 +225,12 @@ MuonIsoSF = cms.PSet( MuonMethodName = cms.string("FlashggMuonWeight"),
 				)
 
 MuonTriggerSF = cms.PSet( MuonMethodName = cms.string("FlashggMuonWeight"),
-				MethodName = cms.string("FlashggMuonFromMultiLeptonMultiJet"),
+				MethodName = cms.string("FlashggMuonFromMultiLeptonMultiJetForTriggerSF"),
 				Label = cms.string("MuonTriggerSF"),
 				NSigmas = cms.vint32(-1,1),
 				OverallRange = cms.string("abs(eta)<2.4"),
 				BinList = binTrigger, 
+				BinList2 = binEffData, 
 				Debug = cms.untracked.bool(False),
 				ApplyCentralValue = cms.bool(True)
 				)
