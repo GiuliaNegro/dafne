@@ -2,6 +2,44 @@ import FWCore.ParameterSet.Config as cms
 from os import environ
 
 
+def customizeSingleObjectSystematicsForData(process):
+    electronScaleBinsData = getattr(process,'electronScaleBinsData',None)
+    if hasattr(process,'electronScaleBinsData'):
+        print electronScaleBinsData, process.electronScaleBinsData
+
+    for pset in process.flashggEleSystematics.SystMethods:
+        pset.ApplyCentralValue = cms.bool(True) # Turn on central shift 
+        pset.NSigmas = cms.vint32() # Do not perform up/down syst shift (1D case)
+        if electronScaleBinsData != None: 
+                pset.BinList = electronScaleBinsData
+
+	createJECESource(process)
+	process.jec.connect = cms.string('sqlite_file:%s/src/flashgg/Systematics/data/JEC/Summer16_23Sep2016AllV4_DATA.db' % environ['CMSSW_BASE'])
+	process.jec.toGet[0].tag = cms.string('JetCorrectorParametersCollection_Summer16_23Sep2016AllV4_DATA_AK4PFchs')
+
+	for pset in process.flashggJetSystematics.SystMethods:
+		pset.ApplyCentralValue = cms.bool(True) # Turn on central shift 
+		pset.NSigmas = cms.vint32() # Do not perform up/down syst shift (1D case)
+		if pset.Label.value().count("JEC"):
+			pset.SetupUncertainties = False
+
+
+def customizeSingleObjectSystematicsForMC(process):
+    for pset in process.flashggEleSystematics.SystMethods2D:
+        pset.ApplyCentralValue = cms.bool(True)  # Turn on central shift 
+        pset.NSigmas = cms.PSet( firstVar = cms.vint32(), secondVar = cms.vint32() ) # Do not perform up/down syst shifts (2D case)
+
+	createJECESource(process)
+	# createJERESource(process)
+
+	for pset in process.flashggJetSystematics.SystMethods:
+		if pset.Label.value().count("JEC") or pset.Label.value().count("JER"):
+			pset.NSigmas = cms.vint32() 
+			pset.ApplyCentralValue = cms.bool(True) # Turn on central shift 
+			if hasattr(pset,"SetupUncertainties"):
+				pset.SetupUncertainties = False
+
+
 
 def customizeMultiLeptonMultiJetSystematicsForData(process):
 	#EGM scale 1D: put in central value, but omit shifts
@@ -27,7 +65,6 @@ def customizeMultiLeptonMultiJetSystematicsForData(process):
 			pset.SetupUncertainties = False
 			
 
-
 def customizeMultiLeptonMultiJetSystematicsForMC(process):
 	#EGM smearing 2D: put in central value, but omit shifts
 
@@ -46,7 +83,7 @@ def customizeMultiLeptonMultiJetSystematicsForMC(process):
 	createJECESource(process)
 	# createJERESource(process)
 
-	for isyst in [ process.JEC, process.JER ]:
+	for isyst in [ process.JEC, process.JER, process.MuonIDSF, process.MuonIsoSF, process.MuonTriggerSF ]:
 		process.flashggMultiLeptonMultiJetSystematics.SystMethods.insert(0, isyst)
 
 	for pset in process.flashggMultiLeptonMultiJetSystematics.SystMethods:
@@ -83,7 +120,6 @@ def createJECESource(process):
 	process.es_prefer_jec = cms.ESPrefer('PoolDBESSource', 'jec')
 
 
-
 def createJERESource(process):
 	datadir = "%s/src/flashgg/Systematics/data/JER" % environ['CMSSW_BASE']
 	print "WARNING: we are reading JER from %s so GRID jobs might not work" % datadir
@@ -111,6 +147,7 @@ def createJERESource(process):
 						connect = cms.string('sqlite_file:%s/Summer16_23Sep2016V4_MC.db' % datadir)
 					)
 	process.es_prefer_jer = cms.ESPrefer('PoolDBESSource', 'jer')
+
 
 
 
