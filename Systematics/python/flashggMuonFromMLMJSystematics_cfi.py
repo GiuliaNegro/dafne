@@ -104,7 +104,7 @@ binTrigger = cms.PSet(
 			# Mu50_OR_TkMu50 trigger SFs for Moriond2017
 			# uncertainties are: stat (+) syst. with syst = 1% 
 			# Preliminary numbers merged for 2016BCDEF and GH taken from : https://twiki.cern.ch/twiki/bin/view/CMS/MuonWorkInProgressAndPagResults
-			cms.PSet(lowBounds = cms.vdouble(0.0,0.00), upBounds = cms.vdouble(0.9,20.00), values = cms.vdouble(1.0000), uncertainties = cms.vdouble(0.0000,0.0000)),
+			cms.PSet(lowBounds = cms.vdouble(0.0,0.00), upBounds = cms.vdouble(0.9,52.00), values = cms.vdouble(1.0000), uncertainties = cms.vdouble(0.0000,0.0000)),
 			cms.PSet(lowBounds = cms.vdouble(0.0,52.00), upBounds = cms.vdouble(0.9,55.00), values = cms.vdouble(0.976918626141), uncertainties = cms.vdouble(0.00713301391063,0.00713301391063)),
 			cms.PSet(lowBounds = cms.vdouble(0.0,55.00), upBounds = cms.vdouble(0.9,60.00), values = cms.vdouble(0.981657641158), uncertainties = cms.vdouble(0.00713569925415,0.00713569925415)),
 			cms.PSet(lowBounds = cms.vdouble(0.0,60.00), upBounds = cms.vdouble(0.9,80.00), values = cms.vdouble(0.980945665477), uncertainties = cms.vdouble(0.00713214355006,0.00713214355006)),
@@ -115,7 +115,7 @@ binTrigger = cms.PSet(
 			cms.PSet(lowBounds = cms.vdouble(0.0,400.00), upBounds = cms.vdouble(0.9,800.00), values = cms.vdouble(0.964794536058), uncertainties = cms.vdouble(0.0354231365919,0.0354231365919)),
 			cms.PSet(lowBounds = cms.vdouble(0.0,800.00), upBounds = cms.vdouble(0.9,float('inf')), values = cms.vdouble(1.0000), uncertainties = cms.vdouble(0.0000,0.0000)),
 
-			cms.PSet(lowBounds = cms.vdouble(0.9,0.00), upBounds = cms.vdouble(1.2,20.00), values = cms.vdouble(1.0000), uncertainties = cms.vdouble(0.0000,0.0000)),		
+			cms.PSet(lowBounds = cms.vdouble(0.9,0.00), upBounds = cms.vdouble(1.2,52.00), values = cms.vdouble(1.0000), uncertainties = cms.vdouble(0.0000,0.0000)),		
 			cms.PSet(lowBounds = cms.vdouble(0.9,52.00), upBounds = cms.vdouble(1.2,55.00), values = cms.vdouble(0.952914384419), uncertainties = cms.vdouble(0.007149529456,0.007149529456)),
 			cms.PSet(lowBounds = cms.vdouble(0.9,55.00), upBounds = cms.vdouble(1.2,60.00), values = cms.vdouble(0.958066480363), uncertainties = cms.vdouble(0.00717378231989,0.00717378231989)),
 			cms.PSet(lowBounds = cms.vdouble(0.9,60.00), upBounds = cms.vdouble(1.2,80.00), values = cms.vdouble(0.95763756959), uncertainties = cms.vdouble(0.00716157339882,0.00716157339882)),
@@ -126,7 +126,7 @@ binTrigger = cms.PSet(
 			cms.PSet(lowBounds = cms.vdouble(0.9,400.00), upBounds = cms.vdouble(1.2,800.00), values = cms.vdouble(0.975455933657), uncertainties = cms.vdouble(0.0583310146172,0.0583310146172)),
 			cms.PSet(lowBounds = cms.vdouble(0.9,800.00), upBounds = cms.vdouble(1.2,float('inf')), values = cms.vdouble(1.0000), uncertainties = cms.vdouble(0.0000,0.0000)),
 			
-			cms.PSet(lowBounds = cms.vdouble(1.2,0.00), upBounds = cms.vdouble(2.1,20.00), values = cms.vdouble(1.0000), uncertainties = cms.vdouble(0.0000,0.0000)),
+			cms.PSet(lowBounds = cms.vdouble(1.2,0.00), upBounds = cms.vdouble(2.1,52.00), values = cms.vdouble(1.0000), uncertainties = cms.vdouble(0.0000,0.0000)),
 			cms.PSet(lowBounds = cms.vdouble(1.2,52.00), upBounds = cms.vdouble(2.1,55.00), values = cms.vdouble(0.986467439092), uncertainties = cms.vdouble(0.00718225989039,0.00718225989039)),
 			cms.PSet(lowBounds = cms.vdouble(1.2,55.00), upBounds = cms.vdouble(2.1,60.00), values = cms.vdouble(0.992607911292), uncertainties = cms.vdouble(0.00719339972107,0.00719339972107)),
 			cms.PSet(lowBounds = cms.vdouble(1.2,60.00), upBounds = cms.vdouble(2.1,80.00), values = cms.vdouble(0.993856055235), uncertainties = cms.vdouble(0.0071812746821,0.0071812746821)),
@@ -137,7 +137,7 @@ binTrigger = cms.PSet(
 			cms.PSet(lowBounds = cms.vdouble(1.2,400.00), upBounds = cms.vdouble(2.1,800.00), values = cms.vdouble(0.903013479852), uncertainties = cms.vdouble(0.164590187976,0.164590187976)),
 			cms.PSet(lowBounds = cms.vdouble(1.2,800.00), upBounds = cms.vdouble(2.1,float('inf')), values = cms.vdouble(1.0000), uncertainties = cms.vdouble(0.0000,0.0000)),
 
-			cms.PSet(lowBounds = cms.vdouble(2.1,0.00), upBounds = cms.vdouble(2.4,20.00), values = cms.vdouble(1.0000), uncertainties = cms.vdouble(0.0000,0.0000)),
+			cms.PSet(lowBounds = cms.vdouble(2.1,0.00), upBounds = cms.vdouble(2.4,52.00), values = cms.vdouble(1.0000), uncertainties = cms.vdouble(0.0000,0.0000)),
 			cms.PSet(lowBounds = cms.vdouble(2.1,52.00), upBounds = cms.vdouble(2.4,55.00), values = cms.vdouble(0.916842441074), uncertainties = cms.vdouble(0.00765873327257,0.00765873327257)),			
 			cms.PSet(lowBounds = cms.vdouble(2.1,55.00), upBounds = cms.vdouble(2.4,60.00), values = cms.vdouble(0.934232059345), uncertainties = cms.vdouble(0.00767503526347,0.00767503526347)),			
 			cms.PSet(lowBounds = cms.vdouble(2.1,60.00), upBounds = cms.vdouble(2.4,80.00), values = cms.vdouble(0.939522854346), uncertainties = cms.vdouble(0.00762746281215,0.00762746281215)),
@@ -156,7 +156,7 @@ binEffData = cms.PSet(
 		bins = cms.VPSet(
 			# Mu50_OR_TkMu50 trigger DataEfficiencies for Moriond2017
 			# Preliminary numbers merged for 2016BCDEF and GH taken from : https://twiki.cern.ch/twiki/bin/view/CMS/MuonWorkInProgressAndPagResults
-			cms.PSet(lowBounds = cms.vdouble(0.0,0.00), upBounds = cms.vdouble(0.9,20.00), values = cms.vdouble(1.0000), uncertainties = cms.vdouble(0.0000,0.0000)),
+			cms.PSet(lowBounds = cms.vdouble(0.0,0.00), upBounds = cms.vdouble(0.9,52.00), values = cms.vdouble(1.0000), uncertainties = cms.vdouble(0.0000,0.0000)),
 			cms.PSet(lowBounds = cms.vdouble(0.0,52.00), upBounds = cms.vdouble(0.9,55.00), values = cms.vdouble(0.931277051885), uncertainties = cms.vdouble(0.000364676232012,0.000364676232012)),
 			cms.PSet(lowBounds = cms.vdouble(0.0,55.00), upBounds = cms.vdouble(0.9,60.00), values = cms.vdouble(0.936242912407), uncertainties = cms.vdouble(0.000359022722657,0.000359022722657)),
 			cms.PSet(lowBounds = cms.vdouble(0.0,60.00), upBounds = cms.vdouble(0.9,80.00), values = cms.vdouble(0.936082487338), uncertainties = cms.vdouble(0.000347015825047,0.000347015825047)),
@@ -167,7 +167,7 @@ binEffData = cms.PSet(
 			cms.PSet(lowBounds = cms.vdouble(0.0,400.00), upBounds = cms.vdouble(0.9,800.00), values = cms.vdouble(0.865404613889), uncertainties = cms.vdouble(0.0164165902365,0.0164165902365)),
 			cms.PSet(lowBounds = cms.vdouble(0.0,800.00), upBounds = cms.vdouble(0.9,float('inf')), values = cms.vdouble(1.0000), uncertainties = cms.vdouble(0.0000,0.0000)),
 
-			cms.PSet(lowBounds = cms.vdouble(0.9,0.00), upBounds = cms.vdouble(1.2,20.00), values = cms.vdouble(1.0000), uncertainties = cms.vdouble(0.0000,0.0000)),		
+			cms.PSet(lowBounds = cms.vdouble(0.9,0.00), upBounds = cms.vdouble(1.2,52.00), values = cms.vdouble(1.0000), uncertainties = cms.vdouble(0.0000,0.0000)),		
 			cms.PSet(lowBounds = cms.vdouble(0.9,52.00), upBounds = cms.vdouble(1.2,55.00), values = cms.vdouble(0.927933694608), uncertainties = cms.vdouble(0.000624302069775,0.000624302069775)),
 			cms.PSet(lowBounds = cms.vdouble(0.9,55.00), upBounds = cms.vdouble(1.2,60.00), values = cms.vdouble(0.933259340444), uncertainties = cms.vdouble(0.000680048894916,0.000680048894916)),
 			cms.PSet(lowBounds = cms.vdouble(0.9,60.00), upBounds = cms.vdouble(1.2,80.00), values = cms.vdouble(0.934403830226), uncertainties = cms.vdouble(0.000617248999278,0.000617248999278)),
@@ -178,7 +178,7 @@ binEffData = cms.PSet(
 			cms.PSet(lowBounds = cms.vdouble(0.9,400.00), upBounds = cms.vdouble(1.2,800.00), values = cms.vdouble(0.930822042013), uncertainties = cms.vdouble(0.0363583821104,0.0363583821104)),
 			cms.PSet(lowBounds = cms.vdouble(0.9,800.00), upBounds = cms.vdouble(1.2,float('inf')), values = cms.vdouble(1.0000), uncertainties = cms.vdouble(0.0000,0.0000)),
 			
-			cms.PSet(lowBounds = cms.vdouble(1.2,0.00), upBounds = cms.vdouble(2.1,20.00), values = cms.vdouble(1.0000), uncertainties = cms.vdouble(0.0000,0.0000)),
+			cms.PSet(lowBounds = cms.vdouble(1.2,0.00), upBounds = cms.vdouble(2.1,52.00), values = cms.vdouble(1.0000), uncertainties = cms.vdouble(0.0000,0.0000)),
 			cms.PSet(lowBounds = cms.vdouble(1.2,52.00), upBounds = cms.vdouble(2.1,55.00), values = cms.vdouble(0.880845117133), uncertainties = cms.vdouble(0.00052893944902,0.00052893944902)),
 			cms.PSet(lowBounds = cms.vdouble(1.2,55.00), upBounds = cms.vdouble(2.1,60.00), values = cms.vdouble(0.886915494174), uncertainties = cms.vdouble(0.000548259966767,0.000548259966767)),
 			cms.PSet(lowBounds = cms.vdouble(1.2,60.00), upBounds = cms.vdouble(2.1,80.00), values = cms.vdouble(0.889994882696), uncertainties = cms.vdouble(0.000512305974456,0.000512305974456)),
@@ -189,7 +189,7 @@ binEffData = cms.PSet(
 			cms.PSet(lowBounds = cms.vdouble(1.2,400.00), upBounds = cms.vdouble(2.1,800.00), values = cms.vdouble(0.857503346021), uncertainties = cms.vdouble(0.0749441153526,0.0749441153526)),
 			cms.PSet(lowBounds = cms.vdouble(1.2,800.00), upBounds = cms.vdouble(2.1,float('inf')), values = cms.vdouble(1.0000), uncertainties = cms.vdouble(0.0000,0.0000)),
 
-			cms.PSet(lowBounds = cms.vdouble(2.1,0.00), upBounds = cms.vdouble(2.4,20.00), values = cms.vdouble(1.0000), uncertainties = cms.vdouble(0.0000,0.0000)),
+			cms.PSet(lowBounds = cms.vdouble(2.1,0.00), upBounds = cms.vdouble(2.4,52.00), values = cms.vdouble(1.0000), uncertainties = cms.vdouble(0.0000,0.0000)),
 			cms.PSet(lowBounds = cms.vdouble(2.1,52.00), upBounds = cms.vdouble(2.4,55.00), values = cms.vdouble(0.774884550229), uncertainties = cms.vdouble(0.00151488355538,0.00151488355538)),			
 			cms.PSet(lowBounds = cms.vdouble(2.1,55.00), upBounds = cms.vdouble(2.4,60.00), values = cms.vdouble(0.802096926746), uncertainties = cms.vdouble(0.0015780901992,0.0015780901992)),			
 			cms.PSet(lowBounds = cms.vdouble(2.1,60.00), upBounds = cms.vdouble(2.4,80.00), values = cms.vdouble(0.813025452304), uncertainties = cms.vdouble(0.00150714426768,0.00150714426768)),
