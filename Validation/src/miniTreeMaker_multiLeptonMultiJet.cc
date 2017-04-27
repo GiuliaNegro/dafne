@@ -8,7 +8,10 @@ miniTreeMaker_multiLeptonMultiJet::miniTreeMaker_multiLeptonMultiJet( const Para
 	PileUpToken_(cc.consumes<View<PileupSummaryInfo> >( iConfig.getParameter<InputTag> ( "PileUpTag" ) ) ),
 	vertexToken_( cc.consumes<View<reco::Vertex> >( iConfig.getParameter<InputTag> ( "VertexTag" ) ) ),
 	MultiLeptonMultiJetToken_( cc.consumes<View<flashgg::MultiLeptonMultiJetCandidate> >( iConfig.getParameter<InputTag> ( "MultiLeptonMultiJetTag" ) ) ),
+	jetsToken_( cc.consumes<View<vector<flashgg::Jet> > >( iConfig.getParameter<InputTag> ( "JetsTag" ) ) ),
 	genJetToken_( cc.consumes<View<reco::GenJet> >( iConfig.getParameter<InputTag> ( "GenJetTag" ) ) ),
+	electronToken_( cc.consumes<View<flashgg::Electron> >( iConfig.getParameter<InputTag>( "ElectronTag" ) ) ),
+	muonToken_( cc.consumes<View<flashgg::Muon> >( iConfig.getParameter<InputTag>( "MuonTag" ) ) ),
 	triggerBitsToken_( cc.consumes<TriggerResults>( iConfig.getParameter<InputTag>( "triggerBits" ) ) ),
 	rhoToken_(cc.consumes<double>(iConfig.getParameter <InputTag>("rhoFixedGridCollection" ) ) )
 {
@@ -54,6 +57,68 @@ void miniTreeMaker_multiLeptonMultiJet::beginJob()
 	eventTree->Branch( "vtx_x", &evInfo.vtx_x );
 	eventTree->Branch( "vtx_y", &evInfo.vtx_y );
 	eventTree->Branch( "vtx_z", &evInfo.vtx_z );
+
+	eventTree->Branch( "ele_e", &evInfo.ele_e );
+	eventTree->Branch( "ele_pt", &evInfo.ele_pt );
+	eventTree->Branch( "ele_eta", &evInfo.ele_eta );
+	eventTree->Branch( "ele_phi", &evInfo.ele_phi );
+	eventTree->Branch( "ele_passHEEPId", &evInfo.ele_passHEEPId );
+	eventTree->Branch( "ele_HEEPBitMapValues", &evInfo.ele_HEEPBitMapValues );
+	eventTree->Branch( "ele_passTightId", &evInfo.ele_passTightId );
+	eventTree->Branch( "ele_passMediumId", &evInfo.ele_passMediumId );
+	eventTree->Branch( "ele_passLooseId", &evInfo.ele_passLooseId );
+	eventTree->Branch( "ele_passVetoId", &evInfo.ele_passVetoId );
+	eventTree->Branch( "ele_passMVATightId", &evInfo.ele_passMVATightId );
+	eventTree->Branch( "ele_passMVAMediumId", &evInfo.ele_passMVAMediumId );
+	eventTree->Branch( "ele_idmva", &evInfo.ele_idmva );
+	eventTree->Branch( "ele_iso", &evInfo.ele_iso );
+	eventTree->Branch( "ele_dz", &evInfo.ele_dz );
+	eventTree->Branch( "ele_d0", &evInfo.ele_d0 );
+	eventTree->Branch( "ele_isMatchedToGen", &evInfo.ele_isMatchedToGen );
+	eventTree->Branch( "ele_charge", &evInfo.ele_charge );
+	eventTree->Branch( "ele_etaSC", &evInfo.ele_etaSC );
+	eventTree->Branch( "ele_isEcalDriven", &evInfo.ele_isEcalDriven );
+	eventTree->Branch( "ele_dEtaIn", &evInfo.ele_dEtaIn );
+	eventTree->Branch( "ele_dPhiIn", &evInfo.ele_dPhiIn );
+	eventTree->Branch( "ele_hOverE", &evInfo.ele_hOverE );
+	eventTree->Branch( "ele_full5x5_r9", &evInfo.ele_full5x5_r9 );
+	eventTree->Branch( "ele_full5x5_sigmaIetaIeta", &evInfo.ele_full5x5_sigmaIetaIeta );
+	eventTree->Branch( "ele_full5x5_E5x5", &evInfo.ele_full5x5_E5x5 );
+	eventTree->Branch( "ele_full5x5_E1x5", &evInfo.ele_full5x5_E1x5 );
+	eventTree->Branch( "ele_full5x5_E2x5", &evInfo.ele_full5x5_E2x5 );
+	eventTree->Branch( "ele_EmHadDepth1Iso", &evInfo.ele_EmHadDepth1Iso );
+	eventTree->Branch( "ele_ptTracksIso", &evInfo.ele_ptTracksIso );
+	eventTree->Branch( "ele_innerLayerLostHits", &evInfo.ele_innerLayerLostHits );
+	eventTree->Branch( "ele_dxy", &evInfo.ele_dxy );
+	eventTree->Branch( "ele_eOverP", &evInfo.ele_eOverP );
+	eventTree->Branch( "ele_ecalEnergy", &evInfo.ele_ecalEnergy );
+	eventTree->Branch( "ele_hcalOverEcal", &evInfo.ele_hcalOverEcal );
+
+	eventTree->Branch( "mu_e", &evInfo.mu_e );
+	eventTree->Branch( "mu_pt", &evInfo.mu_pt );
+	eventTree->Branch( "mu_eta", &evInfo.mu_eta );
+	eventTree->Branch( "mu_phi", &evInfo.mu_phi );
+	eventTree->Branch( "mu_iso", &evInfo.mu_iso );
+	eventTree->Branch( "mu_PFiso", &evInfo.mu_PFiso );	
+	eventTree->Branch( "mu_isTight", &evInfo.mu_isTight );
+	eventTree->Branch( "mu_isMedium", &evInfo.mu_isMedium );
+	eventTree->Branch( "mu_isLoose", &evInfo.mu_isLoose );
+	eventTree->Branch( "mu_isHighPt", &evInfo.mu_isHighPt );
+	eventTree->Branch( "mu_isMatchedToGen", &evInfo.mu_isMatchedToGen );
+	eventTree->Branch( "mu_charge", &evInfo.mu_charge );
+	eventTree->Branch( "mu_dz", &evInfo.mu_dz );
+	eventTree->Branch( "mu_dxy", &evInfo.mu_dxy );
+	eventTree->Branch( "mu_RochCor", &evInfo.mu_RochCor );
+
+	eventTree->Branch( "jet_e", &evInfo.jet_e );
+	eventTree->Branch( "jet_pt", &evInfo.jet_pt );
+	eventTree->Branch( "jet_eta", &evInfo.jet_eta );
+	eventTree->Branch( "jet_phi", &evInfo.jet_phi );
+	eventTree->Branch( "jet_bdiscriminant", &evInfo.jet_bdiscriminant );
+	eventTree->Branch( "jet_partonFlavour", &evInfo.jet_partonFlavour );
+	eventTree->Branch( "jet_hadronFlavour", &evInfo.jet_hadronFlavour );
+	eventTree->Branch( "jet_isMatchedToGen", &evInfo.jet_isMatchedToGen );
+	eventTree->Branch( "jet_isThight", &evInfo.jet_isThight );
 
 	eventTree->Branch( "isEEJJ", &evInfo.isEEJJ ); 
 	eventTree->Branch( "isEETT", &evInfo.isEETT ); 
@@ -240,6 +305,16 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 	Handle<View<flashgg::MultiLeptonMultiJetCandidate> > multiLeptonMultiJets;
 	iEvent.getByToken( MultiLeptonMultiJetToken_, multiLeptonMultiJets );
 	
+	Handle<View<vector<flashgg::Jet> > > jets;
+	iEvent.getByToken( jetsToken_, jets );
+	// cout << "jets size " << jets->size() << endl;   
+
+	Handle<View<flashgg::Electron> > electrons;
+	iEvent.getByToken( electronToken_, electrons );
+  
+	Handle<View<flashgg::Muon> > muons;
+	iEvent.getByToken( muonToken_, muons );
+
 	Handle<TriggerResults> triggerBits;
 	iEvent.getByToken( triggerBitsToken_, triggerBits );
   
@@ -361,17 +436,147 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 
 
 
+	// -- electrons
+	for (UInt_t iele = 0 ; iele < electrons->size(); iele++){
+		// cout << "enter electron loop" << endl;
+		// nEle++;
+
+		Ptr<flashgg::Electron> electron = electrons->ptrAt( iele );
+		if (fabs(electron->eta()) > 2.4) { continue; }
+		if( electron->hasMatchedConversion() ) { continue; } // remove conversions
+		// nEleGood++;
+
+		int passHEEPId = electron->passHeepId();
+		// if (passHEEPId) nElePassingHEEPid++;	
+
+		Ptr<reco::Vertex> ele_vtx = chooseElectronVertex( electron,  vertices->ptrs() );
+		float dz = electron->gsfTrack()->dz( ele_vtx->position() );
+		float d0 = electron->gsfTrack()->dxy( ele_vtx->position() ); 
+
+		int mcMatch = -1;
+		if( ! iEvent.isRealData() ) mcMatch = electronMatchingToGen(electron, genParticles); 
+
+		Ptr<reco::Vertex> best_vtx_ele = chooseBestVtx(vertices->ptrs(), electron);
+
+		evInfo.ele_e.push_back(electron->energy());
+		evInfo.ele_pt.push_back(electron->pt());
+		evInfo.ele_eta.push_back(electron->eta());
+		evInfo.ele_phi.push_back(electron->phi());
+		evInfo.ele_passHEEPId.push_back(passHEEPId);
+		evInfo.ele_HEEPBitMapValues.push_back(electron->heepBitMap());
+		evInfo.ele_passTightId.push_back(electron->passTightId());
+		evInfo.ele_passMediumId.push_back(electron->passMediumId());
+		evInfo.ele_passLooseId.push_back(electron->passLooseId());
+		evInfo.ele_passVetoId.push_back(electron->passVetoId());
+		evInfo.ele_passMVATightId.push_back(electron->passMVATightId());
+		evInfo.ele_passMVAMediumId.push_back(electron->passMVAMediumId());
+		evInfo.ele_idmva.push_back(electron->nonTrigMVA());
+		evInfo.ele_iso.push_back( electronIsolation(electron, rho) );
+		evInfo.ele_dz.push_back(dz);
+		evInfo.ele_d0.push_back(d0);
+		evInfo.ele_isMatchedToGen.push_back(mcMatch);
+		evInfo.ele_charge.push_back(electron->charge());
+		evInfo.ele_etaSC.push_back(electron->superCluster()->eta());
+		evInfo.ele_isEcalDriven.push_back(electron->ecalDrivenSeed());
+		evInfo.ele_dEtaIn.push_back(electron->deltaEtaSuperClusterTrackAtVtx());  
+		evInfo.ele_dPhiIn.push_back(electron->deltaPhiSuperClusterTrackAtVtx());
+		evInfo.ele_hOverE.push_back(electron->hadronicOverEm());
+		evInfo.ele_full5x5_r9.push_back(electron->full5x5_r9());  
+		evInfo.ele_full5x5_sigmaIetaIeta.push_back(electron->full5x5_sigmaIetaIeta());
+		evInfo.ele_full5x5_E5x5.push_back(electron->full5x5_e5x5());
+		evInfo.ele_full5x5_E1x5.push_back(electron->full5x5_e1x5());
+		evInfo.ele_full5x5_E2x5.push_back(electron->full5x5_e2x5Max());
+		evInfo.ele_EmHadDepth1Iso.push_back(electron->dr03EcalRecHitSumEt()+electron->dr03HcalDepth1TowerSumEt());
+		evInfo.ele_ptTracksIso.push_back(electron->dr03TkSumPt());  //TO MODIFY
+		evInfo.ele_innerLayerLostHits.push_back(electron->gsfTrack()->hitPattern().numberOfHits( reco::HitPattern::MISSING_INNER_HITS));
+		evInfo.ele_dxy.push_back( electron->gsfTrack()->dxy(best_vtx_ele->position()) );
+		evInfo.ele_eOverP.push_back(electron->eSuperClusterOverP());
+		evInfo.ele_ecalEnergy.push_back(electron->ecalEnergy());
+		evInfo.ele_hcalOverEcal.push_back(electron->hcalOverEcal());
+	}       
+	// cout << "arriva a linea " << __LINE__ << endl;
+
+
+	// -- muons
+	for (UInt_t imu = 0 ; imu < muons->size(); imu++){
+		// nmuons++;
+
+		Ptr<flashgg::Muon> muon = muons->ptrAt( imu );
+		if (fabs(muon->eta()) > 2.4) { continue; }
+		// nmuonsGood++;
+
+		float muRochCor = RochesterCorrection(muon, genParticles, iEvent.isRealData());
+
+		// muon ID and isolation: https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonIdRun2
+		float muIso = muon->isolationR03().sumPt/muon->pt();
+		float muPFCombRelIso = ( muon->pfIsolationR04().sumChargedHadronPt + max( 0.,muon->pfIsolationR04().sumNeutralHadronEt + muon->pfIsolationR04().sumPhotonEt - 0.5 * muon->pfIsolationR04().sumPUPt ) ) / ( muon->pt() );
+
+		Ptr<reco::Vertex> muonVtx = chooseBestMuonVtx(vertices->ptrs(), muon);
+
+		float dz = -999;
+		float dxy = -999;
+		if ( !(!muon->innerTrack()) ) {
+			dz = muon->innerTrack()->dz( muonVtx->position() );
+			dxy = muon->innerTrack()->dxy( muonVtx->position() ); 			
+		}
+
+		int mcMatch =  -1;
+		if( ! iEvent.isRealData() ) mcMatch = muonMatchingToGen(muon, genParticles); 
+
+		evInfo.mu_e.push_back(muon->energy());
+		evInfo.mu_pt.push_back(muon->pt());
+		evInfo.mu_eta.push_back(muon->eta());
+		evInfo.mu_phi.push_back(muon->phi());
+		evInfo.mu_iso.push_back(muIso);
+		evInfo.mu_PFiso.push_back(muPFCombRelIso);
+		evInfo.mu_isTight.push_back(muon->isTightMuon( *muonVtx ));
+		evInfo.mu_isMedium.push_back(muon->isMediumMuon( ));
+		evInfo.mu_isLoose.push_back(muon->isLooseMuon( ));
+		evInfo.mu_isHighPt.push_back(muon->isHighPtMuon( *muonVtx ));
+		evInfo.mu_isMatchedToGen.push_back(mcMatch); 
+		evInfo.mu_charge.push_back(muon->charge());
+		evInfo.mu_dz.push_back( dz );
+		evInfo.mu_dxy.push_back( fabs(dxy) );
+		evInfo.mu_RochCor.push_back(muRochCor);
+	}
+	// cout << "arriva a linea " << __LINE__ << endl;
+
+
+	// -- jets
+	if (jets->size() > 0) {
+		Ptr<vector<flashgg::Jet> > jetVector = jets->ptrAt( 0 );
+		// if (jetVector->size() > 0) cout << "jetVector size " << jetVector->size() << endl;
+
+		for (UInt_t ijet = 0 ; ijet < jetVector->size(); ijet++){
+			// cout << "enter jet loop" << endl;
+			flashgg::Jet jet = jetVector->at( ijet );
+
+			int isMatchedToGen =  -1;
+			if( ! iEvent.isRealData() ) isMatchedToGen = jetMatchingToGen(jet, genJets); 
+
+			bool jetIsTight = (jet.neutralHadronEnergyFraction()<0.90 && jet.neutralEmEnergyFraction()<0.9 && (jet.chargedMultiplicity()+jet.neutralMultiplicity())>1 && jet.muonEnergyFraction()<0.8) && ((fabs(jet.eta())<=2.4 && jet.chargedHadronEnergyFraction()>0 && jet.chargedMultiplicity()>0 && jet.chargedEmEnergyFraction()<0.90) || fabs(jet.eta())>2.4);
+
+			evInfo.jet_e.push_back(jet.energy());
+			evInfo.jet_pt.push_back(jet.pt());
+			evInfo.jet_eta.push_back(jet.eta());
+			evInfo.jet_phi.push_back(jet.phi());
+			evInfo.jet_bdiscriminant.push_back(jet.bDiscriminator( bTag_ ));
+			evInfo.jet_hadronFlavour.push_back(jet.hadronFlavour());
+			evInfo.jet_partonFlavour.push_back(jet.partonFlavour());
+			evInfo.jet_isMatchedToGen.push_back(isMatchedToGen);
+			evInfo.jet_isThight.push_back(jetIsTight);
+		}
+	}
+	// cout << "arriva a linea " << __LINE__ << endl;
+
+
+
 	// -- multiLeptonMultiJets
 	// cout << "MLMJ size " << multiLeptonMultiJets->size() << endl;
 	for ( unsigned int imlmj = 0; imlmj < multiLeptonMultiJets->size(); imlmj++){
 		// cout << "enter MLMJ loop" << endl;
 		Ptr<flashgg::MultiLeptonMultiJetCandidate> multiLeptonMultiJet = multiLeptonMultiJets->ptrAt( imlmj );        
 		// cout << "arriva a linea " << __LINE__ << endl;
-
-		// if ( multiLeptonMultiJet->isEEJJ() ) {
-		// 	cout << "e1 = " << multiLeptonMultiJet->leadingEle()->energy() << ", eta1 = " << multiLeptonMultiJet->leadingEle()->eta() << endl;
-		// 	cout << "e2 = " << multiLeptonMultiJet->subLeadingEle()->energy() << ", eta2 = " << multiLeptonMultiJet->subLeadingEle()->eta() << endl;
-		// }
 
 		// if (multiLeptonMultiJet->isEEJJ()) cout << "isEEJJ" << endl;
 		// if (multiLeptonMultiJet->isMMJJ()) cout << "isMMJJ" << endl;
@@ -380,7 +585,6 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 		// if (multiLeptonMultiJet->isEMJJ()) cout << "isEMJJ" << endl; 
 		// if (!(multiLeptonMultiJet->isEMJJ())) cout << "no EMJJ" << endl;
 
-		// if (multiLeptonMultiJet->leadingLepton()->pt() < 35 || multiLeptonMultiJet->subLeadingLepton()->pt() < 35) continue;
 		if (multiLeptonMultiJet->leadingLepton()->pt() < 30 || multiLeptonMultiJet->subLeadingLepton()->pt() < 28) continue;
 		if (fabs(multiLeptonMultiJet->leadingLepton()->eta()) > 2.4 || fabs(multiLeptonMultiJet->subLeadingLepton()->eta()) > 2.4) continue;
 
@@ -832,6 +1036,68 @@ void miniTreeMaker_multiLeptonMultiJet::initEventStructure() {
 	evInfo.vtx_y .clear();
 	evInfo.vtx_z .clear();
 	
+	evInfo.ele_e .clear();
+	evInfo.ele_pt .clear();
+	evInfo.ele_eta .clear();
+	evInfo.ele_phi .clear();
+	evInfo.ele_passHEEPId .clear();
+	evInfo.ele_HEEPBitMapValues .clear();
+	evInfo.ele_passTightId .clear();
+	evInfo.ele_passMediumId .clear();
+	evInfo.ele_passLooseId .clear();
+	evInfo.ele_passVetoId .clear();
+	evInfo.ele_passMVATightId .clear();
+	evInfo.ele_passMVAMediumId .clear();
+	evInfo.ele_idmva .clear();
+	evInfo.ele_iso .clear();
+	evInfo.ele_dz .clear();
+	evInfo.ele_d0 .clear();
+	evInfo.ele_isMatchedToGen .clear();
+	evInfo.ele_charge .clear();
+	evInfo.ele_etaSC .clear();
+	evInfo.ele_isEcalDriven .clear();
+	evInfo.ele_dEtaIn .clear(); 
+	evInfo.ele_dPhiIn .clear();
+	evInfo.ele_hOverE .clear();
+	evInfo.ele_full5x5_r9 .clear();  
+	evInfo.ele_full5x5_sigmaIetaIeta .clear();
+	evInfo.ele_full5x5_E5x5 .clear();
+	evInfo.ele_full5x5_E1x5 .clear();
+	evInfo.ele_full5x5_E2x5 .clear();
+	evInfo.ele_EmHadDepth1Iso .clear();
+	evInfo.ele_ptTracksIso .clear();
+	evInfo.ele_innerLayerLostHits .clear();
+	evInfo.ele_dxy .clear();
+	evInfo.ele_eOverP .clear();
+	evInfo.ele_ecalEnergy .clear();
+	evInfo.ele_hcalOverEcal .clear();
+
+	evInfo.mu_e .clear();
+	evInfo.mu_pt .clear();
+	evInfo.mu_eta .clear();
+	evInfo.mu_phi .clear();
+	evInfo.mu_iso .clear();
+	evInfo.mu_PFiso .clear();
+	evInfo.mu_isTight .clear();
+	evInfo.mu_isMedium .clear();
+	evInfo.mu_isLoose .clear();
+	evInfo.mu_isHighPt .clear();
+	evInfo.mu_isMatchedToGen .clear();
+	evInfo.mu_charge .clear();
+	evInfo.mu_dz .clear();
+	evInfo.mu_dxy .clear();
+	evInfo.mu_RochCor .clear();
+
+	evInfo.jet_e .clear();
+	evInfo.jet_pt .clear();
+	evInfo.jet_eta .clear();
+	evInfo.jet_phi .clear();
+	evInfo.jet_bdiscriminant .clear();
+	evInfo.jet_partonFlavour .clear();
+	evInfo.jet_hadronFlavour .clear();
+	evInfo.jet_isMatchedToGen .clear();
+	evInfo.jet_isThight .clear();
+
 	evInfo.isEEJJ .clear();
 	evInfo.isEETT .clear();
 	evInfo.isMMJJ .clear();

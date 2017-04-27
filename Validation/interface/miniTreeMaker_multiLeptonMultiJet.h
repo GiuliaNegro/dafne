@@ -57,6 +57,68 @@ struct eventInfo {
 	vector<float> vtx_y;
 	vector<float> vtx_z;
 
+	vector<float> ele_e;
+	vector<float> ele_pt;
+	vector<float> ele_eta;
+	vector<float> ele_phi;
+	vector<bool> ele_passHEEPId; 
+	vector<unsigned> ele_HEEPBitMapValues;
+	vector<bool> ele_passTightId;
+	vector<bool> ele_passMediumId;
+	vector<bool> ele_passLooseId;
+	vector<bool> ele_passVetoId;
+	vector<bool> ele_passMVATightId;
+	vector<bool> ele_passMVAMediumId;
+	vector<float> ele_idmva;
+	vector<float> ele_iso;
+	vector<float> ele_dz;
+	vector<float> ele_d0;
+	vector<int> ele_isMatchedToGen;
+	vector<int> ele_charge;
+	vector<float> ele_etaSC;
+	vector<bool> ele_isEcalDriven;
+	vector<float> ele_dEtaIn; 
+	vector<float> ele_dPhiIn;
+	vector<float> ele_hOverE;
+	vector<float> ele_full5x5_r9;	
+	vector<float> ele_full5x5_sigmaIetaIeta;
+	vector<float> ele_full5x5_E5x5;
+	vector<float> ele_full5x5_E1x5;
+	vector<float> ele_full5x5_E2x5;  
+	vector<float> ele_EmHadDepth1Iso;
+	vector<float> ele_ptTracksIso;
+	vector<int> ele_innerLayerLostHits;
+	vector<float> ele_dxy;
+	vector<float> ele_eOverP;
+	vector<float> ele_ecalEnergy;
+	vector<float> ele_hcalOverEcal;
+
+	vector<float> mu_e;
+	vector<float> mu_pt;
+	vector<float> mu_eta;
+	vector<float> mu_phi;
+	vector<float> mu_iso;
+	vector<float> mu_PFiso;
+	vector<bool> mu_isTight;
+	vector<bool> mu_isMedium;
+	vector<bool> mu_isLoose;
+	vector<bool> mu_isHighPt;
+	vector<int> mu_isMatchedToGen;
+	vector<int> mu_charge;
+	vector<float> mu_dz;
+	vector<float> mu_dxy;
+	vector<float> mu_RochCor;
+
+	vector<float> jet_e;
+	vector<float> jet_pt;
+	vector<float> jet_eta;
+	vector<float> jet_phi;
+	vector<float> jet_bdiscriminant;
+	vector<int>   jet_hadronFlavour;
+	vector<int>   jet_partonFlavour;
+	vector<int>   jet_isMatchedToGen;
+	vector<bool>  jet_isThight;
+
 	vector<bool> isEEJJ;
 	vector<bool> isEETT;
 	vector<bool> isMMJJ;
@@ -198,6 +260,22 @@ struct eventInfo {
 
 
 // ************************** 
+int electronMatchingToGen(Ptr<flashgg::Electron> electron,  Handle<View<reco::GenParticle> > genParticles){
+	int mcmatch = 0;
+	for( unsigned int i = 0 ; i < genParticles->size(); i++ ) {
+		Ptr<reco::GenParticle> gen = genParticles->ptrAt(i);
+		if ( fabs(gen->pdgId()) != 11 ) continue;
+		if ( !(gen->isPromptFinalState())) continue;
+		float dR = deltaR( electron->eta(), electron->phi(), gen->eta(), gen->phi() );
+		if (dR < 0.1){ //??? 0.1 ok???
+			mcmatch = 1;
+		}
+	}
+	return (mcmatch);
+}
+// ******************************************************************************************
+
+// ************************** 
 int electronMatchingToGen(const flashgg::Electron* electron,  Handle<View<reco::GenParticle> > genParticles){
 	int mcmatch = 0;
 	for( unsigned int i = 0 ; i < genParticles->size(); i++ ) {
@@ -213,6 +291,26 @@ int electronMatchingToGen(const flashgg::Electron* electron,  Handle<View<reco::
 }
 // ******************************************************************************************
 
+
+
+// *********************** 
+int muonMatchingToGen(Ptr<flashgg::Muon> muon, Handle<View<reco::GenParticle> > genParticles){
+	int mcmatch = 0;
+	for( unsigned int i = 0 ; i < genParticles->size(); i++ ) {
+		Ptr<reco::GenParticle> gen = genParticles->ptrAt(i);
+			if ( fabs(gen->pdgId()) != 13 ) continue;
+			if ( !(gen)->isPromptFinalState()) continue;
+			float dR = deltaR( muon->eta(), muon->phi(), gen->eta(), gen->phi() );
+			//cout << " *** Found muon:  ***"<<endl;
+			//cout << " pdgId = "<< gen->pdgId()<< " prompt final state = "<< gen->isPromptFinalState() << "  status = " << gen->status() << "   isPrompt = " << gen->statusFlags().isPrompt() <<endl;
+			//cout << "dR = " << dR <<endl;
+			if (dR < 0.1){ //??? 0.1 ok???
+				mcmatch = 1;
+			}
+	}
+	return (mcmatch);
+}
+// ******************************************************************************************
 
 // ************************** 
 int muonMatchingToGen(const flashgg::Muon* muon, Handle<View<reco::GenParticle> > genParticles){
@@ -234,6 +332,20 @@ int muonMatchingToGen(const flashgg::Muon* muon, Handle<View<reco::GenParticle> 
 // ******************************************************************************************
 
 
+
+// // ************************** 
+int jetMatchingToGen(flashgg::Jet jet,  Handle<View<reco::GenJet> > genJets){
+	int mcmatch = 0;
+	for( unsigned int i = 0 ; i < genJets->size(); i++ ) {
+		Ptr<reco::GenJet> genJet = genJets->ptrAt(i);
+		float dR = deltaR( jet.eta(), jet.phi(), genJet->eta(), genJet->phi() );
+		if (dR > 0.4) continue;
+		mcmatch = 1;
+	}
+	return (mcmatch);
+}
+// ******************************************************************************************
+
 // ************************** 
 int jetMatchingToGen(const flashgg::Jet* jet,  Handle<View<reco::GenJet> > genJets){
 	int mcmatch = 0;
@@ -247,6 +359,22 @@ int jetMatchingToGen(const flashgg::Jet* jet,  Handle<View<reco::GenJet> > genJe
 }
 // ******************************************************************************************
 
+
+
+// **************** 
+Ptr<reco::Vertex> chooseBestVtx(const vector<Ptr<reco::Vertex> > &vertices, Ptr<flashgg::Electron> electron){
+	double vtx_dz = 1000000.;
+	unsigned int min_dz_vtx = -1;			
+	for( unsigned int vtxi = 0; vtxi < vertices.size(); vtxi++ ) {            
+		Ptr<reco::Vertex> vtx = vertices[vtxi];            
+		if( vtx_dz > fabs(electron->gsfTrack()->dz( vtx->position() )) ) {                
+			vtx_dz = fabs(electron->gsfTrack()->dz( vtx->position() ) );
+			min_dz_vtx = vtxi;
+		}
+	}					
+	return vertices[min_dz_vtx];
+}
+// *****************************************************************************************
 
 // ************************** 
 Ptr<reco::Vertex> chooseBestVtx(const vector<Ptr<reco::Vertex> > &vertices, const flashgg::Electron* electron){
@@ -264,6 +392,23 @@ Ptr<reco::Vertex> chooseBestVtx(const vector<Ptr<reco::Vertex> > &vertices, cons
 // ******************************************************************************************
 
 
+
+// **************** 
+Ptr<reco::Vertex> chooseBestMuonVtx(const vector<Ptr<reco::Vertex> > &vertices, Ptr<flashgg::Muon> muon){
+	int vtxInd = 0;
+	double dzmin = 9999;
+	for( size_t ivtx = 0 ; ivtx < vertices.size(); ivtx++ ) {
+		Ptr<reco::Vertex> vtx = vertices[ivtx];
+		if( !muon->innerTrack() ) { continue; }
+		if( fabs( muon->innerTrack()->vz() - vtx->position().z() ) < dzmin ) {
+			dzmin = fabs( muon->innerTrack()->vz() - vtx->position().z() );
+			vtxInd = ivtx;
+		}
+	}
+	return vertices[vtxInd];
+}
+// ******************************************************************************************
+
 // ************************** 
 Ptr<reco::Vertex> chooseBestMuonVtx(const vector<Ptr<reco::Vertex> > &vertices, const flashgg::Muon* muon){
 	int vtxInd = 0;
@@ -280,6 +425,40 @@ Ptr<reco::Vertex> chooseBestMuonVtx(const vector<Ptr<reco::Vertex> > &vertices, 
 }
 // ******************************************************************************************
 
+
+
+// **************** 
+float RochesterCorrection(Ptr<flashgg::Muon> muon, Handle<View<reco::GenParticle> > genParticles, bool isData){
+
+	RoccoR rc("/afs/cern.ch/user/g/gnegro/work/NuAnalysis-Moriond17/CMSSW_8_0_26_patch1/src/dafne/data/rcdata.2016.v3");
+	// cout << "Muon Pt Before = " << muon->pt() << ", Muon Eta Before = " << muon->eta() << endl;
+
+	TRandom *gRandom = new TRandom();
+	gRandom->SetSeed(1); 	
+	float u1 = gRandom->Rndm();
+	float u2 = gRandom->Rndm();
+	int nl = muon->bestTrack()->hitPattern().trackerLayersWithMeasurement();
+
+	double RochCor = 1.;
+
+	if( isData ) {
+		RochCor = rc.kScaleDT(muon->charge(), muon->pt(), muon->eta(), muon->phi(), 0, 0);
+	} else {
+
+		float genMuPt = 0.;
+		for( unsigned int i = 0 ; i < genParticles->size(); i++ ) {
+	   		Ptr<reco::GenParticle> gen = genParticles->ptrAt(i);
+		   if( fabs(gen->pdgId()) == 13 && deltaR(gen->eta(), gen->phi(), muon->eta(), muon->phi()) < 0.2 ) genMuPt = gen->pt();
+		}    
+
+		if (genMuPt != 0) RochCor = rc.kScaleFromGenMC(muon->charge(), muon->pt(), muon->eta(), muon->phi(), nl, genMuPt, u1, 0, 0);
+		else RochCor = rc.kScaleAndSmearMC(muon->charge(), muon->pt(), muon->eta(), muon->phi(), nl, u1, u2, 0, 0);
+	}	
+	// cout << "Muon Pt After = " << muon->pt()*RochCor << ", Muon Eta After = " << muon->eta() << endl;
+
+	return RochCor;
+}
+// ******************************************************************************************
 
 // ************************** 
 float RochesterCorrection(const flashgg::Muon* muon, Handle<View<reco::GenParticle> > genParticles, bool isData){
@@ -314,6 +493,36 @@ float RochesterCorrection(const flashgg::Muon* muon, Handle<View<reco::GenPartic
 }
 // ******************************************************************************************
 
+
+
+// ***************************** 
+float electronIsolation(Ptr<flashgg::Electron> electron, double rho){
+	// -- compute combined relative isolation: IsoCh + max( 0.0, IsoNh + IsoPh - PU ) )/pT, PU = rho * Aeff 
+	// https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedElectronIdentificationRun2
+	// effective areas:  https://github.com/ikrav/cmssw/blob/egm_id_80X_v1/RecoEgamma/ElectronIdentification/data/Summer16/effAreaElectrons_cone03_pfNeuHadronsAndPhotons_80X.txt
+
+	float Aeff = 0;
+	float eta = fabs(electron->eta());
+	if( eta <  1.0 )                  { Aeff = 0.1703; }
+	if( eta >= 1.0   && eta < 1.479 ) { Aeff = 0.1715; }
+	if( eta >= 1.479 && eta < 2.0 )   { Aeff = 0.1213; }
+	if( eta >= 2.0   && eta < 2.2 )   { Aeff = 0.1230; }
+	if( eta >= 2.2   && eta < 2.3 )   { Aeff = 0.1635; }
+	if( eta >= 2.3   && eta < 2.4 )   { Aeff = 0.1937; }
+	if( eta >= 2.4 )                  { Aeff = 0.2393; }
+
+	//float iso = electron->chargedHadronIso() + max( electron->neutralHadronIso() + electron->photonIso() - rho * Aeff, 0. ); 
+	reco::GsfElectron::PflowIsolationVariables pfIso = electron->pfIsolationVariables();
+	float iso = pfIso.sumChargedHadronPt + max( pfIso.sumNeutralHadronEt + pfIso.sumPhotonEt - rho * Aeff, 0. );
+
+	//cout << electron->chargedHadronIso() << "  " <<  pfIso.sumChargedHadronPt << "   pt = " << electron->pt() << endl; 
+	//cout << electron->neutralHadronIso() << "  " << pfIso.sumNeutralHadronEt << endl;
+	//cout << electron->photonIso() << "  " << pfIso.sumPhotonEt <<endl;
+	//cout << electron->chargedHadronIso() + max( electron->neutralHadronIso() + electron->photonIso() - rho * Aeff, 0. ) << "   "<< iso<< endl;
+
+	return (iso/ electron->pt());	
+}
+// ******************************************************************************************
 
 // ************************** 
 float electronIsolation(const flashgg::Electron* electron, double rho){
@@ -458,10 +667,12 @@ class miniTreeMaker_multiLeptonMultiJet : public BasicAnalyzer
 	EDGetTokenT<View<PileupSummaryInfo> >  PileUpToken_;
 	EDGetTokenT<View<reco::Vertex> > vertexToken_;
 	EDGetTokenT<View<flashgg::MultiLeptonMultiJetCandidate> > MultiLeptonMultiJetToken_; 
+	EDGetTokenT<View<vector<flashgg::Jet> > > jetsToken_;
 	EDGetTokenT<View<reco::GenJet> > genJetToken_;
+	EDGetTokenT<View<Electron> > electronToken_;
+	EDGetTokenT<View<Muon> > muonToken_;
 	EDGetTokenT<TriggerResults> triggerBitsToken_;
 	EDGetTokenT<double> rhoToken_;
-
 	string bTag_;
 	double lumiWeight_;
 
