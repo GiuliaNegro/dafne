@@ -368,6 +368,11 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 		Ptr<flashgg::MultiLeptonMultiJetCandidate> multiLeptonMultiJet = multiLeptonMultiJets->ptrAt( imlmj );        
 		// cout << "arriva a linea " << __LINE__ << endl;
 
+		// if ( multiLeptonMultiJet->isEEJJ() ) {
+		// 	cout << "e1 = " << multiLeptonMultiJet->leadingEle()->energy() << ", eta1 = " << multiLeptonMultiJet->leadingEle()->eta() << endl;
+		// 	cout << "e2 = " << multiLeptonMultiJet->subLeadingEle()->energy() << ", eta2 = " << multiLeptonMultiJet->subLeadingEle()->eta() << endl;
+		// }
+
 		// if (multiLeptonMultiJet->isEEJJ()) cout << "isEEJJ" << endl;
 		// if (multiLeptonMultiJet->isMMJJ()) cout << "isMMJJ" << endl;
 		// if (multiLeptonMultiJet->isEETT()) cout << "isEETT" << endl;
@@ -375,7 +380,8 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 		// if (multiLeptonMultiJet->isEMJJ()) cout << "isEMJJ" << endl; 
 		// if (!(multiLeptonMultiJet->isEMJJ())) cout << "no EMJJ" << endl;
 
-		if (multiLeptonMultiJet->leadingLepton()->pt() < 35 || multiLeptonMultiJet->subLeadingLepton()->pt() < 35) continue;
+		// if (multiLeptonMultiJet->leadingLepton()->pt() < 35 || multiLeptonMultiJet->subLeadingLepton()->pt() < 35) continue;
+		if (multiLeptonMultiJet->leadingLepton()->pt() < 30 || multiLeptonMultiJet->subLeadingLepton()->pt() < 28) continue;
 		if (fabs(multiLeptonMultiJet->leadingLepton()->eta()) > 2.4 || fabs(multiLeptonMultiJet->subLeadingLepton()->eta()) > 2.4) continue;
 
 		if (multiLeptonMultiJet->leadingJet()->pt() < 40 || multiLeptonMultiJet->subLeadingJet()->pt() < 40) continue;
