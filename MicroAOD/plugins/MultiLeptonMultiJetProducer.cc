@@ -28,7 +28,7 @@ namespace flashgg {
 		vector<InputTag> inputTagJets_;
 		vector<EDGetTokenT<View<flashgg::Jet> > > tokenJets_;
 		typedef vector<Handle<View<flashgg::Jet> > > JetCollectionVector;
-		EDGetTokenT<View<Track_t> > trackToken_;	
+		// EDGetTokenT<View<Track_t> > trackToken_;	
 		EDGetTokenT<View<Vertex_t> > vertexToken_;
 
 		double minElePt_;
@@ -46,7 +46,7 @@ namespace flashgg {
 		electronToken_( consumes<View<Electron_t> >( iConfig.getParameter<InputTag> ( "ElectronTag" ) ) ),
 		muonToken_( consumes<View<Muon_t> >( iConfig.getParameter<InputTag> ( "MuonTag" ) ) ),
 		inputTagJets_( iConfig.getParameter<vector<InputTag> >( "inputTagJets" ) ),
-		trackToken_( consumes<View<Track_t> >( iConfig.getParameter<InputTag> ( "TrackTag" ) ) ),
+		// trackToken_( consumes<View<Track_t> >( iConfig.getParameter<InputTag> ( "TrackTag" ) ) ),
 		vertexToken_( consumes<View<Vertex_t> >( iConfig.getParameter<InputTag> ( "VertexTag" ) ) )
 
 	{
@@ -87,9 +87,9 @@ namespace flashgg {
 			evt.getByToken( tokenJets_[j], Jets[j] );
 		}
 
-		Handle<View<Track_t> > tracks;
-		evt.getByToken( trackToken_, tracks );
-		const vector<Track_ptr > &trackPointers = tracks->ptrs();
+		// Handle<View<Track_t> > tracks;
+		// evt.getByToken( trackToken_, tracks );
+		// const vector<Track_ptr > &trackPointers = tracks->ptrs();
 
 
 		auto_ptr<vector<flashgg::MultiLeptonMultiJetCandidate> > multiLeptonMultiJetColl( new vector<flashgg::MultiLeptonMultiJetCandidate> );
@@ -131,27 +131,27 @@ namespace flashgg {
 					}
 
 
-					if (trackPointers.size() > 1) {
-						for ( unsigned int l = 0 ; l < trackPointers.size() ; l++ ) {
-							Track_ptr track1 = trackPointers[l];
-							double pt_track1 = track1->pt();
-							double eta_track1 = track1->eta();
-							if( pt_track1 < minTrackPt_ || fabs( eta_track1 ) > maxTrackEta_ ) { continue; }
+					// if (trackPointers.size() > 1) {
+					// 	for ( unsigned int l = 0 ; l < trackPointers.size() ; l++ ) {
+					// 		Track_ptr track1 = trackPointers[l];
+					// 		double pt_track1 = track1->pt();
+					// 		double eta_track1 = track1->eta();
+					// 		if( pt_track1 < minTrackPt_ || fabs( eta_track1 ) > maxTrackEta_ ) { continue; }
 
-							for( unsigned int h = l + 1 ; h < trackPointers.size() ; h++ ) {		
-								Track_ptr track2 = trackPointers[h];
-								double pt_track2 = track2->pt();
-								double eta_track2 = track2->eta();
-								if( pt_track2 < minTrackPt_ || fabs( eta_track2 ) > maxTrackEta_ ) { continue; }
+					// 		for( unsigned int h = l + 1 ; h < trackPointers.size() ; h++ ) {		
+					// 			Track_ptr track2 = trackPointers[h];
+					// 			double pt_track2 = track2->pt();
+					// 			double eta_track2 = track2->eta();
+					// 			if( pt_track2 < minTrackPt_ || fabs( eta_track2 ) > maxTrackEta_ ) { continue; }
 
-								MultiLeptonMultiJetCandidate DiEleDiTrack( electron1, electron2, track1, track2, pvx);  //create MultiLeptonMultiJetCandidate with 2ele and 2tracks
+					// 			MultiLeptonMultiJetCandidate DiEleDiTrack( electron1, electron2, track1, track2, pvx);  //create MultiLeptonMultiJetCandidate with 2ele and 2tracks
 
-								DiEleDiTrack.setVtx( pvx );
+					// 			DiEleDiTrack.setVtx( pvx );
 
-								multiLeptonMultiJetColl->push_back( DiEleDiTrack );  // store the DiEleDiTrack into the collection
-							}
-						}
-					}
+					// 			multiLeptonMultiJetColl->push_back( DiEleDiTrack );  // store the DiEleDiTrack into the collection
+					// 		}
+					// 	}
+					// }
 
 				}
 			}
@@ -197,27 +197,27 @@ namespace flashgg {
 					}
 
 
-					if (trackPointers.size() > 1) {
-						for ( unsigned int l = 0 ; l < trackPointers.size() ; l++ ) {
-							Track_ptr track1 = trackPointers[l];
-							double pt_track1 = track1->pt();
-							double eta_track1 = track1->eta();
-							if( pt_track1 < minTrackPt_ || fabs( eta_track1 ) > maxTrackEta_ ) { continue; }
+					// if (trackPointers.size() > 1) {
+					// 	for ( unsigned int l = 0 ; l < trackPointers.size() ; l++ ) {
+					// 		Track_ptr track1 = trackPointers[l];
+					// 		double pt_track1 = track1->pt();
+					// 		double eta_track1 = track1->eta();
+					// 		if( pt_track1 < minTrackPt_ || fabs( eta_track1 ) > maxTrackEta_ ) { continue; }
 
-							for( unsigned int h = l + 1 ; h < trackPointers.size() ; h++ ) {		
-								Track_ptr track2 = trackPointers[h];
-								double pt_track2 = track2->pt();
-								double eta_track2 = track2->eta();
-								if( pt_track2 < minTrackPt_ || fabs( eta_track2 ) > maxTrackEta_ ) { continue; }
+					// 		for( unsigned int h = l + 1 ; h < trackPointers.size() ; h++ ) {		
+					// 			Track_ptr track2 = trackPointers[h];
+					// 			double pt_track2 = track2->pt();
+					// 			double eta_track2 = track2->eta();
+					// 			if( pt_track2 < minTrackPt_ || fabs( eta_track2 ) > maxTrackEta_ ) { continue; }
 
-								MultiLeptonMultiJetCandidate DiMuonDiTrack( muon1, muon2, track1, track2, pvx);  //create MultiLeptonMultiJetCandidate with 2muons and 2jets
+					// 			MultiLeptonMultiJetCandidate DiMuonDiTrack( muon1, muon2, track1, track2, pvx);  //create MultiLeptonMultiJetCandidate with 2muons and 2jets
 
-								DiMuonDiTrack.setVtx( pvx );
+					// 			DiMuonDiTrack.setVtx( pvx );
 
-								multiLeptonMultiJetColl->push_back( DiMuonDiTrack );  // store the DiMuonDiTrack into the collection
-							}
-						}
-					}
+					// 			multiLeptonMultiJetColl->push_back( DiMuonDiTrack );  // store the DiMuonDiTrack into the collection
+					// 		}
+					// 	}
+					// }
 
 				}
 			} 

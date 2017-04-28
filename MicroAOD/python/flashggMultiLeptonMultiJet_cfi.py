@@ -17,7 +17,7 @@ flashggMultiLeptonMultiJet = cms.EDProducer('FlashggMultiLeptonMultiJetProducer'
 									ElectronTag=cms.InputTag('flashggSelectedElectrons'),  
 									MuonTag=cms.InputTag('flashggSelectedMuons'),     
 									inputTagJets= UnpackedJetCollectionVInputTag,        
-									TrackTag=cms.InputTag('packedPFCandidates'),
+									# TrackTag=cms.InputTag('packedPFCandidates'),
 									VertexTag=cms.InputTag('offlineSlimmedPrimaryVertices'), 
 									##Parameters  
                                     minElectronPt=cms.double(5.),
