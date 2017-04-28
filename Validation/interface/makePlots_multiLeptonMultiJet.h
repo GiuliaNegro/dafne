@@ -43,7 +43,66 @@ class makePlots_multiLeptonMultiJet {
 		Int_t           passTandPMMhlt;
 		vector<float>   *vtx_x;
 		vector<float>   *vtx_y;
-		vector<float>   *vtx_z;     
+		vector<float>   *vtx_z;  
+		vector<float>   *ele_e;
+		vector<float>   *ele_pt;
+		vector<float>   *ele_eta;
+		vector<float>   *ele_phi;
+		vector<bool>    *ele_passHEEPId;
+		vector<unsigned int> *ele_HEEPBitMapValues;
+		vector<bool>    *ele_passTightId;
+		vector<bool>    *ele_passMediumId;
+		vector<bool>    *ele_passLooseId;
+		vector<bool>    *ele_passVetoId;
+		vector<bool>    *ele_passMVATightId;
+		vector<bool>    *ele_passMVAMediumId;
+		vector<float>   *ele_idmva;
+		vector<float>   *ele_iso;
+		vector<float>   *ele_dz;
+		vector<float>   *ele_d0;
+		vector<int>     *ele_isMatchedToGen;
+		vector<int>     *ele_charge;
+		vector<float>   *ele_etaSC;
+		vector<bool>    *ele_isEcalDriven;
+		vector<float>   *ele_dEtaIn;
+		vector<float>   *ele_dPhiIn;
+		vector<float>   *ele_hOverE;
+		vector<float>   *ele_full5x5_r9;
+		vector<float>   *ele_full5x5_sigmaIetaIeta;
+		vector<float>   *ele_full5x5_E5x5;
+		vector<float>   *ele_full5x5_E1x5;
+		vector<float>   *ele_full5x5_E2x5;
+		vector<float>   *ele_EmHadDepth1Iso;
+		vector<float>   *ele_ptTracksIso;
+		vector<int>     *ele_innerLayerLostHits;
+		vector<float>   *ele_dxy;
+		vector<float>   *ele_eOverP;
+		vector<float>   *ele_ecalEnergy;
+		vector<float>   *ele_hcalOverEcal;
+		vector<float>   *mu_e;
+		vector<float>   *mu_pt;
+		vector<float>   *mu_eta;
+		vector<float>   *mu_phi;
+		vector<float>   *mu_iso;
+		vector<float>   *mu_PFiso;
+		vector<bool>    *mu_isTight;
+		vector<bool>    *mu_isMedium;
+		vector<bool>    *mu_isLoose;
+		vector<bool>    *mu_isHighPt;
+		vector<int>     *mu_isMatchedToGen;
+		vector<int>     *mu_charge;
+		vector<float>   *mu_dz;
+		vector<float>   *mu_dxy;
+		vector<float>   *mu_RochCor;
+		vector<float>   *jet_e;
+		vector<float>   *jet_pt;
+		vector<float>   *jet_eta;
+		vector<float>   *jet_phi;
+		vector<float>   *jet_bdiscriminant;
+		vector<int>     *jet_partonFlavour;
+		vector<int>     *jet_hadronFlavour;
+		vector<int>     *jet_isMatchedToGen;
+		vector<bool>    *jet_isThight;
 		vector<bool>    *isEEJJ;
 		vector<bool>    *isEETT;
 		vector<bool>    *isMMJJ;
@@ -185,6 +244,65 @@ class makePlots_multiLeptonMultiJet {
 		TBranch        *b_vtx_x;   //!
 		TBranch        *b_vtx_y;   //!
 		TBranch        *b_vtx_z;   //!
+		TBranch        *b_ele_e;   //!
+		TBranch        *b_ele_pt;   //!
+		TBranch        *b_ele_eta;   //!
+		TBranch        *b_ele_phi;   //!
+		TBranch        *b_ele_passHEEPId;   //!
+		TBranch        *b_ele_HEEPBitMapValues;   //!
+		TBranch        *b_ele_passTightId;   //!
+		TBranch        *b_ele_passMediumId;   //!
+		TBranch        *b_ele_passLooseId;   //!
+		TBranch        *b_ele_passVetoId;   //!
+		TBranch        *b_ele_passMVATightId;   //!
+		TBranch        *b_ele_passMVAMediumId;   //!
+		TBranch        *b_ele_idmva;   //!
+		TBranch        *b_ele_iso;   //!
+		TBranch        *b_ele_dz;   //!
+		TBranch        *b_ele_d0;   //!
+		TBranch        *b_ele_isMatchedToGen;   //!
+		TBranch        *b_ele_charge;   //!
+		TBranch        *b_ele_etaSC;   //!
+		TBranch        *b_ele_isEcalDriven;   //!
+		TBranch        *b_ele_dEtaIn;   //!
+		TBranch        *b_ele_dPhiIn;   //!
+		TBranch        *b_ele_hOverE;   //!
+		TBranch        *b_ele_full5x5_r9;   //!
+		TBranch        *b_ele_full5x5_sigmaIetaIeta;   //!
+		TBranch        *b_ele_full5x5_E5x5;   //!
+		TBranch        *b_ele_full5x5_E1x5;   //!
+		TBranch        *b_ele_full5x5_E2x5;   //!
+		TBranch        *b_ele_EmHadDepth1Iso;   //!
+		TBranch        *b_ele_ptTracksIso;   //!
+		TBranch        *b_ele_innerLayerLostHits;   //!
+		TBranch        *b_ele_dxy;   //!
+		TBranch        *b_ele_eOverP;   //!
+		TBranch        *b_ele_ecalEnergy;   //!
+		TBranch        *b_ele_hcalOverEcal;   //!
+		TBranch        *b_mu_e;   //!
+		TBranch        *b_mu_pt;   //!
+		TBranch        *b_mu_eta;   //!
+		TBranch        *b_mu_phi;   //!
+		TBranch        *b_mu_iso;   //!
+		TBranch        *b_mu_PFiso;   //!
+		TBranch        *b_mu_isTight;   //!
+		TBranch        *b_mu_isMedium;   //!
+		TBranch        *b_mu_isLoose;   //!
+		TBranch        *b_mu_isHighPt;   //!
+		TBranch        *b_mu_isMatchedToGen;   //!
+		TBranch        *b_mu_charge;   //!
+		TBranch        *b_mu_dz;   //!
+		TBranch        *b_mu_dxy;   //!
+		TBranch        *b_mu_RochCor;   //!
+		TBranch        *b_jet_e;   //!
+		TBranch        *b_jet_pt;   //!
+		TBranch        *b_jet_eta;   //!
+		TBranch        *b_jet_phi;   //!
+		TBranch        *b_jet_bdiscriminant;   //!
+		TBranch        *b_jet_partonFlavour;   //!
+		TBranch        *b_jet_hadronFlavour;   //!
+		TBranch        *b_jet_isMatchedToGen;   //!
+		TBranch        *b_jet_isThight;   //!
 		TBranch        *b_isEEJJ;   //!
 		TBranch        *b_isEETT;   //!
 		TBranch        *b_isMMJJ;   //!
@@ -310,6 +428,16 @@ class makePlots_multiLeptonMultiJet {
 		TBranch        *b_subLeadingMuon_RochCor;   //!
 
 
+		static const int nEtaRegions = 3;
+		static const int nEtaMassRegions = 5;
+
+		static const int nObjects = 16;
+		static const int nEle = 6;
+
+		static const int nRegions = 5;
+		static const int nTnPregions = 2;	
+		static const int nZregions = 4;
+
 	//definition of histos
 		TH1D *rho_histo;
 		TH1D *nvtx_histo;
@@ -323,36 +451,37 @@ class makePlots_multiLeptonMultiJet {
 		TH1D *nLeadingLeptons_histo;
 		TH1D *nSubLeadingLeptons_histo;
 
-		TH1D *pt_histo[16][4];
-		TH1D *eta_histo[16][4];
-		TH1D *phi_histo[16][4];
+		TH1D *pt_histo[nObjects][nRegions];
+		TH1D *eta_histo[nObjects][nRegions];
+		TH1D *phi_histo[nObjects][nRegions];
 
-		TH1D *etaSC_histo[4][3];
-		TH1D *isEcalDriven_histo[4][3];  
-		TH1D *dEtaIn_histo[4][3];
-		TH1D *dPhiIn_histo[4][3];
-		TH1D *hOverE_histo[4][3];
-		TH1D *full5x5_r9_histo[4][3];
-		TH1D *full5x5_sigmaIetaIeta_histo[4][3];
-		TH1D *full5x5_E5x5_histo[4][3];
-		TH1D *full5x5_E1x5_histo[4][3];
-		TH1D *full5x5_E2x5_histo[4][3];
-		TH1D *full5x5_E2x5_Over_E5x5_histo[4][3];
-		TH1D *full5x5_E1x5_Over_E5x5_histo[4][3];
-		TH1D *EmHadDepth1Iso_histo[4][3];
-		TH1D *ptTracksIso_histo[4][3];
-		TH1D *innerLayerLostHits_histo[4][3];
-		TH1D *dxy_histo[4][3];
-		TH1D *eOverP[4][3];
+		TH1D *etaSC_histo[nEle][nEtaRegions];
+		TH1D *isEcalDriven_histo[nEle][nEtaRegions];  
+		TH1D *dEtaIn_histo[nEle][nEtaRegions];
+		TH1D *dPhiIn_histo[nEle][nEtaRegions];
+		TH1D *hOverE_histo[nEle][nEtaRegions];
+		TH1D *full5x5_r9_histo[nEle][nEtaRegions];
+		TH1D *full5x5_sigmaIetaIeta_histo[nEle][nEtaRegions];
+		TH1D *full5x5_E5x5_histo[nEle][nEtaRegions];
+		TH1D *full5x5_E1x5_histo[nEle][nEtaRegions];
+		TH1D *full5x5_E2x5_histo[nEle][nEtaRegions];
+		TH1D *full5x5_E2x5_Over_E5x5_histo[nEle][nEtaRegions];
+		TH1D *full5x5_E1x5_Over_E5x5_histo[nEle][nEtaRegions];
+		TH1D *EmHadDepth1Iso_histo[nEle][nEtaRegions];
+		TH1D *ptTracksIso_histo[nEle][nEtaRegions];
+		TH1D *innerLayerLostHits_histo[nEle][nEtaRegions];
+		TH1D *dxy_histo[nEle][nEtaRegions];
+		TH1D *eOverP[nEle][nEtaRegions];
 
-		TH1D *mass_dldj_histo[4][5];
-		TH1D *mass_dl_histo[4][5];
-		TH1D *mass_dj_histo[4][5];
-		TH1D *mass_djLl_histo[4][5];
-		TH1D *mass_djSLl_histo[4][5];
-		TH1D *Zmass_histo[5][5];
+		TH1D *mass_dldj_histo[nRegions][nEtaMassRegions];
+		TH1D *mass_dl_histo[nRegions][nEtaMassRegions];
+		TH1D *mass_dj_histo[nRegions][nEtaMassRegions];
+		TH1D *mass_djLl_histo[nRegions][nEtaMassRegions];
+		TH1D *mass_djSLl_histo[nRegions][nEtaMassRegions];
+		TH1D *pt_dl_histo[nRegions];
 
-		TH1D *pt_dl_histo[4];
+		TH1D *Zmass_histo[nZregions][nEtaMassRegions][nTnPregions];
+		TH1D *Zpt_histo[nZregions][nTnPregions];
 
 
 
@@ -363,16 +492,20 @@ class makePlots_multiLeptonMultiJet {
 		Long64_t LoadTree(Long64_t entry);
 
 		TH1D* newTH1D(string, string, string, int, double, double);
+		TH1D* newTH1DvarBinSize(string, string, string, int, const double *);
 		TH2D* newTH2D(string, string, string, string, int, double, double, int, double, double);
 		TProfile* newTProfile(string, string, string, string, int, double, double, double, double);
 		void SetHistos();
 
+		void getElectrons(vector<eleStruct>& electrons);//, vector<eleStruct>& goodElectrons);
 		void getLeadingElectrons(vector<eleStruct>& leadingElectrons);
 		void getSubLeadingElectrons(vector<eleStruct>& subLeadingElectrons);
 
+		void getMuons(vector<muonStruct>& muons, vector<muonStruct>& muonsRochCorr);//, vector<muonStruct>& goodMuons, vector<muonStruct>& goodMuonsRochCorr);
 		void getLeadingMuons(vector<muonStruct>& leadingMuons);
 		void getSubLeadingMuons(vector<muonStruct>& subLeadingMuons);
 
+		void getJets(vector<jetStruct>& jets);//, vector<jetStruct>& goodJets);
 		void getLeadingJets(vector<jetStruct>& leadingJets);
 		void getSubLeadingJets(vector<jetStruct>& subLeadingJets);
 
@@ -385,7 +518,8 @@ class makePlots_multiLeptonMultiJet {
 		void doElePlots(vector<eleStruct>& electrons, const int eleIdx, const int variableIdx, const int etaIdx);
 
 		void doMassPlots(vector<multiLeptonMultiJetStruct>& multiLeptonMultiJets, const int dldjIdx, const int regionIdx, const int etaMassIdx);
-		void doZmassPlots(vector<multiLeptonMultiJetStruct>& multiLeptonMultiJets, const int dldjIdx, const int histoIdx, const int etaIdx);
+		void doZPlots(vector<multiLeptonMultiJetStruct>& multiLeptonMultiJets, const int dldjIdx, const int variableIdx, const int regionIdx);
+		void doZPlots(TLorentzVector Llepton, TLorentzVector SLlepton, const int variableIdx, const int regionIdx);
 
 		void Loop();
 		void saveHistosAndOutputFile(TString& outputdir);
@@ -404,7 +538,9 @@ class makePlots_multiLeptonMultiJet {
 		
 		unsigned int nEventsWithEEJJpassingLoosePreselections=0, nEventsWithMMJJpassingLoosePreselections=0, nEventsWithEEJJpassingLoosePreselectionsAndCharge=0, nEventsWithMMJJpassingLoosePreselectionsAndCharge=0;
 		unsigned int nEventsWithEEJJpassingLoosePreselectionsAndChargeAndHEEPId=0, nEventsWithMMJJpassingLoosePreselectionsAndChargeAndHighPt=0;
-
+		unsigned int nEventsWith2elePassingLoosePreselections=0, nEventsWith2elePassingLoosePreselectionsAndCharge=0, nEventsWith2elePassingLoosePreselectionsAndChargeAndHeepId=0; 
+		unsigned int nEventsWith2muonsPassingLoosePreselections=0, nEventsWith2muonsPassingLoosePreselectionsAndCharge=0, nEventsWith2muonsPassingLoosePreselectionsAndChargeAndHighPt=0; 
+		
 		unsigned int nLeadingElePassingPreselections=0, nLeadingElePassingIsEcalDriven=0, nLeadingElePassingdEtaIn=0, nLeadingElePassingdPhiIn=0, nLeadingElePassingE2x5OverE5x5=0, nLeadingElePassingEmHadDepth1Iso=0, nLeadingElePassingMissingHits=0, nLeadingElePassingDxy=0, nLeadingElePassingHeepId=0;
 		unsigned int nLeadingElePassingPreselectionsInEB=0, nLeadingEleInEBPassingIsEcalDriven=0, nLeadingEleInEBPassingdEtaIn=0, nLeadingEleInEBPassingdPhiIn=0, nLeadingEleInEBPassingE2x5OverE5x5=0, nLeadingEleInEBPassingEmHadDepth1Iso=0, nLeadingEleInEBPassingMissingHits=0, nLeadingEleInEBPassingDxy=0, nLeadingElePassingHeepIdInEB=0;
 		unsigned int nLeadingElePassingPreselectionsInEE=0, nLeadingEleInEEPassingIsEcalDriven=0, nLeadingEleInEEPassingdEtaIn=0, nLeadingEleInEEPassingdPhiIn=0, nLeadingEleInEEPassingE2x5OverE5x5=0, nLeadingEleInEEPassingEmHadDepth1Iso=0, nLeadingEleInEEPassingMissingHits=0, nLeadingEleInEEPassingDxy=0, nLeadingElePassingHeepIdInEE=0;
@@ -417,15 +553,21 @@ class makePlots_multiLeptonMultiJet {
 
 		string suff = "";  
 
-		string etaName[3] = {"", "_EB", "_EE"};
-		string etaMassName[5] = {"", "_EB-EB", "_EE-EE", "_EB-EE", "_noEB-EB"};
+		string etaName[nEtaRegions] = {"", "_EB", "_EE"};
+		string etaMassName[nEtaMassRegions] = {"", "_EB-EB", "_EE-EE", "_EB-EE", "_noEB-EB"};
 
-		string eleName[4] = {"leadingEle", "subLeadingEle", "goodLeadingEle", "goodSubLeadingEle"};
+		string objName[nObjects] = {"leadingLepton", "subLeadingLepton", "leadingEle", 
+		"subLeadingEle", "leadingMu", "subLeadingMu", "leadingJet", "subLeadingJet", 
+		"ele", "goodEle", "muon", "goodMuon", "jet", "goodJet", "muonRochCor", "goodMuonRochCor"};
 
-		string objName[8] = {"leadingLepton", "subLeadingLepton", "leadingEle", "subLeadingEle", "leadingMu", "subLeadingMu", "leadingJet", "subLeadingJet"};
+		string eleName[nEle] = {"leadingEle", "subLeadingEle", "goodLeadingEle", 
+		"goodSubLeadingEle", "ele", "goodEle"};
 
-		string regionName[4] = {"_signalRegion","_lowMlljjCR","_lowMllCR","_eMuSidebandCR"};
-		string Zname[2] = {"toEE", "toMuMu"};
+		string regionName[nRegions] = {"_signalRegion","_lowMlljjCR","_lowMllCR","_eMuSidebandCR", "_TnPCR"};
+
+		string TnPName[nTnPregions] = {"", "_TnPCR"};
+
+		string Zname[nZregions] = {"toEE_electrons", "toMuMu_muons", "toEE_MLMJelectrons", "toMuMu_MLMJmuons"};
 
 };
 
