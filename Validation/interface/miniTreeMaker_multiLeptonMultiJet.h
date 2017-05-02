@@ -47,11 +47,6 @@ struct eventInfo {
 	float puweight;
 	int nvtx;
 	int npu;
-	int passEEJJhlt; 
-	int passMMJJhlt; 
-	int passEMJJhlt; 
-	int passTandPEEhlt; 
-	int passTandPMMhlt; 
 
 	vector<float> vtx_x;
 	vector<float> vtx_y;
@@ -62,14 +57,7 @@ struct eventInfo {
 	vector<float> ele_eta;
 	vector<float> ele_phi;
 	vector<bool> ele_passHEEPId; 
-	vector<unsigned> ele_HEEPBitMapValues;
-	vector<bool> ele_passTightId;
 	vector<bool> ele_passMediumId;
-	vector<bool> ele_passLooseId;
-	vector<bool> ele_passVetoId;
-	vector<bool> ele_passMVATightId;
-	vector<bool> ele_passMVAMediumId;
-	vector<float> ele_idmva;
 	vector<float> ele_iso;
 	vector<float> ele_dz;
 	vector<float> ele_d0;
@@ -99,9 +87,6 @@ struct eventInfo {
 	vector<float> mu_phi;
 	vector<float> mu_iso;
 	vector<float> mu_PFiso;
-	vector<bool> mu_isTight;
-	vector<bool> mu_isMedium;
-	vector<bool> mu_isLoose;
 	vector<bool> mu_isHighPt;
 	vector<int> mu_isMatchedToGen;
 	vector<int> mu_charge;
@@ -113,9 +98,6 @@ struct eventInfo {
 	vector<float> jet_pt;
 	vector<float> jet_eta;
 	vector<float> jet_phi;
-	vector<float> jet_bdiscriminant;
-	vector<int>   jet_hadronFlavour;
-	vector<int>   jet_partonFlavour;
 	vector<int>   jet_isMatchedToGen;
 	vector<bool>  jet_isThight;
 
@@ -175,14 +157,7 @@ struct eventInfo {
 	vector<float> diJetSubLeadingLepton_invMass;
 
 	vector<bool> leadingEle_passHEEPId;
-	vector<unsigned> leadingEle_HEEPBitMapValues;
-	vector<bool> leadingEle_passTightId;
 	vector<bool> leadingEle_passMediumId;
-	vector<bool> leadingEle_passLooseId;
-	vector<bool> leadingEle_passVetoId;
-	vector<bool> leadingEle_passMVATightId;
-	vector<bool> leadingEle_passMVAMediumId;
-	vector<float> leadingEle_idmva;
 	vector<float> leadingEle_iso;
 	vector<int> leadingEle_isMatchedToGen;
 	vector<float> leadingEle_etaSC;
@@ -205,14 +180,7 @@ struct eventInfo {
 	vector<float> leadingEle_hcalOverEcal;
 
 	vector<bool> subLeadingEle_passHEEPId;	
-	vector<unsigned> subLeadingEle_HEEPBitMapValues;	
-	vector<bool> subLeadingEle_passTightId;
 	vector<bool> subLeadingEle_passMediumId;
-	vector<bool> subLeadingEle_passLooseId;
-	vector<bool> subLeadingEle_passVetoId;
-	vector<bool> subLeadingEle_passMVATightId;
-	vector<bool> subLeadingEle_passMVAMediumId;
-	vector<float> subLeadingEle_idmva;
 	vector<float> subLeadingEle_iso;
 	vector<int> subLeadingEle_isMatchedToGen;
 	vector<float> subLeadingEle_etaSC;			
@@ -237,9 +205,6 @@ struct eventInfo {
 	vector<float> leadingMuon_iso;
 	vector<float> leadingMuon_PFiso;
 	vector<bool> leadingMuon_isHighPt;
-	vector<bool> leadingMuon_isTight;
-	vector<bool> leadingMuon_isMedium;
-	vector<bool> leadingMuon_isLoose;
 	vector<int> leadingMuon_isMatchedToGen;
 	vector<float> leadingMuon_dz;
 	vector<float> leadingMuon_dxy;
@@ -248,9 +213,6 @@ struct eventInfo {
 	vector<float> subLeadingMuon_iso;
 	vector<float> subLeadingMuon_PFiso;
 	vector<bool> subLeadingMuon_isHighPt;
-	vector<bool> subLeadingMuon_isTight;
-	vector<bool> subLeadingMuon_isMedium;
-	vector<bool> subLeadingMuon_isLoose;
 	vector<int> subLeadingMuon_isMatchedToGen;
 	vector<float> subLeadingMuon_dz;
 	vector<float> subLeadingMuon_dxy;
@@ -334,11 +296,11 @@ int muonMatchingToGen(const flashgg::Muon* muon, Handle<View<reco::GenParticle> 
 
 
 // // ************************** 
-int jetMatchingToGen(flashgg::Jet jet,  Handle<View<reco::GenJet> > genJets){
+int jetMatchingToGen(Ptr<flashgg::Jet> jet,  Handle<View<reco::GenJet> > genJets){
 	int mcmatch = 0;
 	for( unsigned int i = 0 ; i < genJets->size(); i++ ) {
 		Ptr<reco::GenJet> genJet = genJets->ptrAt(i);
-		float dR = deltaR( jet.eta(), jet.phi(), genJet->eta(), genJet->phi() );
+		float dR = deltaR( jet->eta(), jet->phi(), genJet->eta(), genJet->phi() );
 		if (dR > 0.4) continue;
 		mcmatch = 1;
 	}
@@ -667,15 +629,13 @@ class miniTreeMaker_multiLeptonMultiJet : public BasicAnalyzer
 	EDGetTokenT<View<PileupSummaryInfo> >  PileUpToken_;
 	EDGetTokenT<View<reco::Vertex> > vertexToken_;
 	EDGetTokenT<View<flashgg::MultiLeptonMultiJetCandidate> > MultiLeptonMultiJetToken_; 
-	EDGetTokenT<View<vector<flashgg::Jet> > > jetsToken_;
+	EDGetTokenT<View<flashgg::Jet> > jetsToken_;
 	EDGetTokenT<View<reco::GenJet> > genJetToken_;
 	EDGetTokenT<View<Electron> > electronToken_;
 	EDGetTokenT<View<Muon> > muonToken_;
-	EDGetTokenT<TriggerResults> triggerBitsToken_;
 	EDGetTokenT<double> rhoToken_;
-	string bTag_;
 	double lumiWeight_;
-
+	bool saveHEEPvariables_;
 	GlobalVariablesDumper *globalVarsDumper_;
 };
 // ******************************************************************************************                                                                                                                     
