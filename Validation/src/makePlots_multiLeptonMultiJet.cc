@@ -1803,11 +1803,11 @@ void runMakePlots_multiLeptonMultiJet() {
 	string inputDir = "/home/gpfs/manip/mnt/cms/gnegro/CMSSW_8_0_26_patch1/src/dafne/miniTrees-Moriond17/MLMJwithSingleObjects/selectedTrigger/";   
 	string outputDir = "/home/gpfs/manip/mnt/cms/gnegro/CMSSW_8_0_26_patch1/src/dafne/Distributions-Moriond17/MLMJwithSingleObjects/selectedTrigger/";
 
-	bool signalEE = true;  //true for DoubleEG (if not TnP)   
+	bool signalEE = false;  //true for DoubleEG (if not TnP)   
 	bool signalMuMu = false;  //true for SingleMuon (if not TnP)
 	bool eMuSideband = false; //true for MuonEG
 
-	bool TnPEE = false; //true for DoubleEG 
+	bool TnPEE = true; //true for DoubleEG 
 	bool TnPMuMu = false; //true for SingleMuon 
 
 	string triggerName;
@@ -1819,12 +1819,12 @@ void runMakePlots_multiLeptonMultiJet() {
 	if (TnPMuMu) triggerName = "TnPMuMu/";
 
 	inputDir = inputDir+triggerName;
-	outputDir = inputDir+triggerName;
+	outputDir = outputDir+triggerName;
 
 
-	makePlots_multiLeptonMultiJet("/afs/cern.ch/user/g/gnegro/work/NuAnalysis-Moriond17/CMSSW_8_0_26_patch1/src/dafne/output.root", "prova", false, signalEE, false, eMuSideband, TnPEE, false, 1);
+	// makePlots_multiLeptonMultiJet("/afs/cern.ch/user/g/gnegro/work/NuAnalysis-Moriond17/CMSSW_8_0_26_patch1/src/dafne/output.root", "prova", false, signalEE, false, eMuSideband, TnPEE, false, 1);
 
-	// makePlots_multiLeptonMultiJet(inputDir+"DoubleEG/output_DoubleEG_miniTree.root", outputDir+"DoubleEG", false, signalEE, false, false, TnPEE, false, 1);
+	makePlots_multiLeptonMultiJet(inputDir+"DoubleEG/output_DoubleEG_miniTree.root", outputDir+"DoubleEG", false, signalEE, false, false, TnPEE, false, 1);
 
 	// makePlots_multiLeptonMultiJet(inputDir+"SingleEle/output_SingleEle_miniTree.root", outputDir+"SingleEle", false, signalEE, false, false, TnPEE, false, 1);
 
