@@ -20,53 +20,45 @@ using namespace std;
 void makePlots_multiLeptonMultiJet::Init(){
 
 	// Set object pointer
-   	vtx_x = 0;
-   	vtx_y = 0;
-   	vtx_z = 0;
+	vtx_x = 0;
+	vtx_y = 0;
+	vtx_z = 0;
 	ele_e = 0;
 	ele_pt = 0;
 	ele_eta = 0;
 	ele_phi = 0;
 	ele_passHEEPId = 0;
-	ele_HEEPBitMapValues = 0;
-    ele_passTightId = 0;
-    ele_passMediumId = 0;
-    ele_passLooseId = 0;
-    ele_passVetoId = 0;
-    ele_passMVATightId = 0;
-    ele_passMVAMediumId = 0;
-	ele_idmva = 0;
+	ele_passMediumId = 0;
 	ele_iso = 0;
 	ele_dz = 0;
 	ele_d0 = 0;
 	ele_isMatchedToGen = 0;
 	ele_charge = 0;
-	ele_etaSC = 0;
-	ele_isEcalDriven = 0;
-	ele_dEtaIn = 0;
-	ele_dPhiIn = 0;
-	ele_hOverE = 0;
-	ele_full5x5_r9 = 0;
-	ele_full5x5_sigmaIetaIeta = 0;
-	ele_full5x5_E5x5 = 0;
-	ele_full5x5_E1x5 = 0;
-	ele_full5x5_E2x5 = 0;
-	ele_EmHadDepth1Iso = 0;
-	ele_ptTracksIso = 0;
-	ele_innerLayerLostHits = 0;
-	ele_dxy = 0;
-	ele_eOverP = 0;
-	ele_ecalEnergy = 0;
-   	ele_hcalOverEcal = 0;
+	if (saveHEEPvariables_) {
+		ele_etaSC = 0;
+		ele_isEcalDriven = 0;
+		ele_dEtaIn = 0;
+		ele_dPhiIn = 0;
+		ele_hOverE = 0;
+		ele_full5x5_r9 = 0;
+		ele_full5x5_sigmaIetaIeta = 0;
+		ele_full5x5_E5x5 = 0;
+		ele_full5x5_E1x5 = 0;
+		ele_full5x5_E2x5 = 0;
+		ele_EmHadDepth1Iso = 0;
+		ele_ptTracksIso = 0;
+		ele_innerLayerLostHits = 0;
+		ele_dxy = 0;
+		ele_eOverP = 0;
+		ele_ecalEnergy = 0;
+		ele_hcalOverEcal = 0;
+	}
 	mu_e = 0;
 	mu_pt = 0;
 	mu_eta = 0;
 	mu_phi = 0;
 	mu_iso = 0;
 	mu_PFiso = 0;
-	mu_isTight = 0;
-	mu_isMedium = 0;
-	mu_isLoose = 0;
 	mu_isHighPt = 0;
 	mu_isMatchedToGen = 0;
 	mu_charge = 0;
@@ -77,9 +69,6 @@ void makePlots_multiLeptonMultiJet::Init(){
 	jet_pt = 0;
 	jet_eta = 0;
 	jet_phi = 0;
-	jet_bdiscriminant = 0;
-	jet_partonFlavour = 0;
-	jet_hadronFlavour = 0;
 	jet_isMatchedToGen = 0;
 	jet_isThight = 0;
 	isEEJJ = 0;
@@ -109,13 +98,13 @@ void makePlots_multiLeptonMultiJet::Init(){
 	leadingJet_eta = 0;
 	leadingJet_phi = 0;
 	leadingJet_isMatchedToGen = 0;
-   	leadingJet_isThight = 0;
+	leadingJet_isThight = 0;
 	subLeadingJet_e = 0;
 	subLeadingJet_pt = 0;
 	subLeadingJet_eta = 0;
 	subLeadingJet_phi = 0;
 	subLeadingJet_isMatchedToGen = 0;
-   	subLeadingJet_isThight = 0;
+	subLeadingJet_isThight = 0;
 	dRLeadLeptonLeadJet = 0;
 	dRLeadLeptonSubLeadJet = 0;
 	dRSubLeadLeptonLeadJet = 0;
@@ -128,83 +117,67 @@ void makePlots_multiLeptonMultiJet::Init(){
 	diJetLeadingLepton_invMass = 0;
 	diJetSubLeadingLepton_invMass = 0;
 	leadingEle_passHEEPId = 0;
-	leadingEle_HEEPBitMapValues = 0;
-    leadingEle_passTightId = 0;
-    leadingEle_passMediumId = 0;
-    leadingEle_passLooseId = 0;
-    leadingEle_passVetoId = 0;
-    leadingEle_passMVATightId = 0;
-    leadingEle_passMVAMediumId = 0;
-    leadingEle_idmva = 0;
-    leadingEle_iso = 0;
-    leadingEle_isMatchedToGen = 0;
-	leadingEle_etaSC = 0;
-	leadingEle_isEcalDriven = 0;
-	leadingEle_dEtaIn = 0;
-	leadingEle_dPhiIn = 0;
-	leadingEle_hOverE = 0;
-	leadingEle_full5x5_r9 = 0;
-	leadingEle_full5x5_sigmaIetaIeta = 0;
-	leadingEle_full5x5_E5x5 = 0;
-	leadingEle_full5x5_E1x5 = 0;
-	leadingEle_full5x5_E2x5 = 0;
-	leadingEle_EmHadDepth1Iso = 0;
-	leadingEle_ptTracksIso = 0;
-	leadingEle_innerLayerLostHits = 0;
-	leadingEle_dxy = 0;
-	leadingEle_dz = 0;
-	leadingEle_eOverP = 0;
-	leadingEle_ecalEnergy = 0;
- 	leadingEle_hcalOverEcal = 0;
+	leadingEle_passMediumId = 0;
+	leadingEle_iso = 0;
+	leadingEle_isMatchedToGen = 0;
+	if (saveHEEPvariables_) {
+		leadingEle_etaSC = 0;
+		leadingEle_isEcalDriven = 0;
+		leadingEle_dEtaIn = 0;
+		leadingEle_dPhiIn = 0;
+		leadingEle_hOverE = 0;
+		leadingEle_full5x5_r9 = 0;
+		leadingEle_full5x5_sigmaIetaIeta = 0;
+		leadingEle_full5x5_E5x5 = 0;
+		leadingEle_full5x5_E1x5 = 0;
+		leadingEle_full5x5_E2x5 = 0;
+		leadingEle_EmHadDepth1Iso = 0;
+		leadingEle_ptTracksIso = 0;
+		leadingEle_innerLayerLostHits = 0;
+		leadingEle_dxy = 0;
+		leadingEle_dz = 0;
+		leadingEle_eOverP = 0;
+		leadingEle_ecalEnergy = 0;
+		leadingEle_hcalOverEcal = 0;
+	}
 	subLeadingEle_passHEEPId = 0;
-	subLeadingEle_HEEPBitMapValues = 0;
-   	subLeadingEle_passTightId = 0;
-    subLeadingEle_passMediumId = 0;
-    subLeadingEle_passLooseId = 0;
-    subLeadingEle_passVetoId = 0;
-    subLeadingEle_passMVATightId = 0;
-    subLeadingEle_passMVAMediumId = 0;
-    subLeadingEle_idmva = 0;
-   	subLeadingEle_iso = 0;
-   	subLeadingEle_isMatchedToGen = 0;
-	subLeadingEle_etaSC = 0;
-	subLeadingEle_isEcalDriven = 0;
-	subLeadingEle_dEtaIn = 0;
-	subLeadingEle_dPhiIn = 0;
-	subLeadingEle_hOverE = 0;
-	subLeadingEle_full5x5_r9 = 0;
-	subLeadingEle_full5x5_sigmaIetaIeta = 0;
-	subLeadingEle_full5x5_E5x5 = 0;
-	subLeadingEle_full5x5_E1x5 = 0;
-	subLeadingEle_full5x5_E2x5 = 0;
-	subLeadingEle_EmHadDepth1Iso = 0;
-	subLeadingEle_ptTracksIso = 0;
-	subLeadingEle_innerLayerLostHits = 0;
-	subLeadingEle_dxy = 0;
-	subLeadingEle_dz = 0;
-	subLeadingEle_eOverP = 0;
-	subLeadingEle_ecalEnergy = 0;
-	subLeadingEle_hcalOverEcal = 0;
+	subLeadingEle_passMediumId = 0;
+	subLeadingEle_iso = 0;
+	subLeadingEle_isMatchedToGen = 0;
+	if (saveHEEPvariables_) {
+		subLeadingEle_etaSC = 0;
+		subLeadingEle_isEcalDriven = 0;
+		subLeadingEle_dEtaIn = 0;
+		subLeadingEle_dPhiIn = 0;
+		subLeadingEle_hOverE = 0;
+		subLeadingEle_full5x5_r9 = 0;
+		subLeadingEle_full5x5_sigmaIetaIeta = 0;
+		subLeadingEle_full5x5_E5x5 = 0;
+		subLeadingEle_full5x5_E1x5 = 0;
+		subLeadingEle_full5x5_E2x5 = 0;
+		subLeadingEle_EmHadDepth1Iso = 0;
+		subLeadingEle_ptTracksIso = 0;
+		subLeadingEle_innerLayerLostHits = 0;
+		subLeadingEle_dxy = 0;
+		subLeadingEle_dz = 0;
+		subLeadingEle_eOverP = 0;
+		subLeadingEle_ecalEnergy = 0;
+		subLeadingEle_hcalOverEcal = 0;
+	}
 	leadingMuon_iso = 0;
 	leadingMuon_PFiso = 0;
 	leadingMuon_isHighPt = 0;
-	leadingMuon_isTight = 0;
-    leadingMuon_isMedium = 0;
-    leadingMuon_isLoose = 0;
-    leadingMuon_isMatchedToGen = 0;
-    leadingMuon_dz = 0;
-    leadingMuon_dxy = 0;
-    leadingMuon_RochCor = 0;
-    subLeadingMuon_iso = 0;
-    subLeadingMuon_PFiso = 0;
-   	subLeadingMuon_isHighPt = 0;
-   	subLeadingMuon_isTight = 0;
-    subLeadingMuon_isMedium = 0;
-    subLeadingMuon_isLoose = 0;
-    subLeadingMuon_isMatchedToGen = 0;
-    subLeadingMuon_dz = 0;
-    subLeadingMuon_dxy = 0;
-    subLeadingMuon_RochCor = 0;
+	leadingMuon_isMatchedToGen = 0;
+	leadingMuon_dz = 0;
+	leadingMuon_dxy = 0;
+	leadingMuon_RochCor = 0;
+	subLeadingMuon_iso = 0;
+	subLeadingMuon_PFiso = 0;
+	subLeadingMuon_isHighPt = 0;
+	subLeadingMuon_isMatchedToGen = 0;
+	subLeadingMuon_dz = 0;
+	subLeadingMuon_dxy = 0;
+	subLeadingMuon_RochCor = 0;
 
 	// Set branch addresses and branch pointers
 	// if (!tree) return;
@@ -220,11 +193,6 @@ void makePlots_multiLeptonMultiJet::Init(){
 	fChain->SetBranchAddress("puweight", &puweight, &b_puweight);
 	fChain->SetBranchAddress("nvtx", &nvtx, &b_nvtx);
 	fChain->SetBranchAddress("npu", &npu, &b_npu);
-	fChain->SetBranchAddress("passEEJJhlt", &passEEJJhlt, &b_passEEJJhlt);
-	fChain->SetBranchAddress("passMMJJhlt", &passMMJJhlt, &b_passMMJJhlt);
-	fChain->SetBranchAddress("passEMJJhlt", &passEMJJhlt, &b_passEMJJhlt);
-	fChain->SetBranchAddress("passTandPEEhlt", &passTandPEEhlt, &b_passTandPEEhlt);
-	fChain->SetBranchAddress("passTandPMMhlt", &passTandPMMhlt, &b_passTandPMMhlt);
 	fChain->SetBranchAddress("vtx_x", &vtx_x, &b_vtx_x);
 	fChain->SetBranchAddress("vtx_y", &vtx_y, &b_vtx_y);
 	fChain->SetBranchAddress("vtx_z", &vtx_z, &b_vtx_z);
@@ -233,45 +201,37 @@ void makePlots_multiLeptonMultiJet::Init(){
 	fChain->SetBranchAddress("ele_eta", &ele_eta, &b_ele_eta);
 	fChain->SetBranchAddress("ele_phi", &ele_phi, &b_ele_phi);
 	fChain->SetBranchAddress("ele_passHEEPId", &ele_passHEEPId, &b_ele_passHEEPId);
-    fChain->SetBranchAddress("ele_HEEPBitMapValues", &ele_HEEPBitMapValues, &b_ele_HEEPBitMapValues);
-    fChain->SetBranchAddress("ele_passTightId", &ele_passTightId, &b_ele_passTightId);
-    fChain->SetBranchAddress("ele_passMediumId", &ele_passMediumId, &b_ele_passMediumId);
-    fChain->SetBranchAddress("ele_passLooseId", &ele_passLooseId, &b_ele_passLooseId);
-    fChain->SetBranchAddress("ele_passVetoId", &ele_passVetoId, &b_ele_passVetoId);
-    fChain->SetBranchAddress("ele_passMVATightId", &ele_passMVATightId, &b_ele_passMVATightId);
-    fChain->SetBranchAddress("ele_passMVAMediumId", &ele_passMVAMediumId, &b_ele_passMVAMediumId);
-	fChain->SetBranchAddress("ele_idmva", &ele_idmva, &b_ele_idmva);
+	fChain->SetBranchAddress("ele_passMediumId", &ele_passMediumId, &b_ele_passMediumId);
 	fChain->SetBranchAddress("ele_iso", &ele_iso, &b_ele_iso);
 	fChain->SetBranchAddress("ele_dz", &ele_dz, &b_ele_dz);
 	fChain->SetBranchAddress("ele_d0", &ele_d0, &b_ele_d0);
 	fChain->SetBranchAddress("ele_isMatchedToGen", &ele_isMatchedToGen, &b_ele_isMatchedToGen);
 	fChain->SetBranchAddress("ele_charge", &ele_charge, &b_ele_charge);
-	fChain->SetBranchAddress("ele_etaSC", &ele_etaSC, &b_ele_etaSC);
-	fChain->SetBranchAddress("ele_isEcalDriven", &ele_isEcalDriven, &b_ele_isEcalDriven);
-	fChain->SetBranchAddress("ele_dEtaIn", &ele_dEtaIn, &b_ele_dEtaIn);
-	fChain->SetBranchAddress("ele_dPhiIn", &ele_dPhiIn, &b_ele_dPhiIn);
-	fChain->SetBranchAddress("ele_hOverE", &ele_hOverE, &b_ele_hOverE);
-	fChain->SetBranchAddress("ele_full5x5_r9", &ele_full5x5_r9, &b_ele_full5x5_r9);
-	fChain->SetBranchAddress("ele_full5x5_sigmaIetaIeta", &ele_full5x5_sigmaIetaIeta, &b_ele_full5x5_sigmaIetaIeta);
-	fChain->SetBranchAddress("ele_full5x5_E5x5", &ele_full5x5_E5x5, &b_ele_full5x5_E5x5);
-	fChain->SetBranchAddress("ele_full5x5_E1x5", &ele_full5x5_E1x5, &b_ele_full5x5_E1x5);
-	fChain->SetBranchAddress("ele_full5x5_E2x5", &ele_full5x5_E2x5, &b_ele_full5x5_E2x5);
-	fChain->SetBranchAddress("ele_EmHadDepth1Iso", &ele_EmHadDepth1Iso, &b_ele_EmHadDepth1Iso);
-	fChain->SetBranchAddress("ele_ptTracksIso", &ele_ptTracksIso, &b_ele_ptTracksIso);
-	fChain->SetBranchAddress("ele_innerLayerLostHits", &ele_innerLayerLostHits, &b_ele_innerLayerLostHits);
-	fChain->SetBranchAddress("ele_dxy", &ele_dxy, &b_ele_dxy);
-	fChain->SetBranchAddress("ele_eOverP", &ele_eOverP, &b_ele_eOverP);
-    fChain->SetBranchAddress("ele_ecalEnergy", &ele_ecalEnergy, &b_ele_ecalEnergy);
-    fChain->SetBranchAddress("ele_hcalOverEcal", &ele_hcalOverEcal, &b_ele_hcalOverEcal);
-    fChain->SetBranchAddress("mu_e", &mu_e, &b_mu_e);
+	if (saveHEEPvariables_) {
+		fChain->SetBranchAddress("ele_etaSC", &ele_etaSC, &b_ele_etaSC);
+		fChain->SetBranchAddress("ele_isEcalDriven", &ele_isEcalDriven, &b_ele_isEcalDriven);
+		fChain->SetBranchAddress("ele_dEtaIn", &ele_dEtaIn, &b_ele_dEtaIn);
+		fChain->SetBranchAddress("ele_dPhiIn", &ele_dPhiIn, &b_ele_dPhiIn);
+		fChain->SetBranchAddress("ele_hOverE", &ele_hOverE, &b_ele_hOverE);
+		fChain->SetBranchAddress("ele_full5x5_r9", &ele_full5x5_r9, &b_ele_full5x5_r9);
+		fChain->SetBranchAddress("ele_full5x5_sigmaIetaIeta", &ele_full5x5_sigmaIetaIeta, &b_ele_full5x5_sigmaIetaIeta);
+		fChain->SetBranchAddress("ele_full5x5_E5x5", &ele_full5x5_E5x5, &b_ele_full5x5_E5x5);
+		fChain->SetBranchAddress("ele_full5x5_E1x5", &ele_full5x5_E1x5, &b_ele_full5x5_E1x5);
+		fChain->SetBranchAddress("ele_full5x5_E2x5", &ele_full5x5_E2x5, &b_ele_full5x5_E2x5);
+		fChain->SetBranchAddress("ele_EmHadDepth1Iso", &ele_EmHadDepth1Iso, &b_ele_EmHadDepth1Iso);
+		fChain->SetBranchAddress("ele_ptTracksIso", &ele_ptTracksIso, &b_ele_ptTracksIso);
+		fChain->SetBranchAddress("ele_innerLayerLostHits", &ele_innerLayerLostHits, &b_ele_innerLayerLostHits);
+		fChain->SetBranchAddress("ele_dxy", &ele_dxy, &b_ele_dxy);
+		fChain->SetBranchAddress("ele_eOverP", &ele_eOverP, &b_ele_eOverP);
+		fChain->SetBranchAddress("ele_ecalEnergy", &ele_ecalEnergy, &b_ele_ecalEnergy);
+		fChain->SetBranchAddress("ele_hcalOverEcal", &ele_hcalOverEcal, &b_ele_hcalOverEcal);
+	}
+	fChain->SetBranchAddress("mu_e", &mu_e, &b_mu_e);
 	fChain->SetBranchAddress("mu_pt", &mu_pt, &b_mu_pt);
 	fChain->SetBranchAddress("mu_eta", &mu_eta, &b_mu_eta);
 	fChain->SetBranchAddress("mu_phi", &mu_phi, &b_mu_phi);
 	fChain->SetBranchAddress("mu_iso", &mu_iso, &b_mu_iso);
 	fChain->SetBranchAddress("mu_PFiso", &mu_PFiso, &b_mu_PFiso);
-	fChain->SetBranchAddress("mu_isTight", &mu_isTight, &b_mu_isTight);
-	fChain->SetBranchAddress("mu_isMedium", &mu_isMedium, &b_mu_isMedium);
-	fChain->SetBranchAddress("mu_isLoose", &mu_isLoose, &b_mu_isLoose);
 	fChain->SetBranchAddress("mu_isHighPt", &mu_isHighPt, &b_mu_isHighPt);
 	fChain->SetBranchAddress("mu_isMatchedToGen", &mu_isMatchedToGen, &b_mu_isMatchedToGen);
 	fChain->SetBranchAddress("mu_charge", &mu_charge, &b_mu_charge);
@@ -282,9 +242,6 @@ void makePlots_multiLeptonMultiJet::Init(){
 	fChain->SetBranchAddress("jet_pt", &jet_pt, &b_jet_pt);
 	fChain->SetBranchAddress("jet_eta", &jet_eta, &b_jet_eta);
 	fChain->SetBranchAddress("jet_phi", &jet_phi, &b_jet_phi);
-	fChain->SetBranchAddress("jet_bdiscriminant", &jet_bdiscriminant, &b_jet_bdiscriminant);
-	fChain->SetBranchAddress("jet_partonFlavour", &jet_partonFlavour, &b_jet_partonFlavour);
-	fChain->SetBranchAddress("jet_hadronFlavour", &jet_hadronFlavour, &b_jet_hadronFlavour);
 	fChain->SetBranchAddress("jet_isMatchedToGen", &jet_isMatchedToGen, &b_jet_isMatchedToGen);
 	fChain->SetBranchAddress("jet_isThight", &jet_isThight, &b_jet_isThight);
 	fChain->SetBranchAddress("isEEJJ", &isEEJJ, &b_isEEJJ);
@@ -314,102 +271,86 @@ void makePlots_multiLeptonMultiJet::Init(){
 	fChain->SetBranchAddress("leadingJet_eta", &leadingJet_eta, &b_leadingJet_eta);
 	fChain->SetBranchAddress("leadingJet_phi", &leadingJet_phi, &b_leadingJet_phi);
 	fChain->SetBranchAddress("leadingJet_isMatchedToGen", &leadingJet_isMatchedToGen, &b_leadingJet_isMatchedToGen);
-   	fChain->SetBranchAddress("leadingJet_isThight", &leadingJet_isThight, &b_leadingJet_isThight);
+	fChain->SetBranchAddress("leadingJet_isThight", &leadingJet_isThight, &b_leadingJet_isThight);
 	fChain->SetBranchAddress("subLeadingJet_e", &subLeadingJet_e, &b_subLeadingJet_e);
 	fChain->SetBranchAddress("subLeadingJet_pt", &subLeadingJet_pt, &b_subLeadingJet_pt);
 	fChain->SetBranchAddress("subLeadingJet_eta", &subLeadingJet_eta, &b_subLeadingJet_eta);
 	fChain->SetBranchAddress("subLeadingJet_phi", &subLeadingJet_phi, &b_subLeadingJet_phi);
 	fChain->SetBranchAddress("subLeadingJet_isMatchedToGen", &subLeadingJet_isMatchedToGen, &b_subLeadingJet_isMatchedToGen);
-   	fChain->SetBranchAddress("subLeadingJet_isThight", &subLeadingJet_isThight, &b_subLeadingJet_isThight);
+	fChain->SetBranchAddress("subLeadingJet_isThight", &subLeadingJet_isThight, &b_subLeadingJet_isThight);
 	fChain->SetBranchAddress("dRLeadLeptonLeadJet", &dRLeadLeptonLeadJet, &b_dRLeadLeptonLeadJet);
 	fChain->SetBranchAddress("dRLeadLeptonSubLeadJet", &dRLeadLeptonSubLeadJet, &b_dRLeadLeptonSubLeadJet);
 	fChain->SetBranchAddress("dRSubLeadLeptonLeadJet", &dRSubLeadLeptonLeadJet, &b_dRSubLeadLeptonLeadJet);
 	fChain->SetBranchAddress("dRSubLeadLeptonSubLeadJet", &dRSubLeadLeptonSubLeadJet, &b_dRSubLeadLeptonSubLeadJet);
 	fChain->SetBranchAddress("multiLeptonMultiJet_sumPt", &multiLeptonMultiJet_sumPt, &b_multiLeptonMultiJet_sumPt);
-    fChain->SetBranchAddress("multiLeptonMultiJet_invMass", &multiLeptonMultiJet_invMass, &b_multiLeptonMultiJet_invMass);
+	fChain->SetBranchAddress("multiLeptonMultiJet_invMass", &multiLeptonMultiJet_invMass, &b_multiLeptonMultiJet_invMass);
 	fChain->SetBranchAddress("diLepton_invMass", &diLepton_invMass, &b_diLepton_invMass);
 	fChain->SetBranchAddress("diLepton_pt", &diLepton_pt, &b_diLepton_pt);
 	fChain->SetBranchAddress("diJet_invMass", &diJet_invMass, &b_diJet_invMass);
 	fChain->SetBranchAddress("diJetLeadingLepton_invMass", &diJetLeadingLepton_invMass, &b_diJetLeadingLepton_invMass);
 	fChain->SetBranchAddress("diJetSubLeadingLepton_invMass", &diJetSubLeadingLepton_invMass, &b_diJetSubLeadingLepton_invMass);
 	fChain->SetBranchAddress("leadingEle_passHEEPId", &leadingEle_passHEEPId, &b_leadingEle_passHEEPId);
-	fChain->SetBranchAddress("leadingEle_HEEPBitMapValues", &leadingEle_HEEPBitMapValues, &b_leadingEle_HEEPBitMapValues);
-    fChain->SetBranchAddress("leadingEle_passTightId", &leadingEle_passTightId, &b_leadingEle_passTightId);
-    fChain->SetBranchAddress("leadingEle_passMediumId", &leadingEle_passMediumId, &b_leadingEle_passMediumId);
-    fChain->SetBranchAddress("leadingEle_passLooseId", &leadingEle_passLooseId, &b_leadingEle_passLooseId);
-    fChain->SetBranchAddress("leadingEle_passVetoId", &leadingEle_passVetoId, &b_leadingEle_passVetoId);
-    fChain->SetBranchAddress("leadingEle_passMVATightId", &leadingEle_passMVATightId, &b_leadingEle_passMVATightId);
-    fChain->SetBranchAddress("leadingEle_passMVAMediumId", &leadingEle_passMVAMediumId, &b_leadingEle_passMVAMediumId);
-    fChain->SetBranchAddress("leadingEle_idmva", &leadingEle_idmva, &b_leadingEle_idmva);
-    fChain->SetBranchAddress("leadingEle_iso", &leadingEle_iso, &b_leadingEle_iso);
-    fChain->SetBranchAddress("leadingEle_isMatchedToGen", &leadingEle_isMatchedToGen, &b_leadingEle_isMatchedToGen);
-	fChain->SetBranchAddress("leadingEle_etaSC", &leadingEle_etaSC, &b_leadingEle_etaSC);
-	fChain->SetBranchAddress("leadingEle_isEcalDriven", &leadingEle_isEcalDriven, &b_leadingEle_isEcalDriven);
-	fChain->SetBranchAddress("leadingEle_dEtaIn", &leadingEle_dEtaIn, &b_leadingEle_dEtaIn);
-	fChain->SetBranchAddress("leadingEle_dPhiIn", &leadingEle_dPhiIn, &b_leadingEle_dPhiIn);
-	fChain->SetBranchAddress("leadingEle_hOverE", &leadingEle_hOverE, &b_leadingEle_hOverE);
-	fChain->SetBranchAddress("leadingEle_full5x5_r9", &leadingEle_full5x5_r9, &b_leadingEle_full5x5_r9);
-	fChain->SetBranchAddress("leadingEle_full5x5_sigmaIetaIeta", &leadingEle_full5x5_sigmaIetaIeta, &b_leadingEle_full5x5_sigmaIetaIeta);
-	fChain->SetBranchAddress("leadingEle_full5x5_E5x5", &leadingEle_full5x5_E5x5, &b_leadingEle_full5x5_E5x5);
-	fChain->SetBranchAddress("leadingEle_full5x5_E1x5", &leadingEle_full5x5_E1x5, &b_leadingEle_full5x5_E1x5);
-	fChain->SetBranchAddress("leadingEle_full5x5_E2x5", &leadingEle_full5x5_E2x5, &b_leadingEle_full5x5_E2x5);
-	fChain->SetBranchAddress("leadingEle_EmHadDepth1Iso", &leadingEle_EmHadDepth1Iso, &b_leadingEle_EmHadDepth1Iso);
-	fChain->SetBranchAddress("leadingEle_ptTracksIso", &leadingEle_ptTracksIso, &b_leadingEle_ptTracksIso);
-	fChain->SetBranchAddress("leadingEle_innerLayerLostHits", &leadingEle_innerLayerLostHits, &b_leadingEle_innerLayerLostHits);
-	fChain->SetBranchAddress("leadingEle_dxy", &leadingEle_dxy, &b_leadingEle_dxy);
-	fChain->SetBranchAddress("leadingEle_dz", &leadingEle_dz, &b_leadingEle_dz);
-	fChain->SetBranchAddress("leadingEle_eOverP", &leadingEle_eOverP, &b_leadingEle_eOverP);
-	fChain->SetBranchAddress("leadingEle_ecalEnergy", &leadingEle_ecalEnergy, &b_leadingEle_ecalEnergy);
-    fChain->SetBranchAddress("leadingEle_hcalOverEcal", &leadingEle_hcalOverEcal, &b_leadingEle_hcalOverEcal);
+	fChain->SetBranchAddress("leadingEle_passMediumId", &leadingEle_passMediumId, &b_leadingEle_passMediumId);
+	fChain->SetBranchAddress("leadingEle_iso", &leadingEle_iso, &b_leadingEle_iso);
+	fChain->SetBranchAddress("leadingEle_isMatchedToGen", &leadingEle_isMatchedToGen, &b_leadingEle_isMatchedToGen);
+	if (saveHEEPvariables_) {
+		fChain->SetBranchAddress("leadingEle_etaSC", &leadingEle_etaSC, &b_leadingEle_etaSC);
+		fChain->SetBranchAddress("leadingEle_isEcalDriven", &leadingEle_isEcalDriven, &b_leadingEle_isEcalDriven);
+		fChain->SetBranchAddress("leadingEle_dEtaIn", &leadingEle_dEtaIn, &b_leadingEle_dEtaIn);
+		fChain->SetBranchAddress("leadingEle_dPhiIn", &leadingEle_dPhiIn, &b_leadingEle_dPhiIn);
+		fChain->SetBranchAddress("leadingEle_hOverE", &leadingEle_hOverE, &b_leadingEle_hOverE);
+		fChain->SetBranchAddress("leadingEle_full5x5_r9", &leadingEle_full5x5_r9, &b_leadingEle_full5x5_r9);
+		fChain->SetBranchAddress("leadingEle_full5x5_sigmaIetaIeta", &leadingEle_full5x5_sigmaIetaIeta, &b_leadingEle_full5x5_sigmaIetaIeta);
+		fChain->SetBranchAddress("leadingEle_full5x5_E5x5", &leadingEle_full5x5_E5x5, &b_leadingEle_full5x5_E5x5);
+		fChain->SetBranchAddress("leadingEle_full5x5_E1x5", &leadingEle_full5x5_E1x5, &b_leadingEle_full5x5_E1x5);
+		fChain->SetBranchAddress("leadingEle_full5x5_E2x5", &leadingEle_full5x5_E2x5, &b_leadingEle_full5x5_E2x5);
+		fChain->SetBranchAddress("leadingEle_EmHadDepth1Iso", &leadingEle_EmHadDepth1Iso, &b_leadingEle_EmHadDepth1Iso);
+		fChain->SetBranchAddress("leadingEle_ptTracksIso", &leadingEle_ptTracksIso, &b_leadingEle_ptTracksIso);
+		fChain->SetBranchAddress("leadingEle_innerLayerLostHits", &leadingEle_innerLayerLostHits, &b_leadingEle_innerLayerLostHits);
+		fChain->SetBranchAddress("leadingEle_dxy", &leadingEle_dxy, &b_leadingEle_dxy);
+		fChain->SetBranchAddress("leadingEle_dz", &leadingEle_dz, &b_leadingEle_dz);
+		fChain->SetBranchAddress("leadingEle_eOverP", &leadingEle_eOverP, &b_leadingEle_eOverP);
+		fChain->SetBranchAddress("leadingEle_ecalEnergy", &leadingEle_ecalEnergy, &b_leadingEle_ecalEnergy);
+		fChain->SetBranchAddress("leadingEle_hcalOverEcal", &leadingEle_hcalOverEcal, &b_leadingEle_hcalOverEcal);
+	}
 	fChain->SetBranchAddress("subLeadingEle_passHEEPId", &subLeadingEle_passHEEPId, &b_subLeadingEle_passHEEPId);
-	fChain->SetBranchAddress("subLeadingEle_HEEPBitMapValues", &subLeadingEle_HEEPBitMapValues, &b_subLeadingEle_HEEPBitMapValues);
-    fChain->SetBranchAddress("subLeadingEle_passTightId", &subLeadingEle_passTightId, &b_subLeadingEle_passTightId);
-    fChain->SetBranchAddress("subLeadingEle_passMediumId", &subLeadingEle_passMediumId, &b_subLeadingEle_passMediumId);
-    fChain->SetBranchAddress("subLeadingEle_passLooseId", &subLeadingEle_passLooseId, &b_subLeadingEle_passLooseId);
-    fChain->SetBranchAddress("subLeadingEle_passVetoId", &subLeadingEle_passVetoId, &b_subLeadingEle_passVetoId);
-    fChain->SetBranchAddress("subLeadingEle_passMVATightId", &subLeadingEle_passMVATightId, &b_subLeadingEle_passMVATightId);
-    fChain->SetBranchAddress("subLeadingEle_passMVAMediumId", &subLeadingEle_passMVAMediumId, &b_subLeadingEle_passMVAMediumId);
-    fChain->SetBranchAddress("subLeadingEle_idmva", &subLeadingEle_idmva, &b_subLeadingEle_idmva);
-    fChain->SetBranchAddress("subLeadingEle_iso", &subLeadingEle_iso, &b_subLeadingEle_iso);
-    fChain->SetBranchAddress("subLeadingEle_isMatchedToGen", &subLeadingEle_isMatchedToGen, &b_subLeadingEle_isMatchedToGen);
-	fChain->SetBranchAddress("subLeadingEle_etaSC", &subLeadingEle_etaSC, &b_subLeadingEle_etaSC);
-	fChain->SetBranchAddress("subLeadingEle_isEcalDriven", &subLeadingEle_isEcalDriven, &b_subLeadingEle_isEcalDriven);
-	fChain->SetBranchAddress("subLeadingEle_dEtaIn", &subLeadingEle_dEtaIn, &b_subLeadingEle_dEtaIn);
-	fChain->SetBranchAddress("subLeadingEle_dPhiIn", &subLeadingEle_dPhiIn, &b_subLeadingEle_dPhiIn);
-	fChain->SetBranchAddress("subLeadingEle_hOverE", &subLeadingEle_hOverE, &b_subLeadingEle_hOverE);
-	fChain->SetBranchAddress("subLeadingEle_full5x5_r9", &subLeadingEle_full5x5_r9, &b_subLeadingEle_full5x5_r9);
-	fChain->SetBranchAddress("subLeadingEle_full5x5_sigmaIetaIeta", &subLeadingEle_full5x5_sigmaIetaIeta, &b_subLeadingEle_full5x5_sigmaIetaIeta);
-	fChain->SetBranchAddress("subLeadingEle_full5x5_E5x5", &subLeadingEle_full5x5_E5x5, &b_subLeadingEle_full5x5_E5x5);
-	fChain->SetBranchAddress("subLeadingEle_full5x5_E1x5", &subLeadingEle_full5x5_E1x5, &b_subLeadingEle_full5x5_E1x5);
-	fChain->SetBranchAddress("subLeadingEle_full5x5_E2x5", &subLeadingEle_full5x5_E2x5, &b_subLeadingEle_full5x5_E2x5);
-	fChain->SetBranchAddress("subLeadingEle_EmHadDepth1Iso", &subLeadingEle_EmHadDepth1Iso, &b_subLeadingEle_EmHadDepth1Iso);
-	fChain->SetBranchAddress("subLeadingEle_ptTracksIso", &subLeadingEle_ptTracksIso, &b_subLeadingEle_ptTracksIso);
-	fChain->SetBranchAddress("subLeadingEle_innerLayerLostHits", &subLeadingEle_innerLayerLostHits, &b_subLeadingEle_innerLayerLostHits);
-	fChain->SetBranchAddress("subLeadingEle_dxy", &subLeadingEle_dxy, &b_subLeadingEle_dxy);
-	fChain->SetBranchAddress("subLeadingEle_dz", &subLeadingEle_dz, &b_subLeadingEle_dz);
-	fChain->SetBranchAddress("subLeadingEle_eOverP", &subLeadingEle_eOverP, &b_subLeadingEle_eOverP);
- 	fChain->SetBranchAddress("subLeadingEle_ecalEnergy", &subLeadingEle_ecalEnergy, &b_subLeadingEle_ecalEnergy);
-    fChain->SetBranchAddress("subLeadingEle_hcalOverEcal", &subLeadingEle_hcalOverEcal, &b_subLeadingEle_hcalOverEcal);
-    fChain->SetBranchAddress("leadingMuon_iso", &leadingMuon_iso, &b_leadingMuon_iso);
-    fChain->SetBranchAddress("leadingMuon_PFiso", &leadingMuon_PFiso, &b_leadingMuon_PFiso);
+	fChain->SetBranchAddress("subLeadingEle_passMediumId", &subLeadingEle_passMediumId, &b_subLeadingEle_passMediumId);
+	fChain->SetBranchAddress("subLeadingEle_iso", &subLeadingEle_iso, &b_subLeadingEle_iso);
+	fChain->SetBranchAddress("subLeadingEle_isMatchedToGen", &subLeadingEle_isMatchedToGen, &b_subLeadingEle_isMatchedToGen);
+	if (saveHEEPvariables_) {
+		fChain->SetBranchAddress("subLeadingEle_etaSC", &subLeadingEle_etaSC, &b_subLeadingEle_etaSC);
+		fChain->SetBranchAddress("subLeadingEle_isEcalDriven", &subLeadingEle_isEcalDriven, &b_subLeadingEle_isEcalDriven);
+		fChain->SetBranchAddress("subLeadingEle_dEtaIn", &subLeadingEle_dEtaIn, &b_subLeadingEle_dEtaIn);
+		fChain->SetBranchAddress("subLeadingEle_dPhiIn", &subLeadingEle_dPhiIn, &b_subLeadingEle_dPhiIn);
+		fChain->SetBranchAddress("subLeadingEle_hOverE", &subLeadingEle_hOverE, &b_subLeadingEle_hOverE);
+		fChain->SetBranchAddress("subLeadingEle_full5x5_r9", &subLeadingEle_full5x5_r9, &b_subLeadingEle_full5x5_r9);
+		fChain->SetBranchAddress("subLeadingEle_full5x5_sigmaIetaIeta", &subLeadingEle_full5x5_sigmaIetaIeta, &b_subLeadingEle_full5x5_sigmaIetaIeta);
+		fChain->SetBranchAddress("subLeadingEle_full5x5_E5x5", &subLeadingEle_full5x5_E5x5, &b_subLeadingEle_full5x5_E5x5);
+		fChain->SetBranchAddress("subLeadingEle_full5x5_E1x5", &subLeadingEle_full5x5_E1x5, &b_subLeadingEle_full5x5_E1x5);
+		fChain->SetBranchAddress("subLeadingEle_full5x5_E2x5", &subLeadingEle_full5x5_E2x5, &b_subLeadingEle_full5x5_E2x5);
+		fChain->SetBranchAddress("subLeadingEle_EmHadDepth1Iso", &subLeadingEle_EmHadDepth1Iso, &b_subLeadingEle_EmHadDepth1Iso);
+		fChain->SetBranchAddress("subLeadingEle_ptTracksIso", &subLeadingEle_ptTracksIso, &b_subLeadingEle_ptTracksIso);
+		fChain->SetBranchAddress("subLeadingEle_innerLayerLostHits", &subLeadingEle_innerLayerLostHits, &b_subLeadingEle_innerLayerLostHits);
+		fChain->SetBranchAddress("subLeadingEle_dxy", &subLeadingEle_dxy, &b_subLeadingEle_dxy);
+		fChain->SetBranchAddress("subLeadingEle_dz", &subLeadingEle_dz, &b_subLeadingEle_dz);
+		fChain->SetBranchAddress("subLeadingEle_eOverP", &subLeadingEle_eOverP, &b_subLeadingEle_eOverP);
+		fChain->SetBranchAddress("subLeadingEle_ecalEnergy", &subLeadingEle_ecalEnergy, &b_subLeadingEle_ecalEnergy);
+		fChain->SetBranchAddress("subLeadingEle_hcalOverEcal", &subLeadingEle_hcalOverEcal, &b_subLeadingEle_hcalOverEcal);
+	}
+	fChain->SetBranchAddress("leadingMuon_iso", &leadingMuon_iso, &b_leadingMuon_iso);
+	fChain->SetBranchAddress("leadingMuon_PFiso", &leadingMuon_PFiso, &b_leadingMuon_PFiso);
 	fChain->SetBranchAddress("leadingMuon_isHighPt", &leadingMuon_isHighPt, &b_leadingMuon_isHighPt);
- 	fChain->SetBranchAddress("leadingMuon_isTight", &leadingMuon_isTight, &b_leadingMuon_isTight);
-    fChain->SetBranchAddress("leadingMuon_isMedium", &leadingMuon_isMedium, &b_leadingMuon_isMedium);
-    fChain->SetBranchAddress("leadingMuon_isLoose", &leadingMuon_isLoose, &b_leadingMuon_isLoose);
-    fChain->SetBranchAddress("leadingMuon_isMatchedToGen", &leadingMuon_isMatchedToGen, &b_leadingMuon_isMatchedToGen);
-    fChain->SetBranchAddress("leadingMuon_dz", &leadingMuon_dz, &b_leadingMuon_dz);
-    fChain->SetBranchAddress("leadingMuon_dxy", &leadingMuon_dxy, &b_leadingMuon_dxy);
-    fChain->SetBranchAddress("leadingMuon_RochCor", &leadingMuon_RochCor, &b_leadingMuon_RochCor);
-    fChain->SetBranchAddress("subLeadingMuon_iso", &subLeadingMuon_iso, &b_subLeadingMuon_iso);
-    fChain->SetBranchAddress("subLeadingMuon_PFiso", &subLeadingMuon_PFiso, &b_subLeadingMuon_PFiso);
-   	fChain->SetBranchAddress("subLeadingMuon_isHighPt", &subLeadingMuon_isHighPt, &b_subLeadingMuon_isHighPt);
-   	fChain->SetBranchAddress("subLeadingMuon_isTight", &subLeadingMuon_isTight, &b_subLeadingMuon_isTight);
-   	fChain->SetBranchAddress("subLeadingMuon_isMedium", &subLeadingMuon_isMedium, &b_subLeadingMuon_isMedium);
-    fChain->SetBranchAddress("subLeadingMuon_isLoose", &subLeadingMuon_isLoose, &b_subLeadingMuon_isLoose);
-    fChain->SetBranchAddress("subLeadingMuon_isMatchedToGen", &subLeadingMuon_isMatchedToGen, &b_subLeadingMuon_isMatchedToGen);
-    fChain->SetBranchAddress("subLeadingMuon_dz", &subLeadingMuon_dz, &b_subLeadingMuon_dz);
-    fChain->SetBranchAddress("subLeadingMuon_dxy", &subLeadingMuon_dxy, &b_subLeadingMuon_dxy);
-    fChain->SetBranchAddress("subLeadingMuon_RochCor", &subLeadingMuon_RochCor, &b_subLeadingMuon_RochCor);
+	fChain->SetBranchAddress("leadingMuon_isMatchedToGen", &leadingMuon_isMatchedToGen, &b_leadingMuon_isMatchedToGen);
+	fChain->SetBranchAddress("leadingMuon_dz", &leadingMuon_dz, &b_leadingMuon_dz);
+	fChain->SetBranchAddress("leadingMuon_dxy", &leadingMuon_dxy, &b_leadingMuon_dxy);
+	fChain->SetBranchAddress("leadingMuon_RochCor", &leadingMuon_RochCor, &b_leadingMuon_RochCor);
+	fChain->SetBranchAddress("subLeadingMuon_iso", &subLeadingMuon_iso, &b_subLeadingMuon_iso);
+	fChain->SetBranchAddress("subLeadingMuon_PFiso", &subLeadingMuon_PFiso, &b_subLeadingMuon_PFiso);
+	fChain->SetBranchAddress("subLeadingMuon_isHighPt", &subLeadingMuon_isHighPt, &b_subLeadingMuon_isHighPt);
+	fChain->SetBranchAddress("subLeadingMuon_isMatchedToGen", &subLeadingMuon_isMatchedToGen, &b_subLeadingMuon_isMatchedToGen);
+	fChain->SetBranchAddress("subLeadingMuon_dz", &subLeadingMuon_dz, &b_subLeadingMuon_dz);
+	fChain->SetBranchAddress("subLeadingMuon_dxy", &subLeadingMuon_dxy, &b_subLeadingMuon_dxy);
+	fChain->SetBranchAddress("subLeadingMuon_RochCor", &subLeadingMuon_RochCor, &b_subLeadingMuon_RochCor);
 
 	cout << "Branches are properly initialized." << endl;
 }
@@ -442,13 +383,13 @@ Long64_t makePlots_multiLeptonMultiJet::LoadTree(Long64_t entry){
 
 // **************** 
 TH1D* makePlots_multiLeptonMultiJet::newTH1D(string name, string title, string xTitle, int nBins, double xLow, double xUp){
-    TH1D* hist = new TH1D(name.c_str(), title.c_str(), nBins, xLow, xUp);
-    hist->GetXaxis()->SetTitle(xTitle.c_str());
-    hist->GetYaxis()->SetTitle("# Events");
+	TH1D* hist = new TH1D(name.c_str(), title.c_str(), nBins, xLow, xUp);
+	hist->GetXaxis()->SetTitle(xTitle.c_str());
+	hist->GetYaxis()->SetTitle("# Events");
 	hist->GetYaxis()->SetTitleOffset(1.9);
-    hist->SetOption("HIST");           
-    listOfHistograms.push_back(hist);
-    return hist;
+	hist->SetOption("HIST");           
+	listOfHistograms.push_back(hist);
+	return hist;
 }
 // ******************************************************************************************
 
@@ -458,13 +399,13 @@ TH1D* makePlots_multiLeptonMultiJet::newTH1D(string name, string title, string x
 TH1D* makePlots_multiLeptonMultiJet::newTH1DvarBinSize(string name, string title, string xTitle, int nBins, const double *xbins){
 	// Int_t  nBins = sizeof(xbins) / sizeof(Float_t) - 1;
 	// cout << "nBins = " << nBins << endl;
-    TH1D* hist = new TH1D(name.c_str(), title.c_str(), nBins, xbins);
-    hist->GetXaxis()->SetTitle(xTitle.c_str());
-    hist->GetYaxis()->SetTitle("# Events");
+	TH1D* hist = new TH1D(name.c_str(), title.c_str(), nBins, xbins);
+	hist->GetXaxis()->SetTitle(xTitle.c_str());
+	hist->GetYaxis()->SetTitle("# Events");
 	hist->GetYaxis()->SetTitleOffset(1.9);
-    hist->SetOption("HIST");           
-    listOfHistograms.push_back(hist);
-    return hist;
+	hist->SetOption("HIST");           
+	listOfHistograms.push_back(hist);
+	return hist;
 }
 // ******************************************************************************************
 
@@ -472,12 +413,12 @@ TH1D* makePlots_multiLeptonMultiJet::newTH1DvarBinSize(string name, string title
 
 // **************** 
 TH2D* makePlots_multiLeptonMultiJet::newTH2D(string name, string title, string xTitle, string yTitle, int nBinsX, double xLow, double xUp, int nBinsY, double yLow, double yUp){
-    TH2D* hist = new TH2D(name.c_str(), title.c_str(), nBinsX, xLow, xUp, nBinsY, yLow, yUp);
-    hist->GetXaxis()->SetTitle(xTitle.c_str());
-    hist->GetYaxis()->SetTitle(yTitle.c_str());
-    hist->GetYaxis()->SetTitleOffset(1.9); 
-    listOfHistograms.push_back(hist);
-    return hist;
+	TH2D* hist = new TH2D(name.c_str(), title.c_str(), nBinsX, xLow, xUp, nBinsY, yLow, yUp);
+	hist->GetXaxis()->SetTitle(xTitle.c_str());
+	hist->GetYaxis()->SetTitle(yTitle.c_str());
+	hist->GetYaxis()->SetTitleOffset(1.9); 
+	listOfHistograms.push_back(hist);
+	return hist;
 }
 // ******************************************************************************************
 
@@ -485,11 +426,11 @@ TH2D* makePlots_multiLeptonMultiJet::newTH2D(string name, string title, string x
 // **************** 
 TProfile* makePlots_multiLeptonMultiJet::newTProfile(string name, string title, string xTitle, string yTitle, int nBinsX, double xLow, double xUp, double yLow, double yUp){
 	TProfile* hist = new TProfile(name.c_str(), title.c_str(), nBinsX, xLow, xUp, yLow, yUp);
-    hist->GetXaxis()->SetTitle(xTitle.c_str());
-    hist->GetYaxis()->SetTitle(yTitle.c_str());
+	hist->GetXaxis()->SetTitle(xTitle.c_str());
+	hist->GetYaxis()->SetTitle(yTitle.c_str());
 	hist->GetYaxis()->SetTitleOffset(1.9);
-    listOfHistograms.push_back(hist);
-    return hist;
+	listOfHistograms.push_back(hist);
+	return hist;
 }
 // ******************************************************************************************
 
@@ -497,24 +438,46 @@ TProfile* makePlots_multiLeptonMultiJet::newTProfile(string name, string title, 
 // **************** 
 void makePlots_multiLeptonMultiJet::SetHistos(){
 
-	rho_histo = newTH1D("rho_histo", "rho_histo", "rho", 100, 0., 100.);
-	nvtx_histo = newTH1D("nvtx_histo", "nvtx_histo", "nvtx", 100, 0., 100.);
-	vtx_x_histo = newTH1D("vtx_x_histo", "vtx_x_histo", "vtx_x", 100, -0.3, 0.3);
-	vtx_y_histo = newTH1D("vtx_y_histo", "vtx_y_histo", "vtx_y", 100, -0.3, 0.3);
-	vtx_z_histo = newTH1D("vtx_z_histo", "vtx_z_histo", "vtx_z", 100, -20., 20.);
+	if (signalEE || signalMuMu) {
+		numberRegions = 3;
+		for (int i(0); i < numberRegions; i++) regionName[i] = signalRegionNames[i];		
+	}
+	if (eMuSideband) {
+		numberRegions = 1;
+		for (int i(0); i < numberRegions; i++) regionName[i] = eMuSidebandName[i];
+	}
+	if (TnPEE || TnPMuMu) {
+		numberRegions = 1;
+		for (int i(0); i < numberRegions; i++) regionName[i] = TnPCRName[i];
+	}
 
-	muon_dxy_histo = newTH1D("muon_dxy_histo", "muon_dxy_histo", "|dxy| muons", 100, 0., 0.5);
+	if (signalEE) triggerName = "_signalEE";
+	if (signalMuMu) triggerName = "_signalMuMu";
+	if (eMuSideband) triggerName = "_eMuSideband";
+	if (TnPEE) triggerName = "_TnPEE";
+	if (TnPMuMu) triggerName = "_TnPMuMu";
 
-	nLeadingLeptons_histo = newTH1D("nLeadingLeptons_histo", "nLeadingLeptons_histo", "nLeadingLepton", 10, 0, 10); 
-	nSubLeadingLeptons_histo = newTH1D("nSubLeadingLeptons_histo", "nSubLeadingLeptons_histo", "nSubLeadingLepton", 10, 0, 10); 
+
+
+	rho_histo = newTH1D("rho_histo"+triggerName, "rho_histo"+triggerName, "rho", 100, 0., 100.);
+	nvtx_histo = newTH1D("nvtx_histo"+triggerName, "nvtx_histo"+triggerName, "nvtx", 100, 0., 100.);
+	vtx_x_histo = newTH1D("vtx_x_histo"+triggerName, "vtx_x_histo"+triggerName, "vtx_x", 100, -0.3, 0.3);
+	vtx_y_histo = newTH1D("vtx_y_histo"+triggerName, "vtx_y_histo"+triggerName, "vtx_y", 100, -0.3, 0.3);
+	vtx_z_histo = newTH1D("vtx_z_histo"+triggerName, "vtx_z_histo"+triggerName, "vtx_z", 100, -20., 20.);
+
+	// muon_dxy_histo = newTH1D("muon_dxy_histo", "muon_dxy_histo", "|dxy| muons", 100, 0., 0.5);
+
+	// nLeadingLeptons_histo = newTH1D("nLeadingLeptons_histo", "nLeadingLeptons_histo", "nLeadingLepton", 10, 0, 10); 
+	// nSubLeadingLeptons_histo = newTH1D("nSubLeadingLeptons_histo", "nSubLeadingLeptons_histo", "nSubLeadingLepton", 10, 0, 10); 
+
+
 
 	const double mlmjBins[] = {150, 300, 450, 600, 750, 900, 1050, 1200, 1350, 1500, 1650, 1800, 1950, 2100, 2250, 2400, 2550, 2700, 2850, 3000, 3150, 3300, 3450, 3600, 3750, 3900, 4150, 7000};
 	// Int_t  nBins = sizeof(mlmjBins) / sizeof(Float_t) - 1;
 	Int_t  nBins = 27;
 	// cout << "nBins = " << nBins << endl;
 
-	for (unsigned short l(0); l < nRegions; l++) {
-
+	for (unsigned short l(0); l < numberRegions; l++) {
 		for (unsigned short i(0); i < 8; i++) {
 			pt_histo[i][l] = newTH1D("pt_"+objName[i]+regionName[l]+"_histo", "pt_"+objName[i]+regionName[l]+"_histo", "p_{T} [GeV] "+objName[i]+regionName[l], 200, 0., 1000.);
 			eta_histo[i][l] = newTH1D("eta_"+objName[i]+regionName[l]+"_histo", "eta_"+objName[i]+regionName[l]+"_histo", "#eta "+objName[i]+regionName[l], 100, -2.5, 2.5);
@@ -528,51 +491,48 @@ void makePlots_multiLeptonMultiJet::SetHistos(){
 			mass_dj_histo[l][n] = newTH1D("mass_dijets"+regionName[l]+etaMassName[n]+"_histo", "mass_dijets"+regionName[l]+etaMassName[n]+"_histo", "m_{jj}"+regionName[l], 100, 0., 2000.);		
 			mass_djLl_histo[l][n] = newTH1D("mass_dijetsLeadingLepton"+regionName[l]+etaMassName[n]+"_histo", "mass_dijetsLeadingLepton"+regionName[l]+etaMassName[n]+"_histo", "m_{jjl_{L}}"+regionName[l], 200, 0., 4000.);	
 			mass_djSLl_histo[l][n] = newTH1D("mass_dijetsSubLeadingLepton"+regionName[l]+etaMassName[n]+"_histo", "mass_dijetsSubLeadingLepton"+regionName[l]+etaMassName[n]+"_histo", "m_{jjl_{SL}}"+regionName[l], 200, 0., 4000.);
-		}
+		} 
 
 		pt_dl_histo[l] = newTH1D("pt_dileptons"+regionName[l]+"_histo", "pt_dileptons_"+regionName[l]+"_histo", "diLepton p_{T} [GeV]", 100, 0., 1000.);
-
 	}
 
-
-	// for (unsigned short l(0); l < 2; l++) {
-	for (unsigned short l(0); l < nTnPregions; l++) {
-		for (unsigned short i(8); i < 16; i++) {
-			pt_histo[i][l] = newTH1D("pt_"+objName[i]+TnPName[l]+"_histo", "pt_"+objName[i]+TnPName[l]+"_histo", "p_{T} [GeV] "+objName[i]+TnPName[l], 200, 0., 1000.);
-			eta_histo[i][l] = newTH1D("eta_"+objName[i]+TnPName[l]+"_histo", "eta_"+objName[i]+TnPName[l]+"_histo", "#eta "+objName[i]+TnPName[l], 100, -2.5, 2.5);
-			phi_histo[i][l] = newTH1D("phi_"+objName[i]+TnPName[l]+"_histo", "phi_"+objName[i]+TnPName[l]+"_histo", "#phi "+objName[i]+TnPName[l], 100, -3.5, 3.5);		
-		}
-	}
-
-	for (unsigned short j(0); j < nEle; j++) {
-		for (unsigned short m(0); m < nEtaRegions; m++) {
-			etaSC_histo[j][m] = newTH1D("etaSC_"+eleName[j]+etaName[m]+"_histo", "etaSC_"+eleName[j]+etaName[m]+"_histo", "#eta_{SC} "+eleName[j], 100, -2.5, 2.5);
-			isEcalDriven_histo[j][m] = newTH1D("isEcalDriven_"+eleName[j]+etaName[m]+"_histo", "isEcalDriven_"+eleName[j]+etaName[m]+"_histo", "isEcalDriven "+eleName[j], 2, 0., 2.);
-			dEtaIn_histo[j][m] = newTH1D("dEtaIn_"+eleName[j]+etaName[m]+"_histo", "dEtaIn_"+eleName[j]+etaName[m]+"_histo", "dEtaIn "+eleName[j], 100, -0.2, 0.2);
-			dPhiIn_histo[j][m] = newTH1D("dPhiIn_"+eleName[j]+etaName[m]+"_histo", "dPhiIn_"+eleName[j]+etaName[m]+"_histo", "dPhiIn "+eleName[j], 100, -0.2, 0.2);
-			hOverE_histo[j][m] = newTH1D("hOverE_"+eleName[j]+etaName[m]+"_histo", "hOverE_"+eleName[j]+etaName[m]+"_histo", "H/E "+eleName[j], 40, 0., 2.);
-			full5x5_r9_histo[j][m] = newTH1D("r9_"+eleName[j]+etaName[m]+"_histo", "r9_"+eleName[j]+etaName[m]+"_histo", "r9 "+eleName[j], 100, 0., 1.05);
-			full5x5_sigmaIetaIeta_histo[j][m] = newTH1D("sigmaIetaIeta_"+eleName[j]+etaName[m]+"_histo", "sigmaIetaIeta_"+eleName[j]+etaName[m]+"_histo", "sigmaIetaIeta "+eleName[j], 100, 0., 0.05);
-			full5x5_E2x5_Over_E5x5_histo[j][m] = newTH1D("e2x5_e5x5_"+eleName[j]+etaName[m]+"_histo", "e2x5_e5x5_"+eleName[j]+etaName[m]+"_histo", "e2x5/e5x5 "+eleName[j], 60, 0.5, 1.1);
-			full5x5_E1x5_Over_E5x5_histo[j][m] = newTH1D("e1x5_e5x5_"+eleName[j]+etaName[m]+"_histo", "e1x5_e5x5_"+eleName[j]+etaName[m]+"_histo", "e1x5/e5x5 "+eleName[j], 100, 0., 1.1);
-			EmHadDepth1Iso_histo[j][m] = newTH1D("EmHadDepth1Iso_"+eleName[j]+etaName[m]+"_histo", "EmHadDepth1Iso_"+eleName[j]+etaName[m]+"_histo", "EmHadDepth1Iso "+eleName[j], 200, 0., 200.);
-			// ptTracksIso_histo[j][m];
-			innerLayerLostHits_histo[j][m] = newTH1D("missingHits_"+eleName[j]+etaName[m]+"_histo", "missingHits_"+eleName[j]+etaName[m]+"_histo", "missingHits "+eleName[j], 10, 0., 10.);
-			dxy_histo[j][m] = newTH1D("dxy_"+eleName[j]+etaName[m]+"_histo", "dxy_"+eleName[j]+etaName[m]+"_histo", "|dxy| "+eleName[j], 100, 0., 0.5);
-			eOverP[j][m] = newTH1D("eOverP_"+eleName[j]+etaName[m]+"_histo", "eOverP_"+eleName[j]+etaName[m]+"_histo", "E/p "+eleName[j], 100, 0., 100);
-		}
-	}
-
-	for (unsigned short z(0); z < nZregions; z++) {
-		for (unsigned short l(0); l < nTnPregions; l++) {	
+	if ( !eMuSideband ) {
+		for (unsigned short z(0); z < nZregions; z++) {
 			for (unsigned short n(0); n < nEtaMassRegions; n++) {
-				Zmass_histo[z][n][l] = newTH1D("Z"+Zname[z]+TnPName[l]+"_mass"+etaMassName[n]+"_histo", "Z"+Zname[z]+TnPName[l]+"_mass"+etaMassName[n]+"_histo", "m(Z"+Zname[z]+TnPName[l]+") [GeV/c^{2}]", 200, 0, 200);
+				Zmass_histo[z][n] = newTH1D("Z"+Zname[z]+triggerName+"_mass"+etaMassName[n]+"_histo", "Z"+Zname[z]+triggerName+"_mass"+etaMassName[n]+"_histo", "m(Z) [GeV/c^{2}]", 200, 0, 200);
 			}
-			Zpt_histo[z][l] = newTH1D("Z"+Zname[z]+TnPName[l]+"_pt_histo", "Z"+Zname[z]+TnPName[l]+"_pt_histo", "pt(Z"+Zname[z]+TnPName[l]+") [GeV/c^{2}]", 200, 0, 200); 
+			Zpt_histo[z] = newTH1D("Z"+Zname[z]+triggerName+"_pt_histo", "Z"+Zname[z]+triggerName+"_pt_histo", "pt(Z) [GeV/c^{2}]", 200, 0, 200); 
 		}
 	}
 
+	for (unsigned short l(0); l < 1; l++) {
+		for (unsigned short i(8); i < 16; i++) {
+			pt_histo[i][l] = newTH1D("pt_"+objName[i]+triggerName+"_histo", "pt_"+objName[i]+triggerName+"_histo", "p_{T} [GeV] "+objName[i], 200, 0., 1000.);
+			eta_histo[i][l] = newTH1D("eta_"+objName[i]+triggerName+"_histo", "eta_"+objName[i]+triggerName+"_histo", "#eta "+objName[i], 100, -2.5, 2.5);
+			phi_histo[i][l] = newTH1D("phi_"+objName[i]+triggerName+"_histo", "phi_"+objName[i]+triggerName+"_histo", "#phi "+objName[i], 100, -3.5, 3.5);		
+		}
+	}
 
+	if (saveHEEPvariables_) {
+		for (unsigned short j(0); j < nEle; j++) {
+			for (unsigned short m(0); m < nEtaRegions; m++) {
+				etaSC_histo[j][m] = newTH1D("etaSC_"+eleName[j]+etaName[m]+"_histo", "etaSC_"+eleName[j]+etaName[m]+"_histo", "#eta_{SC} "+eleName[j], 100, -2.5, 2.5);
+				isEcalDriven_histo[j][m] = newTH1D("isEcalDriven_"+eleName[j]+etaName[m]+"_histo", "isEcalDriven_"+eleName[j]+etaName[m]+"_histo", "isEcalDriven "+eleName[j], 2, 0., 2.);
+				dEtaIn_histo[j][m] = newTH1D("dEtaIn_"+eleName[j]+etaName[m]+"_histo", "dEtaIn_"+eleName[j]+etaName[m]+"_histo", "dEtaIn "+eleName[j], 100, -0.2, 0.2);
+				dPhiIn_histo[j][m] = newTH1D("dPhiIn_"+eleName[j]+etaName[m]+"_histo", "dPhiIn_"+eleName[j]+etaName[m]+"_histo", "dPhiIn "+eleName[j], 100, -0.2, 0.2);
+				hOverE_histo[j][m] = newTH1D("hOverE_"+eleName[j]+etaName[m]+"_histo", "hOverE_"+eleName[j]+etaName[m]+"_histo", "H/E "+eleName[j], 40, 0., 2.);
+				full5x5_r9_histo[j][m] = newTH1D("r9_"+eleName[j]+etaName[m]+"_histo", "r9_"+eleName[j]+etaName[m]+"_histo", "r9 "+eleName[j], 100, 0., 1.05);
+				full5x5_sigmaIetaIeta_histo[j][m] = newTH1D("sigmaIetaIeta_"+eleName[j]+etaName[m]+"_histo", "sigmaIetaIeta_"+eleName[j]+etaName[m]+"_histo", "sigmaIetaIeta "+eleName[j], 100, 0., 0.05);
+				full5x5_E2x5_Over_E5x5_histo[j][m] = newTH1D("e2x5_e5x5_"+eleName[j]+etaName[m]+"_histo", "e2x5_e5x5_"+eleName[j]+etaName[m]+"_histo", "e2x5/e5x5 "+eleName[j], 60, 0.5, 1.1);
+				full5x5_E1x5_Over_E5x5_histo[j][m] = newTH1D("e1x5_e5x5_"+eleName[j]+etaName[m]+"_histo", "e1x5_e5x5_"+eleName[j]+etaName[m]+"_histo", "e1x5/e5x5 "+eleName[j], 100, 0., 1.1);
+				EmHadDepth1Iso_histo[j][m] = newTH1D("EmHadDepth1Iso_"+eleName[j]+etaName[m]+"_histo", "EmHadDepth1Iso_"+eleName[j]+etaName[m]+"_histo", "EmHadDepth1Iso "+eleName[j], 200, 0., 200.);
+				// ptTracksIso_histo[j][m];
+				innerLayerLostHits_histo[j][m] = newTH1D("missingHits_"+eleName[j]+etaName[m]+"_histo", "missingHits_"+eleName[j]+etaName[m]+"_histo", "missingHits "+eleName[j], 10, 0., 10.);
+				dxy_histo[j][m] = newTH1D("dxy_"+eleName[j]+etaName[m]+"_histo", "dxy_"+eleName[j]+etaName[m]+"_histo", "|dxy| "+eleName[j], 100, 0., 0.5);
+				eOverP[j][m] = newTH1D("eOverP_"+eleName[j]+etaName[m]+"_histo", "eOverP_"+eleName[j]+etaName[m]+"_histo", "E/p "+eleName[j], 100, 0., 100);
+			}
+		}
+	}
 
 }
 // ******************************************************************************************
@@ -587,7 +547,39 @@ void makePlots_multiLeptonMultiJet::getElectrons(vector<eleStruct>& electrons){/
 						ele_phi->at(i), 
 						ele_e->at(i), 
 						ele_passHEEPId->at(i),
-						ele_HEEPBitMapValues->at(i),
+						0,
+						ele_passMediumId->at(i), 
+						ele_iso->at(i), 
+						ele_dz->at(i),
+						ele_d0->at(i),						
+						ele_isMatchedToGen->at(i),						
+						ele_charge->at(i),
+						0,
+						0,
+						0,
+						0,
+						0,
+						0,	
+						0,
+						0,
+						0,
+						0, 
+						0,
+						0,
+						0, 
+						0,
+						0,
+						0,
+						0
+					); 
+
+		if (saveHEEPvariables_) {
+			eleStruct ele(ele_pt->at(i), 
+						ele_eta->at(i), 						
+						ele_phi->at(i), 
+						ele_e->at(i), 
+						ele_passHEEPId->at(i),
+						0,
 						ele_passMediumId->at(i), 
 						ele_iso->at(i), 
 						ele_dz->at(i),
@@ -612,6 +604,7 @@ void makePlots_multiLeptonMultiJet::getElectrons(vector<eleStruct>& electrons){/
 						ele_ecalEnergy->at(i),
 						ele_hcalOverEcal->at(i)
 					); 
+		}
 		electrons.push_back(ele);
 		// if (fabs(ele.v.Eta()) < 2.4 && ele.v.Pt() > 53 && ele.passHEEPId) goodElectrons.push_back(ele);
 	} //End of loop over all the electrons
@@ -621,14 +614,46 @@ void makePlots_multiLeptonMultiJet::getElectrons(vector<eleStruct>& electrons){/
 
 // **************** 
 void makePlots_multiLeptonMultiJet::getLeadingElectrons(vector<eleStruct>& leadingElectrons){
-	unsigned short nTotLeadingElectrons(leadingEle_etaSC->size());
+	unsigned short nTotLeadingElectrons(leadingEle_iso->size());
 	for (unsigned short i(0); i < nTotLeadingElectrons; i++){
 		eleStruct ele(leadingLepton_pt->at(i),
 						leadingLepton_eta->at(i),
 						leadingLepton_phi->at(i),
 						leadingLepton_e->at(i), 
 						leadingEle_passHEEPId->at(i),
-						leadingEle_HEEPBitMapValues->at(i),
+						0,
+						leadingEle_passMediumId->at(i),
+						leadingEle_iso->at(i),
+						0,
+						0,
+						leadingEle_isMatchedToGen->at(i),
+						leadingLepton_charge->at(i), 
+						0,
+						0,
+						0,
+						0,
+						0,
+						0,
+						0,
+						0,
+						0,
+						0,		
+						0,
+						0,
+						0,
+						0,
+						0,
+						0,
+						0
+					);
+
+		if (saveHEEPvariables_) {
+			eleStruct ele(leadingLepton_pt->at(i),
+						leadingLepton_eta->at(i),
+						leadingLepton_phi->at(i),
+						leadingLepton_e->at(i), 
+						leadingEle_passHEEPId->at(i),
+						0,
 						leadingEle_passMediumId->at(i),
 						leadingEle_iso->at(i),
 						leadingEle_dz->at(i),
@@ -652,7 +677,8 @@ void makePlots_multiLeptonMultiJet::getLeadingElectrons(vector<eleStruct>& leadi
 						leadingEle_eOverP->at(i),
 						leadingEle_ecalEnergy->at(i),
 						leadingEle_hcalOverEcal->at(i)
-					);
+					);			
+		}
 		leadingElectrons.push_back(ele);
 	} //End of loop over all the leading electrons
 }
@@ -661,14 +687,46 @@ void makePlots_multiLeptonMultiJet::getLeadingElectrons(vector<eleStruct>& leadi
 
 // **************** 
 void makePlots_multiLeptonMultiJet::getSubLeadingElectrons(vector<eleStruct>& subLeadingElectrons){
-	unsigned short nTotSubLeadingElectrons(subLeadingEle_etaSC->size());
+	unsigned short nTotSubLeadingElectrons(subLeadingEle_iso->size());
 	for (unsigned short i(0); i < nTotSubLeadingElectrons; i++){
 		eleStruct ele(subLeadingLepton_pt->at(i),
 						subLeadingLepton_eta->at(i),
 						subLeadingLepton_phi->at(i),
 						subLeadingLepton_e->at(i), 
 						subLeadingEle_passHEEPId->at(i),
-						subLeadingEle_HEEPBitMapValues->at(i),
+						0,
+						subLeadingEle_passMediumId->at(i),
+						subLeadingEle_iso->at(i),
+						0,
+						0,
+						subLeadingEle_isMatchedToGen->at(i),
+						subLeadingLepton_charge->at(i), 
+						0,
+						0,
+						0,
+						0,
+						0,
+						0,
+						0,
+						0,
+						0,
+						0,		
+						0,
+						0,
+						0,
+						0,
+						0,
+						0,
+						0				
+					);	
+
+		if (saveHEEPvariables_) {
+			eleStruct ele(subLeadingLepton_pt->at(i),
+						subLeadingLepton_eta->at(i),
+						subLeadingLepton_phi->at(i),
+						subLeadingLepton_e->at(i), 
+						subLeadingEle_passHEEPId->at(i),
+						0,
 						subLeadingEle_passMediumId->at(i),
 						subLeadingEle_iso->at(i),
 						subLeadingEle_dz->at(i),
@@ -693,6 +751,7 @@ void makePlots_multiLeptonMultiJet::getSubLeadingElectrons(vector<eleStruct>& su
 						subLeadingEle_ecalEnergy->at(i),
 						subLeadingEle_hcalOverEcal->at(i)				
 					);
+		} 		
 		subLeadingElectrons.push_back(ele);
 	} //End of loop over all the subLeading electrons
 }
@@ -922,37 +981,37 @@ void makePlots_multiLeptonMultiJet::doMassPlots(vector<multiLeptonMultiJetStruct
 
 
 // **************** 
-void makePlots_multiLeptonMultiJet::doZPlots(vector<multiLeptonMultiJetStruct>& multiLeptonMultiJets, const int mlmjIdx, const int variableIdx, const int regionIdx) { 	
+void makePlots_multiLeptonMultiJet::doZPlots(vector<multiLeptonMultiJetStruct>& multiLeptonMultiJets, const int mlmjIdx, const int variableIdx) { 	
 	float ptZ = multiLeptonMultiJets[mlmjIdx].diLepton_pt;
 	float mZ = multiLeptonMultiJets[mlmjIdx].diLepton_invMass;	
 	bool isInEBEB = inEBEB(leadingLepton_eta->at(mlmjIdx), subLeadingLepton_eta->at(mlmjIdx));  
 	bool isInEEEE = inEEEE(leadingLepton_eta->at(mlmjIdx), subLeadingLepton_eta->at(mlmjIdx));
 	bool isInEBEE = inEBEE(leadingLepton_eta->at(mlmjIdx), subLeadingLepton_eta->at(mlmjIdx)); 			
 
-	Zpt_histo[variableIdx][regionIdx]->Fill(ptZ,w);
-	Zmass_histo[variableIdx][0][regionIdx]->Fill(mZ,w);
-	if (isInEBEB) Zmass_histo[variableIdx][1][regionIdx]->Fill(mZ,w); 
-	if (isInEEEE) Zmass_histo[variableIdx][2][regionIdx]->Fill(mZ,w);  
-	if (isInEBEE) Zmass_histo[variableIdx][3][regionIdx]->Fill(mZ,w);  
-	if (isInEEEE || isInEBEE) Zmass_histo[variableIdx][4][regionIdx]->Fill(mZ,w);  
+	Zpt_histo[variableIdx]->Fill(ptZ,w);
+	Zmass_histo[variableIdx][0]->Fill(mZ,w);
+	if (isInEBEB) Zmass_histo[variableIdx][1]->Fill(mZ,w); 
+	if (isInEEEE) Zmass_histo[variableIdx][2]->Fill(mZ,w);  
+	if (isInEBEE) Zmass_histo[variableIdx][3]->Fill(mZ,w);  
+	if (isInEEEE || isInEBEE) Zmass_histo[variableIdx][4]->Fill(mZ,w);  
 }
 // ******************************************************************************************
 
 
 // **************** 
-void makePlots_multiLeptonMultiJet::doZPlots(TLorentzVector Llepton, TLorentzVector SLlepton, const int variableIdx, const int regionIdx) { 	
+void makePlots_multiLeptonMultiJet::doZPlots(TLorentzVector Llepton, TLorentzVector SLlepton, const int variableIdx) { 	
 	float ptZ = (Llepton+SLlepton).Pt();
 	float mZ = (Llepton+SLlepton).M();
 	bool isInEBEB = inEBEB(Llepton.Eta(), SLlepton.Eta()); 
 	bool isInEEEE = inEEEE(Llepton.Eta(), SLlepton.Eta());
 	bool isInEBEE = inEBEE(Llepton.Eta(), SLlepton.Eta()); 
 
-	Zpt_histo[variableIdx][regionIdx]->Fill(ptZ,w);
-	Zmass_histo[variableIdx][0][regionIdx]->Fill(mZ,w);
-	if (isInEBEB) Zmass_histo[variableIdx][1][regionIdx]->Fill(mZ,w); 
-	if (isInEEEE) Zmass_histo[variableIdx][2][regionIdx]->Fill(mZ,w);  
-	if (isInEBEE) Zmass_histo[variableIdx][3][regionIdx]->Fill(mZ,w);  
-	if (isInEEEE || isInEBEE) Zmass_histo[variableIdx][4][regionIdx]->Fill(mZ,w);  
+	Zpt_histo[variableIdx]->Fill(ptZ,w);
+	Zmass_histo[variableIdx][0]->Fill(mZ,w);
+	if (isInEBEB) Zmass_histo[variableIdx][1]->Fill(mZ,w); 
+	if (isInEEEE) Zmass_histo[variableIdx][2]->Fill(mZ,w);  
+	if (isInEBEE) Zmass_histo[variableIdx][3]->Fill(mZ,w);  
+	if (isInEEEE || isInEBEE) Zmass_histo[variableIdx][4]->Fill(mZ,w);  
 }
 // ******************************************************************************************
 
@@ -967,6 +1026,7 @@ void makePlots_multiLeptonMultiJet::Loop(){
 	Long64_t nentries = fChain->GetEntries();
 	cout << "nentries = " << nentries << endl;
 
+
 	// for (Long64_t i=0; i<300; i+=1) {
 	for (Long64_t i=0; i<nentries; i+=1) {
 		Long64_t ientry = LoadTree(i);
@@ -978,26 +1038,6 @@ void makePlots_multiLeptonMultiJet::Loop(){
 			std::cerr << "Failed to read Tree entry " << i << "!\n";
 			continue;
 		}
-
-
-	// --Trigger
-		bool passTrigger = 0;
-
-		if (passEEJJhlt) nEventsPassingEEJJhlt++;
-		if (passMMJJhlt) nEventsPassingMMJJhlt++;
-		if (passEMJJhlt) nEventsPassingEMJJhlt++;
-		if (passTandPEEhlt) nEventsPassingTandPEEhlt++;
-		if (passTandPMMhlt) nEventsPassingTandPMMhlt++;
-
-		if (signalEE) passTrigger = passEEJJhlt;   
-		if (signalMuMu) passTrigger = passMMJJhlt;
-		if (eMuSideband) passTrigger = passEMJJhlt;
-		if (TnPEE) passTrigger = passTandPEEhlt;
-		if (TnPMM) passTrigger = passTandPMMhlt;
-
-		if (!passTrigger) continue;  //se evento non passa il trigger passo a quello successivo
-		nEventsPassingTrigger++;
-
 
 
 	// --Collections
@@ -1059,14 +1099,9 @@ void makePlots_multiLeptonMultiJet::Loop(){
 		if ( !(nSubLeadingJets == nMultiLeptonMultiJets) ) cout << "nSubLeadingJets != nMultiLeptonMultiJets" << endl;
 
 
-		w = weight;
-		// cout << "weight = " << w << endl;
-
+		w = weight / nToDivideWeight;
+		// cout << "weight = " << weight << ", nToDivideWeight = " << nToDivideWeight << " -> w = " << w << endl;
 		// w = weight * nentries / nTotEvt;
-
-		// w = weight / 2.; //per DY-50
-		// w = weight / 3.; //per DY-100, DY-250, DY-400, DY650
-
 
 
 	// --vtx
@@ -1082,38 +1117,36 @@ void makePlots_multiLeptonMultiJet::Loop(){
 
 	// --definizione tagli
 		float ptMinLepton = 53;
-		if (TnPEE || TnPMM) ptMinLepton = 28;
+		if (TnPEE || TnPMuMu) ptMinLepton = 28;
 
 
 	// --electrons
 		for (unsigned short j(0); j < nElectrons; j++){
-			if (TnPEE || TnPMM) doEleDistributionsPlots(electrons,j,8,1);
-			else doEleDistributionsPlots(electrons,j,8,0);
-
-			int eleIdx = 4;
-			doElePlots(electrons,j,eleIdx,0);
-			if ( isInEB(electrons[j].v.Eta()) ) doElePlots(electrons,j,eleIdx,1);
-			if ( isInEE(electrons[j].v.Eta()) ) doElePlots(electrons,j,eleIdx,2);
-
+			doEleDistributionsPlots(electrons,j,8,0);
+			if (saveHEEPvariables_) {
+				int eleIdx = 4;
+				doElePlots(electrons,j,eleIdx,0);
+				if ( isInEB(electrons[j].v.Eta()) ) doElePlots(electrons,j,eleIdx,1);
+				if ( isInEE(electrons[j].v.Eta()) ) doElePlots(electrons,j,eleIdx,2);
+			}
 			if (fabs(electrons[j].v.Eta()) < 2.4 && electrons[j].v.Pt() > ptMinLepton && electrons[j].passHEEPId) goodElectrons.push_back(electrons[j]);
 		}
 
 		for (unsigned short j(0); j < goodElectrons.size(); j++){
-			if (TnPEE || TnPMM) doEleDistributionsPlots(electrons,j,9,1);
-			else doEleDistributionsPlots(electrons,j,9,0);
-
-			int goodEleIdx = 5;
-			doElePlots(goodElectrons,j,goodEleIdx,0);
-			if ( isInEB(goodElectrons[j].v.Eta()) ) doElePlots(goodElectrons,j,goodEleIdx,1);
-			if ( isInEE(goodElectrons[j].v.Eta()) ) doElePlots(goodElectrons,j,goodEleIdx,2);
+			doEleDistributionsPlots(electrons,j,9,0);
+			if (saveHEEPvariables_) {
+				int goodEleIdx = 5;
+				doElePlots(goodElectrons,j,goodEleIdx,0);
+				if ( isInEB(goodElectrons[j].v.Eta()) ) doElePlots(goodElectrons,j,goodEleIdx,1);
+				if ( isInEE(goodElectrons[j].v.Eta()) ) doElePlots(goodElectrons,j,goodEleIdx,2);
+			}
 		}
-
+		// cout << "arriva a linea " << __LINE__ << endl;
 
 	// --muons
 		for (unsigned short i(0); i < nMuons; i++){
-			if (TnPEE || TnPMM) doMuonDistributionsPlots(muons,i,10,1);
-			else doMuonDistributionsPlots(muons,i,10,0);
-			muon_dxy_histo->Fill( mu_dxy->at(i) );
+			doMuonDistributionsPlots(muons,i,10,0);
+			// muon_dxy_histo->Fill( mu_dxy->at(i) );
 
 			if (fabs(muons[i].v.Eta()) < 2.4 && muons[i].v.Pt() > ptMinLepton && muons[i].isHighPt) {
 				goodMuons.push_back(muons[i]);
@@ -1122,34 +1155,28 @@ void makePlots_multiLeptonMultiJet::Loop(){
 		}
 
 		for (unsigned short i(0); i < goodMuons.size(); i++){
-			if (TnPEE || TnPMM) doMuonDistributionsPlots(goodMuons,i,11,1);
-			else doMuonDistributionsPlots(goodMuons,i,11,0);
+			doMuonDistributionsPlots(goodMuons,i,11,0);
 		}
 
 		for (unsigned short i(0); i < nMuonsRochCor; i++){
-			if (TnPEE || TnPMM) doMuonDistributionsPlots(muonsRochCorr,i,14,1);
-			else doMuonDistributionsPlots(muonsRochCorr,i,14,0);
+			doMuonDistributionsPlots(muonsRochCorr,i,14,0);
 		}
 
 		for (unsigned short i(0); i < goodMuonsRochCorr.size(); i++){
-			if (TnPEE || TnPMM) doMuonDistributionsPlots(goodMuonsRochCorr,i,15,1);
-			else doMuonDistributionsPlots(goodMuonsRochCorr,i,15,0);
+			doMuonDistributionsPlots(goodMuonsRochCorr,i,15,0);
 		}
-
+		// cout << "arriva a linea " << __LINE__ << endl;
 
 	// --jets
 		for (unsigned short l(0); l < nJets; l++){
-			if (TnPEE || TnPMM) doJetsDistributionsPlots(jets,l,12,1);
-			else doJetsDistributionsPlots(jets,l,12,0);
-
+			doJetsDistributionsPlots(jets,l,12,0);
 			if (fabs(jets[l].v.Eta()) < 2.4 && jets[l].v.Pt() > 40 && jets[l].isTight) goodJets.push_back(jets[l]);
 		}
 
 		for (unsigned short l(0); l < goodJets.size(); l++){
-			if (TnPEE || TnPMM) doJetsDistributionsPlots(goodJets,l,13,1);
-			else doJetsDistributionsPlots(jets,l,13,0);
+			doJetsDistributionsPlots(jets,l,13,0);
 		}
-
+		// cout << "arriva a linea " << __LINE__ << endl;	
 
 		float ptMinLooseLlepton = 30;
 		float ptMinLooseSLlepton = 28;
@@ -1162,56 +1189,47 @@ void makePlots_multiLeptonMultiJet::Loop(){
 			ptMinLooseSLlepton = 53;
 		}
 
-	// --Z using electrons
-		if (TnPEE || signalEE) {   
-			if (nElectrons < 2) continue;
-			unsigned int lIdx=0, slIdx=1; //sono ordinati in ordine decrescente in pt
 
-			if (electrons[lIdx].v.Pt() < ptMinLooseLlepton || electrons[lIdx].v.Pt() < ptMinLooseSLlepton) continue; 
-			nEventsWith2elePassingLoosePreselections++;
+		if ( !eMuSideband ) {   
+			// --Z using electrons
+			if (nElectrons > 2) {
+				unsigned int lIdx=0, slIdx=1; //sono ordinati in ordine decrescente in pt
+				if (electrons[lIdx].v.Pt() > ptMinLooseLlepton && electrons[lIdx].v.Pt() > ptMinLooseSLlepton) {
+					nEventsWith2elePassingLoosePreselections++;
+					if (electrons[lIdx].charge * electrons[slIdx].charge < 0) {
+						nEventsWith2elePassingLoosePreselectionsAndCharge++;	
+						if (electrons[lIdx].passHEEPId && electrons[slIdx].passHEEPId) {  
+							nEventsWith2elePassingLoosePreselectionsAndChargeAndHeepId++;
+							TLorentzVector lEle, slEle;
+							lEle.SetPtEtaPhiE(electrons[lIdx].v.Pt(), electrons[lIdx].v.Eta(), electrons[lIdx].v.Phi(), electrons[lIdx].v.E());
+							slEle.SetPtEtaPhiE(electrons[slIdx].v.Pt(), electrons[slIdx].v.Eta(), electrons[slIdx].v.Phi(), electrons[slIdx].v.E());
+							int singleEleIdx = 0;
+							doZPlots(lEle, slEle, singleEleIdx);
+						}
+					}
+				}
+			}
 
-			if (electrons[lIdx].charge * electrons[slIdx].charge < 0) {
-				nEventsWith2elePassingLoosePreselectionsAndCharge++;	
-
-				if (electrons[lIdx].passHEEPId && electrons[slIdx].passHEEPId) {  
-					nEventsWith2elePassingLoosePreselectionsAndChargeAndHeepId++;
-
-					TLorentzVector lEle, slEle;
-					lEle.SetPtEtaPhiE(electrons[lIdx].v.Pt(), electrons[lIdx].v.Eta(), electrons[lIdx].v.Phi(), electrons[lIdx].v.E());
-					slEle.SetPtEtaPhiE(electrons[slIdx].v.Pt(), electrons[slIdx].v.Eta(), electrons[slIdx].v.Phi(), electrons[slIdx].v.E());
-
-					int singleEleIdx = 0;
-					if (signalEE) doZPlots(lEle, slEle, singleEleIdx, 0);
-					if (TnPEE) doZPlots(lEle, slEle, singleEleIdx, 1);
+			// --Z using muons
+			if (nMuons > 2) {
+				unsigned int lIdx=0, slIdx=1; //sono ordinati in ordine decrescente in pt
+				if (muons[lIdx].v.Pt() > ptMinLooseLlepton && muons[lIdx].v.Pt() > ptMinLooseSLlepton) {
+					nEventsWith2muonsPassingLoosePreselections++;
+					if (muons[lIdx].charge * muons[slIdx].charge < 0) {
+						nEventsWith2muonsPassingLoosePreselectionsAndCharge++;	
+						if (muons[lIdx].isHighPt && muons[slIdx].isHighPt) {  
+							nEventsWith2muonsPassingLoosePreselectionsAndChargeAndHighPt++;
+							TLorentzVector lMuon, slMuon;
+							lMuon.SetPtEtaPhiE(muons[lIdx].v.Pt(), muons[lIdx].v.Eta(), muons[lIdx].v.Phi(), muons[lIdx].v.E());
+							slMuon.SetPtEtaPhiE(muons[slIdx].v.Pt(), muons[slIdx].v.Eta(), muons[slIdx].v.Phi(), muons[slIdx].v.E());
+							int singleMuonIdx = 1;
+							doZPlots(lMuon, slMuon, singleMuonIdx);
+						}
+					}
 				}
 			}
 		}
-
-	// --Z using muons
-		if (TnPMM || signalMuMu) {   
-			if (nMuons < 2) continue;
-			unsigned int lIdx=0, slIdx=1; //sono ordinati in ordine decrescente in pt
-
-			if (muons[lIdx].v.Pt() < ptMinLooseLlepton || muons[lIdx].v.Pt() < ptMinLooseSLlepton) continue; 
-			nEventsWith2muonsPassingLoosePreselections++;
-
-			if (muons[lIdx].charge * muons[slIdx].charge < 0) {
-				nEventsWith2muonsPassingLoosePreselectionsAndCharge++;	
-
-				if (muons[lIdx].isHighPt && muons[slIdx].isHighPt) {  
-					nEventsWith2muonsPassingLoosePreselectionsAndChargeAndHighPt++;
-
-					TLorentzVector lMuon, slMuon;
-					lMuon.SetPtEtaPhiE(muons[lIdx].v.Pt(), muons[lIdx].v.Eta(), muons[lIdx].v.Phi(), muons[lIdx].v.E());
-					slMuon.SetPtEtaPhiE(muons[slIdx].v.Pt(), muons[slIdx].v.Eta(), muons[slIdx].v.Phi(), muons[slIdx].v.E());
-
-					int singleMuonIdx = 1;
-					if (signalMuMu) doZPlots(lMuon, slMuon, singleMuonIdx, 0);
-					if (TnPMM) doZPlots(lMuon, slMuon, singleMuonIdx, 1);
-				}
-			}
-		}
-
+		// cout << "arriva a linea " << __LINE__ << endl;
 
 
 
@@ -1237,9 +1255,11 @@ void makePlots_multiLeptonMultiJet::Loop(){
 
 		//select right lepton pair
 		if ( (signalEE || TnPEE) && (!(multiLeptonMultiJets[idxDLDJ].isEEJJ)) ) continue;
-		if ( (signalMuMu || TnPMM) && (!(multiLeptonMultiJets[idxDLDJ].isMMJJ)) ) continue;
+		if ( (signalMuMu || TnPMuMu) && (!(multiLeptonMultiJets[idxDLDJ].isMMJJ)) ) continue;
 		if ( eMuSideband && !(multiLeptonMultiJets[idxDLDJ].isEMJJ) ) continue;
 		nEventsWithRightLeptonPair++;
+
+
 
 
 		//Z->ee 
@@ -1249,61 +1269,69 @@ void makePlots_multiLeptonMultiJet::Loop(){
 				nEventsWithEEJJpassingLoosePreselectionsAndCharge++;		
 				if (leadingElectrons[idxDLDJ].passHEEPId && subLeadingElectrons[idxDLDJ].passHEEPId) {
 					nEventsWithEEJJpassingLoosePreselectionsAndChargeAndHEEPId++;
-
 					int mlmjEleIdx = 2;
-					if (signalEE) doZPlots(multiLeptonMultiJets,idxDLDJ,mlmjEleIdx,0);
-					if (TnPEE) doZPlots(multiLeptonMultiJets,idxDLDJ,mlmjEleIdx,1);
+					doZPlots(multiLeptonMultiJets,idxDLDJ,mlmjEleIdx);
 				}
 			}
 		}
 		
 		//Z->mumu
-		if (TnPMM || (signalMuMu && leadingMuons[idxDLDJ].v.Pt() > 55 && subLeadingMuons[idxDLDJ].v.Pt() > 53) ) {   
-
+		if (TnPMuMu || (signalMuMu && leadingMuons[idxDLDJ].v.Pt() > 55 && subLeadingMuons[idxDLDJ].v.Pt() > 53) ) {   
 			nEventsWithMMJJpassingLoosePreselections++; //=nEventsWithRightLeptonPair
 			if (leadingMuons[idxDLDJ].charge * subLeadingMuons[idxDLDJ].charge < 0 ) { 
 				nEventsWithMMJJpassingLoosePreselectionsAndCharge++;
 				if (leadingMuons[idxDLDJ].isHighPt && subLeadingMuons[idxDLDJ].isHighPt) {
 					nEventsWithMMJJpassingLoosePreselectionsAndChargeAndHighPt++;
-
 					int mlmjMuonIdx = 3;
-					if (signalMuMu) doZPlots(multiLeptonMultiJets,idxDLDJ,mlmjMuonIdx,0);
-					if (TnPMM) doZPlots(multiLeptonMultiJets,idxDLDJ,mlmjMuonIdx,1);
+					doZPlots(multiLeptonMultiJets,idxDLDJ,mlmjMuonIdx);
 				}
 			}
 		}
 
 
+
+
 		int LleptonIdx=0, SLleptonIdx=1, LeleIdx=2, SLeleIdx=3, LmuIdx=4, SLmuIdx=5, LjetIdx=6, SLjetIdx=7;
 
-		if (TnPEE || TnPMM) {	
+		if (TnPEE || TnPMuMu) {	
 			// --leadingEle
 			if (multiLeptonMultiJets[idxDLDJ].isEEJJ || multiLeptonMultiJets[idxDLDJ].isEMJJ) {			
-	 			doEleDistributionsPlots(leadingElectrons,idxDLDJ,LleptonIdx,4); 
-				doEleDistributionsPlots(leadingElectrons,idxDLDJ,LeleIdx,4);
+				doEleDistributionsPlots(leadingElectrons,idxDLDJ,LleptonIdx,0); 
+				doEleDistributionsPlots(leadingElectrons,idxDLDJ,LeleIdx,0);
 			}
 
 			// --subLeadingEle
 			if (multiLeptonMultiJets[idxDLDJ].isEEJJ) {
-	 			doEleDistributionsPlots(subLeadingElectrons,idxDLDJ,SLleptonIdx,4); 
-				doEleDistributionsPlots(subLeadingElectrons,idxDLDJ,SLeleIdx,4);
+				doEleDistributionsPlots(subLeadingElectrons,idxDLDJ,SLleptonIdx,0); 
+				doEleDistributionsPlots(subLeadingElectrons,idxDLDJ,SLeleIdx,0);
 			}
 
 			// --leadingMuon
 			if (multiLeptonMultiJets[idxDLDJ].isMMJJ || multiLeptonMultiJets[idxDLDJ].isEMJJ) {
-	 			doMuonDistributionsPlots(leadingMuons,idxDLDJ,LleptonIdx,4); 
-				doMuonDistributionsPlots(leadingMuons,idxDLDJ,LmuIdx,4);
+				doMuonDistributionsPlots(leadingMuons,idxDLDJ,LleptonIdx,0); 
+				doMuonDistributionsPlots(leadingMuons,idxDLDJ,LmuIdx,0);
 			}
 
 			// --subLeadingMuon
 			if (multiLeptonMultiJets[idxDLDJ].isMMJJ) {
-	 			doMuonDistributionsPlots(subLeadingMuons,idxDLDJ,SLleptonIdx,4); 
-				doMuonDistributionsPlots(subLeadingMuons,idxDLDJ,SLmuIdx,4);
+				doMuonDistributionsPlots(subLeadingMuons,idxDLDJ,SLleptonIdx,0); 
+				doMuonDistributionsPlots(subLeadingMuons,idxDLDJ,SLmuIdx,0);
 			}
 
 			// --leadingJet & subLeadingJet
-			doJetsDistributionsPlots(leadingJets,idxDLDJ,LjetIdx,4);		
-			doJetsDistributionsPlots(subLeadingJets,idxDLDJ,SLjetIdx,4);
+			doJetsDistributionsPlots(leadingJets,idxDLDJ,LjetIdx,0);		
+			doJetsDistributionsPlots(subLeadingJets,idxDLDJ,SLjetIdx,0);
+
+			// --MLMJ mass 
+			bool isInEBEB = inEBEB(leadingLepton_eta->at(idxDLDJ), subLeadingLepton_eta->at(idxDLDJ));  
+			bool isInEEEE = inEEEE(leadingLepton_eta->at(idxDLDJ), subLeadingLepton_eta->at(idxDLDJ));
+			bool isInEBEE = inEBEE(leadingLepton_eta->at(idxDLDJ), subLeadingLepton_eta->at(idxDLDJ)); 		
+
+			doMassPlots(multiLeptonMultiJets,idxDLDJ,0,0);
+			if (isInEBEB) doMassPlots(multiLeptonMultiJets,idxDLDJ,0,1);
+			if (isInEEEE) doMassPlots(multiLeptonMultiJets,idxDLDJ,0,2);
+			if (isInEBEE) doMassPlots(multiLeptonMultiJets,idxDLDJ,0,3);
+			if (isInEEEE || isInEBEE) doMassPlots(multiLeptonMultiJets,idxDLDJ,0,4);
 		}
 
 
@@ -1314,87 +1342,89 @@ void makePlots_multiLeptonMultiJet::Loop(){
 		// --leadingEle
 		if (multiLeptonMultiJets[idxDLDJ].isEEJJ || multiLeptonMultiJets[idxDLDJ].isEMJJ) {
 			nLeadingElePassingPreselections++;
-			int leadingEleIdx = 0;
-			doElePlots(leadingElectrons,idxDLDJ,leadingEleIdx,0);
-			if ( isInEB(leadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(leadingElectrons,idxDLDJ,leadingEleIdx,1);
-			if ( isInEE(leadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(leadingElectrons,idxDLDJ,leadingEleIdx,2);
-
-			if ( leadingElectrons[idxDLDJ].isEcalDriven ) nLeadingElePassingIsEcalDriven++;
-			if ( fabs(leadingElectrons[idxDLDJ].dEtaIn)<0.004 ) nLeadingElePassingdEtaIn++;
-			if ( fabs(leadingElectrons[idxDLDJ].dPhiIn)<0.006 ) nLeadingElePassingdPhiIn++;
-			if ( (leadingElectrons[idxDLDJ].e2x5/leadingElectrons[idxDLDJ].e5x5) > 0.94 || (leadingElectrons[idxDLDJ].e1x5/leadingElectrons[idxDLDJ].e5x5) > 0.83 ) nLeadingElePassingE2x5OverE5x5++;
-			if ( leadingElectrons[idxDLDJ].EmHadDepth1Iso<(0.28*rho + 2 + 0.03*leadingElectrons[idxDLDJ].v.Pt()) ) nLeadingElePassingEmHadDepth1Iso++;
-			if ( leadingElectrons[idxDLDJ].missingHits <=1 ) nLeadingElePassingMissingHits++;
-			if ( fabs(leadingElectrons[idxDLDJ].dxy)<0.02 ) nLeadingElePassingDxy++;
-			if ( leadingElectrons[idxDLDJ].passHEEPId ) nLeadingElePassingHeepId++;
-
-			if ( fabs(leadingElectrons[idxDLDJ].etaSC)<1.4442 ) {
-				nLeadingElePassingPreselectionsInEB++;
-				if ( leadingElectrons[idxDLDJ].isEcalDriven ) nLeadingEleInEBPassingIsEcalDriven++;
-				if ( fabs(leadingElectrons[idxDLDJ].dEtaIn)<0.004 ) nLeadingEleInEBPassingdEtaIn++;
-				if ( fabs(leadingElectrons[idxDLDJ].dPhiIn)<0.006 ) nLeadingEleInEBPassingdPhiIn++;
-				if ( (leadingElectrons[idxDLDJ].e2x5/leadingElectrons[idxDLDJ].e5x5) > 0.94 || (leadingElectrons[idxDLDJ].e1x5/leadingElectrons[idxDLDJ].e5x5) > 0.83 ) nLeadingEleInEBPassingE2x5OverE5x5++;
-				if ( leadingElectrons[idxDLDJ].EmHadDepth1Iso<(0.28*rho + 2 + 0.03*leadingElectrons[idxDLDJ].v.Pt()) ) nLeadingEleInEBPassingEmHadDepth1Iso++;
-				if ( leadingElectrons[idxDLDJ].missingHits <=1 ) nLeadingEleInEBPassingMissingHits++;
-				if ( fabs(leadingElectrons[idxDLDJ].dxy)<0.02 ) nLeadingEleInEBPassingDxy++;
-				if ( leadingElectrons[idxDLDJ].passHEEPId ) nLeadingElePassingHeepIdInEB++;
+			if (saveHEEPvariables_) {
+				int leadingEleIdx = 0;
+				doElePlots(leadingElectrons,idxDLDJ,leadingEleIdx,0);
+				if ( isInEB(leadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(leadingElectrons,idxDLDJ,leadingEleIdx,1);
+				if ( isInEE(leadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(leadingElectrons,idxDLDJ,leadingEleIdx,2);
 			}
+			// if ( leadingElectrons[idxDLDJ].isEcalDriven ) nLeadingElePassingIsEcalDriven++;
+			// if ( fabs(leadingElectrons[idxDLDJ].dEtaIn)<0.004 ) nLeadingElePassingdEtaIn++;
+			// if ( fabs(leadingElectrons[idxDLDJ].dPhiIn)<0.006 ) nLeadingElePassingdPhiIn++;
+			// if ( (leadingElectrons[idxDLDJ].e2x5/leadingElectrons[idxDLDJ].e5x5) > 0.94 || (leadingElectrons[idxDLDJ].e1x5/leadingElectrons[idxDLDJ].e5x5) > 0.83 ) nLeadingElePassingE2x5OverE5x5++;
+			// if ( leadingElectrons[idxDLDJ].EmHadDepth1Iso<(0.28*rho + 2 + 0.03*leadingElectrons[idxDLDJ].v.Pt()) ) nLeadingElePassingEmHadDepth1Iso++;
+			// if ( leadingElectrons[idxDLDJ].missingHits <=1 ) nLeadingElePassingMissingHits++;
+			// if ( fabs(leadingElectrons[idxDLDJ].dxy)<0.02 ) nLeadingElePassingDxy++;
+			// if ( leadingElectrons[idxDLDJ].passHEEPId ) nLeadingElePassingHeepId++;
 
-			if ( fabs(leadingElectrons[idxDLDJ].etaSC)>1.556 && fabs(leadingElectrons[idxDLDJ].etaSC)<2.5 ) {
-				nLeadingElePassingPreselectionsInEE++;
-				if ( leadingElectrons[idxDLDJ].isEcalDriven ) nLeadingEleInEEPassingIsEcalDriven++;
-				if ( fabs(leadingElectrons[idxDLDJ].dEtaIn)<0.004 ) nLeadingEleInEEPassingdEtaIn++;
-				if ( fabs(leadingElectrons[idxDLDJ].dPhiIn)<0.006 ) nLeadingEleInEEPassingdPhiIn++;
-				if ( (leadingElectrons[idxDLDJ].e2x5/leadingElectrons[idxDLDJ].e5x5) > 0.94 || (leadingElectrons[idxDLDJ].e1x5/leadingElectrons[idxDLDJ].e5x5) > 0.83 ) nLeadingEleInEEPassingE2x5OverE5x5++;
-				if ( leadingElectrons[idxDLDJ].EmHadDepth1Iso<(0.28*rho + 2 + 0.03*leadingElectrons[idxDLDJ].v.Pt()) ) nLeadingEleInEEPassingEmHadDepth1Iso++;
-				if ( leadingElectrons[idxDLDJ].missingHits <=1 ) nLeadingEleInEEPassingMissingHits++;
-				if ( fabs(leadingElectrons[idxDLDJ].dxy)<0.02 ) nLeadingEleInEEPassingDxy++;
-				if ( leadingElectrons[idxDLDJ].passHEEPId ) nLeadingElePassingHeepIdInEE++;
-			}
+			// if ( fabs(leadingElectrons[idxDLDJ].etaSC)<1.4442 ) {
+			// 	nLeadingElePassingPreselectionsInEB++;
+			// 	if ( leadingElectrons[idxDLDJ].isEcalDriven ) nLeadingEleInEBPassingIsEcalDriven++;
+			// 	if ( fabs(leadingElectrons[idxDLDJ].dEtaIn)<0.004 ) nLeadingEleInEBPassingdEtaIn++;
+			// 	if ( fabs(leadingElectrons[idxDLDJ].dPhiIn)<0.006 ) nLeadingEleInEBPassingdPhiIn++;
+			// 	if ( (leadingElectrons[idxDLDJ].e2x5/leadingElectrons[idxDLDJ].e5x5) > 0.94 || (leadingElectrons[idxDLDJ].e1x5/leadingElectrons[idxDLDJ].e5x5) > 0.83 ) nLeadingEleInEBPassingE2x5OverE5x5++;
+			// 	if ( leadingElectrons[idxDLDJ].EmHadDepth1Iso<(0.28*rho + 2 + 0.03*leadingElectrons[idxDLDJ].v.Pt()) ) nLeadingEleInEBPassingEmHadDepth1Iso++;
+			// 	if ( leadingElectrons[idxDLDJ].missingHits <=1 ) nLeadingEleInEBPassingMissingHits++;
+			// 	if ( fabs(leadingElectrons[idxDLDJ].dxy)<0.02 ) nLeadingEleInEBPassingDxy++;
+			// 	if ( leadingElectrons[idxDLDJ].passHEEPId ) nLeadingElePassingHeepIdInEB++;
+			// }
+
+			// if ( fabs(leadingElectrons[idxDLDJ].etaSC)>1.556 && fabs(leadingElectrons[idxDLDJ].etaSC)<2.5 ) {
+			// 	nLeadingElePassingPreselectionsInEE++;
+			// 	if ( leadingElectrons[idxDLDJ].isEcalDriven ) nLeadingEleInEEPassingIsEcalDriven++;
+			// 	if ( fabs(leadingElectrons[idxDLDJ].dEtaIn)<0.004 ) nLeadingEleInEEPassingdEtaIn++;
+			// 	if ( fabs(leadingElectrons[idxDLDJ].dPhiIn)<0.006 ) nLeadingEleInEEPassingdPhiIn++;
+			// 	if ( (leadingElectrons[idxDLDJ].e2x5/leadingElectrons[idxDLDJ].e5x5) > 0.94 || (leadingElectrons[idxDLDJ].e1x5/leadingElectrons[idxDLDJ].e5x5) > 0.83 ) nLeadingEleInEEPassingE2x5OverE5x5++;
+			// 	if ( leadingElectrons[idxDLDJ].EmHadDepth1Iso<(0.28*rho + 2 + 0.03*leadingElectrons[idxDLDJ].v.Pt()) ) nLeadingEleInEEPassingEmHadDepth1Iso++;
+			// 	if ( leadingElectrons[idxDLDJ].missingHits <=1 ) nLeadingEleInEEPassingMissingHits++;
+			// 	if ( fabs(leadingElectrons[idxDLDJ].dxy)<0.02 ) nLeadingEleInEEPassingDxy++;
+			// 	if ( leadingElectrons[idxDLDJ].passHEEPId ) nLeadingElePassingHeepIdInEE++;
+			// }
 		}
 
 
 		// --subLeadingEle
 		if (multiLeptonMultiJets[idxDLDJ].isEEJJ) {
 			nSubLeadingElePassingPreselections++;
-			int subLeadingEleIdx = 1;
-			doElePlots(subLeadingElectrons,idxDLDJ,subLeadingEleIdx,0);
-			if ( isInEB(subLeadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(subLeadingElectrons,idxDLDJ,subLeadingEleIdx,1);
-			if ( isInEE(subLeadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(subLeadingElectrons,idxDLDJ,subLeadingEleIdx,2);
-
-			if ( subLeadingElectrons[idxDLDJ].isEcalDriven ) nSubLeadingElePassingIsEcalDriven++;
-			if ( fabs(subLeadingElectrons[idxDLDJ].dEtaIn)<0.004 ) nSubLeadingElePassingdEtaIn++;
-			if ( fabs(subLeadingElectrons[idxDLDJ].dPhiIn)<0.006 ) nSubLeadingElePassingdPhiIn++;
-			if ( (subLeadingElectrons[idxDLDJ].e2x5/subLeadingElectrons[idxDLDJ].e5x5) > 0.94 || (subLeadingElectrons[idxDLDJ].e1x5/subLeadingElectrons[idxDLDJ].e5x5) > 0.83 ) nSubLeadingElePassingE2x5OverE5x5++;
-			if ( subLeadingElectrons[idxDLDJ].EmHadDepth1Iso<(0.28*rho + 2 + 0.03*subLeadingElectrons[idxDLDJ].v.Pt()) ) nSubLeadingElePassingEmHadDepth1Iso++;
-			if ( subLeadingElectrons[idxDLDJ].missingHits <=1 ) nSubLeadingElePassingMissingHits++;
-			if ( fabs(subLeadingElectrons[idxDLDJ].dxy)<0.02 ) nSubLeadingElePassingDxy++;
-			if ( subLeadingElectrons[idxDLDJ].passHEEPId ) nSubLeadingElePassingHeepId++;
-
-
-			if ( fabs(subLeadingElectrons[idxDLDJ].etaSC)<1.4442 ) {
-				nSubLeadingElePassingPreselectionsInEB++;
-				if ( subLeadingElectrons[idxDLDJ].isEcalDriven ) nSubLeadingEleInEBPassingIsEcalDriven++;
-				if ( fabs(subLeadingElectrons[idxDLDJ].dEtaIn)<0.004 ) nSubLeadingEleInEBPassingdEtaIn++;
-				if ( fabs(subLeadingElectrons[idxDLDJ].dPhiIn)<0.006 ) nSubLeadingEleInEBPassingdPhiIn++;
-				if ( (subLeadingElectrons[idxDLDJ].e2x5/subLeadingElectrons[idxDLDJ].e5x5) > 0.94 || (subLeadingElectrons[idxDLDJ].e1x5/subLeadingElectrons[idxDLDJ].e5x5) > 0.83 ) nSubLeadingEleInEBPassingE2x5OverE5x5++;
-				if ( subLeadingElectrons[idxDLDJ].EmHadDepth1Iso<(0.28*rho + 2 + 0.03*subLeadingElectrons[idxDLDJ].v.Pt()) ) nSubLeadingEleInEBPassingEmHadDepth1Iso++;
-				if ( subLeadingElectrons[idxDLDJ].missingHits <=1 ) nSubLeadingEleInEBPassingMissingHits++;
-				if ( fabs(subLeadingElectrons[idxDLDJ].dxy)<0.02 ) nSubLeadingEleInEBPassingDxy++;
-				if ( subLeadingElectrons[idxDLDJ].passHEEPId ) nSubLeadingElePassingHeepIdInEB++;
+			if (saveHEEPvariables_) {
+				int subLeadingEleIdx = 1;
+				doElePlots(subLeadingElectrons,idxDLDJ,subLeadingEleIdx,0);
+				if ( isInEB(subLeadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(subLeadingElectrons,idxDLDJ,subLeadingEleIdx,1);
+				if ( isInEE(subLeadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(subLeadingElectrons,idxDLDJ,subLeadingEleIdx,2);
 			}
+			// if ( subLeadingElectrons[idxDLDJ].isEcalDriven ) nSubLeadingElePassingIsEcalDriven++;
+			// if ( fabs(subLeadingElectrons[idxDLDJ].dEtaIn)<0.004 ) nSubLeadingElePassingdEtaIn++;
+			// if ( fabs(subLeadingElectrons[idxDLDJ].dPhiIn)<0.006 ) nSubLeadingElePassingdPhiIn++;
+			// if ( (subLeadingElectrons[idxDLDJ].e2x5/subLeadingElectrons[idxDLDJ].e5x5) > 0.94 || (subLeadingElectrons[idxDLDJ].e1x5/subLeadingElectrons[idxDLDJ].e5x5) > 0.83 ) nSubLeadingElePassingE2x5OverE5x5++;
+			// if ( subLeadingElectrons[idxDLDJ].EmHadDepth1Iso<(0.28*rho + 2 + 0.03*subLeadingElectrons[idxDLDJ].v.Pt()) ) nSubLeadingElePassingEmHadDepth1Iso++;
+			// if ( subLeadingElectrons[idxDLDJ].missingHits <=1 ) nSubLeadingElePassingMissingHits++;
+			// if ( fabs(subLeadingElectrons[idxDLDJ].dxy)<0.02 ) nSubLeadingElePassingDxy++;
+			// if ( subLeadingElectrons[idxDLDJ].passHEEPId ) nSubLeadingElePassingHeepId++;
 
-			if ( fabs(subLeadingElectrons[idxDLDJ].etaSC)>1.556 && fabs(subLeadingElectrons[idxDLDJ].etaSC)<2.5 ) {
-				nSubLeadingElePassingPreselectionsInEE++;
-				if ( subLeadingElectrons[idxDLDJ].isEcalDriven ) nSubLeadingEleInEEPassingIsEcalDriven++;
-				if ( fabs(subLeadingElectrons[idxDLDJ].dEtaIn)<0.004 ) nSubLeadingEleInEEPassingdEtaIn++;
-				if ( fabs(subLeadingElectrons[idxDLDJ].dPhiIn)<0.006 ) nSubLeadingEleInEEPassingdPhiIn++;
-				if ( (subLeadingElectrons[idxDLDJ].e2x5/subLeadingElectrons[idxDLDJ].e5x5) > 0.94 || (subLeadingElectrons[idxDLDJ].e1x5/subLeadingElectrons[idxDLDJ].e5x5) > 0.83 ) nSubLeadingEleInEEPassingE2x5OverE5x5++;
-				if ( subLeadingElectrons[idxDLDJ].EmHadDepth1Iso<(0.28*rho + 2 + 0.03*subLeadingElectrons[idxDLDJ].v.Pt()) ) nSubLeadingEleInEEPassingEmHadDepth1Iso++;
-				if ( subLeadingElectrons[idxDLDJ].missingHits <=1 ) nSubLeadingEleInEEPassingMissingHits++;
-				if ( fabs(subLeadingElectrons[idxDLDJ].dxy)<0.02 ) nSubLeadingEleInEEPassingDxy++;
-				if ( subLeadingElectrons[idxDLDJ].passHEEPId ) nSubLeadingElePassingHeepIdInEE++;
-			}
+
+			// if ( fabs(subLeadingElectrons[idxDLDJ].etaSC)<1.4442 ) {
+			// 	nSubLeadingElePassingPreselectionsInEB++;
+			// 	if ( subLeadingElectrons[idxDLDJ].isEcalDriven ) nSubLeadingEleInEBPassingIsEcalDriven++;
+			// 	if ( fabs(subLeadingElectrons[idxDLDJ].dEtaIn)<0.004 ) nSubLeadingEleInEBPassingdEtaIn++;
+			// 	if ( fabs(subLeadingElectrons[idxDLDJ].dPhiIn)<0.006 ) nSubLeadingEleInEBPassingdPhiIn++;
+			// 	if ( (subLeadingElectrons[idxDLDJ].e2x5/subLeadingElectrons[idxDLDJ].e5x5) > 0.94 || (subLeadingElectrons[idxDLDJ].e1x5/subLeadingElectrons[idxDLDJ].e5x5) > 0.83 ) nSubLeadingEleInEBPassingE2x5OverE5x5++;
+			// 	if ( subLeadingElectrons[idxDLDJ].EmHadDepth1Iso<(0.28*rho + 2 + 0.03*subLeadingElectrons[idxDLDJ].v.Pt()) ) nSubLeadingEleInEBPassingEmHadDepth1Iso++;
+			// 	if ( subLeadingElectrons[idxDLDJ].missingHits <=1 ) nSubLeadingEleInEBPassingMissingHits++;
+			// 	if ( fabs(subLeadingElectrons[idxDLDJ].dxy)<0.02 ) nSubLeadingEleInEBPassingDxy++;
+			// 	if ( subLeadingElectrons[idxDLDJ].passHEEPId ) nSubLeadingElePassingHeepIdInEB++;
+			// }
+
+			// if ( fabs(subLeadingElectrons[idxDLDJ].etaSC)>1.556 && fabs(subLeadingElectrons[idxDLDJ].etaSC)<2.5 ) {
+			// 	nSubLeadingElePassingPreselectionsInEE++;
+			// 	if ( subLeadingElectrons[idxDLDJ].isEcalDriven ) nSubLeadingEleInEEPassingIsEcalDriven++;
+			// 	if ( fabs(subLeadingElectrons[idxDLDJ].dEtaIn)<0.004 ) nSubLeadingEleInEEPassingdEtaIn++;
+			// 	if ( fabs(subLeadingElectrons[idxDLDJ].dPhiIn)<0.006 ) nSubLeadingEleInEEPassingdPhiIn++;
+			// 	if ( (subLeadingElectrons[idxDLDJ].e2x5/subLeadingElectrons[idxDLDJ].e5x5) > 0.94 || (subLeadingElectrons[idxDLDJ].e1x5/subLeadingElectrons[idxDLDJ].e5x5) > 0.83 ) nSubLeadingEleInEEPassingE2x5OverE5x5++;
+			// 	if ( subLeadingElectrons[idxDLDJ].EmHadDepth1Iso<(0.28*rho + 2 + 0.03*subLeadingElectrons[idxDLDJ].v.Pt()) ) nSubLeadingEleInEEPassingEmHadDepth1Iso++;
+			// 	if ( subLeadingElectrons[idxDLDJ].missingHits <=1 ) nSubLeadingEleInEEPassingMissingHits++;
+			// 	if ( fabs(subLeadingElectrons[idxDLDJ].dxy)<0.02 ) nSubLeadingEleInEEPassingDxy++;
+			// 	if ( subLeadingElectrons[idxDLDJ].passHEEPId ) nSubLeadingElePassingHeepIdInEE++;
+			// }
 		}
 
 
@@ -1462,11 +1492,11 @@ void makePlots_multiLeptonMultiJet::Loop(){
 		}
 
 		if (flavourSidebandCR) {
-			doMassPlots(multiLeptonMultiJets,idxDLDJ,3,0);
-			if (isInEBEB) doMassPlots(multiLeptonMultiJets,idxDLDJ,3,1);
-			if (isInEEEE) doMassPlots(multiLeptonMultiJets,idxDLDJ,3,2);
-			if (isInEBEE) doMassPlots(multiLeptonMultiJets,idxDLDJ,3,3);
-			if (isInEEEE || isInEBEE) doMassPlots(multiLeptonMultiJets,idxDLDJ,3,4);
+			doMassPlots(multiLeptonMultiJets,idxDLDJ,0,0);
+			if (isInEBEB) doMassPlots(multiLeptonMultiJets,idxDLDJ,0,1);
+			if (isInEEEE) doMassPlots(multiLeptonMultiJets,idxDLDJ,0,2);
+			if (isInEBEE) doMassPlots(multiLeptonMultiJets,idxDLDJ,0,3);
+			if (isInEEEE || isInEBEE) doMassPlots(multiLeptonMultiJets,idxDLDJ,0,4);
 		}
 
 
@@ -1480,25 +1510,27 @@ void makePlots_multiLeptonMultiJet::Loop(){
 			nEventsWithLeadingElePassingSelections++;
 
 			if (signalRegion) {	
-	 			doEleDistributionsPlots(leadingElectrons,idxDLDJ,LleptonIdx,0); 
+				doEleDistributionsPlots(leadingElectrons,idxDLDJ,LleptonIdx,0); 
 				doEleDistributionsPlots(leadingElectrons,idxDLDJ,LeleIdx,0);
 			}
 			if (lowMlljjCR) {
-	 			doEleDistributionsPlots(leadingElectrons,idxDLDJ,LleptonIdx,1); 
+				doEleDistributionsPlots(leadingElectrons,idxDLDJ,LleptonIdx,1); 
 				doEleDistributionsPlots(leadingElectrons,idxDLDJ,LeleIdx,1);				
 			}
 			if (lowMllCR) {
-	 			doEleDistributionsPlots(leadingElectrons,idxDLDJ,LleptonIdx,2); 
+				doEleDistributionsPlots(leadingElectrons,idxDLDJ,LleptonIdx,2); 
 				doEleDistributionsPlots(leadingElectrons,idxDLDJ,LeleIdx,2);					
 			}
 			if (flavourSidebandCR) {
-	 			doEleDistributionsPlots(leadingElectrons,idxDLDJ,LleptonIdx,3); 
-				doEleDistributionsPlots(leadingElectrons,idxDLDJ,LeleIdx,3);					
+				doEleDistributionsPlots(leadingElectrons,idxDLDJ,LleptonIdx,0); 
+				doEleDistributionsPlots(leadingElectrons,idxDLDJ,LeleIdx,0);					
 			}
 
-			doElePlots(leadingElectrons,idxDLDJ,LeleIdx,0);
-			if ( isInEB(leadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(leadingElectrons,idxDLDJ,LeleIdx,1);
-			if ( isInEE(leadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(leadingElectrons,idxDLDJ,LeleIdx,2);	   
+			if (saveHEEPvariables_) {
+				doElePlots(leadingElectrons,idxDLDJ,LeleIdx,0);
+				if ( isInEB(leadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(leadingElectrons,idxDLDJ,LeleIdx,1);
+				if ( isInEE(leadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(leadingElectrons,idxDLDJ,LeleIdx,2);	   
+			}
 		}
 
 
@@ -1508,25 +1540,27 @@ void makePlots_multiLeptonMultiJet::Loop(){
 			nEventsWithSubLeadingElePassingSelections++;
 
 			if (signalRegion) {	
-	 			doEleDistributionsPlots(subLeadingElectrons,idxDLDJ,SLleptonIdx,0); 
+				doEleDistributionsPlots(subLeadingElectrons,idxDLDJ,SLleptonIdx,0); 
 				doEleDistributionsPlots(subLeadingElectrons,idxDLDJ,SLeleIdx,0);
 			}
 			if (lowMlljjCR) {
-	 			doEleDistributionsPlots(subLeadingElectrons,idxDLDJ,SLleptonIdx,1); 
+				doEleDistributionsPlots(subLeadingElectrons,idxDLDJ,SLleptonIdx,1); 
 				doEleDistributionsPlots(subLeadingElectrons,idxDLDJ,SLeleIdx,1);				
 			}
 			if (lowMllCR) {
-	 			doEleDistributionsPlots(subLeadingElectrons,idxDLDJ,SLleptonIdx,2); 
+				doEleDistributionsPlots(subLeadingElectrons,idxDLDJ,SLleptonIdx,2); 
 				doEleDistributionsPlots(subLeadingElectrons,idxDLDJ,SLeleIdx,2);					
 			}
 			if (flavourSidebandCR) {
-	 			doEleDistributionsPlots(subLeadingElectrons,idxDLDJ,SLleptonIdx,3); 
-				doEleDistributionsPlots(subLeadingElectrons,idxDLDJ,SLeleIdx,3);					
+				doEleDistributionsPlots(subLeadingElectrons,idxDLDJ,SLleptonIdx,0); 
+				doEleDistributionsPlots(subLeadingElectrons,idxDLDJ,SLeleIdx,0);					
 			}
 
-			doElePlots(subLeadingElectrons,idxDLDJ,SLeleIdx,0);
-			if ( isInEB(subLeadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(subLeadingElectrons,idxDLDJ,SLeleIdx,1);
-			if ( isInEE(subLeadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(subLeadingElectrons,idxDLDJ,SLeleIdx,2); 
+			if (saveHEEPvariables_) {
+				doElePlots(subLeadingElectrons,idxDLDJ,SLeleIdx,0);
+				if ( isInEB(subLeadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(subLeadingElectrons,idxDLDJ,SLeleIdx,1);
+				if ( isInEE(subLeadingElectrons[idxDLDJ].v.Eta()) ) doElePlots(subLeadingElectrons,idxDLDJ,SLeleIdx,2); 
+			}
 		}
 
 
@@ -1536,20 +1570,20 @@ void makePlots_multiLeptonMultiJet::Loop(){
 			nEventsWithLeadingMuonPassingSelections++;
 
 			if (signalRegion) {	
-	 			doMuonDistributionsPlots(leadingMuons,idxDLDJ,LleptonIdx,0); 
+				doMuonDistributionsPlots(leadingMuons,idxDLDJ,LleptonIdx,0); 
 				doMuonDistributionsPlots(leadingMuons,idxDLDJ,LmuIdx,0);
 			}
 			if (lowMlljjCR) {
-	 			doMuonDistributionsPlots(leadingMuons,idxDLDJ,LleptonIdx,1); 
+				doMuonDistributionsPlots(leadingMuons,idxDLDJ,LleptonIdx,1); 
 				doMuonDistributionsPlots(leadingMuons,idxDLDJ,LmuIdx,1);				
 			}
 			if (lowMllCR) {
-	 			doMuonDistributionsPlots(leadingMuons,idxDLDJ,LleptonIdx,2); 
+				doMuonDistributionsPlots(leadingMuons,idxDLDJ,LleptonIdx,2); 
 				doMuonDistributionsPlots(leadingMuons,idxDLDJ,LmuIdx,2);					
 			}
 			if (flavourSidebandCR) {
-	 			doMuonDistributionsPlots(leadingMuons,idxDLDJ,LleptonIdx,3); 
-				doMuonDistributionsPlots(leadingMuons,idxDLDJ,LmuIdx,3);					
+				doMuonDistributionsPlots(leadingMuons,idxDLDJ,LleptonIdx,0); 
+				doMuonDistributionsPlots(leadingMuons,idxDLDJ,LmuIdx,0);					
 			}
 		}				
 
@@ -1560,20 +1594,20 @@ void makePlots_multiLeptonMultiJet::Loop(){
 			nEventsWithSubLeadingMuonPassingSelections++;
 
 			if (signalRegion) {	
-	 			doMuonDistributionsPlots(subLeadingMuons,idxDLDJ,SLleptonIdx,0); 
+				doMuonDistributionsPlots(subLeadingMuons,idxDLDJ,SLleptonIdx,0); 
 				doMuonDistributionsPlots(subLeadingMuons,idxDLDJ,SLmuIdx,0);
 			}
 			if (lowMlljjCR) {
-	 			doMuonDistributionsPlots(subLeadingMuons,idxDLDJ,SLleptonIdx,1); 
+				doMuonDistributionsPlots(subLeadingMuons,idxDLDJ,SLleptonIdx,1); 
 				doMuonDistributionsPlots(subLeadingMuons,idxDLDJ,SLmuIdx,1);				
 			}
 			if (lowMllCR) {
-	 			doMuonDistributionsPlots(subLeadingMuons,idxDLDJ,SLleptonIdx,2); 
+				doMuonDistributionsPlots(subLeadingMuons,idxDLDJ,SLleptonIdx,2); 
 				doMuonDistributionsPlots(subLeadingMuons,idxDLDJ,SLmuIdx,2);					
 			}
 			if (flavourSidebandCR) {
-	 			doMuonDistributionsPlots(subLeadingMuons,idxDLDJ,SLleptonIdx,3); 
-				doMuonDistributionsPlots(subLeadingMuons,idxDLDJ,SLmuIdx,3);					
+				doMuonDistributionsPlots(subLeadingMuons,idxDLDJ,SLleptonIdx,0); 
+				doMuonDistributionsPlots(subLeadingMuons,idxDLDJ,SLmuIdx,0);					
 			}	
 		}
 
@@ -1595,13 +1629,12 @@ void makePlots_multiLeptonMultiJet::Loop(){
 			doJetsDistributionsPlots(subLeadingJets,idxDLDJ,SLjetIdx,2);				
 		}
 		if (flavourSidebandCR) {
-			doJetsDistributionsPlots(leadingJets,idxDLDJ,LjetIdx,3);		
-			doJetsDistributionsPlots(subLeadingJets,idxDLDJ,SLjetIdx,3);		
+			doJetsDistributionsPlots(leadingJets,idxDLDJ,LjetIdx,0);		
+			doJetsDistributionsPlots(subLeadingJets,idxDLDJ,SLjetIdx,0);		
 		}
 
-
-		nLeadingLeptons_histo -> Fill(nLeadingLeptons);
-		nSubLeadingLeptons_histo -> Fill(nSubLeadingLeptons);
+		// nLeadingLeptons_histo -> Fill(nLeadingLeptons);
+		// nSubLeadingLeptons_histo -> Fill(nSubLeadingLeptons);
 
 
 	} //fine loop su eventi
@@ -1622,54 +1655,22 @@ void makePlots_multiLeptonMultiJet::saveHistosAndOutputFile(TString& ouputdir){
 
 	unsigned short numbOfHistograms = listOfHistograms.size();
 
-	// if (TnPEE || TnPMM) {
-	// 	TFile f(outputdir+suff+"/"+"Zmass_histos"+suff+".root","recreate");
-	// 	for (unsigned short l(0); l < numbOfHistograms; l++){
-	// 		string histoName = listOfHistograms[l]->GetName();
-	// 		if (histoName.find("Z") != string::npos) listOfHistograms[l]->Write(); 
-	// 	}
 
-	// } else {
-	// 	TFile f(outputdir+suff+"/"+"distributions_histos"+suff+".root","recreate");
-	// 	for (unsigned short l(0); l < numbOfHistograms; l++){
-	// 		string histoName = listOfHistograms[l]->GetName();
-	// 		if ( !(histoName.find("Z") != string::npos) ) listOfHistograms[l]->Write(); 
-
-	// 	// TCanvas* canv = new TCanvas();
-	// 	// gPad->SetRightMargin(0.05);
-	// 	// // CMS_lumi(canv, 4, 33);
-	// 	// listOfHistograms[l]->Draw();
-	// 	// canv->SaveAs(outputdir+suff+"/"+histoName+".png");
-	// 	// delete canv;
-	// 	// // }
-	// 	}
-	// }
-
-	TFile f(outputdir+suff+"/"+"distributions_histos"+suff+".root","recreate");
+	cout << "triggerName = " << triggerName << endl;
+	TFile f(outputdir+"/"+"distributions_histos"+triggerName+".root","recreate");
 	for (unsigned short l(0); l < numbOfHistograms; l++){
 		string histoName = listOfHistograms[l]->GetName();
-		if ( !(histoName.find(regionName[0]) != string::npos) && 
-			 !(histoName.find(regionName[1]) != string::npos) && 
-			 !(histoName.find(regionName[2]) != string::npos) && 
-			 !(histoName.find(regionName[3]) != string::npos) &&
-			 !(histoName.find(regionName[4]) != string::npos) 
-			) listOfHistograms[l]->Write(); 
+		if ( histoName.find(triggerName) != string::npos ) listOfHistograms[l]->Write(); 
 	}
 
-	if (TnPEE || TnPMM) {
-		TFile f(outputdir+suff+"/"+"distributions_histos"+regionName[4]+suff+".root","recreate");
+
+	cout << "numberRegions = " << numberRegions << endl;
+	for (unsigned short n(0); n < numberRegions; n++){
+		TFile f(outputdir+"/"+"distributions_histos"+regionName[n]+".root","recreate");
 		for (unsigned short l(0); l < numbOfHistograms; l++){
 			string histoName = listOfHistograms[l]->GetName();
-			if ( histoName.find(regionName[4]) != string::npos ) listOfHistograms[l]->Write(); 
-		}		
-	} else {
-		for (unsigned short r(0); r < 4; r++) {
-			TFile f(outputdir+suff+"/"+"distributions_histos"+regionName[r]+suff+".root","recreate");
-			for (unsigned short l(0); l < numbOfHistograms; l++){
-				string histoName = listOfHistograms[l]->GetName();
-				if ( histoName.find(regionName[r]) != string::npos ) listOfHistograms[l]->Write(); 
-			}
-		}
+			if ( histoName.find(regionName[n]) != string::npos ) listOfHistograms[l]->Write(); 
+		}			
 	}
 
 
@@ -1678,20 +1679,12 @@ void makePlots_multiLeptonMultiJet::saveHistosAndOutputFile(TString& ouputdir){
 	if (signalMuMu) RegionNameFile = "signalMuMu";
 	if (eMuSideband) RegionNameFile = "flavourSideband";
 	if (TnPEE) RegionNameFile = "TnPEE";
-	if (TnPMM) RegionNameFile = "TnPMuMu";
+	if (TnPMuMu) RegionNameFile = "TnPMuMu";
 
 	ofstream fOutput;
-	fOutput.open(outputdir+suff+"/nEvents"+RegionNameFile+suff+".dat");
-	// if (TnPEE || TnPMM) fOutput.open(outputdir+suff+"/nEventsTnP"+suff+".dat");
-	// else fOutput.open(outputdir+suff+"/nEvents"+suff+".dat");
-	fOutput << "nEvents = " << nEvents << " \n";
-	fOutput << "nEventsPassingEEJJhlt = " << nEventsPassingEEJJhlt << " \n";
-	fOutput << "nEventsPassingMMJJhlt = " << nEventsPassingMMJJhlt << " \n";
-	fOutput << "nEventsPassingEMJJhlt = " << nEventsPassingEMJJhlt << " \n";
-	fOutput << "nEventsPassingTandPEEhlt = " << nEventsPassingTandPEEhlt << " \n";
-	fOutput << "nEventsPassingTandPMMhlt = " << nEventsPassingTandPMMhlt << " \n";
-	fOutput << "nEventsPassingTrigger = " << nEventsPassingTrigger << " \n" << " \n";
+	fOutput.open(outputdir+"/nEvents"+RegionNameFile+".dat");
 
+	fOutput << "nEvents = " << nEvents << " \n";
 	fOutput << "nEventsWithAtLeast1DLDJ = " << nEventsWithAtLeast1DLDJ << " \n";
 	fOutput << "nEventsWithRightLeptonPair = " << nEventsWithRightLeptonPair << " \n";
 	fOutput << "nEventsWithDLDJpassingPreselections = " << nEventsWithDLDJpassingPreselections << " \n";
@@ -1784,16 +1777,16 @@ void makePlots_multiLeptonMultiJet::saveHistosAndOutputFile(TString& ouputdir){
 
 
 
-makePlots_multiLeptonMultiJet::makePlots_multiLeptonMultiJet(TString filename_, TString outputdir_, bool MC_, bool signalEE_, bool signalMuMu_, bool eMuSideband_, bool TnPEE_, bool TnPMM_):
-	filename(filename_), outputdir(outputdir_), MC(MC_), signalEE(signalEE_), signalMuMu(signalMuMu_), eMuSideband(eMuSideband_), TnPEE(TnPEE_), TnPMM(TnPMM_)
+makePlots_multiLeptonMultiJet::makePlots_multiLeptonMultiJet(TString filename_, TString outputdir_, bool MC_, bool signalEE_, bool signalMuMu_, bool eMuSideband_, bool TnPEE_, bool TnPMuMu_, int nToDivideWeight_):
+	filename(filename_), outputdir(outputdir_), MC(MC_), signalEE(signalEE_), signalMuMu(signalMuMu_), eMuSideband(eMuSideband_), TnPEE(TnPEE_), TnPMuMu(TnPMuMu_), nToDivideWeight(nToDivideWeight_)
 {
 	fChain = new TChain("", "");
 
 	TFile *f = TFile::Open(filename);
 	if(!f){
-	    cerr << "Failed to open file " << filename << ".\n";
+		cerr << "Failed to open file " << filename << ".\n";
 	} else {
-	    cout << "Reading input file " << filename << "\n";
+		cout << "Reading input file " << filename << "\n";
 		TString treePath = filename + "/analysisTree/event";
 		if (fChain) fChain->Add(treePath);
 	}
@@ -1807,60 +1800,68 @@ makePlots_multiLeptonMultiJet::makePlots_multiLeptonMultiJet(TString filename_, 
 
 void runMakePlots_multiLeptonMultiJet() {
 
-	string inputDir = "/home/gpfs/manip/mnt/cms/gnegro/CMSSW_8_0_26_patch1/src/dafne/miniTrees-Moriond17/MLMJwithSingleObjects/";   
-	string outputDir = "/home/gpfs/manip/mnt/cms/gnegro/CMSSW_8_0_26_patch1/src/dafne/Distributions-Moriond17/MLMJwithSingleObjects/DoubleEG";
+	string inputDir = "/home/gpfs/manip/mnt/cms/gnegro/CMSSW_8_0_26_patch1/src/dafne/miniTrees-Moriond17/MLMJwithSingleObjects/selectedTrigger/";   
+	string outputDir = "/home/gpfs/manip/mnt/cms/gnegro/CMSSW_8_0_26_patch1/src/dafne/Distributions-Moriond17/MLMJwithSingleObjects/selectedTrigger/";
 
 	bool signalEE = true;  //true for DoubleEG (if not TnP)   
 	bool signalMuMu = false;  //true for SingleMuon (if not TnP)
 	bool eMuSideband = false; //true for MuonEG
 
 	bool TnPEE = false; //true for DoubleEG 
-	bool TnPMM = false; //true for SingleMuon 
+	bool TnPMuMu = false; //true for SingleMuon 
 
-	if (signalMuMu || TnPMM) outputDir = "/home/gpfs/manip/mnt/cms/gnegro/CMSSW_8_0_26_patch1/src/dafne/Distributions-Moriond17/SingleMuon";
-	if (eMuSideband) outputDir = "/home/gpfs/manip/mnt/cms/gnegro/CMSSW_8_0_26_patch1/src/dafne/Distributions-Moriond17/MuonEG";
+	string triggerName;
 
+	if (signalEE) triggerName = "signalEE/";
+	if (signalMuMu) triggerName = "signalMuMu/";
+	if (eMuSideband) triggerName = "eMuSideband/";
+	if (TnPEE) triggerName = "TnPEE/";
+	if (TnPMuMu) triggerName = "TnPMuMu/";
 
-	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY50/output_DYJetsToLL_Pt-50To100_amcatnloFXFX-v3_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/ptBinnedScaled/DY50-1", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
-	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY50/output_DYJetsToLL_Pt-50To100_amcatnloFXFX-ext3-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/ptBinnedScaled/DY50-2", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
-
-	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY100/output_DYJetsToLL_Pt-100To250_amcatnloFXFX-v2_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/ptBinnedScaled/DY100-1", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
-	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY100/output_DYJetsToLL_Pt-100To250_amcatnloFXFX-ext1-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/ptBinnedScaled/DY100-2", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
-	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY100/output_DYJetsToLL_Pt-100To250_amcatnloFXFX-ext2-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/ptBinnedScaled/DY100-3", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
-
-	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY250/output_DYJetsToLL_Pt-250To400_amcatnloFXFX-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/ptBinnedScaled/DY250-1", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
-	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY250/output_DYJetsToLL_Pt-250To400_amcatnloFXFX-ext1-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/ptBinnedScaled/DY250-2", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
-	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY250/output_DYJetsToLL_Pt-250To400_amcatnloFXFX-ext2-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/ptBinnedScaled/DY250-3", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
-
-	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY400/output_DYJetsToLL_Pt-400To650_amcatnloFXFX-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/ptBinnedScaled/DY400-1", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
-	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY400/output_DYJetsToLL_Pt-400To650_amcatnloFXFX-ext1-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/ptBinnedScaled/DY400-2", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
-	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY400/output_DYJetsToLL_Pt-400To650_amcatnloFXFX-ext2-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/ptBinnedScaled/DY400-3", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
-
-	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY650/output_DYJetsToLL_Pt-650ToInf_amcatnloFXFX-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/ptBinnedScaled/DY650-1", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
-	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY650/output_DYJetsToLL_Pt-650ToInf_amcatnloFXFX-ext1-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/ptBinnedScaled/DY650-2", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
-	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY650/output_DYJetsToLL_Pt-650ToInf_amcatnloFXFX-ext2-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/ptBinnedScaled/DY650-3", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
+	inputDir = inputDir+triggerName;
+	outputDir = inputDir+triggerName;
 
 
-	// makePlots_multiLeptonMultiJet(inputDir+"TTJets/output_TTJets_miniTree.root", outputDir+"/TTJets", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
+	makePlots_multiLeptonMultiJet("/afs/cern.ch/user/g/gnegro/work/NuAnalysis-Moriond17/CMSSW_8_0_26_patch1/src/dafne/output.root", "prova", false, signalEE, false, eMuSideband, TnPEE, false, 1);
 
-	// makePlots_multiLeptonMultiJet(inputDir+"WJets/output_WJetsToLNu_miniTree.root", outputDir+"/WJets", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
+	// makePlots_multiLeptonMultiJet(inputDir+"DoubleEG/output_DoubleEG_miniTree.root", outputDir+"DoubleEG", false, signalEE, false, false, TnPEE, false, 1);
 
-	// makePlots_multiLeptonMultiJet(inputDir+"WZ/output_WZ_miniTree.root", outputDir+"/WZ", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
+	// makePlots_multiLeptonMultiJet(inputDir+"SingleEle/output_SingleEle_miniTree.root", outputDir+"SingleEle", false, signalEE, false, false, TnPEE, false, 1);
 
-	// makePlots_multiLeptonMultiJet(inputDir+"ZZ/output_ZZ_miniTree.root", outputDir+"/ZZ", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
+	// makePlots_multiLeptonMultiJet(inputDir+"SingleMuon/output_SingleMuon_miniTree.root", outputDir+"SingleMuon", false, false, signalMuMu, false, false, TnPMuMu, 1);
 
-	// makePlots_multiLeptonMultiJet(inputDir+"WW/output_WW_miniTree.root", outputDir+"/WW", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
-
-	// makePlots_multiLeptonMultiJet(inputDir+"SingleTop/output_SingleTop_miniTree.root", outputDir+"/SingleTop", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM);
+	// makePlots_multiLeptonMultiJet(inputDir+"MuonEG/output_MuonEG_miniTree.root", outputDir+"MuonEG", false, false, false, true, false, false, 1);
 
 
-	makePlots_multiLeptonMultiJet(inputDir+"DoubleEG/output_DoubleEG_miniTree.root", outputDir, false, signalEE, false, false, TnPEE, false);
+	// makePlots_multiLeptonMultiJet(inputDir+"TTJets/output_TTJets_miniTree.root", outputDir+"TTJets", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 1);
 
-	// makePlots_multiLeptonMultiJet(inputDir+"SingleEle/output_SingleEle_miniTree.root", outputDir+"/SingleEle", false, signalEE, false, false, TnPEE, false);
+	// makePlots_multiLeptonMultiJet(inputDir+"WJets/output_WJetsToLNu_miniTree.root", outputDir+"WJets", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 1);
 
-	// makePlots_multiLeptonMultiJet(inputDir+"SingleMuon/output_SingleMuon_miniTree.root", outputDir, false, false, signalMuMu, false, false, TnPMM);
+	// makePlots_multiLeptonMultiJet(inputDir+"WZ/output_WZ_miniTree.root", outputDir+"WZ", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 1);
 
-	// makePlots_multiLeptonMultiJet(inputDir+"MuonEG/output_MuonEG_miniTree.root", outputDir, false, false, false, true, false, false);
+	// makePlots_multiLeptonMultiJet(inputDir+"ZZ/output_ZZ_miniTree.root", outputDir+"ZZ", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 1);
+
+	// makePlots_multiLeptonMultiJet(inputDir+"WW/output_WW_miniTree.root", outputDir+"WW", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 1);
+
+
+	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY50/output_DYJetsToLL_Pt-50To100_amcatnloFXFX-v3_dafne-Moriond17_miniTree.root", outputDir+"DYJetsPtBinned/DY50-1", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 2);
+	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY50/output_DYJetsToLL_Pt-50To100_amcatnloFXFX-ext3-v1_dafne-Moriond17_miniTree.root", outputDir+"DYJetsPtBinned/DY50-2", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 2);
+
+	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY100/output_DYJetsToLL_Pt-100To250_amcatnloFXFX-v2_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/DY100-1", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 3);
+	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY100/output_DYJetsToLL_Pt-100To250_amcatnloFXFX-ext1-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/DY100-2", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 3);
+	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY100/output_DYJetsToLL_Pt-100To250_amcatnloFXFX-ext2-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/DY100-3", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 3);
+
+	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY250/output_DYJetsToLL_Pt-250To400_amcatnloFXFX-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/DY250-1", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 3);
+	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY250/output_DYJetsToLL_Pt-250To400_amcatnloFXFX-ext1-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/DY250-2", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 3);
+	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY250/output_DYJetsToLL_Pt-250To400_amcatnloFXFX-ext2-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/DY250-3", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 3);
+
+	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY400/output_DYJetsToLL_Pt-400To650_amcatnloFXFX-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/DY400-1", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 3);
+	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY400/output_DYJetsToLL_Pt-400To650_amcatnloFXFX-ext1-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/DY400-2", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 3);
+	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY400/output_DYJetsToLL_Pt-400To650_amcatnloFXFX-ext2-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/DY400-3", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 3);
+
+	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY650/output_DYJetsToLL_Pt-650ToInf_amcatnloFXFX-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/DY650-1", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 3);
+	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY650/output_DYJetsToLL_Pt-650ToInf_amcatnloFXFX-ext1-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/DY650-2", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 3);
+	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY650/output_DYJetsToLL_Pt-650ToInf_amcatnloFXFX-ext2-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/DY650-3", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 3);
 
 }
 

@@ -36,11 +36,6 @@ class makePlots_multiLeptonMultiJet {
 		Float_t         puweight;
 		Int_t           nvtx;
 		Int_t           npu;
-		Int_t           passEEJJhlt;
-		Int_t           passMMJJhlt;
-		Int_t           passEMJJhlt;
-		Int_t           passTandPEEhlt;
-		Int_t           passTandPMMhlt;
 		vector<float>   *vtx_x;
 		vector<float>   *vtx_y;
 		vector<float>   *vtx_z;  
@@ -49,14 +44,7 @@ class makePlots_multiLeptonMultiJet {
 		vector<float>   *ele_eta;
 		vector<float>   *ele_phi;
 		vector<bool>    *ele_passHEEPId;
-		vector<unsigned int> *ele_HEEPBitMapValues;
-		vector<bool>    *ele_passTightId;
 		vector<bool>    *ele_passMediumId;
-		vector<bool>    *ele_passLooseId;
-		vector<bool>    *ele_passVetoId;
-		vector<bool>    *ele_passMVATightId;
-		vector<bool>    *ele_passMVAMediumId;
-		vector<float>   *ele_idmva;
 		vector<float>   *ele_iso;
 		vector<float>   *ele_dz;
 		vector<float>   *ele_d0;
@@ -85,9 +73,6 @@ class makePlots_multiLeptonMultiJet {
 		vector<float>   *mu_phi;
 		vector<float>   *mu_iso;
 		vector<float>   *mu_PFiso;
-		vector<bool>    *mu_isTight;
-		vector<bool>    *mu_isMedium;
-		vector<bool>    *mu_isLoose;
 		vector<bool>    *mu_isHighPt;
 		vector<int>     *mu_isMatchedToGen;
 		vector<int>     *mu_charge;
@@ -149,14 +134,7 @@ class makePlots_multiLeptonMultiJet {
 		vector<float>   *diJetLeadingLepton_invMass;
 		vector<float>   *diJetSubLeadingLepton_invMass;
 		vector<bool>    *leadingEle_passHEEPId;
-		vector<unsigned int> *leadingEle_HEEPBitMapValues;
-		vector<bool>    *leadingEle_passTightId;
 		vector<bool>    *leadingEle_passMediumId;
-		vector<bool>    *leadingEle_passLooseId;
-		vector<bool>    *leadingEle_passVetoId;
-		vector<bool>    *leadingEle_passMVATightId;
-		vector<bool>    *leadingEle_passMVAMediumId;
-		vector<float>   *leadingEle_idmva;
 		vector<float>   *leadingEle_iso;
 		vector<int>     *leadingEle_isMatchedToGen;
 		vector<float>   *leadingEle_etaSC;
@@ -178,14 +156,7 @@ class makePlots_multiLeptonMultiJet {
 		vector<float>   *leadingEle_ecalEnergy;
 		vector<float>   *leadingEle_hcalOverEcal;
 		vector<bool>    *subLeadingEle_passHEEPId;
-		vector<unsigned int> *subLeadingEle_HEEPBitMapValues;
-		vector<bool>    *subLeadingEle_passTightId;
 		vector<bool>    *subLeadingEle_passMediumId;
-		vector<bool>    *subLeadingEle_passLooseId;
-		vector<bool>    *subLeadingEle_passVetoId;
-		vector<bool>    *subLeadingEle_passMVATightId;
-		vector<bool>    *subLeadingEle_passMVAMediumId;
-		vector<float>   *subLeadingEle_idmva;
 		vector<float>   *subLeadingEle_iso;
 		vector<int>     *subLeadingEle_isMatchedToGen;
 		vector<float>   *subLeadingEle_etaSC;
@@ -209,9 +180,6 @@ class makePlots_multiLeptonMultiJet {
 		vector<float>   *leadingMuon_iso;
 		vector<float>   *leadingMuon_PFiso;
 		vector<bool>    *leadingMuon_isHighPt;
-		vector<bool>    *leadingMuon_isTight;
-		vector<bool>    *leadingMuon_isMedium;
-		vector<bool>    *leadingMuon_isLoose;
 		vector<int>     *leadingMuon_isMatchedToGen;
 		vector<float>   *leadingMuon_dz;
 		vector<float>   *leadingMuon_dxy;
@@ -219,9 +187,6 @@ class makePlots_multiLeptonMultiJet {
 		vector<float>   *subLeadingMuon_iso;
 		vector<float>   *subLeadingMuon_PFiso;
 		vector<bool>    *subLeadingMuon_isHighPt;
-		vector<bool>    *subLeadingMuon_isTight;
-		vector<bool>    *subLeadingMuon_isMedium;
-		vector<bool>    *subLeadingMuon_isLoose;
 		vector<int>     *subLeadingMuon_isMatchedToGen;
 		vector<float>   *subLeadingMuon_dz;
 		vector<float>   *subLeadingMuon_dxy;
@@ -236,11 +201,6 @@ class makePlots_multiLeptonMultiJet {
 		TBranch        *b_puweight;   //!
 		TBranch        *b_nvtx;   //!
 		TBranch        *b_npu;   //!
-		TBranch        *b_passEEJJhlt;   //!
-		TBranch        *b_passMMJJhlt;   //!
-		TBranch        *b_passEMJJhlt;   //!
-		TBranch        *b_passTandPEEhlt;   //!
-		TBranch        *b_passTandPMMhlt;   //!
 		TBranch        *b_vtx_x;   //!
 		TBranch        *b_vtx_y;   //!
 		TBranch        *b_vtx_z;   //!
@@ -249,14 +209,7 @@ class makePlots_multiLeptonMultiJet {
 		TBranch        *b_ele_eta;   //!
 		TBranch        *b_ele_phi;   //!
 		TBranch        *b_ele_passHEEPId;   //!
-		TBranch        *b_ele_HEEPBitMapValues;   //!
-		TBranch        *b_ele_passTightId;   //!
 		TBranch        *b_ele_passMediumId;   //!
-		TBranch        *b_ele_passLooseId;   //!
-		TBranch        *b_ele_passVetoId;   //!
-		TBranch        *b_ele_passMVATightId;   //!
-		TBranch        *b_ele_passMVAMediumId;   //!
-		TBranch        *b_ele_idmva;   //!
 		TBranch        *b_ele_iso;   //!
 		TBranch        *b_ele_dz;   //!
 		TBranch        *b_ele_d0;   //!
@@ -285,9 +238,6 @@ class makePlots_multiLeptonMultiJet {
 		TBranch        *b_mu_phi;   //!
 		TBranch        *b_mu_iso;   //!
 		TBranch        *b_mu_PFiso;   //!
-		TBranch        *b_mu_isTight;   //!
-		TBranch        *b_mu_isMedium;   //!
-		TBranch        *b_mu_isLoose;   //!
 		TBranch        *b_mu_isHighPt;   //!
 		TBranch        *b_mu_isMatchedToGen;   //!
 		TBranch        *b_mu_charge;   //!
@@ -349,14 +299,7 @@ class makePlots_multiLeptonMultiJet {
 		TBranch        *b_diJetLeadingLepton_invMass;   //!
 		TBranch        *b_diJetSubLeadingLepton_invMass;   //!
 		TBranch        *b_leadingEle_passHEEPId;   //!
-		TBranch        *b_leadingEle_HEEPBitMapValues;   //!
-		TBranch        *b_leadingEle_passTightId;   //!
 		TBranch        *b_leadingEle_passMediumId;   //!
-		TBranch        *b_leadingEle_passLooseId;   //!
-		TBranch        *b_leadingEle_passVetoId;   //!
-		TBranch        *b_leadingEle_passMVATightId;   //!
-		TBranch        *b_leadingEle_passMVAMediumId;   //!
-		TBranch        *b_leadingEle_idmva;   //!
 		TBranch        *b_leadingEle_iso;   //!
 		TBranch        *b_leadingEle_isMatchedToGen;   //!
 		TBranch        *b_leadingEle_etaSC;   //!
@@ -378,14 +321,7 @@ class makePlots_multiLeptonMultiJet {
 		TBranch        *b_leadingEle_ecalEnergy;   //!
 		TBranch        *b_leadingEle_hcalOverEcal;   //!
 		TBranch        *b_subLeadingEle_passHEEPId;   //!
-		TBranch        *b_subLeadingEle_HEEPBitMapValues;   //!
-		TBranch        *b_subLeadingEle_passTightId;   //!
 		TBranch        *b_subLeadingEle_passMediumId;   //!
-		TBranch        *b_subLeadingEle_passLooseId;   //!
-		TBranch        *b_subLeadingEle_passVetoId;   //!
-		TBranch        *b_subLeadingEle_passMVATightId;   //!
-		TBranch        *b_subLeadingEle_passMVAMediumId;   //!
-		TBranch        *b_subLeadingEle_idmva;   //!
 		TBranch        *b_subLeadingEle_iso;   //!
 		TBranch        *b_subLeadingEle_isMatchedToGen;   //!
 		TBranch        *b_subLeadingEle_etaSC;   //!
@@ -434,9 +370,9 @@ class makePlots_multiLeptonMultiJet {
 		static const int nObjects = 16;
 		static const int nEle = 6;
 
-		static const int nRegions = 5;
-		static const int nTnPregions = 2;	
+		static const int nRegions = 3;
 		static const int nZregions = 4;
+
 
 	//definition of histos
 		TH1D *rho_histo;
@@ -480,12 +416,11 @@ class makePlots_multiLeptonMultiJet {
 		TH1D *mass_djSLl_histo[nRegions][nEtaMassRegions];
 		TH1D *pt_dl_histo[nRegions];
 
-		TH1D *Zmass_histo[nZregions][nEtaMassRegions][nTnPregions];
-		TH1D *Zpt_histo[nZregions][nTnPregions];
+		TH1D *Zmass_histo[nZregions][nEtaMassRegions];
+		TH1D *Zpt_histo[nZregions];
 
 
-
-		makePlots_multiLeptonMultiJet(TString filename_, TString outputdir_, bool MC_, bool signalEE_, bool signalMuMu_, bool eMuSideband_, bool TnPEE_, bool TnPMM_);
+		makePlots_multiLeptonMultiJet(TString filename_, TString outputdir_, bool MC_, bool signalEE_, bool signalMuMu_, bool eMuSideband_, bool TnPEE_, bool TnPMuMu_, int nToDivideWeight_);
 
 		void     Init();  
 		Int_t    GetEntry(Long64_t entry);
@@ -518,19 +453,18 @@ class makePlots_multiLeptonMultiJet {
 		void doElePlots(vector<eleStruct>& electrons, const int eleIdx, const int variableIdx, const int etaIdx);
 
 		void doMassPlots(vector<multiLeptonMultiJetStruct>& multiLeptonMultiJets, const int dldjIdx, const int regionIdx, const int etaMassIdx);
-		void doZPlots(vector<multiLeptonMultiJetStruct>& multiLeptonMultiJets, const int dldjIdx, const int variableIdx, const int regionIdx);
-		void doZPlots(TLorentzVector Llepton, TLorentzVector SLlepton, const int variableIdx, const int regionIdx);
+		void doZPlots(vector<multiLeptonMultiJetStruct>& multiLeptonMultiJets, const int dldjIdx, const int variableIdx);
+		void doZPlots(TLorentzVector Llepton, TLorentzVector SLlepton, const int variableIdx);
 
 		void Loop();
 		void saveHistosAndOutputFile(TString& outputdir);
 
 		TString filename, outputdir; 
-		bool MC, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMM;
+		bool MC, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu;
+		int nToDivideWeight;		
 		vector<TH1*> listOfHistograms;
 
-		unsigned int nEvents=0, nEventsPassingTrigger=0;
-		unsigned int nEventsPassingEEJJhlt=0, nEventsPassingMMJJhlt=0, nEventsPassingEMJJhlt=0, nEventsPassingTandPEEhlt=0, nEventsPassingTandPMMhlt=0;
-		unsigned int nEventsWithAtLeast1DLDJ=0, nEventsWithRightLeptonPair=0, nEventsWithDLDJpassingPreselections=0, nEventsWithDLDJpassingSelections=0;
+		unsigned int nEvents=0, nEventsWithAtLeast1DLDJ=0, nEventsWithRightLeptonPair=0, nEventsWithDLDJpassingPreselections=0, nEventsWithDLDJpassingSelections=0;
 		unsigned int nEventsWithDLDJpassingSelectionsInSignalRegion=0, nEventsWithDLDJpassingSelectionsInLowMlljjCR=0, nEventsWithDLDJpassingSelectionsInLowMllCR=0, nEventsWithDLDJpassingSelectionsInFlavourSidebandCR=0;
 		unsigned int nEventsWithLeadingElePassingSelections=0, nEventsWithSubLeadingElePassingSelections=0;
 		unsigned int nEventsWithLeadingMuonPassingSelections=0, nEventsWithSubLeadingMuonPassingSelections=0;
@@ -551,7 +485,7 @@ class makePlots_multiLeptonMultiJet {
 
 		float w=1, sumWeights = 0; 
 
-		string suff = "";  
+		bool saveHEEPvariables_ = false;
 
 		string etaName[nEtaRegions] = {"", "_EB", "_EE"};
 		string etaMassName[nEtaMassRegions] = {"", "_EB-EB", "_EE-EE", "_EB-EE", "_noEB-EB"};
@@ -563,9 +497,13 @@ class makePlots_multiLeptonMultiJet {
 		string eleName[nEle] = {"leadingEle", "subLeadingEle", "goodLeadingEle", 
 		"goodSubLeadingEle", "ele", "goodEle"};
 
-		string regionName[nRegions] = {"_signalRegion","_lowMlljjCR","_lowMllCR","_eMuSidebandCR", "_TnPCR"};
+		string triggerName;
 
-		string TnPName[nTnPregions] = {"", "_TnPCR"};
+		int numberRegions;
+		string regionName[nRegions];
+		string signalRegionNames[3] = {"_signalRegion","_lowMlljjCR","_lowMllCR"};
+		string eMuSidebandName[1] = {"_eMuSidebandCR"};
+		string TnPCRName[1] = {"_TnPCR"};
 
 		string Zname[nZregions] = {"toEE_electrons", "toMuMu_muons", "toEE_MLMJelectrons", "toMuMu_MLMJmuons"};
 
