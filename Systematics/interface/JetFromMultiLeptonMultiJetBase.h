@@ -118,6 +118,7 @@ namespace flashgg {
 			}		
 
 			y.embedJets();
+
 			jet_corr_->applyCorrection( y.getLeadingJet(), syst_shift );
 			jet_corr2_->applyCorrection( y.getSubLeadingJet(), syst_shift );
 
@@ -128,6 +129,8 @@ namespace flashgg {
 						<< y.leadingJet()->eta() << " " << y.subLeadingJet()->eta() 
 						<< std::endl;
 			}
+
+			if (y.leadingJet()->pt() < y.subLeadingJet()->pt()) y.swapJets();			
 		}
 	}
 

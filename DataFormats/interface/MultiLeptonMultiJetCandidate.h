@@ -76,12 +76,15 @@ namespace flashgg {
 
 		void embedElectrons();
 		vector<Electron_t> & embeddedElectrons();
+		void swapElectrons();
 
 		void embedMuons();
 		vector<Muon_t> & embeddedMuons();
+		void swapMuons();
 
 		void embedJets();
 		vector<Jet_t> & embeddedJets();
+		void swapJets();
 
 		Electron_t &getLeadingElectron();
 		Electron_t &getSubLeadingElectron();

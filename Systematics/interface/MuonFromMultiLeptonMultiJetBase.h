@@ -137,6 +137,8 @@ namespace flashgg {
 						<< y.leadingMuon()->eta() << " " << y.subLeadingMuon()->eta() 
 						<< std::endl;
 			}
+			
+			if (y.leadingMuon()->pt() < y.subLeadingMuon()->pt()) y.swapMuons();
 		}
 
 		if (y.isEMJJ()) {

@@ -137,6 +137,8 @@ namespace flashgg {
 						<< y.leadingEle()->eta() << " " << y.subLeadingEle()->eta() 
 						<< std::endl;
 			}
+
+			if (y.leadingEle()->pt() < y.subLeadingEle()->pt()) y.swapElectrons();
 		}
 
 		if (y.isEMJJ()) {

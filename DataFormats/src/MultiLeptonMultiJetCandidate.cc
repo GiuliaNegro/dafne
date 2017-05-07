@@ -177,7 +177,6 @@ const Track_t * MultiLeptonMultiJetCandidate::subLeadingTrack() const
 
 const reco::Candidate * MultiLeptonMultiJetCandidate::leadingLepton() const
 {
-	// FIXME: can be done much better
 	const reco::Candidate * le = leadingEle();
 	const reco::Candidate * lm = leadingMuon();
 	if (le && lm) return le->pt() > lm->pt() ? le : lm;
@@ -189,8 +188,6 @@ const reco::Candidate * MultiLeptonMultiJetCandidate::leadingLepton() const
 
 const reco::Candidate * MultiLeptonMultiJetCandidate::subLeadingLepton() const
 {
-	// FIXME: can be done much better
-	// (e.g. order a vector of candidates)
 	const reco::Candidate * le = leadingEle();
 	const reco::Candidate * lm = leadingMuon();  
 	const reco::Candidate * sle = subLeadingEle();
@@ -200,6 +197,8 @@ const reco::Candidate * MultiLeptonMultiJetCandidate::subLeadingLepton() const
 	else if (slm)  return slm;
 	return nullptr;
 
+	// FIXME: can be done much better
+	// (e.g. order a vector of candidates)
 	// const reco::Candidate * le = leadingEle();
 	// const reco::Candidate * lm = leadingMuon();
 	// const reco::Candidate * sl = 0;
@@ -220,9 +219,10 @@ const reco::Candidate * MultiLeptonMultiJetCandidate::subLeadingLepton() const
 
 void MultiLeptonMultiJetCandidate::embedElectrons()
 {
-	while (!ptrEle_.empty()) {
-		ele_.push_back(*(ptrEle_.back()));
-		ptrEle_.pop_back();
+	if (!ele_.size()) {
+		ele_.reserve(ptrEle_.size());
+		for (auto& ptr : ptrEle_) ele_.push_back(*ptr);
+		ptrEle_.clear();
 	}
 }
 
@@ -233,12 +233,21 @@ vector<Electron_t> & MultiLeptonMultiJetCandidate::embeddedElectrons()
 	return ele_;
 }
 
+void MultiLeptonMultiJetCandidate::swapElectrons() {
+	if (ele_.size()) {
+		swap(ele_[0], ele_[1]);
+	} else {
+		cout << "you have to embed objects before!" << endl;
+	}
+}
+
 
 void MultiLeptonMultiJetCandidate::embedMuons()
 {
-	while (!ptrMuon_.empty()) {
-		muon_.push_back(*(ptrMuon_.back()));
-		ptrMuon_.pop_back();
+	if (!muon_.size()) {
+		muon_.reserve(ptrMuon_.size());
+		for (auto& ptr : ptrMuon_) muon_.push_back(*ptr);
+		ptrMuon_.clear();
 	}
 }
 
@@ -249,12 +258,21 @@ vector<Muon_t> & MultiLeptonMultiJetCandidate::embeddedMuons()
 	return muon_;
 }
 
+void MultiLeptonMultiJetCandidate::swapMuons() {
+	if (muon_.size()) {
+		swap(muon_[0], muon_[1]);
+	} else {
+		cout << "you have to embed objects before!" << endl;
+	}
+}
+
 
 void MultiLeptonMultiJetCandidate::embedJets()
 {
-	while (!ptrJet_.empty()) {
-		jet_.push_back(*(ptrJet_.back()));
-		ptrJet_.pop_back();
+	if (!jet_.size()) {
+		jet_.reserve(ptrJet_.size());
+		for (auto& ptr : ptrJet_) jet_.push_back(*ptr);
+		ptrJet_.clear();
 	}
 }
 
@@ -264,6 +282,15 @@ vector<Jet_t> & MultiLeptonMultiJetCandidate::embeddedJets()
 	if (!jet_.size()) embedJets();
 	return jet_;
 }
+
+void MultiLeptonMultiJetCandidate::swapJets() {
+	if (jet_.size()) {
+		swap(jet_[0], jet_[1]);
+	} else {
+		cout << "you have to embed objects before!" << endl;
+	}
+}
+
 
 
 Electron_t &MultiLeptonMultiJetCandidate::getLeadingElectron() {
