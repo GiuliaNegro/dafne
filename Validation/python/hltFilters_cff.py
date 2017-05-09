@@ -4,6 +4,7 @@ import HLTrigger.HLTfilters.hltHighLevel_cfi as hlt
 
 
 wReejjHLTFilterGsfTrkIdVL = hlt.hltHighLevel.clone(
+    TriggerResultsTag = cms.InputTag("TriggerResults","","HLT"),
     throw = cms.bool(False),
     HLTPaths = [
         'HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_v*'
@@ -11,6 +12,7 @@ wReejjHLTFilterGsfTrkIdVL = hlt.hltHighLevel.clone(
 )
 
 wReejjHLTFilterMW = hlt.hltHighLevel.clone(
+    TriggerResultsTag = cms.InputTag("TriggerResults","","HLT"),
     throw = cms.bool(False),
     HLTPaths = [
         'HLT_DoubleEle33_CaloIdL_MW_v*'
@@ -18,6 +20,7 @@ wReejjHLTFilterMW = hlt.hltHighLevel.clone(
 )
 
 wRmumujjHLTFilter = hlt.hltHighLevel.clone(
+    TriggerResultsTag = cms.InputTag("TriggerResults","","HLT"),
     throw = cms.bool(False),
     HLTPaths = [
         'HLT_Mu50_v*',       
@@ -26,6 +29,7 @@ wRmumujjHLTFilter = hlt.hltHighLevel.clone(
 )
 
 wRemujjHLTFilter =  hlt.hltHighLevel.clone(
+    TriggerResultsTag = cms.InputTag("TriggerResults","","HLT"),
     throw = cms.bool(False),
     HLTPaths = [
         'HLT_Mu33_Ele33_CaloIdL_GsfTrkIdVL_v*',
@@ -34,6 +38,7 @@ wRemujjHLTFilter =  hlt.hltHighLevel.clone(
 )
 
 tagAndProbeDoubleEleHLTFilter = hlt.hltHighLevel.clone(
+    TriggerResultsTag = cms.InputTag("TriggerResults","","HLT"),
     throw = cms.bool(False),
     HLTPaths = [
         'HLT_Ele27_WPTight_Gsf_v*'
@@ -41,6 +46,7 @@ tagAndProbeDoubleEleHLTFilter = hlt.hltHighLevel.clone(
 )
 
 tagAndProbeDoubleMuHLTFilter = hlt.hltHighLevel.clone(
+    TriggerResultsTag = cms.InputTag("TriggerResults","","HLT"),
     throw = cms.bool(False),
     HLTPaths = [
         'HLT_IsoMu24_v*', 
