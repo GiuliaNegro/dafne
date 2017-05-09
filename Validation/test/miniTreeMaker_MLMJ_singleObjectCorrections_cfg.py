@@ -40,7 +40,7 @@ customize.parse()
 from flashgg.Taggers.globalVariables_cff import globalVariables
 
 ## analyzer
-process.analysisTree = cms.EDAnalyzer('EDminiTreeMaker_multiLeptonMultiJet_singleObject',
+process.analysisTree = cms.EDAnalyzer('EDminiTreeMaker_multiLeptonMultiJet',
 										genParticleTag = cms.InputTag( "flashggPrunedGenParticles" ),  
 										generatorInfo = cms.InputTag('generator'),  																			
 										PileUpTag = cms.InputTag('slimmedAddPileupInfo'),
