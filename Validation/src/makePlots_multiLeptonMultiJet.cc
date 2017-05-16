@@ -1194,7 +1194,7 @@ void makePlots_multiLeptonMultiJet::Loop(){
 			// --Z using electrons
 			if (nElectrons > 2) {
 				unsigned int lIdx=0, slIdx=1; //sono ordinati in ordine decrescente in pt
-				if (electrons[lIdx].v.Pt() > ptMinLooseLlepton && electrons[lIdx].v.Pt() > ptMinLooseSLlepton) {
+				if (electrons[lIdx].v.Pt() > ptMinLooseLlepton && electrons[slIdx].v.Pt() > ptMinLooseSLlepton) {
 					nEventsWith2elePassingLoosePreselections++;
 					if (electrons[lIdx].charge * electrons[slIdx].charge < 0) {
 						nEventsWith2elePassingLoosePreselectionsAndCharge++;	
@@ -1213,7 +1213,7 @@ void makePlots_multiLeptonMultiJet::Loop(){
 			// --Z using muons
 			if (nMuons > 2) {
 				unsigned int lIdx=0, slIdx=1; //sono ordinati in ordine decrescente in pt
-				if (muons[lIdx].v.Pt() > ptMinLooseLlepton && muons[lIdx].v.Pt() > ptMinLooseSLlepton) {
+				if (muons[lIdx].v.Pt() > ptMinLooseLlepton && muons[slIdx].v.Pt() > ptMinLooseSLlepton) {
 					nEventsWith2muonsPassingLoosePreselections++;
 					if (muons[lIdx].charge * muons[slIdx].charge < 0) {
 						nEventsWith2muonsPassingLoosePreselectionsAndCharge++;	
@@ -1260,6 +1260,12 @@ void makePlots_multiLeptonMultiJet::Loop(){
 		nEventsWithRightLeptonPair++;
 
 
+		if (signalEE || TnPEE) {
+			if (leadingElectrons[idxDLDJ].v.Pt() > subLeadingElectrons[idxDLDJ].v.Pt()) nEventsWithLandSLleptonsRight++;
+			if (leadingElectrons[idxDLDJ].v.Pt() <= subLeadingElectrons[idxDLDJ].v.Pt()) nEventsWithLandSLleptonsInverted++;
+		}
+		if (leadingJets[idxDLDJ].v.Pt() > subLeadingJets[idxDLDJ].v.Pt()) nEventsWithLandSLjetsRight++;
+		if (leadingJets[idxDLDJ].v.Pt() <= subLeadingJets[idxDLDJ].v.Pt()) nEventsWithLandSLjetsInverted++;
 
 
 		//Z->ee 
@@ -1687,6 +1693,12 @@ void makePlots_multiLeptonMultiJet::saveHistosAndOutputFile(TString& ouputdir){
 	fOutput << "nEvents = " << nEvents << " \n";
 	fOutput << "nEventsWithAtLeast1DLDJ = " << nEventsWithAtLeast1DLDJ << " \n";
 	fOutput << "nEventsWithRightLeptonPair = " << nEventsWithRightLeptonPair << " \n";
+
+	fOutput << "nEventsWithLandSLleptonsRight = " << nEventsWithLandSLleptonsRight << " \n";
+	fOutput << "nEventsWithLandSLleptonsInverted = " << nEventsWithLandSLleptonsInverted << " \n";
+	fOutput << "nEventsWithLandSLjetsRight = " << nEventsWithLandSLjetsRight << " \n";
+	fOutput << "nEventsWithLandSLjetsInverted = " << nEventsWithLandSLjetsInverted << " \n";
+
 	fOutput << "nEventsWithDLDJpassingPreselections = " << nEventsWithDLDJpassingPreselections << " \n";
 	fOutput << "nEventsWithDLDJpassingSelections = " << nEventsWithDLDJpassingSelections << " \n";
 	fOutput << "nEventsWithDLDJpassingSelectionsInSignalRegion = " << nEventsWithDLDJpassingSelectionsInSignalRegion << " \n";
@@ -1801,7 +1813,8 @@ makePlots_multiLeptonMultiJet::makePlots_multiLeptonMultiJet(TString filename_, 
 void runMakePlots_multiLeptonMultiJet() {
 
 	string inputDir = "/home/gpfs/manip/mnt/cms/gnegro/CMSSW_8_0_26_patch1/src/dafne/miniTrees-Moriond17/MLMJwithSingleObjects/selectedTrigger/";   
-	string outputDir = "/home/gpfs/manip/mnt/cms/gnegro/CMSSW_8_0_26_patch1/src/dafne/Distributions-Moriond17/MLMJwithSingleObjects/selectedTrigger/";
+	// string outputDir = "/home/gpfs/manip/mnt/cms/gnegro/CMSSW_8_0_26_patch1/src/dafne/Distributions-Moriond17/MLMJwithSingleObjects/selectedTrigger/";
+	string outputDir = "/home/gpfs/manip/mnt/cms/gnegro/CMSSW_8_0_26_patch1/src/dafne/Distributions-Moriond17/MLMJwithSingleObjects/selectedTrigger_L-SL_swapped/";
 
 	bool signalEE = false;  //true for DoubleEG (if not TnP)   
 	bool signalMuMu = false;  //true for SingleMuon (if not TnP)
@@ -1824,7 +1837,7 @@ void runMakePlots_multiLeptonMultiJet() {
 
 	// makePlots_multiLeptonMultiJet("/afs/cern.ch/user/g/gnegro/work/NuAnalysis-Moriond17/CMSSW_8_0_26_patch1/src/dafne/output.root", "prova", false, signalEE, false, eMuSideband, TnPEE, false, 1);
 
-	makePlots_multiLeptonMultiJet(inputDir+"DoubleEG/output_DoubleEG_miniTree.root", outputDir+"DoubleEG", false, signalEE, false, false, TnPEE, false, 1);
+	// makePlots_multiLeptonMultiJet(inputDir+"DoubleEG/output_DoubleEG_miniTree.root", outputDir+"DoubleEG", false, signalEE, false, false, TnPEE, false, 1);
 
 	// makePlots_multiLeptonMultiJet(inputDir+"SingleEle/output_SingleEle_miniTree.root", outputDir+"SingleEle", false, signalEE, false, false, TnPEE, false, 1);
 
@@ -1844,24 +1857,28 @@ void runMakePlots_multiLeptonMultiJet() {
 	// makePlots_multiLeptonMultiJet(inputDir+"WW/output_WW_miniTree.root", outputDir+"WW", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 1);
 
 
-	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY50/output_DYJetsToLL_Pt-50To100_amcatnloFXFX-v3_dafne-Moriond17_miniTree.root", outputDir+"DYJetsPtBinned/DY50-1", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 2);
-	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY50/output_DYJetsToLL_Pt-50To100_amcatnloFXFX-ext3-v1_dafne-Moriond17_miniTree.root", outputDir+"DYJetsPtBinned/DY50-2", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 2);
+	makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY50/output_DYJetsToLL_Pt-50To100_amcatnloFXFX-v3_dafne-Moriond17_miniTree.root", outputDir+"DYJetsPtBinned/DY50-1", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 2);
+	makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY50/output_DYJetsToLL_Pt-50To100_amcatnloFXFX-ext3-v1_dafne-Moriond17_miniTree.root", outputDir+"DYJetsPtBinned/DY50-2", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 2);
 
-	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY100/output_DYJetsToLL_Pt-100To250_amcatnloFXFX-v2_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/DY100-1", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 3);
-	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY100/output_DYJetsToLL_Pt-100To250_amcatnloFXFX-ext1-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/DY100-2", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 3);
-	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY100/output_DYJetsToLL_Pt-100To250_amcatnloFXFX-ext2-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/DY100-3", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 3);
+	makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY100/output_DYJetsToLL_Pt-100To250_amcatnloFXFX-v2_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/DY100-1", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 3);
+	makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY100/output_DYJetsToLL_Pt-100To250_amcatnloFXFX-ext1-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/DY100-2", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 3);
+	makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY100/output_DYJetsToLL_Pt-100To250_amcatnloFXFX-ext2-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/DY100-3", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 3);
 
-	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY250/output_DYJetsToLL_Pt-250To400_amcatnloFXFX-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/DY250-1", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 3);
-	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY250/output_DYJetsToLL_Pt-250To400_amcatnloFXFX-ext1-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/DY250-2", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 3);
-	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY250/output_DYJetsToLL_Pt-250To400_amcatnloFXFX-ext2-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/DY250-3", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 3);
+	makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY250/output_DYJetsToLL_Pt-250To400_amcatnloFXFX-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/DY250-1", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 3);
+	makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY250/output_DYJetsToLL_Pt-250To400_amcatnloFXFX-ext1-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/DY250-2", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 3);
+	makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY250/output_DYJetsToLL_Pt-250To400_amcatnloFXFX-ext2-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/DY250-3", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 3);
 
-	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY400/output_DYJetsToLL_Pt-400To650_amcatnloFXFX-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/DY400-1", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 3);
-	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY400/output_DYJetsToLL_Pt-400To650_amcatnloFXFX-ext1-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/DY400-2", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 3);
-	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY400/output_DYJetsToLL_Pt-400To650_amcatnloFXFX-ext2-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/DY400-3", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 3);
+	makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY400/output_DYJetsToLL_Pt-400To650_amcatnloFXFX-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/DY400-1", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 3);
+	makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY400/output_DYJetsToLL_Pt-400To650_amcatnloFXFX-ext1-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/DY400-2", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 3);
+	makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY400/output_DYJetsToLL_Pt-400To650_amcatnloFXFX-ext2-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/DY400-3", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 3);
 
-	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY650/output_DYJetsToLL_Pt-650ToInf_amcatnloFXFX-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/DY650-1", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 3);
-	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY650/output_DYJetsToLL_Pt-650ToInf_amcatnloFXFX-ext1-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/DY650-2", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 3);
-	// makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY650/output_DYJetsToLL_Pt-650ToInf_amcatnloFXFX-ext2-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/DY650-3", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 3);
+	makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY650/output_DYJetsToLL_Pt-650ToInf_amcatnloFXFX-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/DY650-1", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 3);
+	makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY650/output_DYJetsToLL_Pt-650ToInf_amcatnloFXFX-ext1-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/DY650-2", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 3);
+	makePlots_multiLeptonMultiJet(inputDir+"DYJetsPtBinned/DY650/output_DYJetsToLL_Pt-650ToInf_amcatnloFXFX-ext2-v1_dafne-Moriond17_miniTree.root", outputDir+"/DYJetsPtBinned/DY650-3", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 3);
+
+
+	// makePlots_multiLeptonMultiJet(inputDir+"DYinclusive-amcatnlo/output_DYJetsToLL-amcatnloFXFX-inclusive_miniTree.root", outputDir+"/DYinclusive-amcatnlo", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 1);
+	// makePlots_multiLeptonMultiJet(inputDir+"DYinclusive-madgraph/output_DYJetsToLL-madgraphMLM_inclusive_miniTree.root", outputDir+"/DYinclusive-madgraph", true, signalEE, signalMuMu, eMuSideband, TnPEE, TnPMuMu, 1);
 
 }
 

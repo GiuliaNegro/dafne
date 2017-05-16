@@ -482,6 +482,8 @@ class makePlots_multiLeptonMultiJet {
 		unsigned int nSubLeadingElePassingPreselectionsInEB=0, nSubLeadingEleInEBPassingIsEcalDriven=0, nSubLeadingEleInEBPassingdEtaIn=0, nSubLeadingEleInEBPassingdPhiIn=0, nSubLeadingEleInEBPassingE2x5OverE5x5=0, nSubLeadingEleInEBPassingEmHadDepth1Iso=0, nSubLeadingEleInEBPassingMissingHits=0, nSubLeadingEleInEBPassingDxy=0, nSubLeadingElePassingHeepIdInEB=0;
 		unsigned int nSubLeadingElePassingPreselectionsInEE=0, nSubLeadingEleInEEPassingIsEcalDriven=0, nSubLeadingEleInEEPassingdEtaIn=0, nSubLeadingEleInEEPassingdPhiIn=0, nSubLeadingEleInEEPassingE2x5OverE5x5=0, nSubLeadingEleInEEPassingEmHadDepth1Iso=0, nSubLeadingEleInEEPassingMissingHits=0, nSubLeadingEleInEEPassingDxy=0, nSubLeadingElePassingHeepIdInEE=0;
 
+		unsigned int nEventsWithLandSLleptonsRight=0,nEventsWithLandSLleptonsInverted=0,nEventsWithLandSLjetsRight=0,nEventsWithLandSLjetsInverted=0;
+
 
 		float w=1, sumWeights = 0; 
 
