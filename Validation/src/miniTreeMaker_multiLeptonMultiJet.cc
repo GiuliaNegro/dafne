@@ -12,12 +12,14 @@ miniTreeMaker_multiLeptonMultiJet::miniTreeMaker_multiLeptonMultiJet( const Para
 	genJetToken_( cc.consumes<View<reco::GenJet> >( iConfig.getParameter<InputTag> ( "GenJetTag" ) ) ),
 	electronToken_( cc.consumes<View<flashgg::Electron> >( iConfig.getParameter<InputTag>( "ElectronTag" ) ) ),
 	muonToken_( cc.consumes<View<flashgg::Muon> >( iConfig.getParameter<InputTag>( "MuonTag" ) ) ),
+	triggerBitsToken_( cc.consumes<TriggerResults>( iConfig.getParameter<InputTag>( "triggerBits" ) ) ),
 	rhoToken_(cc.consumes<double>(iConfig.getParameter <InputTag>("rhoFixedGridCollection" ) ) )
 {
 	lumiWeight_ = iConfig.getUntrackedParameter<double>( "lumiWeight", 1. ); //pb                                                                                                                              
 	saveHEEPvariables_ = iConfig.getUntrackedParameter<bool>( "saveHEEPvariables" );  
+	isDoubleEGinSignalRegion_ = iConfig.getUntrackedParameter<bool>( "isDoubleEGinSignalRegion" );  
 	globalVarsDumper_ = new GlobalVariablesDumper( iConfig.getParameter<ParameterSet>( "globalVariables" ), forward<ConsumesCollector>(cc) );
-  
+
 	eventTree = fs.make<TTree>( "event", "event" );
 }
 
@@ -281,6 +283,9 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 	Handle<View<flashgg::Muon> > muons;
 	iEvent.getByToken( muonToken_, muons );
 
+	Handle<TriggerResults> triggerBits;
+	iEvent.getByToken( triggerBitsToken_, triggerBits );
+
 	Handle<double> rhoHandle;
 	iEvent.getByToken( rhoToken_, rhoHandle );
 	double rho = *( rhoHandle.product() );
@@ -292,12 +297,38 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 	initEventStructure();
 	// cout << "initEventStructure() done" << endl;
 
+
 	globalVarsDumper_->fill( iEvent );
 
 	evInfo.run = globalVarsDumper_->cache().run;
 	evInfo.event = globalVarsDumper_->cache().event;		
 	evInfo.lumi = globalVarsDumper_->cache().lumi;
 	evInfo.rho = rho;
+
+
+	//-------------- check if event passes HLT
+	bool passTrigger = false;
+
+	if (isDoubleEGinSignalRegion_) {
+		const TriggerNames &triggerNames = iEvent.triggerNames( *triggerBits );
+		for( unsigned index = 0; index < triggerNames.size(); ++index ) {  
+			// if ( (TString::Format((triggerNames.triggerName( index )).c_str())).Contains("HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW") || (TString::Format((triggerNames.triggerName( index )).c_str())).Contains("HLT_DoubleEle33_CaloIdL_MW") ) {
+			// 	cout << (triggerNames.triggerName( index )).c_str() << ": " << triggerBits->accept( index ) << ", run " << evInfo.run << endl;
+			// }
+			if (evInfo.run > 276454 && evInfo.run < 278822) {
+				if ( (TString::Format((triggerNames.triggerName( index )).c_str())).Contains("HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW") && triggerBits->accept( index ) ) {
+					passTrigger = true;
+					// cout << "pass HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW" << endl;
+				}
+			} else {
+				if ( (TString::Format((triggerNames.triggerName( index )).c_str())).Contains("HLT_DoubleEle33_CaloIdL_MW") && triggerBits->accept( index ) ) {
+					passTrigger = true;		
+					// cout << "pass HLT_DoubleEle33_CaloIdL_MW" << endl;
+				}
+			}			
+		}
+	} else passTrigger = true;	
+
 
 	// -- event weight (gen weight x lumi x cross section x pu /nTotEvents) with nTotEvents=sumWeights if genWeight != 1
 	float w = 1.;
@@ -853,8 +884,13 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 
 
 	// --- fill the tree  
-	eventTree->Fill(); 
+	// eventTree->Fill();
 
+	nEvents++; 
+	if ( passTrigger ) {
+		nEventsPassingTrigger++;
+		eventTree->Fill(); 
+	}
 	// cout << "fillo tree" << endl;
 
 }
@@ -864,6 +900,8 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 
 // ******************************************************************************************
 void miniTreeMaker_multiLeptonMultiJet::endJob() {
+	cout << "Number of events                  = "<< nEvents << endl; 
+	cout << "Number of events passing trigger  = "<< nEventsPassingTrigger << endl; 
 	cout << "Total number of generated MLMJ before preselection = "<< ngen << endl;
 	cout << "Number of generated MLMJ after preselection        = "<< ngenPre << endl;
 	cout << "Total number of MLMJ before preselection           = "<< ndldj << endl;

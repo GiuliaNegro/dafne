@@ -623,6 +623,7 @@ class miniTreeMaker_multiLeptonMultiJet : public BasicAnalyzer
 	int ngenPre;
 	int ndldj;
 	int npre;
+	int nEvents, nEventsPassingTrigger;
 
 	EDGetTokenT<View<reco::GenParticle> > genParticleToken_;
 	EDGetTokenT<GenEventInfoProduct> genInfoToken_;
@@ -633,9 +634,11 @@ class miniTreeMaker_multiLeptonMultiJet : public BasicAnalyzer
 	EDGetTokenT<View<reco::GenJet> > genJetToken_;
 	EDGetTokenT<View<Electron> > electronToken_;
 	EDGetTokenT<View<Muon> > muonToken_;
+	EDGetTokenT<TriggerResults> triggerBitsToken_;
 	EDGetTokenT<double> rhoToken_;
 	double lumiWeight_;
 	bool saveHEEPvariables_;
+	bool isDoubleEGinSignalRegion_;
 	GlobalVariablesDumper *globalVarsDumper_;
 };
 // ******************************************************************************************                                                                                                                     

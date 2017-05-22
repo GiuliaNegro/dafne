@@ -24,7 +24,10 @@ process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32( 1000 )
 
 ## input file
 process.source = cms.Source("PoolSource",fileNames=cms.untracked.vstring(
-				"root://node12.datagrid.cea.fr//store/user/gnegro/cmsWR/cmsWR2016-Moriond17/dafne-Moriond17/DoubleEG/cmsWR2016-Moriond17-dafne-Moriond17-v0-Run2016F-03Feb2017-v1/170227_174902/0000/dafneMicroAOD_701.root"
+				# "root://node12.datagrid.cea.fr//store/user/gnegro/cmsWR/cmsWR2016-Moriond17/dafne-Moriond17/DoubleEG/cmsWR2016-Moriond17-dafne-Moriond17-v0-Run2016F-03Feb2017-v1/170227_174902/0000/dafneMicroAOD_701.root"
+				"root://node12.datagrid.cea.fr//store/user/gnegro/cmsWR/cmsWR2016-Moriond17/dafne-Moriond17/DoubleEG/cmsWR2016-Moriond17-dafne-Moriond17-v0-Run2016D-03Feb2017-v1/170227_174446/0000/dafneMicroAOD_1.root"
+				# "root://node12.datagrid.cea.fr//store/user/gnegro/cmsWR/cmsWR2016-Moriond17/dafne-Moriond17/DoubleEG/cmsWR2016-Moriond17-dafne-Moriond17-v0-Run2016D-03Feb2017-v1/170227_174446/0001/dafneMicroAOD_1159.root"
+
 				# "root://node12.datagrid.cea.fr//store/user/gnegro/cmsWR/cmsWR2016-Moriond17/dafne-Moriond17/DYJetsToLL_Pt-100To250_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/cmsWR2016-Moriond17-dafne-Moriond17-v0-RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v2/170228_091616/0000/dafneMicroAOD_1.root"
 				# "root://node12.datagrid.cea.fr//store/user/gnegro/cmsWR/cmsWR2016-Moriond17-DYinclusive/dafne-Moriond17/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/cmsWR2016-Moriond17-DYinclusive-dafne-Moriond17-v0-RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0_ext1-v1/170403_215703/0000/dafneMicroAOD_103.root"
 				# "root://node12.datagrid.cea.fr//store/user/gnegro/cmsWR/cmsWR2016-Moriond17-DYinclusive/dafne-Moriond17/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/cmsWR2016-Moriond17-DYinclusive-dafne-Moriond17-v0-RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/170403_215518/0000/dafneMicroAOD_1.root"
@@ -39,6 +42,7 @@ customize.parse()
 ## global variables to dump
 from flashgg.Taggers.globalVariables_cff import globalVariables
 
+
 ## analyzer
 process.analysisTree = cms.EDAnalyzer('EDminiTreeMaker_multiLeptonMultiJet',
 										genParticleTag = cms.InputTag( "flashggPrunedGenParticles" ),  
@@ -50,9 +54,11 @@ process.analysisTree = cms.EDAnalyzer('EDminiTreeMaker_multiLeptonMultiJet',
 										GenJetTag=cms.InputTag( "slimmedGenJets"),
 										ElectronTag=cms.InputTag('flashggEleSystematics'),
 										MuonTag=cms.InputTag('flashggMuonSystematics'),
+										triggerBits = cms.InputTag('TriggerResults::HLT'),
 										rhoFixedGridCollection = cms.InputTag('fixedGridRhoAll'),	
 										lumiWeight=cms.untracked.double(1000.),		
-										saveHEEPvariables=cms.untracked.bool(False),																
+										saveHEEPvariables=cms.untracked.bool(False), 	
+										isDoubleEGinSignalRegion=cms.untracked.bool(customize.isDoubleEGinSignalRegion), 
 										globalVariables = globalVariables
 										)
 
@@ -164,9 +170,12 @@ process.options = cms.untracked.PSet( wantSummary = cms.untracked.bool(True) )
 
 process.load('dafne.Validation.hltFilters_cff')
 
-if customize.trigger=="signalEE":
-	process.HltSequence = cms.Sequence(process.wReejjHLTFilterMW)     
+if customize.trigger=="signalEE": 
+	process.HltSequence = cms.Sequence(process.wReejjHLTFilterMW)
 	print "trigger = signalEE"
+	print customize.isDoubleEGinSignalRegion
+	if customize.isDoubleEGinSignalRegion==True:
+		process.HltSequence = cms.Sequence(process.wReejjHLTFilterMW + process.wReejjHLTFilterGsfTrkIdVL) 
 elif customize.trigger=="signalMuMu":
 	process.HltSequence = cms.Sequence(process.wRmumujjHLTFilter)
 	print "trigger = signalMuMu"
@@ -182,13 +191,11 @@ elif customize.trigger=="TnPMuMu":
 
 
 process.fullSeq = cms.Sequence( process.flashggEleSystematics * process.flashggMuonSystematics * process.jetCorrectorChain * process.flashggJetSystematics * process.flashggMultiLeptonMultiJetSystematics * process.analysisTree)
-
 process.p = cms.Path(process.HltSequence * process.fullSeq)
 
 
-
 ## set default options if needed
-customize.setDefault("maxEvents", 100)
+customize.setDefault("maxEvents", 1000)
 customize.setDefault("targetLumi",1e+3)
 ## call the customization
 customize(process)
