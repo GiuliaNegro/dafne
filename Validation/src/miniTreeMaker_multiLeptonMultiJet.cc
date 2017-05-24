@@ -396,7 +396,7 @@ void miniTreeMaker_multiLeptonMultiJet::analyze(const EventBase& evt)
 		Ptr<flashgg::Electron> electron = electrons->ptrAt( iele );
 		if (fabs(electron->eta()) > 2.4) { continue; }
 		if (electron->pt() < 28) { continue; }
-		if( electron->hasMatchedConversion() ) { continue; } // remove conversions
+		// if( electron->hasMatchedConversion() ) { continue; } // remove conversions
 		// nEleGood++;
 
 		int passHEEPId = electron->passHeepId();
