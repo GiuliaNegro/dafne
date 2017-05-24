@@ -32,6 +32,9 @@ def customizeSingleObjectSystematicsForMC(process):
 	createJECESource(process)
 	# createJERESource(process)
 
+	# process.flashggJetSystematics.SystMethods.insert(0, process.singleJER)
+	process.flashggJetSystematics.SystMethods = cms.VPSet(process.singleJER, process.singleJEC)
+
 	for pset in process.flashggJetSystematics.SystMethods:
 		if pset.Label.value().count("JEC") or pset.Label.value().count("JER"):
 			pset.NSigmas = cms.vint32() 
@@ -147,7 +150,6 @@ def createJERESource(process):
 						connect = cms.string('sqlite_file:%s/Summer16_23Sep2016V4_MC.db' % datadir)
 					)
 	process.es_prefer_jer = cms.ESPrefer('PoolDBESSource', 'jer')
-
 
 
 
