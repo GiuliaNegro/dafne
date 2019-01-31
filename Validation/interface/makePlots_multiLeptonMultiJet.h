@@ -371,7 +371,7 @@ class makePlots_multiLeptonMultiJet {
 		static const int nEle = 6;
 
 		static const int nRegions = 3;
-		static const int nZregions = 4;
+		static const int nZregions = 6; //4;
 
 
 	//definition of histos
@@ -483,7 +483,7 @@ class makePlots_multiLeptonMultiJet {
 		unsigned int nSubLeadingElePassingPreselectionsInEE=0, nSubLeadingEleInEEPassingIsEcalDriven=0, nSubLeadingEleInEEPassingdEtaIn=0, nSubLeadingEleInEEPassingdPhiIn=0, nSubLeadingEleInEEPassingE2x5OverE5x5=0, nSubLeadingEleInEEPassingEmHadDepth1Iso=0, nSubLeadingEleInEEPassingMissingHits=0, nSubLeadingEleInEEPassingDxy=0, nSubLeadingElePassingHeepIdInEE=0;
 
 		unsigned int nEventsWithLandSLleptonsRight=0,nEventsWithLandSLleptonsInverted=0,nEventsWithLandSLjetsRight=0,nEventsWithLandSLjetsInverted=0;
-
+		unsigned int nEventsFillingZtoEE=0,nEventsFillingZtoEE_MLMJ=0;
 
 		float w=1, sumWeights = 0; 
 
@@ -507,7 +507,7 @@ class makePlots_multiLeptonMultiJet {
 		string eMuSidebandName[1] = {"_eMuSidebandCR"};
 		string TnPCRName[1] = {"_TnPCR"};
 
-		string Zname[nZregions] = {"toEE_electrons", "toMuMu_muons", "toEE_MLMJelectrons", "toMuMu_MLMJmuons"};
+		string Zname[nZregions] = {"toEE_electrons", "toMuMu_muons", "toEE_MLMJelectrons", "toMuMu_MLMJmuons", "toEE_electronsAndJets", "toMuMu_muonsAndJets"};
 
 };
 

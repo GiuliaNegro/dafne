@@ -1,5 +1,6 @@
 import ROOT
 import sys
+import os
 import tdrstyle,CMS_lumi
 from array import array
 from math import sqrt, floor
@@ -361,7 +362,7 @@ def plot2HistosAndRatio(histoName, etaRegion, inputfile1, inputfile2, output_nam
 	leg2.Draw('same')
 
 
-	if log:
+	if log == True:
 		c1_2.SetLogy()
 
 
@@ -666,7 +667,7 @@ def plot3HistosAndRatioFirst2(histoName, etaRegion, inputfile1, inputfile2, inpu
 
 
 
-def plotDataAndMCHistos(histoName, etaRegion, inputfile1, fileList, output_name, suff, zoomX, xRangeMin, xRangeMax, zoomY, yRangeMin, yRangeMax, leg1_name, legendList, leftLegends, log, doRebin, doRestrictedIntegral, colorList, title="", xTitle="", yTitle=""):
+def plotDataAndMCHistos(histoName, etaRegion, inputfile1, MCFileList, output_name, suff, zoomX, xRangeMin, xRangeMax, zoomY, yRangeMin, yRangeMax, legData_name, legendList, leftLegends, log, doRebin, doRestrictedIntegral, colorList, title="", xTitle="", yTitle=""):
 
 	histoList = []
 
@@ -675,30 +676,37 @@ def plotDataAndMCHistos(histoName, etaRegion, inputfile1, fileList, output_name,
 	histo1.Sumw2()
 
 	if doRestrictedIntegral == "True" and zoomX:
-	# if zoomX:
 		integral_histo1 = histo1.Integral(histo1.FindBin(xRangeMin), histo1.FindBin(xRangeMax))
 	else:
 		integral_histo1 = histo1.Integral()   
 	print "integral_histo1 = ", integral_histo1
-	histo1.Scale(1/integral_histo1)
+	# histo1.Scale(1/integral_histo1)
 
 
-	# for file in fileList: 
-	for file,leg_name in zip(fileList, legendList):
+
+	integral_MCtot = 0
+	for file,leg_name in zip(MCFileList, legendList):
 		histo = TH1D()
 		file.GetObject(str(histoName)+str(etaRegion),histo)
 		histo.Sumw2()
 
 		if doRestrictedIntegral == "True" and zoomX:
-		# if zoomX:
 			integral_histo = histo.Integral(histo.FindBin(xRangeMin), histo.FindBin(xRangeMax))
 		else:
 			integral_histo = histo.Integral()   
 		print "integral_histo ", leg_name, " = ", integral_histo
-		# histo.Scale(1/integral_histo)
-		histo.Scale(1/integral_histo1)
+
+		integral_MCtot += integral_histo
+		print "integral_MCtot = ", integral_MCtot
+
+		if (integral_histo != 0) :
+			# histo.Scale(1/integral_histo)
+			histo.Scale(integral_histo1/integral_histo)
 
 		histoList.append(histo)
+
+	# for histo in histoList:
+	# 	histo.Scale(integral_histo1/integral_MCtot)
 
 
 	c1 = TCanvas(str(histoName)+str(etaRegion)+" Comparison",str(histoName)+str(etaRegion)+" Comparison")
@@ -715,6 +723,7 @@ def plotDataAndMCHistos(histoName, etaRegion, inputfile1, fileList, output_name,
 	histo1.SetMarkerSize(0.5) 
 	# histo1.GetXaxis().SetTitle(xTitle)
 	# histo1.GetYaxis().SetTitle(yTitle)
+	# histo1.Draw("E1P")
 
 	for histo,color in zip(histoList, colorList):
 		#histo.SetLineColor(color)
@@ -742,7 +751,7 @@ def plotDataAndMCHistos(histoName, etaRegion, inputfile1, fileList, output_name,
 		CMS_lumi.CMS_lumi(c1, 4, 33)
 		leg = TLegend(0.65,0.6,0.85,0.8)
 
-	leg.AddEntry(histo1, leg1_name,'P')
+	leg.AddEntry(histo1, legData_name,'P')
 	for histo,leg_name in zip(histoList, legendList):
 		leg.AddEntry(histo, leg_name,'F')
 
@@ -758,5 +767,285 @@ def plotDataAndMCHistos(histoName, etaRegion, inputfile1, fileList, output_name,
 
 	c1.SaveAs(str(output_name)+str(suff)+"/"+str(histoName)+str(etaRegion)+".png")
 	c1.SaveAs(str(output_name)+str(suff)+"/"+str(histoName)+str(etaRegion)+".root")
+
+	c1.Close()
+
+
+
+
+
+
+
+
+def plotDataAndMCHistosAndRatio(histoName, etaRegion, dataInputFile, MCFileList, output_name, suff, zoomX, xRangeMin, xRangeMax, zoomY, yRangeMin, yRangeMax, legData_name, legendList, leftLegends, log, doRebin, doRestrictedIntegral, normArea, colorList, xsecList, sumWeightsList, lumi, title="", xTitle="", yTitle=""):
+
+	print str(histoName)+str(etaRegion)
+	# print "normArea = ", normArea
+	# print "log = ", log
+	print "lumi = ", lumi
+
+##
+	# bins = [150., 300., 450., 600., 750., 900., 1050., 1200., 1350., 1500., 1650., 1800., 1950., 2100., 2250., 2400., 2550., 2700., 2850., 3000., 3150., 3300., 3450., 3600., 3750., 3900., 4150., 7000.]
+	# binsList = array('d', [i for i in bins])
+	# binnum = len(binsList) - 1
+	# # print "binnum = ", binnum
+##
+
+	histoList = []
+	histoData = TH1D()
+	dataInputFile.GetObject(str(histoName)+str(etaRegion),histoData)
+##
+	# histo1 = TH1D()
+	# dataInputFile.GetObject(str(histoName)+str(etaRegion),histo1)
+	# histoData = histo1.Rebin(binnum, str(histoName)+"new", binsList)
+##
+	histoData.Sumw2()
+
+	if zoomX:
+		integral_histoData = histoData.Integral(histoData.FindBin(xRangeMin), histoData.FindBin(xRangeMax))
+	else:
+		integral_histoData = histoData.Integral()   
+	print "integral_data = ", integral_histoData
+
+
+	for file,leg_name in zip(MCFileList, legendList):
+		histo = TH1D()
+		file.GetObject(str(histoName)+str(etaRegion),histo)
+##
+		# h = TH1D()
+		# file.GetObject(str(histoName)+str(etaRegion),h)	
+		# histo = h.Rebin(binnum, str(histoName)+"new", binsList)
+##
+		histo.Sumw2()
+		histoList.append(histo)
+
+
+	integral_MCtot = 0
+	for histo,xsec,sumWeights,leg_name in zip(histoList,xsecList,sumWeightsList,legendList):
+		print "xsec = ", xsec
+		print "sumWeights = ", sumWeights
+		histo.Scale(lumi*xsec/sumWeights)
+
+		if zoomX:
+			integral_histo = histo.Integral(histo.FindBin(xRangeMin), histo.FindBin(xRangeMax))
+		else:
+			integral_histo = histo.Integral()   
+		print "integral_", leg_name, " = ", integral_histo
+
+		integral_MCtot += integral_histo
+	print "integral_MCtot = ", integral_MCtot
+
+
+	if normArea == "True":
+		# print "entra in normArea"
+		for histo in histoList:
+			histo.Scale(integral_histoData/integral_MCtot)
+		print "SF = ", integral_histoData/integral_MCtot
+
+
+	c1 = TCanvas(str(histoName)+str(etaRegion)+" Comparison",str(histoName)+str(etaRegion)+" Comparison")
+	c1.Range(0,0,1,1)
+
+	if doRebin:
+		histoData.Rebin()
+		for histo in histoList:
+			histo.Rebin()
+
+	histoData_top = histoData.Clone()
+	histoData_bottom = histoData.Clone()
+
+
+	histo_MCtot = histoList[0].Clone("histo_MCtot")  #creo clone con stessi bin e nome nuovo
+	histo_MCtot.Reset()  #svuota contenuto dei vari bin
+	for histo in histoList:
+		histo_MCtot.Add(histo)  #aggiunge contenuto dei bin di ogni histo 
+
+
+	if zoomX:
+		integral_MCTOT = histo_MCtot.Integral(histo_MCtot.FindBin(xRangeMin), histo_MCtot.FindBin(xRangeMax))
+	else:
+		integral_MCTOT = histo_MCtot.Integral()   
+	print "integral_MCTOT = ", integral_MCTOT
+
+
+	histo2_bottom = histo_MCtot.Clone()
+
+
+	errors_data = []
+	for i in range(histoData_bottom.GetNbinsX()+1):	
+		error_data = 0.
+		if (abs(histoData_bottom.GetBinContent(i)) > 1.e-32):
+			error_data = histoData_bottom.GetBinError(i) / histoData_bottom.GetBinContent(i)   #prendo errori di histoData rebinnato prima di ratio
+		errors_data.append(error_data)
+
+
+	histoData_bottom.Divide(histo2_bottom)
+
+
+	for i in range(histoData_bottom.GetNbinsX()+1):	
+		histoData_bottom.SetBinError(i,errors_data[i] * histoData_bottom.GetBinContent(i))
+
+	# histo_MCerr = TH1D(histoData_bottom) 
+	# histo_MCerr.SetName("histo_ratio_MCerrors")
+	# for i in range(histo2_bottom.GetNbinsX()+1):	
+	# 	ey = 0.
+	# 	if (abs(histo2_bottom.GetBinContent(i)) > 1.e-32):
+	# 		ey = histo2_bottom.GetBinError(i) / histo2_bottom.GetBinContent(i)
+
+	# 	histo_MCerr.SetBinError(i,ey * histoData_bottom.GetBinContent(i))
+	# 	histo_MCerr.SetBinContent(i,1)
+
+
+	yTitle2 = "ratio" #bottom plot y axis title
+
+	defaultRatioYmin = 0.
+	defaultRatioYmax = 2.
+
+
+	#Bottom plot
+	c1_1 = TPad("c1_1", "newpad",0.01,0.01,0.99,0.32)
+	c1_1.Draw()
+	c1_1.cd()
+	c1_1.SetTopMargin(0.01)
+	c1_1.SetBottomMargin(0.3)
+	c1_1.SetRightMargin(0.05) #0.1)
+  	c1_1.SetFillStyle(0)
+	#c1_1.SetGridy(5)
+
+	histoData_bottom.SetMinimum(defaultRatioYmin)
+	histoData_bottom.SetMaximum(defaultRatioYmax)
+	histoData_bottom.GetYaxis().SetNdivisions(5)
+	histoData_bottom.SetTitle(";"+xTitle+";"+yTitle2)
+	histoData_bottom.GetXaxis().SetTitleSize(0.14)
+	histoData_bottom.GetXaxis().SetLabelSize(0.14)
+	histoData_bottom.GetYaxis().SetLabelSize(0.11)
+	histoData_bottom.GetYaxis().SetTitleSize(0.14)
+	histoData_bottom.GetYaxis().SetTitleOffset(0.4)#0.28)
+
+	histoData_bottom.SetMarkerColor(1)
+	histoData_bottom.SetLineColor(1)
+	histoData_bottom.SetMarkerStyle(8)
+	histoData_bottom.SetMarkerSize(0.5)
+	histoData_bottom.Draw("E1P")
+
+	# histo_MCerr.SetFillColor(2)
+	# histo_MCerr.SetFillStyle(3001)
+	# #histo_MCerr.Draw("E2same")
+
+	if zoomX:
+		l = TLine(xRangeMin, 1., xRangeMax, 1.)
+	else:
+		l = TLine(histoData_bottom.GetXaxis().GetXmin(), 1., histoData_bottom.GetXaxis().GetXmax(), 1.)
+
+	l.SetLineColor(1)
+	l.Draw("same")
+
+
+ 	#Top Plot
+	c1.cd()
+	c1_2 = TPad("c1_2", "newpad",0.01,0.33,0.99,0.99)
+	c1_2.Draw()
+	c1_2.cd()
+	c1_2.SetTopMargin(0.1)
+	c1_2.SetBottomMargin(0.01)
+	c1_2.SetRightMargin(0.05)#0.1)
+	c1_2.SetFillStyle(0)
+
+	histoData_top.SetLabelSize(0.0)   #non stampa label su asse x
+	histoData_top.GetXaxis().SetTitleSize(0.00)
+	histoData_top.GetYaxis().SetLabelSize(0.06)
+	histoData_top.GetYaxis().SetTitleSize(0.07)
+	histoData_top.GetYaxis().SetTitleOffset(1.) #0.76)
+	histoData_top.SetTitle(title+";;"+yTitle)
+
+	histoData_top.SetMarkerColor(1)
+	histoData_top.SetLineColor(1)
+	histoData_top.SetMarkerStyle(8)
+	histoData_top.SetMarkerSize(0.5) 
+	# histoData_top.Draw("E1P") 	
+
+	stack = THStack("stack","")
+
+	for histo,color in zip( reversed(histoList), reversed(colorList)):
+		histo.SetFillColor(color)
+		stack.Add(histo)
+
+	stack.Draw("HIST")
+	histoData_top.Draw("E1Psame")
+
+	stack.GetXaxis().SetLabelSize(0.0)   #non stampa label su asse x
+	stack.GetXaxis().SetTitleSize(0.00)
+	stack.GetYaxis().SetLabelSize(0.06)
+	stack.GetYaxis().SetTitleSize(0.07)
+	stack.GetYaxis().SetTitleOffset(1.) #0.76)
+	stack.SetTitle(title+";;"+yTitle)
+
+	if zoomX:	
+		stack.GetXaxis().SetRangeUser(xRangeMin,xRangeMax)
+		histoData_top.GetXaxis().SetRangeUser(xRangeMin,xRangeMax)
+		histoData_bottom.GetXaxis().SetRangeUser(xRangeMin,xRangeMax)
+	if zoomY:		
+		stack.GetYaxis().SetRangeUser(yRangeMin,yRangeMax)		
+		histoData_top.GetYaxis().SetRangeUser(yRangeMin,yRangeMax)
+
+
+	if leftLegends:
+		CMS_lumi.CMS_lumi(c1_2, 4, 11)
+		c1.cd()
+		leg = TLegend(0.15,0.6,0.35,0.8)
+	else:
+		CMS_lumi.CMS_lumi(c1_2, 4, 33)
+		c1.cd()
+		leg = TLegend(0.65,0.6,0.85,0.8)
+
+	leg.AddEntry(histoData, legData_name,'P')
+	for histo,leg_name in zip(histoList, legendList):
+		leg.AddEntry(histo, leg_name,'F')
+
+	leg.SetBorderSize(0)
+	leg.SetFillColor(0)
+	leg.SetTextSize(0.028) 
+	leg.SetTextColor(1)
+	leg.Draw('same')
+
+
+# 	c1.SaveAs(str(output_name)+str(suff)+"/"+str(histoName)+str(etaRegion)+".png")
+# 	c1.SaveAs(str(output_name)+str(suff)+"/"+str(histoName)+str(etaRegion)+".root")
+# ##
+# 	# c1.SaveAs(str(output_name)+str(suff)+"/"+str(histoName)+"_new"+str(etaRegion)+".png")
+# 	# c1.SaveAs(str(output_name)+str(suff)+"/"+str(histoName)+"_new"+str(etaRegion)+".root")
+# ##
+
+
+# 	if log == "True":
+# 		# print "entra in log"
+# 		c1_2.SetLogy()
+# 		c1.SaveAs(str(output_name)+str(suff)+"_log/"+str(histoName)+str(etaRegion)+"_log.png")
+# 		c1.SaveAs(str(output_name)+str(suff)+"_log/"+str(histoName)+str(etaRegion)+"_log.root")	
+# ##		
+# 		# c1.SaveAs(str(output_name)+str(suff)+"_log/"+str(histoName)+"_new"+str(etaRegion)+"_log.png")
+# 		# c1.SaveAs(str(output_name)+str(suff)+"_log/"+str(histoName)+"_new"+str(etaRegion)+"_log.root")	
+# ##
+
+	outputDir = str(output_name)+str(suff)
+	if not os.path.exists(outputDir):
+		# os.mkdir(outputDir)
+		os.makedirs(outputDir)
+	c1.SaveAs(outputDir+"/"+str(histoName)+str(etaRegion)+".png")
+	c1.SaveAs(outputDir+"/"+str(histoName)+str(etaRegion)+".root")
+
+
+	if log == "True":
+		# print "entra in log"
+		c1_2.SetLogy()
+		outputDir = str(output_name)+str(suff)+"/log/"
+
+		if not os.path.exists(outputDir):
+			# os.mkdir(outputDir)
+			os.makedirs(outputDir)
+
+		c1.SaveAs(outputDir+"/"+str(histoName)+str(etaRegion)+".png")
+		c1.SaveAs(outputDir+"/"+str(histoName)+str(etaRegion)+".root")
+
 
 	c1.Close()
