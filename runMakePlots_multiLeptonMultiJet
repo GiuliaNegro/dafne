@@ -1,0 +1,2 @@
+g++ $(root-config --cflags) $(root-config --libs) -I/home/gpfs/manip/mnt/cms/gnegro/CMSSW_8_0_26_patch1/src Validation/src/makePlots_multiLeptonMultiJet.cc -o makePlots_multiLeptonMultiJet.o
+./makePlots_multiLeptonMultiJet.o
